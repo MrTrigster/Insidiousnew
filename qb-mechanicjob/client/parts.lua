@@ -357,8 +357,8 @@ end)
 
 --- PARTS INSTALLATION ---
 -- ENGINE
-RegisterNetEvent('qb-mechanicparts:E0')
-AddEventHandler('qb-mechanicparts:E0', function()
+RegisterNetEvent('i13-mechanicparts:E0')
+AddEventHandler('i13-mechanicparts:E0', function()
     local vehicle = QBCore.Functions.GetClosestVehicle()
     local PlayerJob = QBCore.Functions.GetPlayerData().job
 --     local trunkpos = false
@@ -419,8 +419,8 @@ AddEventHandler('qb-mechanicparts:E0', function()
             QBCore.Functions.Notify("Sa ei saa seda teha", "error")
         end
 end)
-RegisterNetEvent('qb-mechanicparts:E1')
-AddEventHandler('qb-mechanicparts:E1', function()
+RegisterNetEvent('i13-mechanicparts:E1')
+AddEventHandler('i13-mechanicparts:E1', function()
     local vehicle = QBCore.Functions.GetClosestVehicle()
     local PlayerJob = QBCore.Functions.GetPlayerData().job
     engine = GetVehicleMod(veh, 11)
@@ -477,8 +477,8 @@ AddEventHandler('qb-mechanicparts:E1', function()
         end
 end)
 
-RegisterNetEvent('qb-mechanicparts:E2')
-AddEventHandler('qb-mechanicparts:E2', function()
+RegisterNetEvent('i13-mechanicparts:E2')
+AddEventHandler('i13-mechanicparts:E2', function()
     local vehicle = QBCore.Functions.GetClosestVehicle()
     local PlayerJob = QBCore.Functions.GetPlayerData().job
     engine = GetVehicleMod(veh, 11)
@@ -535,8 +535,8 @@ AddEventHandler('qb-mechanicparts:E2', function()
         end
 end)
 
-RegisterNetEvent('qb-mechanicparts:E3')
-AddEventHandler('qb-mechanicparts:E3', function()
+RegisterNetEvent('i13-mechanicparts:E3')
+AddEventHandler('i13-mechanicparts:E3', function()
     local vehicle = QBCore.Functions.GetClosestVehicle()
     local PlayerJob = QBCore.Functions.GetPlayerData().job
     engine = GetVehicleMod(veh, 11)
@@ -594,8 +594,8 @@ AddEventHandler('qb-mechanicparts:E3', function()
 end)
 
 
-RegisterNetEvent('qb-mechanicparts:E4')
-AddEventHandler('qb-mechanicparts:E4', function()
+RegisterNetEvent('i13-mechanicparts:E4')
+AddEventHandler('i13-mechanicparts:E4', function()
     local vehicle = QBCore.Functions.GetClosestVehicle()
     local PlayerJob = QBCore.Functions.GetPlayerData().job
     engine = GetVehicleMod(veh, 11)
@@ -653,8 +653,8 @@ AddEventHandler('qb-mechanicparts:E4', function()
 end)
 
 --brakes
-RegisterNetEvent('qb-mechanicparts:B0')
-AddEventHandler('qb-mechanicparts:B0', function()
+RegisterNetEvent('i13-mechanicparts:B0')
+AddEventHandler('i13-mechanicparts:B0', function()
     local vehicle = QBCore.Functions.GetClosestVehicle()
     local PlayerJob = QBCore.Functions.GetPlayerData().job
     brake = GetVehicleMod(veh, 12)
@@ -711,8 +711,8 @@ AddEventHandler('qb-mechanicparts:B0', function()
         end
 end)
 
-RegisterNetEvent('qb-mechanicparts:B1')
-AddEventHandler('qb-mechanicparts:B1', function()
+RegisterNetEvent('i13-mechanicparts:B1')
+AddEventHandler('i13-mechanicparts:B1', function()
     local vehicle = QBCore.Functions.GetClosestVehicle()
     local PlayerJob = QBCore.Functions.GetPlayerData().job
     brake = GetVehicleMod(veh, 12)
@@ -769,8 +769,8 @@ AddEventHandler('qb-mechanicparts:B1', function()
         end
 end)
 
-RegisterNetEvent('qb-mechanicparts:B2')
-AddEventHandler('qb-mechanicparts:B2', function()
+RegisterNetEvent('i13-mechanicparts:B2')
+AddEventHandler('i13-mechanicparts:B2', function()
     local vehicle = QBCore.Functions.GetClosestVehicle()
     local PlayerJob = QBCore.Functions.GetPlayerData().job
     brake = GetVehicleMod(veh, 12)
@@ -827,8 +827,8 @@ AddEventHandler('qb-mechanicparts:B2', function()
         end
 end)
 
-RegisterNetEvent('qb-mechanicparts:B3')
-AddEventHandler('qb-mechanicparts:B3', function()
+RegisterNetEvent('i13-mechanicparts:B3')
+AddEventHandler('i13-mechanicparts:B3', function()
     local vehicle = QBCore.Functions.GetClosestVehicle()
     local PlayerJob = QBCore.Functions.GetPlayerData().job
     brake = GetVehicleMod(veh, 12)
@@ -886,8 +886,8 @@ AddEventHandler('qb-mechanicparts:B3', function()
 end)
 
 -- --Transmission
-RegisterNetEvent('qb-mechanicparts:T0')
-AddEventHandler('qb-mechanicparts:T0', function()
+RegisterNetEvent('i13-mechanicparts:T0')
+AddEventHandler('i13-mechanicparts:T0', function()
     local vehicle = QBCore.Functions.GetClosestVehicle()
     local PlayerJob = QBCore.Functions.GetPlayerData().job
     transmission = GetVehicleMod(veh, 13)
@@ -944,8 +944,8 @@ AddEventHandler('qb-mechanicparts:T0', function()
         end
 end)
 
-RegisterNetEvent('qb-mechanicparts:T1')
-AddEventHandler('qb-mechanicparts:T1', function()
+RegisterNetEvent('i13-mechanicparts:T1')
+AddEventHandler('i13-mechanicparts:T1', function()
     local vehicle = QBCore.Functions.GetClosestVehicle()
     local PlayerJob = QBCore.Functions.GetPlayerData().job
     transmission = GetVehicleMod(veh, 13)
@@ -1002,8 +1002,8 @@ AddEventHandler('qb-mechanicparts:T1', function()
         end
 end)
 
-RegisterNetEvent('qb-mechanicparts:T2')
-AddEventHandler('qb-mechanicparts:T2', function()
+RegisterNetEvent('i13-mechanicparts:T2')
+AddEventHandler('i13-mechanicparts:T2', function()
     local vehicle = QBCore.Functions.GetClosestVehicle()
     local PlayerJob = QBCore.Functions.GetPlayerData().job
     transmission = GetVehicleMod(veh, 13)
@@ -1060,8 +1060,8 @@ AddEventHandler('qb-mechanicparts:T2', function()
         end
 end)
 
-RegisterNetEvent('qb-mechanicparts:T3')
-AddEventHandler('qb-mechanicparts:T3', function()
+RegisterNetEvent('i13-mechanicparts:T3')
+AddEventHandler('i13-mechanicparts:T3', function()
     local vehicle = QBCore.Functions.GetClosestVehicle()
     local PlayerJob = QBCore.Functions.GetPlayerData().job
     transmission = GetVehicleMod(veh, 13)
@@ -1119,8 +1119,8 @@ AddEventHandler('qb-mechanicparts:T3', function()
 end)
 
 -- --Suspension
-RegisterNetEvent('qb-mechanicparts:S0')
-AddEventHandler('qb-mechanicparts:S0', function()
+RegisterNetEvent('i13-mechanicparts:S0')
+AddEventHandler('i13-mechanicparts:S0', function()
     local vehicle = QBCore.Functions.GetClosestVehicle()
     local PlayerJob = QBCore.Functions.GetPlayerData().job
     suspension = GetVehicleMod(veh, 15)
@@ -1177,8 +1177,8 @@ AddEventHandler('qb-mechanicparts:S0', function()
         end
 end)
 
-RegisterNetEvent('qb-mechanicparts:S1')
-AddEventHandler('qb-mechanicparts:S1', function()
+RegisterNetEvent('i13-mechanicparts:S1')
+AddEventHandler('i13-mechanicparts:S1', function()
     local vehicle = QBCore.Functions.GetClosestVehicle()
     local PlayerJob = QBCore.Functions.GetPlayerData().job
     suspension = GetVehicleMod(veh, 15)
@@ -1235,8 +1235,8 @@ AddEventHandler('qb-mechanicparts:S1', function()
         end
 end)
 
-RegisterNetEvent('qb-mechanicparts:S2')
-AddEventHandler('qb-mechanicparts:S2', function()
+RegisterNetEvent('i13-mechanicparts:S2')
+AddEventHandler('i13-mechanicparts:S2', function()
     local vehicle = QBCore.Functions.GetClosestVehicle()
     local PlayerJob = QBCore.Functions.GetPlayerData().job
     suspension = GetVehicleMod(veh, 15)
@@ -1293,8 +1293,8 @@ AddEventHandler('qb-mechanicparts:S2', function()
         end
 end)
 
-RegisterNetEvent('qb-mechanicparts:S3')
-AddEventHandler('qb-mechanicparts:S3', function()
+RegisterNetEvent('i13-mechanicparts:S3')
+AddEventHandler('i13-mechanicparts:S3', function()
     local vehicle = QBCore.Functions.GetClosestVehicle()
     local PlayerJob = QBCore.Functions.GetPlayerData().job
     suspension = GetVehicleMod(veh, 15)
@@ -1351,8 +1351,8 @@ AddEventHandler('qb-mechanicparts:S3', function()
         end
 end)
 
-RegisterNetEvent('qb-mechanicparts:S4')
-AddEventHandler('qb-mechanicparts:S4', function()
+RegisterNetEvent('i13-mechanicparts:S4')
+AddEventHandler('i13-mechanicparts:S4', function()
     local vehicle = QBCore.Functions.GetClosestVehicle()
     local PlayerJob = QBCore.Functions.GetPlayerData().job
     suspension = GetVehicleMod(veh, 15)
@@ -1410,8 +1410,8 @@ AddEventHandler('qb-mechanicparts:S4', function()
 end)
 
 -- --Suspension
-RegisterNetEvent('qb-mechanicparts:Turbo0')
-AddEventHandler('qb-mechanicparts:Turbo0', function()
+RegisterNetEvent('i13-mechanicparts:Turbo0')
+AddEventHandler('i13-mechanicparts:Turbo0', function()
     local vehicle = QBCore.Functions.GetClosestVehicle()
     local PlayerJob = QBCore.Functions.GetPlayerData().job
     turbo = IsToggleModOn(veh, 18)
@@ -1469,8 +1469,8 @@ AddEventHandler('qb-mechanicparts:Turbo0', function()
         end
 end)
 
-RegisterNetEvent('qb-mechanicparts:Turbo1')
-AddEventHandler('qb-mechanicparts:Turbo1', function()
+RegisterNetEvent('i13-mechanicparts:Turbo1')
+AddEventHandler('i13-mechanicparts:Turbo1', function()
     local vehicle = QBCore.Functions.GetClosestVehicle()
     local PlayerJob = QBCore.Functions.GetPlayerData().job
     turbo = IsToggleModOn(veh, 18)
@@ -1596,7 +1596,7 @@ RegisterNetEvent('craft:mechanicparts', function()
             header = "Sulge Menu",
             txt = "",
             params = {
-                event = "qb-menu:closeMenu",
+                event = "i13-menu:closeMenu",
             }
         },
     })
@@ -1665,7 +1665,7 @@ RegisterNetEvent('craft:engines', function()
             header = "Sulge Menu",
             txt = "",
             params = {
-                event = "qb-menu:closeMenu",
+                event = "i13-menu:closeMenu",
             }
         },
 
@@ -1733,7 +1733,7 @@ RegisterNetEvent('craft:brakes', function()
             header = "Sulge Menu",
             txt = "",
             params = {
-                event = "qb-menu:closeMenu",
+                event = "i13-menu:closeMenu",
             }
         },
     })
@@ -1803,7 +1803,7 @@ RegisterNetEvent('craft:transmissions', function()
             header = "Sulge Menu",
             txt = "",
             params = {
-                event = "qb-menu:closeMenu",
+                event = "i13-menu:closeMenu",
             }
         },
     })
@@ -1870,7 +1870,7 @@ RegisterNetEvent('craft:suspensions', function()
             header = "Sulge Menu",
             txt = "",
             params = {
-                event = "qb-menu:closeMenu",
+                event = "i13-menu:closeMenu",
             }
         },
     })
@@ -1913,7 +1913,7 @@ RegisterNetEvent('craft:turbos', function()
             header = "Sulge Menu",
             txt = "",
             params = {
-                event = "qb-menu:closeMenu",
+                event = "i13-menu:closeMenu",
             }
         },
     })
@@ -1948,7 +1948,7 @@ RegisterNetEvent('craft:repairkit1', function()
             header = "Sulge Menu",
             txt = "",
             params = {
-                event = "qb-menu:closeMenu",
+                event = "i13-menu:closeMenu",
             }
         },
     })
@@ -1987,7 +1987,7 @@ RegisterNetEvent('craft:vehmenu', function()
             header = "Sulge Menu",
             txt = "",
             params = {
-                event = "qb-menu:client:closeMenu",
+                event = "i13-menu:client:closeMenu",
             }
         },
     })
@@ -2160,7 +2160,7 @@ RegisterNetEvent('craft:vehstatus', function()
             header = "Sulge Menu",
             txt = "",
             params = {
-                event = "qb-menu:client:closeMenu",
+                event = "i13-menu:client:closeMenu",
             }
         },
     })

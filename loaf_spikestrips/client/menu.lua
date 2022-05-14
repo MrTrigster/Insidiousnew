@@ -89,7 +89,7 @@ if Config.Menu.Enabled then
                     table.insert(elements, {
                         header = Strings["close_menu"],
                         params = {
-                            event = "qb-menu:client:closeMenu",
+                            event = "i13-menu:client:closeMenu",
                         }
                     })
                     exports["qb-menu"]:openMenu(elements)

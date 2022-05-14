@@ -26,8 +26,8 @@ AddEventHandler('QBCore:Client:OnPlayerLoaded', function()
     PlayerData = QBCore.Functions.GetPlayerData()
     local citizenid = PlayerData.citizenid
     local gameTime = GetGameTimer()
-    TriggerServerEvent('qb-vehicleshop:server:addPlayer', citizenid, gameTime)
-    TriggerServerEvent('qb-vehicleshop:server:checkFinance')
+    TriggerServerEvent('i13-vehicleshop:server:addPlayer', citizenid, gameTime)
+    TriggerServerEvent('i13-vehicleshop:server:checkFinance')
 end)
 
 RegisterNetEvent('QBCore:Client:OnJobUpdate', function(JobInfo)
@@ -36,7 +36,7 @@ end)
 
 RegisterNetEvent('QBCore:Client:OnPlayerUnload', function()
     local citizenid = PlayerData.citizenid
-    TriggerServerEvent('qb-vehicleshop:server:removePlayer', citizenid)
+    TriggerServerEvent('i13-vehicleshop:server:removePlayer', citizenid)
     PlayerData = {}
 end)
 
@@ -47,7 +47,7 @@ local vehHeaderMenu = {
         header = 'Vehicle Options',
         txt = 'Interact with the current vehicle',
         params = {
-            event = 'qb-vehicleshop:client:showVehOptions'
+            event = 'i13-vehicleshop:client:showVehOptions'
         }
     }
 }
@@ -57,7 +57,7 @@ local financeMenu = {
         header = 'Financed Vehicles',
         txt = 'Browse your owned vehicles',
         params = {
-            event = 'qb-vehicleshop:client:getVehicles'
+            event = 'i13-vehicleshop:client:getVehicles'
         }
     }
 }
@@ -66,7 +66,7 @@ local returnTestDrive = {
     {
         header = 'Finish Test Drive',
         params = {
-            event = 'qb-vehicleshop:client:TestDriveReturn'
+            event = 'i13-vehicleshop:client:TestDriveReturn'
         }
     }
 }
@@ -203,7 +203,7 @@ local function createVehZones(shopName) -- This will create an entity zone if co
             options = {
                 {
                     type = "client",
-                    event = "qb-vehicleshop:client:showVehOptions",
+                    event = "i13-vehicleshop:client:showVehOptions",
                     icon = "fas fa-car",
                     label = "Sõiduki Tegevused",
                     canInteract = function(entity)
@@ -245,7 +245,7 @@ function createFreeUseShop(shopShape, name)
                             txt = 'Osta hetkel valitud sõiduk',
                             params = {
                                 isServer = true,
-                                event = 'qb-vehicleshop:server:buyShowroomVehicle',
+                                event = 'i13-vehicleshop:server:buyShowroomVehicle',
                                 args = {
                                     buyVehicle = Config.Shops[getShopInsideOf()]["ShowroomVehicles"][ClosestVehicle].chosenVehicle
                                 }
@@ -255,7 +255,7 @@ function createFreeUseShop(shopShape, name)
                             header = 'Vaheta Sõidukit',
                             txt = 'Vaheta display sõidukit',
                             params = {
-                                event = 'qb-vehicleshop:client:vehCategories',
+                                event = 'i13-vehicleshop:client:vehCategories',
                                 args = {
                                     shopName = name
                                 }
@@ -295,7 +295,7 @@ function createManagedShop(shopShape, name, jobName)
                             header = "Müü Sõiduk",
                             txt = 'Müü see sõiduk isikule',
                             params = {
-                                event = 'qb-vehicleshop:client:openIdMenu',
+                                event = 'i13-vehicleshop:client:openIdMenu',
                                 args = {
                                     vehicle = Config.Shops[closestShop]["ShowroomVehicles"][ClosestVehicle].chosenVehicle,
                                     type = 'sellVehicle'
@@ -306,7 +306,7 @@ function createManagedShop(shopShape, name, jobName)
                             header = 'Vaheta Sõidukit',
                             txt = 'Vaheta display sõidukit',
                             params = {
-                                event = 'qb-vehicleshop:client:vehCategories',
+                                event = 'i13-vehicleshop:client:vehCategories',
                                 args = {
                                     shopName = name
                                 }
@@ -333,15 +333,15 @@ end
 
 -- Events
 
-RegisterNetEvent('qb-vehicleshop:client:homeMenu', function()
+RegisterNetEvent('i13-vehicleshop:client:homeMenu', function()
     exports['qb-menu']:openMenu(vehicleMenu)
 end)
 
-RegisterNetEvent('qb-vehicleshop:client:showVehOptions', function()
+RegisterNetEvent('i13-vehicleshop:client:showVehOptions', function()
     exports['qb-menu']:openMenu(vehicleMenu)
 end)
 
-RegisterNetEvent('qb-vehicleshop:client:TestDrive', function()
+RegisterNetEvent('i13-vehicleshop:client:TestDrive', function()
     if not inTestDrive and ClosestVehicle ~= 0 then
         inTestDrive = true
         local prevCoords = GetEntityCoords(PlayerPedId())
@@ -353,7 +353,7 @@ RegisterNetEvent('qb-vehicleshop:client:TestDrive', function()
             SetEntityAsMissionEntity(veh, true, true)
             SetEntityHeading(veh, Config.Shops[closestShop]["VehicleSpawn"].w)
             TriggerEvent('vehiclekeys:client:SetOwner', QBCore.Functions.GetPlate(veh))
-            TriggerServerEvent('qb-vehicletuning:server:SaveVehicleProps', QBCore.Functions.GetVehicleProperties(veh))
+            TriggerServerEvent('i13-vehicletuning:server:SaveVehicleProps', QBCore.Functions.GetVehicleProperties(veh))
             testDriveVeh = veh
             QBCore.Functions.Notify('You have '..Config.Shops[closestShop]["TestDriveTimeLimit"]..' minutes remaining')
             SetTimeout(Config.Shops[closestShop]["TestDriveTimeLimit"] * 60000, function()
@@ -373,7 +373,7 @@ RegisterNetEvent('qb-vehicleshop:client:TestDrive', function()
     end
 end)
 
-RegisterNetEvent('qb-vehicleshop:client:customTestDrive', function(data)
+RegisterNetEvent('i13-vehicleshop:client:customTestDrive', function(data)
     if not inTestDrive then
         inTestDrive = true
         shopInsideOf = getShopInsideOf()
@@ -386,7 +386,7 @@ RegisterNetEvent('qb-vehicleshop:client:customTestDrive', function(data)
             SetEntityAsMissionEntity(veh, true, true)
             SetEntityHeading(veh, Config.Shops[shopInsideOf]["VehicleSpawn"].w)
             TriggerEvent('vehiclekeys:client:SetOwner', QBCore.Functions.GetPlate(veh))
-            TriggerServerEvent('qb-vehicletuning:server:SaveVehicleProps', QBCore.Functions.GetVehicleProperties(veh))
+            TriggerServerEvent('i13-vehicletuning:server:SaveVehicleProps', QBCore.Functions.GetVehicleProperties(veh))
             testDriveVeh = veh
             QBCore.Functions.Notify('You have '..Config.Shops[shopInsideOf]["TestDriveTimeLimit"]..' minutes remaining')
             SetTimeout(Config.Shops[shopInsideOf]["TestDriveTimeLimit"] * 60000, function()
@@ -406,7 +406,7 @@ RegisterNetEvent('qb-vehicleshop:client:customTestDrive', function(data)
     end
 end)
 
-RegisterNetEvent('qb-vehicleshop:client:TestDriveReturn', function()
+RegisterNetEvent('i13-vehicleshop:client:TestDriveReturn', function()
     local ped = PlayerPedId()
     local veh = GetVehiclePedIsIn(ped)
     if veh == testDriveVeh then
@@ -420,12 +420,12 @@ RegisterNetEvent('qb-vehicleshop:client:TestDriveReturn', function()
     end
 end)
 
-RegisterNetEvent('qb-vehicleshop:client:vehCategories', function(data)
+RegisterNetEvent('i13-vehicleshop:client:vehCategories', function(data)
     local categoryMenu = {
         {
             header = '< Tagasi',
             params = {
-                event = 'qb-vehicleshop:client:homeMenu'
+                event = 'i13-vehicleshop:client:homeMenu'
             }
         }
     }
@@ -433,7 +433,7 @@ RegisterNetEvent('qb-vehicleshop:client:vehCategories', function(data)
         categoryMenu[#categoryMenu + 1] = {
             header = v,
             params = {
-                event = 'qb-vehicleshop:client:openVehCats',
+                event = 'i13-vehicleshop:client:openVehCats',
                 args = {
                     catName = k,
                     shopName = data.shopName
@@ -444,12 +444,12 @@ RegisterNetEvent('qb-vehicleshop:client:vehCategories', function(data)
     exports['qb-menu']:openMenu(categoryMenu)
 end)
 
-RegisterNetEvent('qb-vehicleshop:client:openVehCats', function(data)
+RegisterNetEvent('i13-vehicleshop:client:openVehCats', function(data)
     local vehicleMenu = {
         {
             header = '< Tagasi',
             params = {
-                event = 'qb-vehicleshop:client:vehCategories',
+                event = 'i13-vehicleshop:client:vehCategories',
                 args = {
                     shopName = data.shopName
                 }
@@ -463,7 +463,7 @@ RegisterNetEvent('qb-vehicleshop:client:openVehCats', function(data)
                 txt = 'Hind: $'..v.price,
                 params = {
                     isServer = true,
-                    event = 'qb-vehicleshop:server:swapVehicle',
+                    event = 'i13-vehicleshop:server:swapVehicle',
                     args = {
                         toVehicle = v.model,
                         ClosestVehicle = ClosestVehicle,
@@ -476,21 +476,21 @@ RegisterNetEvent('qb-vehicleshop:client:openVehCats', function(data)
     exports['qb-menu']:openMenu(vehicleMenu)
 end)
 
-RegisterNetEvent('qb-vehicleshop:client:openStockTable', function()
+RegisterNetEvent('i13-vehicleshop:client:openStockTable', function()
     local stockMenu = {
         {
             isMenuHeader = true,
             header = 'Laoseisu Tabel',
         }
     }
-    QBCore.Functions.TriggerCallback('qb-vehicleshop:server:getVehicleStock', function(result)
+    QBCore.Functions.TriggerCallback('i13-vehicleshop:server:getVehicleStock', function(result)
         if result then
             for k,v in pairs(result) do
                 stockMenu[#stockMenu + 1] = {
                     header = v.name,
                     txt = 'Stock: '..v.stock,
                     params = {
-                        event = 'qb-vehicleshop:client:selectedStockInfo',
+                        event = 'i13-vehicleshop:client:selectedStockInfo',
                         args = {
                             vehName = v.name,
                             vehModel = v.model,
@@ -505,7 +505,7 @@ RegisterNetEvent('qb-vehicleshop:client:openStockTable', function()
     end, 'import')
 end)
 
-RegisterNetEvent('qb-vehicleshop:client:selectedStockInfo', function(data)
+RegisterNetEvent('i13-vehicleshop:client:selectedStockInfo', function(data)
     local currentStockMenu = {
         {
             isMenuHeader = true,
@@ -515,7 +515,7 @@ RegisterNetEvent('qb-vehicleshop:client:selectedStockInfo', function(data)
             header = 'Telli Juurde | $'..data.orderPrice..' tk',
             txt = 'Telli seda sõidukit juurde',
             params = {
-                event = 'qb-vehicleshop:client:selectedStockAmount',
+                event = 'i13-vehicleshop:client:selectedStockAmount',
                 args = {
                     model = data.vehModel,
                     price = data.orderPrice,
@@ -526,7 +526,7 @@ RegisterNetEvent('qb-vehicleshop:client:selectedStockInfo', function(data)
     exports['qb-menu']:openMenu(currentStockMenu)
 end)
 
-RegisterNetEvent('qb-vehicleshop:client:selectedStockAmount', function(data)
+RegisterNetEvent('i13-vehicleshop:client:selectedStockAmount', function(data)
     local dialog = exports['qb-input']:ShowInput({
         header = 'Telli Juurde',
         submitText = 'Telli',
@@ -541,11 +541,11 @@ RegisterNetEvent('qb-vehicleshop:client:selectedStockAmount', function(data)
     })
     if dialog then
         if not dialog.ordernum then return end
-        TriggerServerEvent('qb-vehicleshop:server:orderMoreStock', data.model, data.price, dialog.ordernum)
+        TriggerServerEvent('i13-vehicleshop:server:orderMoreStock', data.model, data.price, dialog.ordernum)
     end
 end)
 
-RegisterNetEvent('qb-vehicleshop:client:openFinance', function(data)
+RegisterNetEvent('i13-vehicleshop:client:openFinance', function(data)
     local dialog = exports['qb-input']:ShowInput({
         header = getVehBrand():upper().. ' ' ..data.buyVehicle:upper().. ' - $' ..data.price,
         submitText = "Submit",
@@ -566,11 +566,11 @@ RegisterNetEvent('qb-vehicleshop:client:openFinance', function(data)
     })
     if dialog then
         if not dialog.downPayment or not dialog.paymentAmount then return end
-        TriggerServerEvent('qb-vehicleshop:server:financeVehicle', dialog.downPayment, dialog.paymentAmount, data.buyVehicle)
+        TriggerServerEvent('i13-vehicleshop:server:financeVehicle', dialog.downPayment, dialog.paymentAmount, data.buyVehicle)
     end
 end)
 
-RegisterNetEvent('qb-vehicleshop:client:openCustomFinance', function(data)
+RegisterNetEvent('i13-vehicleshop:client:openCustomFinance', function(data)
     TriggerEvent('animations:client:EmoteCommandStart', {"tablet2"})
     local dialog = exports['qb-input']:ShowInput({
         header = getVehBrand():upper().. ' ' ..data.vehicle:upper().. ' - $' ..data.price,
@@ -599,11 +599,11 @@ RegisterNetEvent('qb-vehicleshop:client:openCustomFinance', function(data)
     if dialog then
         if not dialog.downPayment or not dialog.paymentAmount or not dialog.playerid then return end
         TriggerEvent('animations:client:EmoteCommandStart', {"c"})
-        TriggerServerEvent('qb-vehicleshop:server:sellfinanceVehicle', dialog.downPayment, dialog.paymentAmount, data.vehicle, dialog.playerid)
+        TriggerServerEvent('i13-vehicleshop:server:sellfinanceVehicle', dialog.downPayment, dialog.paymentAmount, data.vehicle, dialog.playerid)
     end
 end)
 
-RegisterNetEvent('qb-vehicleshop:client:swapVehicle', function(data)
+RegisterNetEvent('i13-vehicleshop:client:swapVehicle', function(data)
     local shopName = data.ClosestShop
     if Config.Shops[shopName]["ShowroomVehicles"][data.ClosestVehicle].chosenVehicle ~= data.toVehicle then
         local closestVehicle, closestDistance = QBCore.Functions.GetClosestVehicle(vector3(Config.Shops[shopName]["ShowroomVehicles"][data.ClosestVehicle].coords.x, Config.Shops[shopName]["ShowroomVehicles"][data.ClosestVehicle].coords.y, Config.Shops[shopName]["ShowroomVehicles"][data.ClosestVehicle].coords.z))
@@ -632,7 +632,7 @@ RegisterNetEvent('qb-vehicleshop:client:swapVehicle', function(data)
     end
 end)
 
-RegisterNetEvent('qb-vehicleshop:client:buyShowroomVehicle', function(vehicle, plate)
+RegisterNetEvent('i13-vehicleshop:client:buyShowroomVehicle', function(vehicle, plate)
     QBCore.Functions.SpawnVehicle(vehicle, function(veh)
         TaskWarpPedIntoVehicle(PlayerPedId(), veh, -1)
         exports['LegacyFuel']:SetFuel(veh, 100)
@@ -640,12 +640,12 @@ RegisterNetEvent('qb-vehicleshop:client:buyShowroomVehicle', function(vehicle, p
         SetEntityHeading(veh, Config.Shops[getShopInsideOf()]["VehicleSpawn"].w)
         SetEntityAsMissionEntity(veh, true, true)
         TriggerEvent("vehiclekeys:client:SetOwner", QBCore.Functions.GetPlate(veh))
-        TriggerServerEvent("qb-vehicletuning:server:SaveVehicleProps", QBCore.Functions.GetVehicleProperties(veh))
+        TriggerServerEvent("i13-vehicletuning:server:SaveVehicleProps", QBCore.Functions.GetVehicleProperties(veh))
     end, Config.Shops[getShopInsideOf()]["VehicleSpawn"], true)
 end)
 
-RegisterNetEvent('qb-vehicleshop:client:getVehicles', function()
-    QBCore.Functions.TriggerCallback('qb-vehicleshop:server:getVehicles', function(vehicles)
+RegisterNetEvent('i13-vehicleshop:client:getVehicles', function()
+    QBCore.Functions.TriggerCallback('i13-vehicleshop:server:getVehicles', function(vehicles)
         local ownedVehicles = {}
         for k,v in pairs(vehicles) do
             if v.balance then
@@ -655,7 +655,7 @@ RegisterNetEvent('qb-vehicleshop:client:getVehicles', function()
                     header = ''..name..'',
                     txt = 'Numbrimärk: ' ..plate,
                     params = {
-                        event = 'qb-vehicleshop:client:getVehicleFinance',
+                        event = 'i13-vehicleshop:client:getVehicleFinance',
                         args = {
                             vehiclePlate = plate,
                             balance = v.balance,
@@ -670,12 +670,12 @@ RegisterNetEvent('qb-vehicleshop:client:getVehicles', function()
     end)
 end)
 
-RegisterNetEvent('qb-vehicleshop:client:getVehicleFinance', function(data)
+RegisterNetEvent('i13-vehicleshop:client:getVehicleFinance', function(data)
     local vehFinance = {
         {
             header = '< Go Back',
             params = {
-                event = 'qb-vehicleshop:client:getVehicles'
+                event = 'i13-vehicleshop:client:getVehicles'
             }
         },
         {
@@ -696,7 +696,7 @@ RegisterNetEvent('qb-vehicleshop:client:getVehicleFinance', function(data)
         {
             header = 'Make a payment',
             params = {
-                event = 'qb-vehicleshop:client:financePayment',
+                event = 'i13-vehicleshop:client:financePayment',
                 args = {
                     vehData = data,
                     paymentsLeft = data.paymentsleft,
@@ -708,7 +708,7 @@ RegisterNetEvent('qb-vehicleshop:client:getVehicleFinance', function(data)
             header = 'Payoff vehicle',
             params = {
                 isServer = true,
-                event = 'qb-vehicleshop:server:financePaymentFull',
+                event = 'i13-vehicleshop:server:financePaymentFull',
                 args = {
                     vehBalance = data.balance,
                     vehPlate = data.vehiclePlate
@@ -719,7 +719,7 @@ RegisterNetEvent('qb-vehicleshop:client:getVehicleFinance', function(data)
     exports['qb-menu']:openMenu(vehFinance)
 end)
 
-RegisterNetEvent('qb-vehicleshop:client:financePayment', function(data)
+RegisterNetEvent('i13-vehicleshop:client:financePayment', function(data)
     local dialog = exports['qb-input']:ShowInput({
         header = 'Vehicle Payment',
         submitText = "Make Payment",
@@ -734,11 +734,11 @@ RegisterNetEvent('qb-vehicleshop:client:financePayment', function(data)
     })
     if dialog then
         if not dialog.paymentAmount then return end
-        TriggerServerEvent('qb-vehicleshop:server:financePayment', dialog.paymentAmount, data.vehData)
+        TriggerServerEvent('i13-vehicleshop:server:financePayment', dialog.paymentAmount, data.vehData)
     end
 end)
 
-RegisterNetEvent('qb-vehicleshop:client:openIdMenu', function(data)
+RegisterNetEvent('i13-vehicleshop:client:openIdMenu', function(data)
     local dialog = exports['qb-input']:ShowInput({
         header = QBCore.Shared.Vehicles[data.vehicle]["name"],
         submitText = "Kinnita",
@@ -754,26 +754,26 @@ RegisterNetEvent('qb-vehicleshop:client:openIdMenu', function(data)
     if dialog then
         if not dialog.playerid then return end
         if data.type == 'testDrive' then
-            TriggerServerEvent('qb-vehicleshop:server:customTestDrive', data.vehicle, dialog.playerid)
+            TriggerServerEvent('i13-vehicleshop:server:customTestDrive', data.vehicle, dialog.playerid)
         elseif data.type == 'sellVehicle' then
-            TriggerServerEvent('qb-vehicleshop:server:sellShowroomVehicle', data.vehicle, dialog.playerid)
+            TriggerServerEvent('i13-vehicleshop:server:sellShowroomVehicle', data.vehicle, dialog.playerid)
         end
     end
 end)
 
-RegisterNetEvent('qb-vehicleshop:client:transferVehicle', function(buyerId, amount)
+RegisterNetEvent('i13-vehicleshop:client:transferVehicle', function(buyerId, amount)
     local ped = PlayerPedId()
     local vehicle = GetVehiclePedIsIn(ped, false)
     local plate = QBCore.Functions.GetPlate(vehicle)
     local tcoords = GetEntityCoords(GetPlayerPed(GetPlayerFromServerId(buyerId)))
     if #(GetEntityCoords(ped)-tcoords) < 5.0 then
-        TriggerServerEvent('qb-vehicleshop:server:transferVehicle', plate, buyerId, amount)
+        TriggerServerEvent('i13-vehicleshop:server:transferVehicle', plate, buyerId, amount)
     else
         QBCore.Functions.Notify('Isik kellele müüa tahad on liiga kaugel')
     end
 end)
 
-RegisterNetEvent('qb-vehicleshop:client:tpPoliceStorage', function()
+RegisterNetEvent('i13-vehicleshop:client:tpPoliceStorage', function()
     local ped = PlayerPedId()
     DoScreenFadeOut(500)
     Wait(1000)
@@ -783,7 +783,7 @@ RegisterNetEvent('qb-vehicleshop:client:tpPoliceStorage', function()
     DoScreenFadeIn(600)
 end)
 
-RegisterNetEvent('qb-vehicleshop:client:tpPoliceStorageOut', function()
+RegisterNetEvent('i13-vehicleshop:client:tpPoliceStorageOut', function()
     local ped = PlayerPedId()
     DoScreenFadeOut(500)
     Wait(1000)
@@ -806,7 +806,7 @@ CreateThread(function()
         options = {
             {
                 type = 'client',
-                event = 'qb-vehicleshop:client:openStockTable',
+                event = 'i13-vehicleshop:client:openStockTable',
                 icon = 'fas fa-clipboard-list',
                 label = 'Vaata Laoseisu',
                 job = 'import',
@@ -825,7 +825,7 @@ CreateThread(function()
         options = {
             {
                 type = 'client',
-                event = 'qb-vehicleshop:client:tpPoliceStorage',
+                event = 'i13-vehicleshop:client:tpPoliceStorage',
                 label = 'Mine Lattu',
                 icon = 'fas fa-door-closed',
                 job = {['police']=7},
@@ -844,7 +844,7 @@ CreateThread(function()
         options = {
             {
                 type = 'client',
-                event = 'qb-vehicleshop:client:tpPoliceStorageOut',
+                event = 'i13-vehicleshop:client:tpPoliceStorageOut',
                 label = 'Mine Välja',
                 icon = 'fas fa-door-closed',
                 job = 'police',

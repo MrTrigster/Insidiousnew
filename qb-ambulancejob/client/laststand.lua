@@ -114,7 +114,7 @@ function SetLaststand(bool, spawn)
                         weaponLabel = weaponItem.label
                         weaponName = weaponItem.name
                     end
-                    TriggerServerEvent("qb-log:server:CreateLog", "death", GetPlayerName(player) .. " ("..GetPlayerServerId(player)..") is dead", "red", "**".. killerName .. "** has killed  ".. GetPlayerName(player) .." with a **".. weaponLabel .. "** (" .. weaponName .. ")")
+                    TriggerServerEvent("i13-log:server:CreateLog", "death", GetPlayerName(player) .. " ("..GetPlayerServerId(player)..") is dead", "red", "**".. killerName .. "** has killed  ".. GetPlayerName(player) .." with a **".. weaponLabel .. "** (" .. weaponName .. ")")
                     deathTime = 0
                     OnDeath()
                     DeathTimer()

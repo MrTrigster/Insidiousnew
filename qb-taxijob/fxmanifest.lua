@@ -1,7 +1,7 @@
 fx_version 'cerulean'
 game 'gta5'
 
-description 'QB-TaxiJob'
+description 'i13-TaxiJob'
 version '1.0.0'
 
 ui_page 'html/meter.html'

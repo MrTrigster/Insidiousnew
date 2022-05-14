@@ -27,8 +27,8 @@ local menu2 = MenuV:CreateMenu(false, 'Gangi Raha', 'topright', 68, 68, 68, 'siz
 local menu3 = MenuV:CreateMenu(false, 'Liikmete Haldamine', 'topright', 68, 68, 68, 'size-125', 'none', 'menuv', 'employees')
 local menu4 = MenuV:CreateMenu(false, 'Värbamise Menu', 'topright', 68, 68, 68, 'size-125', 'none', 'menuv', 'recruit')
 
-RegisterNetEvent('qb-gangmenu:client:openMenu')
-AddEventHandler('qb-gangmenu:client:openMenu', function()
+RegisterNetEvent('i13-gangmenu:client:openMenu')
+AddEventHandler('i13-gangmenu:client:openMenu', function()
     MenuV:OpenMenu(menu)
 end)
 
@@ -94,7 +94,7 @@ end)
 -- Outfit
 menu_button3:On("select", function()
     MenuV:CloseMenu(menu)
-    TriggerEvent('qb-clothing:client:openOutfitMenu')
+    TriggerEvent('i13-clothing:client:openOutfitMenu')
 end)
 
 -- Society
@@ -106,7 +106,7 @@ end)
 menu_button6:On("select", function()
     local result = LocalInput('Withdrawal Amount', 16, '')
     if result ~= nil then
-        TriggerServerEvent("qb-gangmenu:server:withdrawMoney", tonumber(result))
+        TriggerServerEvent("i13-gangmenu:server:withdrawMoney", tonumber(result))
         UpdateSociety()
     end
 end)
@@ -115,7 +115,7 @@ end)
 menu_button7:On("select", function()
     local result = LocalInput('Deposit Amount', 16, '')
     if result ~= nil then
-        TriggerServerEvent("qb-gangmenu:server:depositMoney", tonumber(result))
+        TriggerServerEvent("i13-gangmenu:server:depositMoney", tonumber(result))
         UpdateSociety()
     end
 end)
@@ -123,7 +123,7 @@ end)
 -- Employees
 menu_button:On("select", function()
     menu3:ClearItems()
-    QBCore.Functions.TriggerCallback('qb-gangmenu:server:GetEmployees', function(cb)
+    QBCore.Functions.TriggerCallback('i13-gangmenu:server:GetEmployees', function(cb)
         for k,v in pairs(cb) do
             local menu_button8 = menu3:AddButton({
                 label = v.grade.name.. ' ' ..v.name,
@@ -153,7 +153,7 @@ menu_button1:On("select", function()
                 description = 'Saadaval värbamiseks',
                 select = function(btn)
                     local select = btn.Value
-                    TriggerServerEvent('qb-gangmenu:server:giveJob', GetPlayerServerId(v))
+                    TriggerServerEvent('i13-gangmenu:server:giveJob', GetPlayerServerId(v))
                 end
             })
         end
@@ -188,7 +188,7 @@ end)
 
 -- FUNCTIONS
 function UpdateSociety()
-    QBCore.Functions.TriggerCallback('qb-gangmenu:server:GetAccount', function(cb)
+    QBCore.Functions.TriggerCallback('i13-gangmenu:server:GetAccount', function(cb)
         menu_button5.Label = 'Society Amount: $' ..comma_value(cb)
     end, PlayerGang.name)
 end
@@ -223,10 +223,10 @@ function ManageEmployees(employee)
                     if values == 'promote' then
                         local result = LocalInput('New Grade Level', 3, '')
                         if result ~= nil then
-                            TriggerServerEvent('qb-gangmenu:server:updateGrade', employee.empSource, tonumber(result))
+                            TriggerServerEvent('i13-gangmenu:server:updateGrade', employee.empSource, tonumber(result))
                         end
                     else
-                        TriggerServerEvent('qb-gangmenu:server:fireEmployee', employee.empSource)
+                        TriggerServerEvent('i13-gangmenu:server:fireEmployee', employee.empSource)
                     end
                 end
             })

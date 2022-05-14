@@ -85,24 +85,24 @@ local currentName = nil
 --     end
 -- end)
 
-RegisterNetEvent('qb-cityhall:client:openMenu', function()
+RegisterNetEvent('i13-cityhall:client:openMenu', function()
     qbCityhall.Open()
 end)
 
-RegisterNetEvent('qb-cityhall:client:getIds')
-AddEventHandler('qb-cityhall:client:getIds', function()
-    TriggerServerEvent('qb-cityhall:server:getIDs')
+RegisterNetEvent('i13-cityhall:client:getIds')
+AddEventHandler('i13-cityhall:client:getIds', function()
+    TriggerServerEvent('i13-cityhall:server:getIDs')
 end)
 
-RegisterNetEvent('qb-cityhall:client:sendDriverEmail')
-AddEventHandler('qb-cityhall:client:sendDriverEmail', function(charinfo)
+RegisterNetEvent('i13-cityhall:client:sendDriverEmail')
+AddEventHandler('i13-cityhall:client:sendDriverEmail', function(charinfo)
     SetTimeout(math.random(2500, 4000), function()
         local gender = "Hr"
         if QBCore.Functions.GetPlayerData().charinfo.gender == 1 then
             gender = "Pr"
         end
         local charinfo = QBCore.Functions.GetPlayerData().charinfo
-        TriggerServerEvent('qb-phone:server:sendNewMail', {
+        TriggerServerEvent('i13-phone:server:sendNewMail', {
             sender = "Township",
             subject = "Driving lessons request",
             message = "Hello " .. gender .. " " .. charinfo.lastname .. ",<br /><br />We have just received a message that someone wants to take driving lessons<br />If you are willing to teach, please contact us:<br />Naam: <strong>".. charinfo.firstname .. " " .. charinfo.lastname .. "</strong><br />Phone Number: <strong>"..charinfo.phone.."</strong><br/><br/>Kind regards,<br />Township Los Santos",
@@ -134,7 +134,7 @@ RegisterNUICallback('requestId', function(data)
     if inRange then
         local idType = data.idType
 
-        TriggerServerEvent('qb-cityhall:server:requestId', idTypes[idType])
+        TriggerServerEvent('i13-cityhall:server:requestId', idTypes[idType])
         QBCore.Functions.Notify('Sa said '..idTypes[idType].label..' $50 eest', 'success', 3500)
     else
         QBCore.Functions.Notify('Sa ei saa seda teha', 'error')
@@ -173,7 +173,7 @@ end)
 
 RegisterNUICallback('applyJob', function(data)
     if inRange then
-        TriggerServerEvent('qb-cityhall:server:ApplyJob', data.job)
+        TriggerServerEvent('i13-cityhall:server:ApplyJob', data.job)
     else
         QBCore.Functions.Notify('Sa ei saa seda teha', 'error')
     end
@@ -190,7 +190,7 @@ CreateThread(function()
         options = {
             {
                 type = 'client',
-                event = 'qb-cityhall:client:openMenu',
+                event = 'i13-cityhall:client:openMenu',
                 icon = 'fas fa-clipboard',
                 label = 'Taotle Dokumenti',
             },

@@ -20,8 +20,8 @@ function CheckForVehicles()
     return veh
 end
 
-RegisterNetEvent('qb-radialmenu:client:TakeStretcher')
-AddEventHandler('qb-radialmenu:client:TakeStretcher', function()
+RegisterNetEvent('i13-radialmenu:client:TakeStretcher')
+AddEventHandler('i13-radialmenu:client:TakeStretcher', function()
     local PlayerPed = PlayerPedId()
     local PlayerPos = GetEntityCoords(PlayerPed)
     local Vehicle = CheckForVehicles()
@@ -47,8 +47,8 @@ AddEventHandler('qb-radialmenu:client:TakeStretcher', function()
     end
 end)
 
-RegisterNetEvent('qb-radialmenu:client:RemoveStretcher')
-AddEventHandler('qb-radialmenu:client:RemoveStretcher', function()
+RegisterNetEvent('i13-radialmenu:client:RemoveStretcher')
+AddEventHandler('i13-radialmenu:client:RemoveStretcher', function()
     local PlayerPed = PlayerPedId()
     local PlayerPos = GetOffsetFromEntityInWorldCoords(PlayerPed, 0, 1.5, 0)
 
@@ -61,7 +61,7 @@ AddEventHandler('qb-radialmenu:client:RemoveStretcher', function()
                 DeleteEntity(StretcherObject)
                 ClearPedTasks(PlayerPed)
                 DetachEntity(PlayerPed, false, true)
-                TriggerServerEvent('qb-radialmenu:server:RemoveStretcher', PlayerPos, StretcherObject)
+                TriggerServerEvent('i13-radialmenu:server:RemoveStretcher', PlayerPos, StretcherObject)
                 IsAttached = false
                 StretcherObject = nil
                 IsLayingOnBed = false
@@ -168,8 +168,8 @@ function GetClosestPlayer()
 end
 
 
-RegisterNetEvent('qb-radialmenu:client:RemoveStretcherFromArea')
-AddEventHandler('qb-radialmenu:client:RemoveStretcherFromArea', function(PlayerPos, BObject)
+RegisterNetEvent('i13-radialmenu:client:RemoveStretcherFromArea')
+AddEventHandler('i13-radialmenu:client:RemoveStretcherFromArea', function(PlayerPos, BObject)
     local Ped = PlayerPedId()
     local Pos = GetEntityCoords(Ped)
 
@@ -213,7 +213,7 @@ function LayOnStretcher()
         end
     else
         if distance < 2.0 then
-            TriggerServerEvent('qb-radialmenu:Stretcher:BusyCheck', GetPlayerServerId(player), "lay")
+            TriggerServerEvent('i13-radialmenu:Stretcher:BusyCheck', GetPlayerServerId(player), "lay")
         else
             LoadAnim(inBedDicts)
             if Object ~= nil or Object ~= 0 then
@@ -225,29 +225,29 @@ function LayOnStretcher()
     end
 end
 
-RegisterNetEvent('qb-radialmenu:Stretcher:client:BusyCheck')
-AddEventHandler('qb-radialmenu:Stretcher:client:BusyCheck', function(OtherId, type)
+RegisterNetEvent('i13-radialmenu:Stretcher:client:BusyCheck')
+AddEventHandler('i13-radialmenu:Stretcher:client:BusyCheck', function(OtherId, type)
     local ped = PlayerPedId()
     if type == "lay" then
         LoadAnim("anim@gangops@morgue@table@")
         IsEntityPlayingAnim(entity, animDict, animName, p4)
         if IsEntityPlayingAnim(ped, "anim@gangops@morgue@table@", "ko_front", 3) then
-            TriggerServerEvent('qb-radialmenu:server:BusyResult', true, OtherId, type)
+            TriggerServerEvent('i13-radialmenu:server:BusyResult', true, OtherId, type)
         else
-            TriggerServerEvent('qb-radialmenu:server:BusyResult', false, OtherId, type)
+            TriggerServerEvent('i13-radialmenu:server:BusyResult', false, OtherId, type)
         end
     else
         LoadAnim('anim@heists@box_carry@')
         if IsEntityPlayingAnim(ped, 'anim@heists@box_carry@', 'idle', 3) then
-            TriggerServerEvent('qb-radialmenu:server:BusyResult', true, OtherId, type)
+            TriggerServerEvent('i13-radialmenu:server:BusyResult', true, OtherId, type)
         else
-            TriggerServerEvent('qb-radialmenu:server:BusyResult', false, OtherId, type)
+            TriggerServerEvent('i13-radialmenu:server:BusyResult', false, OtherId, type)
         end
     end
 end)
 
-RegisterNetEvent('qb-radialmenu:client:Result')
-AddEventHandler('qb-radialmenu:client:Result', function(IsBusy, type)
+RegisterNetEvent('i13-radialmenu:client:Result')
+AddEventHandler('i13-radialmenu:client:Result', function(IsBusy, type)
     local inBedDicts = "anim@gangops@morgue@table@"
     local inBedAnims = "ko_front"
     local PlayerPed = PlayerPedId()
@@ -338,7 +338,7 @@ function AttachToStretcher()
             FreezeEntityPosition(Obj, false)
         else
             if distance < 2.0 then
-                TriggerServerEvent('qb-radialmenu:Stretcher:BusyCheck', GetPlayerServerId(ClosestPlayer), "attach")
+                TriggerServerEvent('i13-radialmenu:Stretcher:BusyCheck', GetPlayerServerId(ClosestPlayer), "attach")
             else
                 NetworkRequestControlOfEntity(StretcherObject)
                 LoadAnim("anim@heists@box_carry@")

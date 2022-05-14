@@ -1,7 +1,7 @@
 fx_version 'cerulean'
 game 'gta5'
 
-description 'QB-Scoreboard'
+description 'i13-Scoreboard'
 version '1.0.0'
 
 ui_page 'html/ui.html'

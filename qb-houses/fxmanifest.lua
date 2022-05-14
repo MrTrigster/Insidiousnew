@@ -1,7 +1,7 @@
 fx_version 'cerulean'
 game 'gta5'
 
-description 'QB-Houses'
+description 'i13-Houses'
 version '1.0.0'
 
 ui_page 'html/index.html'

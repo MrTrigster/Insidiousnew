@@ -17,7 +17,7 @@ local function DrawText3Ds(x, y, z, text)
     ClearDrawOrigin()
 end
 
-RegisterNetEvent('qb-carwash:client:washCar', function()
+RegisterNetEvent('i13-carwash:client:washCar', function()
     local PlayerPed = PlayerPedId()
     local PedVehicle = GetVehiclePedIsIn(PlayerPed)
     washingVehicle = true
@@ -60,7 +60,7 @@ CreateThread(function()
                                 -- DrawText3Ds(Config.CarWash[k]["coords"]["x"], Config.CarWash[k]["coords"]["y"], Config.CarWash[k]["coords"]["z"], '~g~E~w~ - Autopesula ($'..Config.DefaultPrice..')')
                                 if IsControlJustPressed(0, 38) then
                                     if dirtLevel > Config.DirtLevel then
-                                        TriggerServerEvent('qb-carwash:server:washCar')
+                                        TriggerServerEvent('i13-carwash:server:washCar')
                                     else
                                         QBCore.Functions.Notify("Auto on juba puhas", 'error')
                                     end

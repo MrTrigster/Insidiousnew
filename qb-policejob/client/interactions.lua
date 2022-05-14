@@ -383,7 +383,7 @@ RegisterNetEvent('police:client:GetKidnappedDragger', function(playerId)
             isEscorting = false
         end
         TriggerEvent('hospital:client:SetEscortingState', isEscorting)
-        TriggerEvent('qb-kidnapping:client:SetKidnapping', isEscorting)
+        TriggerEvent('i13-kidnapping:client:SetKidnapping', isEscorting)
     end)
 end)
 

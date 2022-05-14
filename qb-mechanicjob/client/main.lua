@@ -9,6 +9,22 @@ local effectTimer = 0
 
 -- Exports
 
+local function isTowVehicle(vehicle)
+    local retval = false
+    for k, v in pairs(Config.Vehicles) do
+        if GetEntityModel(vehicle) == GetHashKey(k) then
+            retval = true
+        end
+    end
+    return retval
+end
+
+local function getVehicleInDirection(coordFrom, coordTo)
+	local rayHandle = CastRayPointToPoint(coordFrom.x, coordFrom.y, coordFrom.z, coordTo.x, coordTo.y, coordTo.z, 10, PlayerPedId(), 0)
+	local a, b, c, d, vehicle = GetRaycastResult(rayHandle)
+	return vehicle
+end
+
 local function GetVehicleStatusList(plate)
     local retval = nil
     if VehicleStatus[plate] ~= nil then
@@ -276,14 +292,14 @@ local function OpenMenu()
             header = "Eemalda Sõiduk",
             txt = "Ühenda sõiduk liftil lahti",
             params = {
-                event = "qb-mechanicjob:client:UnattachVehicle",
+                event = "i13-mechanicjob:client:UnattachVehicle",
             }
         },
         {
             header = "Kontrolli Seisundit",
             txt = "Kontrolli sõiduki seisundit",
             params = {
-                event = "qb-mechanicjob:client:CheckStatus",
+                event = "i13-mechanicjob:client:CheckStatus",
                 args = {
                     number = 1,
                 }
@@ -293,7 +309,7 @@ local function OpenMenu()
             header = "Sõiduki Jupid",
             txt = "Paranda sõiduki juppe",
             params = {
-                event = "qb-mechanicjob:client:PartsMenu",
+                event = "i13-mechanicjob:client:PartsMenu",
                 args = {
                     number = 1,
                 }
@@ -304,7 +320,7 @@ local function OpenMenu()
             header = "⬅ Sulge Menu",
             txt = "",
             params = {
-                event = "qb-menu:client:closeMenu",
+                event = "i13-menu:client:closeMenu",
             }
         },
         
@@ -332,7 +348,7 @@ local function PartsMenu()
                     header = v,
                     txt = "Status: " .. percentage .. ".0% / 100.0%",
                     params = {
-                        event = "qb-mechanicjob:client:PartMenu",
+                        event = "i13-mechanicjob:client:PartMenu",
                         args = {
                             name = v,
                             parts = k
@@ -348,7 +364,7 @@ local function PartsMenu()
                     header = v,
                     txt = "Status: " .. percentage .. ".0% / 100.0%",
                     params = {
-                        event = "qb-mechanicjob:client:NoDamage",
+                        event = "i13-mechanicjob:client:NoDamage",
                     }
                 }
             end                               
@@ -357,7 +373,7 @@ local function PartsMenu()
             header = "⬅ Sulge Menu",
             txt = "",
             params = {
-                event = "qb-menu:client:closeMenu"
+                event = "i13-menu:client:closeMenu"
             }
     
         }
@@ -378,7 +394,7 @@ local function PartMenu(data)
             header = ""..partName.."",
             txt = "Repair : "..QBCore.Shared.Items[Config.RepairCostAmount[part].item]["label"].." "..Config.RepairCostAmount[part].costs.."x", 
             params = {
-                event = "qb-mechanicjob:client:RepairPart",
+                event = "i13-mechanicjob:client:RepairPart",
                 args = {
                     part = part,
                 }
@@ -388,14 +404,14 @@ local function PartMenu(data)
             header = "⬅ Tagasi Menu",
             txt = "Tagasi juppide menusse",
             params = {
-                event = "qb-mechanicjob:client:PartsMenu",
+                event = "i13-mechanicjob:client:PartsMenu",
             }
         },
         {
             header = "⬅ Sulge Menu",
             txt = "",
             params = {
-                event = "qb-menu:client:closeMenu",
+                event = "i13-menu:client:closeMenu",
             }
         },
         
@@ -414,14 +430,14 @@ local function NoDamage()
             header = "Tagasi Menu",
             txt = "Sellel jupil ei ole vigu",
             params = {
-                event = "qb-mechanicjob:client:PartsMenu",
+                event = "i13-mechanicjob:client:PartsMenu",
             }
         },
         {
             header = "⬅ Sulge Menu",
             txt = "",
             params = {
-                event = "qb-menu:client:closeMenu",
+                event = "i13-menu:client:closeMenu",
             }
         },
         
@@ -440,7 +456,7 @@ local function UnattachVehicle()
     Wait(500)
     DoScreenFadeIn(250)
     Config.Plates[ClosestPlate].AttachedVehicle = nil
-    TriggerServerEvent('qb-vehicletuning:server:SetAttachedVehicle', false, ClosestPlate)
+    TriggerServerEvent('i13-vehicletuning:server:SetAttachedVehicle', false, ClosestPlate)
 end
 
 local function SpawnListVehicle(model)
@@ -473,7 +489,7 @@ local function VehicleList()
             header = v,
             txt = "Sõiduk: "..v.."",
             params = {
-                event = "qb-mechanicjob:client:SpawnListVehicle",
+                event = "i13-mechanicjob:client:SpawnListVehicle",
                 args = {
                     headername = v,
                     spawnName = k
@@ -485,7 +501,7 @@ local function VehicleList()
         header = "⬅ Sulge Menu",
         txt = "",
         params = {
-            event = "qb-menu:client:closeMenu"
+            event = "i13-menu:client:closeMenu"
         }
 
     }
@@ -502,7 +518,7 @@ local function RepairPart(part)
     local hasitem = false
     local indx = 0
     local countitem = 0
-    QBCore.Functions.TriggerCallback('qb-inventory:server:GetStashItems', function(StashItems)
+    QBCore.Functions.TriggerCallback('i13-inventory:server:GetStashItems', function(StashItems)
         for k,v in pairs(StashItems) do
             if v.name == PartData.item then
                 hasitem = true
@@ -527,8 +543,8 @@ local function RepairPart(part)
                     countitem = (countitem - PartData.costs)
                     StashItems[indx].amount = countitem
                 end
-                TriggerEvent('qb-vehicletuning:client:RepaireeePart', part)
-                TriggerServerEvent('qb-inventory:server:SaveStashItems', "mechanicstash", StashItems)
+                TriggerEvent('i13-vehicletuning:client:RepaireeePart', part)
+                TriggerServerEvent('i13-inventory:server:SaveStashItems', "mechanicstash", StashItems)
                 SetTimeout(250, function()
                     PartsMenu()
                 end)
@@ -544,32 +560,32 @@ end
 
 
 -- Events
-RegisterNetEvent("qb-mechanicjob:client:UnattachVehicle",function(data)
+RegisterNetEvent("i13-mechanicjob:client:UnattachVehicle",function(data)
     UnattachVehicle()
 end)
 
-RegisterNetEvent("qb-mechanicjob:client:PartsMenu",function(data)
+RegisterNetEvent("i13-mechanicjob:client:PartsMenu",function(data)
     PartsMenu()
 end)
 
-RegisterNetEvent("qb-mechanicjob:client:PartMenu",function(data)
+RegisterNetEvent("i13-mechanicjob:client:PartMenu",function(data)
     PartMenu(data)
 end)
 
-RegisterNetEvent("qb-mechanicjob:client:NoDamage",function(data)
+RegisterNetEvent("i13-mechanicjob:client:NoDamage",function(data)
     NoDamage()
 end)
 
-RegisterNetEvent("qb-mechanicjob:client:CheckStatus",function(data)
+RegisterNetEvent("i13-mechanicjob:client:CheckStatus",function(data)
     CheckStatus()
 end)
 
-RegisterNetEvent("qb-mechanicjob:client:SpawnListVehicle",function(data)
+RegisterNetEvent("i13-mechanicjob:client:SpawnListVehicle",function(data)
     local vehicleSpawnName=data.spawnName
     SpawnListVehicle(vehicleSpawnName)
 end)
 
-RegisterNetEvent("qb-mechanicjob:client:RepairPart",function(data)
+RegisterNetEvent("i13-mechanicjob:client:RepairPart",function(data)
     local partData = data.part
     RepairPart(partData)
 end)
@@ -583,13 +599,13 @@ RegisterNetEvent('QBCore:Client:OnPlayerLoaded', function()
             end
         end
     end)
-    QBCore.Functions.TriggerCallback('qb-vehicletuning:server:GetAttachedVehicle', function(plates)
+    QBCore.Functions.TriggerCallback('i13-vehicletuning:server:GetAttachedVehicle', function(plates)
         for k, v in pairs(plates) do
             Config.Plates[k].AttachedVehicle = v.AttachedVehicle
         end
     end)
 
-    QBCore.Functions.TriggerCallback('qb-vehicletuning:server:GetDrivingDistances', function(retval)
+    QBCore.Functions.TriggerCallback('i13-vehicletuning:server:GetDrivingDistances', function(retval)
         DrivingDistance = retval
     end)
 end)
@@ -603,7 +619,7 @@ RegisterNetEvent('QBCore:Client:SetDuty', function(duty)
     onDuty = duty
 end)
 
-RegisterNetEvent('qb-vehicletuning:client:SetAttachedVehicle', function(veh, key)
+RegisterNetEvent('i13-vehicletuning:client:SetAttachedVehicle', function(veh, key)
     if veh ~= false then
         Config.Plates[key].AttachedVehicle = veh
     else
@@ -611,7 +627,7 @@ RegisterNetEvent('qb-vehicletuning:client:SetAttachedVehicle', function(veh, key
     end
 end)
 
-RegisterNetEvent('qb-vehicletuning:client:RepaireeePart', function(part)
+RegisterNetEvent('i13-vehicletuning:client:RepaireeePart', function(part)
     local veh = Config.Plates[ClosestPlate].AttachedVehicle
     local plate = QBCore.Functions.GetPlate(veh)
     if part == "engine" then
@@ -672,6 +688,94 @@ RegisterNetEvent('vehiclemod:client:fixEverything', function()
         end
     else
         QBCore.Functions.Notify("Sa ei ole sõidukis", "error")
+    end
+end)
+
+local CurrentTow = nil
+
+RegisterNetEvent('i13-tow:client:TowVehicle', function()
+    local vehicle = GetVehiclePedIsIn(PlayerPedId(), true)
+    if isTowVehicle(vehicle) then
+        print('is tow')
+        if CurrentTow == nil then
+            local playerped = PlayerPedId()
+            local coordA = GetEntityCoords(playerped, 1)
+            local coordB = GetOffsetFromEntityInWorldCoords(playerped, 0.0, 5.0, 0.0)
+            local targetVehicle = getVehicleInDirection(coordA, coordB)
+
+            if NpcOn and CurrentLocation ~= nil then
+                if GetEntityModel(targetVehicle) ~= GetHashKey(CurrentLocation.model) then
+                    QBCore.Functions.Notify("See ei ole õige sõiduk", "error")
+                    return
+                end
+            end
+            if not IsPedInAnyVehicle(PlayerPedId()) then
+                if vehicle ~= targetVehicle then
+                    NetworkRequestControlOfEntity(targetVehicle)
+                    local towPos = GetEntityCoords(vehicle)
+                    local targetPos = GetEntityCoords(targetVehicle)
+                    if #(towPos - targetPos) < 11.0 then
+                        QBCore.Functions.Progressbar("towing_vehicle", "Kinnitab sõidukit", 5000, false, true, {
+                            disableMovement = true,
+                            disableCarMovement = true,
+                            disableMouse = false,
+                            disableCombat = true,
+                        }, {
+                            animDict = "mini@repair",
+                            anim = "fixing_a_ped",
+                            flags = 16,
+                        }, {}, {}, function() -- Done
+                            StopAnimTask(PlayerPedId(), "mini@repair", "fixing_a_ped", 1.0)
+                            AttachEntityToEntity(targetVehicle, vehicle, GetEntityBoneIndexByName(vehicle, 'bodyshell'), 0.0, -1.5 + -0.85, 0.0 + 1.0, 0, 0, 0, 1, 1, 0, 1, 0, 1)
+                            FreezeEntityPosition(targetVehicle, true)
+                            CurrentTow = targetVehicle
+                            if NpcOn then
+                                RemoveBlip(CurrentBlip)
+                                QBCore.Functions.Notify("Vii sõiduk puksiiri jaama", "success", 5000)
+                                CurrentBlip2 = AddBlipForCoord(491.00, -1314.69, 29.25)
+                                SetBlipColour(CurrentBlip2, 3)
+                                SetBlipRoute(CurrentBlip2, true)
+                                SetBlipRouteColour(CurrentBlip2, 3)
+                            end
+                            QBCore.Functions.Notify("Sõiduk Kinnitatud")
+                        end, function() -- Cancel
+                            StopAnimTask(PlayerPedId(), "mini@repair", "fixing_a_ped", 1.0)
+                            QBCore.Functions.Notify("Ebaõnnestus", "error")
+                        end)
+                    end
+                end
+            end
+        else
+            QBCore.Functions.Progressbar("untowing_vehicle", "Ühendab sõidukit lahti", 5000, false, true, {
+                disableMovement = true,
+                disableCarMovement = true,
+                disableMouse = false,
+                disableCombat = true,
+            }, {
+                animDict = "mini@repair",
+                anim = "fixing_a_ped",
+                flags = 16,
+            }, {}, {}, function() -- Done
+                StopAnimTask(PlayerPedId(), "mini@repair", "fixing_a_ped", 1.0)
+                FreezeEntityPosition(CurrentTow, false)
+                Wait(250)
+                AttachEntityToEntity(CurrentTow, vehicle, 20, -0.0, -15.0, 1.0, 0.0, 0.0, 0.0, false, false, false, false, 20, true)
+                DetachEntity(CurrentTow, true, true)
+                if NpcOn then
+                    local targetPos = GetEntityCoords(CurrentTow)
+                    if #(targetPos - vector3(Config.Locations["vehicle"].coords.x, Config.Locations["vehicle"].coords.y, Config.Locations["vehicle"].coords.z)) < 25.0 then
+                        deliverVehicle(CurrentTow)
+                    end
+                end
+                CurrentTow = nil
+                QBCore.Functions.Notify("Sõiduk lahti ühendatud")
+            end, function() -- Cancel
+                StopAnimTask(PlayerPedId(), "mini@repair", "fixing_a_ped", 1.0)
+                QBCore.Functions.Notify("Ebaõnnestus", "error")
+            end)
+        end
+    else
+        QBCore.Functions.Notify("Pead enne flatbedis olema", "error")
     end
 end)
 
@@ -760,12 +864,12 @@ RegisterNetEvent('vehiclemod:client:repairPart', function(part, level, needAmoun
     end
 end)
 
-RegisterNetEvent('qb-mechanicjob:client:ToggleDuty', function()
+RegisterNetEvent('i13-mechanicjob:client:ToggleDuty', function()
     onDuty = not onDuty
     TriggerServerEvent("QBCore:ToggleDuty")
 end)
 
-RegisterNetEvent('qb-mechanicjob:client:OpenStash', function()
+RegisterNetEvent('i13-mechanicjob:client:OpenStash', function()
     TriggerServerEvent("inventory:server:OpenInventory", "stash", "mechanicstash", {
         maxweight = 4000000,
         slots = 500,
@@ -809,7 +913,7 @@ CreateThread(function()
         options = {
             {
                 type = 'client',
-                event = 'qb-mechanicjob:client:ToggleDuty',
+                event = 'i13-mechanicjob:client:ToggleDuty',
                 label = 'On Duty / Off Duty',
                 icon = 'fas fa-clipboard-list',
                 job = 'mechanic'
@@ -828,7 +932,7 @@ CreateThread(function()
         options = {
             {
                 type = 'client',
-                event = 'qb-mechanicjob:client:OpenStash',
+                event = 'i13-mechanicjob:client:OpenStash',
                 label = 'Ava Kapp',
                 icon = 'fas fa-box',
                 job = 'mechanic'
@@ -901,7 +1005,7 @@ CreateThread(function()
                                             FreezeEntityPosition(veh, true)
                                             Wait(500)
                                             DoScreenFadeIn(250)
-                                            TriggerServerEvent('qb-vehicletuning:server:SetAttachedVehicle', veh, k)
+                                            TriggerServerEvent('i13-vehicletuning:server:SetAttachedVehicle', veh, k)
                                         end
                                     else
                                         QBCore.Functions.Notify("Sa ei saa panna jalgratast platformile", "error")

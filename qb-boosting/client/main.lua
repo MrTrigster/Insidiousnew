@@ -98,7 +98,7 @@ local function CreateVinPoint()
               options = {
                 {
                   type = 'client',
-                  event = 'qb-boosting:client:scratchVin',
+                  event = 'i13-boosting:client:scratchVin',
                   label = 'Kraabi Vin Number',
                   icon = 'fas fa-circle-check',
                   canInteract = function()
@@ -213,21 +213,21 @@ local function StartTrackerNotify()
       -- local class = Contracts[startedContractId].class
       local class = hackableClass
       if class == 'D' or class == 'C' then
-        TriggerEvent('qb-phone:client:CustomNotification', 'Boosting', 'Sellel sõidukil ei ole trackerit, toimeta see punkti!', 'fas fa-car', '#000d1a', 5000)
+        TriggerEvent('i13-phone:client:CustomNotification', 'Boosting', 'Sellel sõidukil ei ole trackerit, toimeta see punkti!', 'fas fa-car', '#000d1a', 5000)
         disablerUsed = true
         -- disablerComplete = true
-        TriggerServerEvent('qb-boosting:server:finishDisabler', boostGroup)
+        TriggerServerEvent('i13-boosting:server:finishDisabler', boostGroup)
       elseif class == 'B' or class == 'A' then
-        TriggerEvent('qb-phone:client:BoostNotification', 'Boosting', 'Otsib trackereid ('..disablerStatus..'/3)', 'fas fa-car', '#000d1a', true)
+        TriggerEvent('i13-phone:client:BoostNotification', 'Boosting', 'Otsib trackereid ('..disablerStatus..'/3)', 'fas fa-car', '#000d1a', true)
         disablerUsed = true
         Wait(15000)
-        TriggerEvent('qb-phone:client:BoostNotification', 'Boosting', 'Otsib trackereid ('..disablerStatus..'/3)', 'fas fa-car', '#000d1a', false)
+        TriggerEvent('i13-phone:client:BoostNotification', 'Boosting', 'Otsib trackereid ('..disablerStatus..'/3)', 'fas fa-car', '#000d1a', false)
         disablerUsed = false
       elseif class == 'S' then
-        TriggerEvent('qb-phone:client:BoostNotification', 'Boosting', 'Otsib trackereid ('..disablerStatus..'/6)', 'fas fa-car', '#000d1a', true)
+        TriggerEvent('i13-phone:client:BoostNotification', 'Boosting', 'Otsib trackereid ('..disablerStatus..'/6)', 'fas fa-car', '#000d1a', true)
         disablerUsed = true
         Wait(15000)
-        TriggerEvent('qb-phone:client:BoostNotification', 'Boosting', 'Otsib trackereid ('..disablerStatus..'/6)', 'fas fa-car', '#000d1a', false)
+        TriggerEvent('i13-phone:client:BoostNotification', 'Boosting', 'Otsib trackereid ('..disablerStatus..'/6)', 'fas fa-car', '#000d1a', false)
         disablerUsed = false
       end
     end
@@ -235,7 +235,7 @@ local function StartTrackerNotify()
 end
 
 local function startTracker()
-  TriggerServerEvent('qb-boosting:server:startTracker', boostGroup['UserName'])
+  TriggerServerEvent('i13-boosting:server:startTracker', boostGroup['UserName'])
 end
 
 local function notifyIncomplete()
@@ -243,7 +243,7 @@ local function notifyIncomplete()
 end
 
 local function openBoosting()
-  QBCore.Functions.TriggerCallback('qb-boosting:server:hasLaptop', function(hasLaptop)
+  QBCore.Functions.TriggerCallback('i13-boosting:server:hasLaptop', function(hasLaptop)
     if hasLaptop then
       for k,v in pairs(Contracts) do
         local data = {
@@ -260,9 +260,9 @@ local function openBoosting()
           data = data
         })
       end
-      QBCore.Functions.TriggerCallback('qb-boosting:server:getBoostLevel', function(boostLevel)
+      QBCore.Functions.TriggerCallback('i13-boosting:server:getBoostLevel', function(boostLevel)
         if boostLevel then
-          QBCore.Functions.TriggerCallback('qb-boosting:server:getBoostXP', function(boostXP)
+          QBCore.Functions.TriggerCallback('i13-boosting:server:getBoostXP', function(boostXP)
             if boostXP then
               SendNUIMessage({
                 action = "getLevel",
@@ -289,23 +289,23 @@ end
 -- CALLBACKS
 
 RegisterNUICallback('startBoost', function(data)
-  QBCore.Functions.TriggerCallback('qb-phone:server:GetGroupsApp', function(EmploymentGroup)
+  QBCore.Functions.TriggerCallback('i13-phone:server:GetGroupsApp', function(EmploymentGroup)
     for ke, ve in pairs(EmploymentGroup) do
       if not EmploymentGroup[tostring(QBCore.Functions.GetPlayerData().citizenid)] then QBCore.Functions.Notify('Sa ei ole gruppi loonud', 'error') return end
       if ke == QBCore.Functions.GetPlayerData().citizenid then
         if started == false and vinStarted == false then
           if assistingBoost == false then
-            QBCore.Functions.TriggerCallback('qb-boosting:server:getPolice', function(result)
+            QBCore.Functions.TriggerCallback('i13-boosting:server:getPolice', function(result)
               if result >= Config.MinimumPolice then
-                QBCore.Functions.TriggerCallback('qb-boosting:server:getWallet', function (wallet)
+                QBCore.Functions.TriggerCallback('i13-boosting:server:getWallet', function (wallet)
                   if wallet then
                     for k,v in ipairs(Contracts) do
                       if (tonumber(v.id) == tonumber(data.id)) then
-                        TriggerEvent('qb-boosting:client:startContract', data.id)
+                        TriggerEvent('i13-boosting:client:startContract', data.id)
                         Contracts[data.id].boostStarted = true
                         boostGroup = EmploymentGroup[ke]
                         Wait(2000)
-                        TriggerServerEvent('qb-boosting:server:sendBoostData', boostGroup, Contracts[data.id].plate, Contracts[data.id].class)
+                        TriggerServerEvent('i13-boosting:server:sendBoostData', boostGroup, Contracts[data.id].plate, Contracts[data.id].class)
                       end
                     end
                   else
@@ -331,23 +331,23 @@ RegisterNUICallback('startBoost', function(data)
 end)
 
 RegisterNUICallback('startVin', function(data)
-  QBCore.Functions.TriggerCallback('qb-phone:server:GetGroupsApp', function(EmploymentGroup)
+  QBCore.Functions.TriggerCallback('i13-phone:server:GetGroupsApp', function(EmploymentGroup)
     if not EmploymentGroup[QBCore.Functions.GetPlayerData().citizenid] then QBCore.Functions.Notify('Sa ei ole gruppi loonud', 'error') return end
     for ke, ve in pairs(EmploymentGroup) do
       if ke == QBCore.Functions.GetPlayerData().citizenid then
         if started == false and vinStarted == false then
           if assistingBoost == false then
-            QBCore.Functions.TriggerCallback('qb-boosting:server:getPolice', function(result)
+            QBCore.Functions.TriggerCallback('i13-boosting:server:getPolice', function(result)
               if result >= Config.MinimumPolice then
-                QBCore.Functions.TriggerCallback('qb-boosting:server:getWallet', function(wallet)
+                QBCore.Functions.TriggerCallback('i13-boosting:server:getWallet', function(wallet)
                   if wallet then
                     for k,v in ipairs(Contracts) do
                       if (tonumber(v.id) == tonumber(data.id)) then
-                        TriggerEvent('qb-boosting:client:startVin', data.id)
+                        TriggerEvent('i13-boosting:client:startVin', data.id)
                         Contracts[data.id].boostStarted = true
                         boostGroup = EmploymentGroup[ke]
                         Wait(2000)
-                        TriggerServerEvent('qb-boosting:server:sendBoostData', boostGroup, Contracts[data.id].plate, Contracts[data.id].class)
+                        TriggerServerEvent('i13-boosting:server:sendBoostData', boostGroup, Contracts[data.id].plate, Contracts[data.id].class)
                       end
                     end
                   else
@@ -382,7 +382,7 @@ RegisterNUICallback('transferBoostContract', function(data)
       local coord = v.coords
       local vehClass = v.class
       local VehiclePrice = v.price
-      TriggerServerEvent('qb-boosting:server:transferBoost', veh, vehLabel, coord, vehClass, VehiclePrice, v.id, playerid)
+      TriggerServerEvent('i13-boosting:server:transferBoost', veh, vehLabel, coord, vehClass, VehiclePrice, v.id, playerid)
     end
   end
 end)
@@ -393,7 +393,7 @@ RegisterNUICallback('close', function(data)
 end)
 
 RegisterNUICallback('remove', function(data)
-  TriggerEvent('qb-boosting:client:removeContract', data.id)
+  TriggerEvent('i13-boosting:client:removeContract', data.id)
 end)
 
 RegisterNUICallback('toggleQueue', function(data)
@@ -417,20 +417,20 @@ end)
 TriggerEvent('chat:removeSuggestion', 'boosting')
 
 -- RegisterCommand('addboost', function(source)
---   TriggerEvent('qb-boosting:client:createContract')
+--   TriggerEvent('i13-boosting:client:createContract')
 -- end)
 
 -- EVENTS
 
-RegisterNetEvent('qb-boosting:client:openBoosting', function()
+RegisterNetEvent('i13-boosting:client:openBoosting', function()
   ExecuteCommand('boosting')
 end)
 
-RegisterNetEvent('qb-boosting:client:createContract', function()
+RegisterNetEvent('i13-boosting:client:createContract', function()
   if inQueue then
-    QBCore.Functions.TriggerCallback('qb-boosting:server:hasLaptop', function(result)
+    QBCore.Functions.TriggerCallback('i13-boosting:server:hasLaptop', function(result)
       if result then
-        QBCore.Functions.TriggerCallback('qb-boosting:server:getBoostLevel', function(boostLevel)
+        QBCore.Functions.TriggerCallback('i13-boosting:server:getBoostLevel', function(boostLevel)
           if boostLevel then
             local random = math.random(#Config.Vehicles[boostLevel])
             local veh = Config.Vehicles[boostLevel][random].vehicle
@@ -449,7 +449,7 @@ RegisterNetEvent('qb-boosting:client:createContract', function()
               label = vehLabel,
               boostStarted = false
             }
-            TriggerEvent('qb-phone:client:CustomNotification', 'Boosting', 'Sulle tuli '..vehClass..' Class boost!', 'fas fa-car', '#000d1a', 2500)
+            TriggerEvent('i13-phone:client:CustomNotification', 'Boosting', 'Sulle tuli '..vehClass..' Class boost!', 'fas fa-car', '#000d1a', 2500)
             table.insert(Contracts, data)
           end
         end)
@@ -462,7 +462,7 @@ RegisterNetEvent('qb-boosting:client:createContract', function()
   end
 end)
 
-RegisterNetEvent('qb-boosting:client:startContract', function(id)
+RegisterNetEvent('i13-boosting:client:startContract', function(id)
   for k,v in ipairs(Contracts) do
     if (tonumber(v.id) == tonumber(id)) then
       local vehCoords = v.coords
@@ -472,12 +472,12 @@ RegisterNetEvent('qb-boosting:client:startContract', function(id)
       Contracts[k].plate = vehInfo.vehPlate
       startedContractId = v.id
       started = true
-      TriggerEvent('qb-phone:client:CustomNotification', 'Boosting', 'Alustasid boosti, otsi sõiduk kaardil märgitud alast!', 'fas fa-car', '#000d1a', 6000)
+      TriggerEvent('i13-phone:client:CustomNotification', 'Boosting', 'Alustasid boosti, otsi sõiduk kaardil märgitud alast!', 'fas fa-car', '#000d1a', 6000)
     end
   end
 end)
 
-RegisterNetEvent('qb-boosting:client:startVin', function(id)
+RegisterNetEvent('i13-boosting:client:startVin', function(id)
   for k,v in ipairs(Contracts) do
     if (tonumber(v.id) == tonumber(id)) then
       local vehCoords = v.coords
@@ -487,34 +487,34 @@ RegisterNetEvent('qb-boosting:client:startVin', function(id)
       Contracts[k].plate = vehInfo.vehPlate
       startedContractId = v.id
       vinStarted = true
-      TriggerEvent('qb-phone:client:CustomNotification', 'Boosting', 'Alustasid boosti, otsi sõiduk kaardil märgitud alast!', 'fas fa-car', '#000d1a', 6000)
+      TriggerEvent('i13-phone:client:CustomNotification', 'Boosting', 'Alustasid boosti, otsi sõiduk kaardil märgitud alast!', 'fas fa-car', '#000d1a', 6000)
     end
   end
 end)
 
-RegisterNetEvent('qb-boosting:client:completeContract', function()
+RegisterNetEvent('i13-boosting:client:completeContract', function()
   if disablerComplete then
     if completedContract then
-      TriggerEvent('qb-phone:client:CustomNotification', 'Boosting', 'Sõiduk kohale toimetatud, mine alast eemale!', 'fas fa-car', '#000d1a', 6000)
-      -- TriggerServerEvent('qb-boosting:server:removeBlip')
+      TriggerEvent('i13-phone:client:CustomNotification', 'Boosting', 'Sõiduk kohale toimetatud, mine alast eemale!', 'fas fa-car', '#000d1a', 6000)
+      -- TriggerServerEvent('i13-boosting:server:removeBlip')
       Wait(math.random(10000, 20000))
-      TriggerServerEvent('qb-boosting:server:finishedContract', Contracts[startedContractId].price)
+      TriggerServerEvent('i13-boosting:server:finishedContract', Contracts[startedContractId].price)
       table.remove(Contracts, startedContractId)
       SetEntityAsMissionEntity(Vehicle,true,true)
       DeleteEntity(Vehicle)
-      TriggerServerEvent('qb-boosting:server:finishedAssist', boostGroup['UserName'])
+      TriggerServerEvent('i13-boosting:server:finishedAssist', boostGroup['UserName'])
     end
   else
     QBCore.Functions.Notify('Sul on tracker eemaldamata!', 'error')
   end
 end)
 
-RegisterNetEvent('qb-boosting:client:scratchVin', function()
+RegisterNetEvent('i13-boosting:client:scratchVin', function()
   local coords = GetEntityCoords(PlayerPedId())
   local vinVehicle = GetVehiclePedIsIn(PlayerPedId(), true)
   if disablerComplete then
     if GetVehicleNumberPlateText(vinVehicle) == Contracts[startedContractId].plate then
-      QBCore.Functions.TriggerCallback('qb-boosting:server:getWallet', function(wallet)
+      QBCore.Functions.TriggerCallback('i13-boosting:server:getWallet', function(wallet)
         if wallet then
           QBCore.Functions.Progressbar('scratchVin', 'Kraabib vin numbrit...', 10000, false, false, {
             disableMovement = true,
@@ -526,10 +526,10 @@ RegisterNetEvent('qb-boosting:client:scratchVin', function()
             anim = 'machinic_loop_mechandplayer',
             flags = 9,
           }, {}, {}, function()
-            TriggerServerEvent('qb-boosting:server:finishedVin', Contracts[startedContractId].vehicle, Contracts[startedContractId].plate)
+            TriggerServerEvent('i13-boosting:server:finishedVin', Contracts[startedContractId].vehicle, Contracts[startedContractId].plate)
             Wait(1000)
             table.remove(Contracts, startedContractId)
-            TriggerServerEvent('qb-boosting:server:finishedAssist', boostGroup['UserName'])
+            TriggerServerEvent('i13-boosting:server:finishedAssist', boostGroup['UserName'])
             DeleteBlip()
           end, function()
             QBCore.Functions.Notify('Katkestatud', 'error')
@@ -544,7 +544,7 @@ RegisterNetEvent('qb-boosting:client:scratchVin', function()
   end
 end)
 
-RegisterNetEvent('qb-boosting:client:resetVariables', function()
+RegisterNetEvent('i13-boosting:client:resetVariables', function()
   started = false
   vinStarted = false
   startedContractId = 0
@@ -574,7 +574,7 @@ RegisterNetEvent('qb-boosting:client:resetVariables', function()
   print('successfully reset your variables')
 end)
 
-RegisterNetEvent('qb-boosting:client:removeContract', function(id)
+RegisterNetEvent('i13-boosting:client:removeContract', function(id)
   for k,v in ipairs(Contracts) do
     if (tonumber(v.id) == tonumber(id)) then
       DeleteCircle()
@@ -619,7 +619,7 @@ RegisterNetEvent('qb-boosting:client:removeContract', function(id)
   end
 end)
 
-RegisterNetEvent('qb-boosting:client:recieveBoost', function(veh, vehLabel, coord, vehClass, VehiclePrice)
+RegisterNetEvent('i13-boosting:client:recieveBoost', function(veh, vehLabel, coord, vehClass, VehiclePrice)
   local boost = {
     vehicle = veh,
     price = VehiclePrice,
@@ -631,25 +631,25 @@ RegisterNetEvent('qb-boosting:client:recieveBoost', function(veh, vehLabel, coor
     boostStarted = false,
   }
   table.insert(Contracts, boost)
-  TriggerEvent('qb-phone:client:CustomNotification', 'Boosting', 'Sulle saadeti '..vehClass..' Class boost!', 'fas fa-car', '#000d1a', 2500)
+  TriggerEvent('i13-phone:client:CustomNotification', 'Boosting', 'Sulle saadeti '..vehClass..' Class boost!', 'fas fa-car', '#000d1a', 2500)
 end)
 
-RegisterNetEvent('qb-boosting:client:setCopBlip', function(coords)
+RegisterNetEvent('i13-boosting:client:setCopBlip', function(coords)
   CreateCopBlip(coords)
 end)
 
-RegisterNetEvent('qb-boosting:client:setBlipTime', function(time)
+RegisterNetEvent('i13-boosting:client:setBlipTime', function(time)
   updateTime = time
 end)
 
-RegisterNetEvent('qb-boosting:client:removeCopBlip', function()
+RegisterNetEvent('i13-boosting:client:removeCopBlip', function()
   DeleteCopBlip()
 end)
 
-RegisterNetEvent('qb-boosting:client:useDisabler', function()
+RegisterNetEvent('i13-boosting:client:useDisabler', function()
   local veh = GetVehiclePedIsIn(GetPlayerPed(PlayerId()), false)
   if veh ~= 0 then
-    QBCore.Functions.TriggerCallback('qb-phone:server:GetGroupsApp', function(EmploymentGroup)
+    QBCore.Functions.TriggerCallback('i13-phone:server:GetGroupsApp', function(EmploymentGroup)
       print(json.encode(boostGroup))
       for k,v in pairs(EmploymentGroup) do
         if GetVehicleNumberPlateText(veh) == hackablePlate then
@@ -664,12 +664,12 @@ RegisterNetEvent('qb-boosting:client:useDisabler', function()
                   if minigame == true then
                     disablerStatus = disablerStatus + 1
                     disablerUsed = false
-                    TriggerServerEvent('qb-boosting:server:updateTracker', boostGroup['UserName'], disablerStatus)
+                    TriggerServerEvent('i13-boosting:server:updateTracker', boostGroup['UserName'], disablerStatus)
                     -- StartTrackerNotify()
-                    TriggerServerEvent('qb-boosting:server:setBlipTime', true)
+                    TriggerServerEvent('i13-boosting:server:setBlipTime', true)
                     updateTime = 10000
                     Wait(7000)
-                    TriggerServerEvent('qb-boosting:server:setBlipTime', false)
+                    TriggerServerEvent('i13-boosting:server:setBlipTime', false)
                     updateTime = 3000
                   else
                     disablerUsed = false
@@ -677,13 +677,13 @@ RegisterNetEvent('qb-boosting:client:useDisabler', function()
                   end
                 elseif disablerStatus == 2 then
                   if minigame == true then
-                    TriggerServerEvent('qb-boosting:server:resetDisabler', boostGroup['UserName'])
-                    TriggerServerEvent('qb-boosting:server:finishDisabler', boostGroup)
+                    TriggerServerEvent('i13-boosting:server:resetDisabler', boostGroup['UserName'])
+                    TriggerServerEvent('i13-boosting:server:finishDisabler', boostGroup)
                     -- disablerStatus = 0
                     callingCops = false
                     -- disablerComplete = true
-                    TriggerServerEvent('qb-boosting:server:removeBlip')
-                    -- TriggerEvent('qb-phone:client:CustomNotification', 'Boosting', 'Tracker eemaldatud, vii sõiduk Drop Offi!', 'fas fa-car', '#000d1a', 6000)
+                    TriggerServerEvent('i13-boosting:server:removeBlip')
+                    -- TriggerEvent('i13-phone:client:CustomNotification', 'Boosting', 'Tracker eemaldatud, vii sõiduk Drop Offi!', 'fas fa-car', '#000d1a', 6000)
                   else
                     QBCore.Functions.Notify('Ebaõnnestus', 'error')
                     disablerUsed = false
@@ -697,24 +697,24 @@ RegisterNetEvent('qb-boosting:client:useDisabler', function()
                   if minigame == true then
                     disablerStatus = disablerStatus + 1
                     disablerUsed = false
-                    TriggerServerEvent('qb-boosting:server:updateTracker', boostGroup['UserName'], disablerStatus)
+                    TriggerServerEvent('i13-boosting:server:updateTracker', boostGroup['UserName'], disablerStatus)
                     -- StartTrackerNotify()
-                    TriggerServerEvent('qb-boosting:server:setBlipTime', true)
+                    TriggerServerEvent('i13-boosting:server:setBlipTime', true)
                     Wait(7000)
-                    TriggerServerEvent('qb-boosting:server:setBlipTime', false)
+                    TriggerServerEvent('i13-boosting:server:setBlipTime', false)
                   else
                     disablerUsed = false
                     QBCore.Functions.Notify('Ebaõnnestus', 'error')
                   end
                 elseif disablerStatus == 5 then
                   if minigame == true then
-                    TriggerServerEvent('qb-boosting:server:resetDisabler', boostGroup['UserName'])
-                    TriggerServerEvent('qb-boosting:server:finishDisabler', boostGroup)
+                    TriggerServerEvent('i13-boosting:server:resetDisabler', boostGroup['UserName'])
+                    TriggerServerEvent('i13-boosting:server:finishDisabler', boostGroup)
                     -- disablerStatus = 0
                     callingCops = false
                     -- disablerComplete = true
-                    TriggerServerEvent('qb-boosting:server:removeBlip')
-                    -- TriggerEvent('qb-phone:client:CustomNotification', 'Boosting', 'Tracker eemaldatud, vii sõiduk Drop Offi!', 'fas fa-car', '#000d1a', 6000)
+                    TriggerServerEvent('i13-boosting:server:removeBlip')
+                    -- TriggerEvent('i13-phone:client:CustomNotification', 'Boosting', 'Tracker eemaldatud, vii sõiduk Drop Offi!', 'fas fa-car', '#000d1a', 6000)
                   else
                     QBCore.Functions.Notify('Ebaõnnestus', 'error')
                     disablerUsed = false
@@ -733,7 +733,7 @@ RegisterNetEvent('qb-boosting:client:useDisabler', function()
   end
 end)
 
-RegisterNetEvent('qb-boosting:client:getBoostData', function(boostingGroup, boostPlate, boostClass)
+RegisterNetEvent('i13-boosting:client:getBoostData', function(boostingGroup, boostPlate, boostClass)
   if QBCore.Functions.GetPlayerData().citizenid ~= boostingGroup.CSN then
     boostGroup = boostingGroup
     print(json.encode(boostGroup))
@@ -743,24 +743,24 @@ RegisterNetEvent('qb-boosting:client:getBoostData', function(boostingGroup, boos
   assistingBoost = true
 end)
 
-RegisterNetEvent('qb-boosting:client:notifyTracker', function()
+RegisterNetEvent('i13-boosting:client:notifyTracker', function()
   startedHacking = true
   StartTrackerNotify()
 end)
 
-RegisterNetEvent('qb-boosting:client:updateTracker', function(disabler)
+RegisterNetEvent('i13-boosting:client:updateTracker', function(disabler)
   disablerStatus = disabler
   StartTrackerNotify()
 end)
 
-RegisterNetEvent('qb-boosting:client:resetDisabler', function()
+RegisterNetEvent('i13-boosting:client:resetDisabler', function()
   disablerStatus = 0
   print('disabler reset for you')
 end)
 
-RegisterNetEvent('qb-boosting:client:finishDisabler', function()
+RegisterNetEvent('i13-boosting:client:finishDisabler', function()
   disablerComplete = true
-  TriggerEvent('qb-phone:client:CustomNotification', 'Boosting', 'Tracker eemaldatud!', 'fas fa-car', '#000d1a', 6000)
+  TriggerEvent('i13-phone:client:CustomNotification', 'Boosting', 'Tracker eemaldatud!', 'fas fa-car', '#000d1a', 6000)
   print('disabler complete for you(leader)')
 end)
 
@@ -893,7 +893,7 @@ CreateThread(function()
       Wait(updateTime)
       local coords = GetEntityCoords(Vehicle)
       if callingCops then
-        TriggerServerEvent('qb-boosting:server:alertCops', coords)
+        TriggerServerEvent('i13-boosting:server:alertCops', coords)
       end
     else
       Wait(500)
@@ -918,7 +918,7 @@ CreateThread(function()
               Wait(300)
               DeleteBlip()
               if startedDropOff then
-                TriggerEvent('qb-boosting:client:completeContract')
+                TriggerEvent('i13-boosting:client:completeContract')
               end
               startedDropOff = false
             else
@@ -941,7 +941,7 @@ CreateThread(function()
         local chance = math.random(1, 10)
         local chance2 = 60 / 10
         if chance <= chance2 then
-          TriggerEvent('qb-boosting:client:createContract')
+          TriggerEvent('i13-boosting:client:createContract')
         end
       end
     end

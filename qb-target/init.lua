@@ -151,7 +151,7 @@ Config.TargetBones = {
 		options = {
 			{
 				type = "client",
-				event = "qb-trunk:client:GetIn",
+				event = "i13-trunk:client:GetIn",
 				icon = "fas fa-caret-down",
 				label = "Roni Pagasiruumi",
 			},
@@ -194,7 +194,7 @@ Config.GlobalVehicleOptions = {
 	options = {
 		{
 			type = "client",
-			event = "qb-vehiclekeys:client:GiveKeysTarget",
+			event = "i13-vehiclekeys:client:GiveKeysTarget",
 			icon = "fas fa-key",
 			label = "Anna Võtmed",
 		},
@@ -212,7 +212,7 @@ Config.GlobalVehicleOptions = {
 		},
 		{
 			type = 'client',
-			event = 'qb-methcar:cook',
+			event = 'i13-methcar:cook',
 			icon = 'fas fa-blender',
 			label = 'Küpseta',
 			canInteract = function(entity)
@@ -237,7 +237,7 @@ Config.GlobalPlayerOptions = {
 	options = {
 		{
 			type = 'client',
-			event = 'qb-phone:client:GiveContactDetails',
+			event = 'i13-phone:client:GiveContactDetails',
 			icon = 'fas fa-address-book',
 			label = 'Anna Kontaktandmed',
 		}
@@ -257,14 +257,14 @@ local function ItemCount() return true end
 local function CitizenCheck() return true end
 
 CreateThread(function()
-	local state = GetResourceState('qb-core')
+	local state = GetResourceState('i13-core')
 	if state ~= 'missing' then
 		if state ~= 'started' then
 			local timeout = 0
 			repeat
 				timeout += 1
 				Wait(0)
-			until GetResourceState('qb-core') == 'started' or timeout > 100
+			until GetResourceState('i13-core') == 'started' or timeout > 100
 		end
 		Config.Standalone = false
 	end

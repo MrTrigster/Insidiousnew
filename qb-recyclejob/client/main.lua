@@ -218,7 +218,7 @@ CreateThread(function()
                                 disableCombat = true,
                             }, {}, {}, {}, function() -- Done
                                 StopAnimTask(PlayerPedId(), "mp_car_bomb", "car_bomb_mechanic", 1.0)
-                                TriggerServerEvent('qb-recycle:server:getItem')
+                                TriggerServerEvent('i13-recycle:server:getItem')
                                 GetRandomPackage()
                             end)
                         end
@@ -262,7 +262,7 @@ CreateThread(function()
 	exports['qb-target']:AddTargetEntity(recyclePed, { 
         options = {
             { 
-                event = "qb-recyclejob:SellItems", 
+                event = "i13-recyclejob:SellItems", 
                 icon = "fas fa-certificate", 
                 label = "Vaheta Materjale", 
             },	
@@ -280,7 +280,7 @@ CreateThread(function()
         options = {
             {
                 type = 'client',
-                event = 'qb-recyclejob:client:toggleDuty',
+                event = 'i13-recyclejob:client:toggleDuty',
                 label = 'Alusta/Lõpeta Töötamine',
                 icon = 'fas fa-clipboard',
             }
@@ -289,7 +289,7 @@ CreateThread(function()
     })
 end)
 
-RegisterNetEvent('qb-recyclejob:client:toggleDuty', function()
+RegisterNetEvent('i13-recyclejob:client:toggleDuty', function()
     onDuty = not onDuty
     if onDuty then
         QBCore.Functions.Notify("Kirjutasid ennast tööle", "success")
@@ -298,8 +298,8 @@ RegisterNetEvent('qb-recyclejob:client:toggleDuty', function()
     end
 end)
 
-RegisterNetEvent('qb-recyclejob:SellAll')
-AddEventHandler('qb-recyclejob:SellAll', function(data)
+RegisterNetEvent('i13-recyclejob:SellAll')
+AddEventHandler('i13-recyclejob:SellAll', function(data)
 	if data == -2 then
 		exports['qb-menu']:closeMenu()
 		return
@@ -311,13 +311,13 @@ AddEventHandler('qb-recyclejob:SellAll', function(data)
         disableCombat = true,
     }, {}, {}, {}, function()
         ClearPedTasks(PlayerPedId())
-        TriggerServerEvent('qb-recyclejob:SellAll', data)
+        TriggerServerEvent('i13-recyclejob:SellAll', data)
     end)
-	TriggerEvent('qb-recycle:SellItems')
+	TriggerEvent('i13-recycle:SellItems')
 end)
 
-RegisterNetEvent('qb-recyclejob:SellOne')
-AddEventHandler('qb-recyclejob:SellOne', function(data)
+RegisterNetEvent('i13-recyclejob:SellOne')
+AddEventHandler('i13-recyclejob:SellOne', function(data)
 	if data == -2 then
 		exports['qb-menu']:closeMenu()
 		return
@@ -329,104 +329,104 @@ AddEventHandler('qb-recyclejob:SellOne', function(data)
         disableCombat = true,
     }, {}, {}, {}, function()
         ClearPedTasks(PlayerPedId())
-        TriggerServerEvent('qb-recyclejob:SellOne', data)
+        TriggerServerEvent('i13-recyclejob:SellOne', data)
     end)
-	TriggerEvent('qb-recycle:SellItems')
+	TriggerEvent('i13-recycle:SellItems')
 end)
 
 -- MENUS - SELL ITEMS MENU
-RegisterNetEvent('qb-recyclejob:SellItems', function()
+RegisterNetEvent('i13-recyclejob:SellItems', function()
     exports['qb-menu']:openMenu({
 		{ header = "Materjalide Vahetus", txt = "Vaheta siin materjale", isMenuHeader = true }, 
-		{ header = "✘ Sulge", txt = "", params = { event = "qb-recycle:Sell", args = -2 } },
-		{ header = "Metal Scrap", txt = "", params = { event = "qb-recyclejob:SellItems:MetalScrap", } },
-        { header = "Raud", txt = "", params = { event = "qb-recyclejob:SellItems:Iron", } },
-        { header = "Teras", txt = "", params = { event = "qb-recyclejob:SellItems:Steel", } },
-        { header = "Alumiinium", txt = "", params = { event = "qb-recyclejob:SellItems:Aluminum", } },
-        { header = "Vask", txt = "", params = { event = "qb-recyclejob:SellItems:Copper", } },
-        { header = "Plastik", txt = "", params = { event = "qb-recyclejob:SellItems:Plastic", } },
-        { header = "Klaas", txt = "", params = { event = "qb-recyclejob:SellItems:Glass", } },
-        { header = "Kumm", txt = "", params = { event = "qb-recyclejob:SellItems:Rubber", } },
-        { header = "Müü Sularaha Vastu", txt = "", params = { event = "qb-recyclejob:SellItems:Cash", } },
+		{ header = "✘ Sulge", txt = "", params = { event = "i13-recycle:Sell", args = -2 } },
+		{ header = "Metal Scrap", txt = "", params = { event = "i13-recyclejob:SellItems:MetalScrap", } },
+        { header = "Raud", txt = "", params = { event = "i13-recyclejob:SellItems:Iron", } },
+        { header = "Teras", txt = "", params = { event = "i13-recyclejob:SellItems:Steel", } },
+        { header = "Alumiinium", txt = "", params = { event = "i13-recyclejob:SellItems:Aluminum", } },
+        { header = "Vask", txt = "", params = { event = "i13-recyclejob:SellItems:Copper", } },
+        { header = "Plastik", txt = "", params = { event = "i13-recyclejob:SellItems:Plastic", } },
+        { header = "Klaas", txt = "", params = { event = "i13-recyclejob:SellItems:Glass", } },
+        { header = "Kumm", txt = "", params = { event = "i13-recyclejob:SellItems:Rubber", } },
+        { header = "Müü Sularaha Vastu", txt = "", params = { event = "i13-recyclejob:SellItems:Cash", } },
 	})
 end)
 -- METAL SCRAP
-RegisterNetEvent('qb-recyclejob:SellItems:MetalScrap', function()
+RegisterNetEvent('i13-recyclejob:SellItems:MetalScrap', function()
     exports['qb-menu']:openMenu({
 		{ header = "Materjalide Vahetus", txt = "Vaheta Metal Scrap'i vastu", isMenuHeader = true }, 
-		{ header = "", txt = "⬅ Tagasi", params = { event = "qb-recyclejob:SellItems", } },
-        { header = "Metal Scrap", txt = "Vahet KÕIK Metal Scrap'i vastu", params = { event = "qb-recyclejob:SellAll", args = 1 } },
-		{ header = "Metal Scrap", txt = "Vaheta ÜKS "..Config.ItemPrices["metalscrap"].price.. " Metal Scrap'i vastu", params = { event = "qb-recyclejob:SellOne", args = 2 } },
+		{ header = "", txt = "⬅ Tagasi", params = { event = "i13-recyclejob:SellItems", } },
+        { header = "Metal Scrap", txt = "Vahet KÕIK Metal Scrap'i vastu", params = { event = "i13-recyclejob:SellAll", args = 1 } },
+		{ header = "Metal Scrap", txt = "Vaheta ÜKS "..Config.ItemPrices["metalscrap"].price.. " Metal Scrap'i vastu", params = { event = "i13-recyclejob:SellOne", args = 2 } },
 	})
 end)
 -- IRON
-RegisterNetEvent('qb-recyclejob:SellItems:Iron', function()
+RegisterNetEvent('i13-recyclejob:SellItems:Iron', function()
     exports['qb-menu']:openMenu({
 		{ header = "Materjalide Vahetus", txt = "Vaheta Raua vastu", isMenuHeader = true }, 
-		{ header = "", txt = "⬅ Tagasi", params = { event = "qb-recyclejob:SellItems", } },
-        { header = "Raud", txt = "Vaheta KÕIK Raua vastu", params = { event = "qb-recyclejob:SellAll", args = 3 } },
-		{ header = "Raud", txt = "Vaheta ÜKS "..Config.ItemPrices["iron"].price.. " Raua vastu", params = { event = "qb-recyclejob:SellOne", args = 4 } },
+		{ header = "", txt = "⬅ Tagasi", params = { event = "i13-recyclejob:SellItems", } },
+        { header = "Raud", txt = "Vaheta KÕIK Raua vastu", params = { event = "i13-recyclejob:SellAll", args = 3 } },
+		{ header = "Raud", txt = "Vaheta ÜKS "..Config.ItemPrices["iron"].price.. " Raua vastu", params = { event = "i13-recyclejob:SellOne", args = 4 } },
 	})
 end)
 -- STEEL
-RegisterNetEvent('qb-recyclejob:SellItems:Steel', function()
+RegisterNetEvent('i13-recyclejob:SellItems:Steel', function()
     exports['qb-menu']:openMenu({
 		{ header = "Materjalide Vahetus", txt = "Vaheta Terase vastu", isMenuHeader = true }, 
-		{ header = "", txt = "⬅ Tagasi", params = { event = "qb-recyclejob:SellItems", } },
-        { header = "Teras", txt = "Vaheta KÕIK Terase vastu", params = { event = "qb-recyclejob:SellAll", args = 5 } },
-		{ header = "Teras", txt = "Vaheta ÜKS "..Config.ItemPrices["steel"].price.. " Terase vastu", params = { event = "qb-recyclejob:SellOne", args = 6 } },
+		{ header = "", txt = "⬅ Tagasi", params = { event = "i13-recyclejob:SellItems", } },
+        { header = "Teras", txt = "Vaheta KÕIK Terase vastu", params = { event = "i13-recyclejob:SellAll", args = 5 } },
+		{ header = "Teras", txt = "Vaheta ÜKS "..Config.ItemPrices["steel"].price.. " Terase vastu", params = { event = "i13-recyclejob:SellOne", args = 6 } },
 	})
 end)
 -- ALUMINUM
-RegisterNetEvent('qb-recyclejob:SellItems:Aluminum', function()
+RegisterNetEvent('i13-recyclejob:SellItems:Aluminum', function()
     exports['qb-menu']:openMenu({
 		{ header = "Materjalide Vahetus", txt = "Vaheta Alumiiniumi vastu", isMenuHeader = true }, 
-		{ header = "", txt = "⬅ Tagasi", params = { event = "qb-recyclejob:SellItems", } },
-        { header = "Alumiinium", txt = "Vaheta KÕIK Alumiiniumi vastu", params = { event = "qb-recyclejob:SellAll", args = 7 } },
-		{ header = "Alumiinium", txt = "Vaheta ÜKS "..Config.ItemPrices["aluminum"].price.. " Alumiinium vastu", params = { event = "qb-recyclejob:SellOne", args = 8 } },
+		{ header = "", txt = "⬅ Tagasi", params = { event = "i13-recyclejob:SellItems", } },
+        { header = "Alumiinium", txt = "Vaheta KÕIK Alumiiniumi vastu", params = { event = "i13-recyclejob:SellAll", args = 7 } },
+		{ header = "Alumiinium", txt = "Vaheta ÜKS "..Config.ItemPrices["aluminum"].price.. " Alumiinium vastu", params = { event = "i13-recyclejob:SellOne", args = 8 } },
 	})
 end)
 -- COPPER
-RegisterNetEvent('qb-recyclejob:SellItems:Copper', function()
+RegisterNetEvent('i13-recyclejob:SellItems:Copper', function()
     exports['qb-menu']:openMenu({
 		{ header = "Materjalide Vahetus", txt = "Vaheta Vase vastu", isMenuHeader = true }, 
-		{ header = "", txt = "⬅ Tagasi", params = { event = "qb-recyclejob:SellItems", } },
-        { header = "Vask", txt = "Vaheta KÕIK Vase vastu", params = { event = "qb-recyclejob:SellAll", args = 9 } },
-		{ header = "Vask", txt = "Vaheta ÜKS "..Config.ItemPrices["copper"].price.. " Vase vastu", params = { event = "qb-recyclejob:SellOne", args = 10 } },
+		{ header = "", txt = "⬅ Tagasi", params = { event = "i13-recyclejob:SellItems", } },
+        { header = "Vask", txt = "Vaheta KÕIK Vase vastu", params = { event = "i13-recyclejob:SellAll", args = 9 } },
+		{ header = "Vask", txt = "Vaheta ÜKS "..Config.ItemPrices["copper"].price.. " Vase vastu", params = { event = "i13-recyclejob:SellOne", args = 10 } },
 	})
 end)
 -- PLASTIC
-RegisterNetEvent('qb-recyclejob:SellItems:Plastic', function()
+RegisterNetEvent('i13-recyclejob:SellItems:Plastic', function()
     exports['qb-menu']:openMenu({
 		{ header = "Materjalide Vahetus", txt = "Vaheta Plastiku vastu", isMenuHeader = true }, 
-		{ header = "", txt = "⬅ Tagasi", params = { event = "qb-recyclejob:SellItems", } },
-        { header = "Plastik", txt = "Vaheta KÕIK Plastiku vastu", params = { event = "qb-recyclejob:SellAll", args = 11 } },
-		{ header = "Plastik", txt = "Vaheta ÜKS "..Config.ItemPrices["plastic"].price.. " Plastiku vastu", params = { event = "qb-recyclejob:SellOne", args = 12 } },
+		{ header = "", txt = "⬅ Tagasi", params = { event = "i13-recyclejob:SellItems", } },
+        { header = "Plastik", txt = "Vaheta KÕIK Plastiku vastu", params = { event = "i13-recyclejob:SellAll", args = 11 } },
+		{ header = "Plastik", txt = "Vaheta ÜKS "..Config.ItemPrices["plastic"].price.. " Plastiku vastu", params = { event = "i13-recyclejob:SellOne", args = 12 } },
 	})
 end)
 -- GLASS
-RegisterNetEvent('qb-recyclejob:SellItems:Glass', function()
+RegisterNetEvent('i13-recyclejob:SellItems:Glass', function()
     exports['qb-menu']:openMenu({
 		{ header = "Materjalide Vahetus", txt = "Vaheta Klaasi vastu", isMenuHeader = true }, 
-		{ header = "", txt = "⬅ Tagasi", params = { event = "qb-recyclejob:SellItems", } },
-        { header = "Klaas", txt = "Vaheta KÕIK Klaasi vastu", params = { event = "qb-recyclejob:SellAll", args = 13 } },
-		{ header = "Klaas", txt = "Vaheta ÜKS "..Config.ItemPrices["glass"].price.. " Klaasi vastu", params = { event = "qb-recyclejob:SellOne", args = 14 } },
+		{ header = "", txt = "⬅ Tagasi", params = { event = "i13-recyclejob:SellItems", } },
+        { header = "Klaas", txt = "Vaheta KÕIK Klaasi vastu", params = { event = "i13-recyclejob:SellAll", args = 13 } },
+		{ header = "Klaas", txt = "Vaheta ÜKS "..Config.ItemPrices["glass"].price.. " Klaasi vastu", params = { event = "i13-recyclejob:SellOne", args = 14 } },
 	})
 end)
 -- RUBBER
-RegisterNetEvent('qb-recyclejob:SellItems:Rubber', function()
+RegisterNetEvent('i13-recyclejob:SellItems:Rubber', function()
     exports['qb-menu']:openMenu({
 		{ header = "Materjalide Vahetus", txt = "Vaheta Kummi vastu", isMenuHeader = true }, 
-		{ header = "", txt = "⬅ Tagasi", params = { event = "qb-recyclejob:SellItems", } },
-        { header = "Kumm", txt = "Vaheta KÕIK Kummi vastu", params = { event = "qb-recyclejob:SellAll", args = 15 } },
-		{ header = "Kumm", txt = "Vaheta ÜKS "..Config.ItemPrices["rubber"].price.. " Kummi vastu", params = { event = "qb-recyclejob:SellOne", args = 16 } },
+		{ header = "", txt = "⬅ Tagasi", params = { event = "i13-recyclejob:SellItems", } },
+        { header = "Kumm", txt = "Vaheta KÕIK Kummi vastu", params = { event = "i13-recyclejob:SellAll", args = 15 } },
+		{ header = "Kumm", txt = "Vaheta ÜKS "..Config.ItemPrices["rubber"].price.. " Kummi vastu", params = { event = "i13-recyclejob:SellOne", args = 16 } },
 	})
 end)
 -- CASH
-RegisterNetEvent('qb-recyclejob:SellItems:Cash', function()
+RegisterNetEvent('i13-recyclejob:SellItems:Cash', function()
     exports['qb-menu']:openMenu({
 		{ header = "Materjalide Vahetus", txt = "Müü Materjale Sularaha vastu", isMenuHeader = true }, 
-		{ header = "", txt = "⬅ Tagasi", params = { event = "qb-recyclejob:SellItems", } },
-        { header = "Sularaha", txt = "Müü KÕIK Materjalid Sularaha vastu", params = { event = "qb-recyclejob:SellAll", args = 17 } },
+		{ header = "", txt = "⬅ Tagasi", params = { event = "i13-recyclejob:SellItems", } },
+        { header = "Sularaha", txt = "Müü KÕIK Materjalid Sularaha vastu", params = { event = "i13-recyclejob:SellAll", args = 17 } },
 	})
 end)

@@ -45,8 +45,8 @@ function disabledCarCheck(veh)
     return false
 end
 
-RegisterNetEvent('qb-kidnapping:client:SetKidnapping')
-AddEventHandler('qb-kidnapping:client:SetKidnapping', function(bool)
+RegisterNetEvent('i13-kidnapping:client:SetKidnapping')
+AddEventHandler('i13-kidnapping:client:SetKidnapping', function(bool)
     isKidnapping = bool
 end)
 
@@ -119,8 +119,8 @@ CreateThread(function()
     end
 end)
 
-RegisterNetEvent('qb-trunk:client:KidnapTrunk')
-AddEventHandler('qb-trunk:client:KidnapTrunk', function()
+RegisterNetEvent('i13-trunk:client:KidnapTrunk')
+AddEventHandler('i13-trunk:client:KidnapTrunk', function()
     closestPlayer, distance = QBCore.Functions.GetClosestPlayer()
     local closestPlayerPed = GetPlayerPed(closestPlayer)
     if (distance ~= -1 and distance < 2) then
@@ -130,7 +130,7 @@ AddEventHandler('qb-trunk:client:KidnapTrunk', function()
                 TriggerEvent('police:client:KidnapPlayer')
                 TriggerServerEvent("police:server:CuffPlayer", GetPlayerServerId(closestPlayer), false)
                 Wait(50)
-                TriggerServerEvent("qb-trunk:server:KidnapTrunk", GetPlayerServerId(closestPlayer), closestVehicle)
+                TriggerServerEvent("i13-trunk:server:KidnapTrunk", GetPlayerServerId(closestPlayer), closestVehicle)
             end
         else
             QBCore.Functions.Notify('Sa ei röövinud seda isikut', 'error')
@@ -138,15 +138,15 @@ AddEventHandler('qb-trunk:client:KidnapTrunk', function()
     end
 end)
 
-RegisterNetEvent('qb-trunk:client:KidnapGetIn')
-AddEventHandler('qb-trunk:client:KidnapGetIn', function(veh)
+RegisterNetEvent('i13-trunk:client:KidnapGetIn')
+AddEventHandler('i13-trunk:client:KidnapGetIn', function(veh)
     local ped = PlayerPedId()
     local closestVehicle = veh
     local vehClass = GetVehicleClass(closestVehicle)
     local plate = QBCore.Functions.GetPlate(closestVehicle)
 
     if Config.TrunkClasses[vehClass].allowed then
-        QBCore.Functions.TriggerCallback('qb-trunk:server:getTrunkBusy', function(isBusy)
+        QBCore.Functions.TriggerCallback('i13-trunk:server:getTrunkBusy', function(isBusy)
             if not disabledCarCheck(closestVehicle) then
                 if not inTrunk then
                     if not isBusy then
@@ -161,7 +161,7 @@ AddEventHandler('qb-trunk:client:KidnapGetIn', function(veh)
                                 TaskPlayAnim(ped, "fin_ext_p1-7", "cs_devin_dual-7", 8.0, 8.0, -1, 1, 999.0, 0, 0, 0)
                                 -- AttachEntityToEntity(ped, closestVehicle, -1, 0.0, -2.0, 0.5, 0.0, 0.0, 0.0, false, false, false, false, 20, true)
                                 AttachEntityToEntity(ped, closestVehicle, 0, offset.x, offset.y, offset.z, 0, 0, 40.0, 1, 1, 1, 1, 1, 1)
-                                TriggerServerEvent('qb-trunk:server:setTrunkBusy', plate, true)
+                                TriggerServerEvent('i13-trunk:server:setTrunkBusy', plate, true)
                                 inTrunk = true
                                 Wait(500)
                                 SetVehicleDoorShut(closestVehicle, 5, false)
@@ -182,7 +182,7 @@ AddEventHandler('qb-trunk:client:KidnapGetIn', function(veh)
                                 DetachEntity(ped, true, true)
                                 ClearPedTasks(ped)
                                 inTrunk = false
-                                TriggerServerEvent('qb-smallresources:trunk:server:setTrunkBusy', plate, nil)
+                                TriggerServerEvent('i13-smallresources:trunk:server:setTrunkBusy', plate, nil)
                                 SetEntityCoords(ped, vehCoords.x, vehCoords.y, vehCoords.z)
                                 SetEntityCollision(PlayerPedId(), true, true)
                                 TrunkCam(false)
@@ -205,8 +205,8 @@ AddEventHandler('qb-trunk:client:KidnapGetIn', function(veh)
     end
 end)
 
-RegisterNetEvent('qb-trunk:client:GetIn')
-AddEventHandler('qb-trunk:client:GetIn', function(isKidnapped)
+RegisterNetEvent('i13-trunk:client:GetIn')
+AddEventHandler('i13-trunk:client:GetIn', function(isKidnapped)
     local ped = PlayerPedId()
     local closestVehicle = getNearestVeh()
 
@@ -214,7 +214,7 @@ AddEventHandler('qb-trunk:client:GetIn', function(isKidnapped)
         local vehClass = GetVehicleClass(closestVehicle)
         local plate = QBCore.Functions.GetPlate(closestVehicle)
         if Config.TrunkClasses[vehClass].allowed then
-            QBCore.Functions.TriggerCallback('qb-trunk:server:getTrunkBusy', function(isBusy)
+            QBCore.Functions.TriggerCallback('i13-trunk:server:getTrunkBusy', function(isBusy)
                 if not disabledCarCheck(closestVehicle) then
                     if not inTrunk then
                         if not isBusy then
@@ -228,7 +228,7 @@ AddEventHandler('qb-trunk:client:GetIn', function(isKidnapped)
                                 TaskPlayAnim(ped, "fin_ext_p1-7", "cs_devin_dual-7", 8.0, 8.0, -1, 1, 999.0, 0, 0, 0)
                                 -- AttachEntityToEntity(ped, closestVehicle, -1, 0.0, -2.0, 0.5, 0.0, 0.0, 0.0, false, false, false, false, 20, true)
                                 AttachEntityToEntity(ped, closestVehicle, 0, offset.x, offset.y, offset.z, 0, 0, 40.0, 1, 1, 1, 1, 1, 1)
-                                TriggerServerEvent('qb-trunk:server:setTrunkBusy', plate, true)
+                                TriggerServerEvent('i13-trunk:server:setTrunkBusy', plate, true)
                                 inTrunk = true
                                 Wait(500)
                                 SetVehicleDoorShut(closestVehicle, 5, false)
@@ -274,7 +274,7 @@ CreateThread(function()
                             DetachEntity(ped, true, true)
                             ClearPedTasks(ped)
                             inTrunk = false
-                            TriggerServerEvent('qb-trunk:server:setTrunkBusy', plate, false)
+                            TriggerServerEvent('i13-trunk:server:setTrunkBusy', plate, false)
                             SetEntityCoords(ped, vehCoords.x, vehCoords.y, vehCoords.z)
                             SetEntityCollision(PlayerPedId(), true, true)
                             TrunkCam(false)
@@ -287,7 +287,7 @@ CreateThread(function()
                         DrawText3Ds(drawPos.x, drawPos.y, drawPos.z + 0.5, '[G] Sulge Pagasiruum')
                         if IsControlJustPressed(0, 47) then
                             if not IsVehicleSeatFree(vehicle, -1) then
-                                TriggerServerEvent('qb-radialmenu:trunk:server:Door', false, plate, 5)
+                                TriggerServerEvent('i13-radialmenu:trunk:server:Door', false, plate, 5)
                             else
                                 SetVehicleDoorShut(vehicle, 5, false)
                             end
@@ -296,7 +296,7 @@ CreateThread(function()
                         DrawText3Ds(drawPos.x, drawPos.y, drawPos.z + 0.5, '[G] Ava Pagasiruum')
                         if IsControlJustPressed(0, 47) then
                             if not IsVehicleSeatFree(vehicle, -1) then
-                                TriggerServerEvent('qb-radialmenu:trunk:server:Door', true, plate, 5)
+                                TriggerServerEvent('i13-radialmenu:trunk:server:Door', true, plate, 5)
                             else
                                 SetVehicleDoorOpen(vehicle, 5, false, false)
                             end

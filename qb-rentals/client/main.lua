@@ -61,12 +61,12 @@ local comma_value = function(n) -- credit http://richard.warburton.it
     return left..(num:reverse():gsub('(%d%d%d)','%1,'):reverse())..right
 end
 
-RegisterNetEvent('qb-rental:client:openMenu', function(data)
+RegisterNetEvent('i13-rental:client:openMenu', function(data)
     menu = data.MenuType
     license = data.LicenseType
 
     if license == 'driving' then
-        QBCore.Functions.TriggerCallback('qb-rental:server:checkLicense', function(result)
+        QBCore.Functions.TriggerCallback('i13-rental:server:checkLicense', function(result)
             if result then
                 local vehMenu = {
                     {
@@ -79,7 +79,7 @@ RegisterNetEvent('qb-rental:client:openMenu', function(data)
                         header = 'Tagasta Sõiduk',
                         txt = 'Tagasta renditud sõiduk',
                         params = {
-                            event = "qb-rental:client:return",
+                            event = "i13-rental:client:return",
                             args = {
                                 menuType = data.MenuType
                             }
@@ -93,7 +93,7 @@ RegisterNetEvent('qb-rental:client:openMenu', function(data)
                             header = name,
                             txt = ("$%s"):format(comma_value(vehicles.land[k].money)),
                             params = {
-                                event = "qb-rental:client:spawncar",
+                                event = "i13-rental:client:spawncar",
                                 args = {
                                     model = vehicles.land[k].model,
                                     money = vehicles.land[k].money,
@@ -108,7 +108,7 @@ RegisterNetEvent('qb-rental:client:openMenu', function(data)
             end
         end, 'driving')
     elseif license == 'pilot' then
-        QBCore.Functions.TriggerCallback('qb-rental:server:checkLicense', function(result)
+        QBCore.Functions.TriggerCallback('i13-rental:server:checkLicense', function(result)
             if result then
                 local vehMenu = {
                     {
@@ -121,7 +121,7 @@ RegisterNetEvent('qb-rental:client:openMenu', function(data)
                         header = 'Tagasta Helikopter',
                         txt = 'Tagasta renditud helikopter',
                         params = {
-                            event = "qb-rental:client:return",
+                            event = "i13-rental:client:return",
                             args = {
                                 menuType = data.MenuType
                             }
@@ -135,7 +135,7 @@ RegisterNetEvent('qb-rental:client:openMenu', function(data)
                             header = name,
                             txt = ("$%s"):format(comma_value(vehicles.air[k].money)),
                             params = {
-                                event = "qb-rental:client:spawncar",
+                                event = "i13-rental:client:spawncar",
                                 args = {
                                     model = vehicles.air[k].model,
                                     money = vehicles.air[k].money,
@@ -162,7 +162,7 @@ RegisterNetEvent('qb-rental:client:openMenu', function(data)
                 header = 'Tagasta Paat',
                 txt = 'Tagasta renditud paat',
                 params = {
-                    event = "qb-rental:client:return",
+                    event = "i13-rental:client:return",
                     args = {
                         menuType = data.MenuType
                     }
@@ -176,7 +176,7 @@ RegisterNetEvent('qb-rental:client:openMenu', function(data)
                     header = name,
                     txt = ("$%s"):format(comma_value(vehicles.sea[k].money)),
                     params = {
-                        event = "qb-rental:client:spawncar",
+                        event = "i13-rental:client:spawncar",
                         args = {
                             model = vehicles.sea[k].model,
                             money = vehicles.sea[k].money,
@@ -200,7 +200,7 @@ RegisterNetEvent('qb-rental:client:openMenu', function(data)
     --         header = 'Tagasta Sõiduk',
     --         txt = 'Tagasta renditud sõiduk',
     --         params = {
-    --             event = "qb-rental:client:return",
+    --             event = "i13-rental:client:return",
     --             args = {
     --                 menuType = data.MenuType
     --             }
@@ -214,7 +214,7 @@ RegisterNetEvent('qb-rental:client:openMenu', function(data)
     --             header = name,
     --             txt = ("$%s"):format(comma_value(vehicles.land[k].money)),
     --             params = {
-    --                 event = "qb-rental:client:spawncar",
+    --                 event = "i13-rental:client:spawncar",
     --                 args = {
     --                     model = vehicles.land[k].model,
     --                     money = vehicles.land[k].money,
@@ -227,7 +227,7 @@ RegisterNetEvent('qb-rental:client:openMenu', function(data)
     --         header = 'Tagasta Helikopter',
     --         txt = 'Tagasta renditud helikopter',
     --         params = {
-    --             event = "qb-rental:client:return",
+    --             event = "i13-rental:client:return",
     --             args = {
     --                 menuType = data.MenuType
     --             }
@@ -241,7 +241,7 @@ RegisterNetEvent('qb-rental:client:openMenu', function(data)
     --             header = name,
     --             txt = ("$%s"):format(comma_value(vehicles.air[k].money)),
     --             params = {
-    --                 event = "qb-rental:client:spawncar",
+    --                 event = "i13-rental:client:spawncar",
     --                 args = {
     --                     model = vehicles.air[k].model,
     --                     money = vehicles.air[k].money,
@@ -254,7 +254,7 @@ RegisterNetEvent('qb-rental:client:openMenu', function(data)
     --         header = 'Tagasta Paat',
     --         txt = 'Tagasta renditud paat',
     --         params = {
-    --             event = "qb-rental:client:return",
+    --             event = "i13-rental:client:return",
     --             args = {
     --                 menuType = data.MenuType
     --             }
@@ -268,7 +268,7 @@ RegisterNetEvent('qb-rental:client:openMenu', function(data)
     --             header = name,
     --             txt = ("$%s"):format(comma_value(vehicles.sea[k].money)),
     --             params = {
-    --                 event = "qb-rental:client:spawncar",
+    --                 event = "i13-rental:client:spawncar",
     --                 args = {
     --                     model = vehicles.sea[k].model,
     --                     money = vehicles.sea[k].money,
@@ -328,7 +328,7 @@ CreateThread(function()
     SpawnNPC()
 end)
 
-RegisterNetEvent('qb-rental:client:spawncar', function(data)
+RegisterNetEvent('i13-rental:client:spawncar', function(data)
     local player = PlayerPedId()
     local money = data.money
     local model = data.model
@@ -349,7 +349,7 @@ RegisterNetEvent('qb-rental:client:spawncar', function(data)
         end  
     end
 
-    QBCore.Functions.TriggerCallback("qb-rental:server:CashCheck",function(money)
+    QBCore.Functions.TriggerCallback("i13-rental:server:CashCheck",function(money)
         if money then
             if menu == "vehicle" then
                 QBCore.Functions.SpawnVehicle(model, function(vehicle)
@@ -387,21 +387,21 @@ RegisterNetEvent('qb-rental:client:spawncar', function(data)
             local vehicleLabel = GetDisplayNameFromVehicleModel(GetEntityModel(vehicle))
             vehicleLabel = GetLabelText(vehicleLabel)
             local plate = GetVehicleNumberPlateText(vehicle)
-            TriggerServerEvent('qb-rental:server:rentalpapers', plate, vehicleLabel)
+            TriggerServerEvent('i13-rental:server:rentalpapers', plate, vehicleLabel)
         else
             QBCore.Functions.Notify('Sul ei ole piisavalt sularaha', "error", 4500)
         end
     end, money)
 end)
 
-RegisterNetEvent('qb-rental:client:return', function(data)
+RegisterNetEvent('i13-rental:client:return', function(data)
     if data.menuType == 'vehicle' then
         if SpawnCar then
             local Player = QBCore.Functions.GetPlayerData()
             local car = GetVehiclePedIsIn(PlayerPedId(),true)
             local plate = QBCore.Functions.GetPlate(car)
             QBCore.Functions.Notify('Sõiduk Tagastatud', 'success')
-            TriggerServerEvent('qb-rental:server:removepapers', plate)
+            TriggerServerEvent('i13-rental:server:removepapers', plate)
             NetworkFadeOutEntity(car, true,false)
             Wait(2000)
             QBCore.Functions.DeleteVehicle(car)
@@ -415,7 +415,7 @@ RegisterNetEvent('qb-rental:client:return', function(data)
             local car = GetVehiclePedIsIn(PlayerPedId(),true)
             local plate = QBCore.Functions.GetPlate(car)
             QBCore.Functions.Notify('Helikopter Tagastatud', 'success')
-            TriggerServerEvent('qb-rental:server:removepapers', plate)
+            TriggerServerEvent('i13-rental:server:removepapers', plate)
             NetworkFadeOutEntity(car, true,false)
             Wait(2000)
             QBCore.Functions.DeleteVehicle(car)
@@ -429,7 +429,7 @@ RegisterNetEvent('qb-rental:client:return', function(data)
             local car = GetVehiclePedIsIn(PlayerPedId(),true)
             local plate = QBCore.Functions.GetPlate(car)
             QBCore.Functions.Notify('Paat Tagastatud', 'success')
-            TriggerServerEvent('qb-rental:server:removepapers', plate)
+            TriggerServerEvent('i13-rental:server:removepapers', plate)
             NetworkFadeOutEntity(car, true,false)
             Wait(2000)
             QBCore.Functions.DeleteVehicle(car)
@@ -462,7 +462,7 @@ CreateThread(function()
         options = {
             {
                 type = 'client',
-                event = 'qb-rental:client:openMenu',
+                event = 'i13-rental:client:openMenu',
                 icon = 'fas fa-car',
                 label = 'Rendi Sõiduk',
                 MenuType = 'vehicle',
@@ -479,7 +479,7 @@ CreateThread(function()
         options = {
             {
                 type = 'client',
-                event = 'qb-rental:client:openMenu',
+                event = 'i13-rental:client:openMenu',
                 icon = 'fas fa-plane',
                 label = 'Rendi Helikopter',
                 MenuType = 'aircraft',
@@ -496,7 +496,7 @@ CreateThread(function()
         options = {
             {
                 type = 'client',
-                event = 'qb-rental:client:openMenu',
+                event = 'i13-rental:client:openMenu',
                 icon = 'fas fa-ship',
                 label = 'Rendi Paat',
                 MenuType = 'boat',

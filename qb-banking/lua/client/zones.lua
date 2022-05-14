@@ -6,7 +6,7 @@ local function listenBankControls()
     CreateThread(function()
         while textShown do
             if IsControlJustReleased(0, 38) then
-                TriggerEvent('qb-banking:client:bank:openUI')
+                TriggerEvent('i13-banking:client:bank:openUI')
                 textShown = false
             end
             Wait(1)

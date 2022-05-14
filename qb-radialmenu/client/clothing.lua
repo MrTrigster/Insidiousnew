@@ -795,7 +795,7 @@ function ResetClothing(anim)
 	LastEquipped = {}
 end
 
-RegisterNetEvent('qb-radialmenu:ResetClothing', ResetClothing)
+RegisterNetEvent('i13-radialmenu:ResetClothing', ResetClothing)
 
 function ToggleClothing(whic, extra)
 	local which = whic
@@ -880,7 +880,7 @@ function ToggleClothing(whic, extra)
 	Notify("You are already wearing that.") return false
 end
 
-RegisterNetEvent('qb-radialmenu:ToggleClothing', ToggleClothing)
+RegisterNetEvent('i13-radialmenu:ToggleClothing', ToggleClothing)
 
 function ToggleProps(whic)
 	local which = whic
@@ -924,7 +924,7 @@ function ToggleProps(whic)
 	end
 end
 
-RegisterNetEvent('qb-radialmenu:ToggleProps', ToggleProps)
+RegisterNetEvent('i13-radialmenu:ToggleProps', ToggleProps)
 
 for k,v in pairs(Config.Commands) do
 	RegisterCommand(k, v.Func)

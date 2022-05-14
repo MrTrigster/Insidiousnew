@@ -39,7 +39,7 @@ function ToggleUI()
     if (not bMenuOpen) then
         SetNuiFocus(false, false)
     else
-        QBCore.Functions.TriggerCallback("qb-banking:server:GetBankData", function(data, transactions)
+        QBCore.Functions.TriggerCallback("i13-banking:server:GetBankData", function(data, transactions)
             local PlayerBanks = json.encode(data)
 
 
@@ -64,7 +64,7 @@ RegisterNUICallback("DepositCash", function(data, cb)
         return
     end
 
-    TriggerServerEvent("qb-banking:server:Deposit", data.account, data.name, data.amount, (data.note ~= nil and data.note or ""))
+    TriggerServerEvent("i13-banking:server:Deposit", data.account, data.name, data.amount, (data.note ~= nil and data.note or ""))
 end)
 
 RegisterNUICallback("WithdrawCash", function(data, cb)
@@ -76,7 +76,7 @@ RegisterNUICallback("WithdrawCash", function(data, cb)
         return
     end
 
-    TriggerServerEvent("qb-banking:server:Withdraw", data.account, data.name, data.amount, (data.note ~= nil and data.note or ""))
+    TriggerServerEvent("i13-banking:server:Withdraw", data.account, data.name, data.amount, (data.note ~= nil and data.note or ""))
 end)
 
 RegisterNUICallback("TransferCash", function(data, cb)
@@ -92,26 +92,26 @@ RegisterNUICallback("TransferCash", function(data, cb)
         return
     end
 
-    TriggerServerEvent("qb-banking:server:Transfer", data.target, data.account, data.name, data.amount, (data.note ~= nil and data.note or ""))
+    TriggerServerEvent("i13-banking:server:Transfer", data.target, data.account, data.name, data.amount, (data.note ~= nil and data.note or ""))
 end)
 
 
 
 --// Net Events \\--
-RegisterNetEvent("qb-banking:client:Notify")
-AddEventHandler("qb-banking:client:Notify", function(type, msg)
+RegisterNetEvent("i13-banking:client:Notify")
+AddEventHandler("i13-banking:client:Notify", function(type, msg)
     if (bMenuOpen) then
         SendNUIMessage({type = 'notification', msg_type = type, message = msg})
     end
 end)
 
-RegisterNetEvent("qb-banking:client:UpdateTransactions")
-AddEventHandler("qb-banking:client:UpdateTransactions", function(transactions)
+RegisterNetEvent("i13-banking:client:UpdateTransactions")
+AddEventHandler("i13-banking:client:UpdateTransactions", function(transactions)
     if (bMenuOpen) then
 
         SendNUIMessage({type = 'update_transactions', transactions = json.encode(transactions)})
 
-        QBCore.Functions.TriggerCallback("qb-banking:server:GetBankData", function(data, transactions)
+        QBCore.Functions.TriggerCallback("i13-banking:server:GetBankData", function(data, transactions)
             local PlayerBanks = json.encode(data)
             SendNUIMessage({type = "refresh_balances", accounts = PlayerBanks})
         end)

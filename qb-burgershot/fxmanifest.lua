@@ -2,7 +2,7 @@ fx_version 'cerulean'
 game 'gta5'
 
 author 'DrB1ackBeard'
-description 'qb-burgershot for QBCore Created By DrB1ackBeard'
+description 'i13-burgershot for QBCore Created By DrB1ackBeard'
 version '2.2.0'
 
 shared_script 'config.lua'

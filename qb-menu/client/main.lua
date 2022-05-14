@@ -48,11 +48,11 @@ end
 
 -- Events
 
-RegisterNetEvent('qb-menu:client:openMenu', function(data)
+RegisterNetEvent('i13-menu:client:openMenu', function(data)
     openMenu(data)
 end)
 
-RegisterNetEvent('qb-menu:client:closeMenu', function()
+RegisterNetEvent('i13-menu:client:closeMenu', function()
     closeMenu()
 end)
 

@@ -11,7 +11,7 @@ Config.MenuItems = {
             --     title = 'Anna Kontaktandmed',
             --     icon = 'address-book',
             --     type = 'client',
-            --     event = 'qb-phone:client:GiveContactDetails',
+            --     event = 'i13-phone:client:GiveContactDetails',
             --     shouldClose = true
             -- }, 
             {
@@ -19,7 +19,7 @@ Config.MenuItems = {
                 title = 'Müü Narkot',
                 icon = 'cannabis',
                 type = 'client',
-                event = 'qb-drugs:client:cornerselling',
+                event = 'i13-drugs:client:cornerselling',
                 shouldClose = true
             }, {
                 id = 'clothesmenu',
@@ -31,49 +31,49 @@ Config.MenuItems = {
                         title = 'Hair',
                         icon = 'user',
                         type = 'client',
-                        event = 'qb-radialmenu:ToggleClothing',
+                        event = 'i13-radialmenu:ToggleClothing',
                         shouldClose = true
                     }, {
                         id = 'Ear',
                         title = 'Ear Piece',
                         icon = 'deaf',
                         type = 'client',
-                        event = 'qb-radialmenu:ToggleProps',
+                        event = 'i13-radialmenu:ToggleProps',
                         shouldClose = true
                     }, {
                         id = 'Neck',
                         title = 'Neck',
                         icon = 'user-tie',
                         type = 'client',
-                        event = 'qb-radialmenu:ToggleClothing',
+                        event = 'i13-radialmenu:ToggleClothing',
                         shouldClose = true
                     }, {
                         id = 'Top',
                         title = 'Top',
                         icon = 'tshirt',
                         type = 'client',
-                        event = 'qb-radialmenu:ToggleClothing',
+                        event = 'i13-radialmenu:ToggleClothing',
                         shouldClose = true
                     }, {
                         id = 'Shirt',
                         title = 'Shirt',
                         icon = 'tshirt',
                         type = 'client',
-                        event = 'qb-radialmenu:ToggleClothing',
+                        event = 'i13-radialmenu:ToggleClothing',
                         shouldClose = true
                     }, {
                         id = 'Pants',
                         title = 'Pants',
                         icon = 'user',
                         type = 'client',
-                        event = 'qb-radialmenu:ToggleClothing',
+                        event = 'i13-radialmenu:ToggleClothing',
                         shouldClose = true
                     }, {
                         id = 'Shoes',
                         title = 'Shoes',
                         icon = 'shoe-prints',
                         type = 'client',
-                        event = 'qb-radialmenu:ToggleClothing',
+                        event = 'i13-radialmenu:ToggleClothing',
                         shouldClose = true
                     }, {
                         id = 'meer',
@@ -85,63 +85,63 @@ Config.MenuItems = {
                                 title = 'Hat',
                                 icon = 'hat-cowboy-side',
                                 type = 'client',
-                                event = 'qb-radialmenu:ToggleProps',
+                                event = 'i13-radialmenu:ToggleProps',
                                 shouldClose = true
                             }, {
                                 id = 'Glasses',
                                 title = 'Glasses',
                                 icon = 'glasses',
                                 type = 'client',
-                                event = 'qb-radialmenu:ToggleProps',
+                                event = 'i13-radialmenu:ToggleProps',
                                 shouldClose = true
                             }, {
                                 id = 'Visor',
                                 title = 'Visor',
                                 icon = 'hat-cowboy-side',
                                 type = 'client',
-                                event = 'qb-radialmenu:ToggleProps',
+                                event = 'i13-radialmenu:ToggleProps',
                                 shouldClose = true
                             }, {
                                 id = 'Mask',
                                 title = 'Mask',
                                 icon = 'theater-masks',
                                 type = 'client',
-                                event = 'qb-radialmenu:ToggleClothing',
+                                event = 'i13-radialmenu:ToggleClothing',
                                 shouldClose = true
                             }, {
                                 id = 'Vest',
                                 title = 'Vest',
                                 icon = 'vest',
                                 type = 'client',
-                                event = 'qb-radialmenu:ToggleClothing',
+                                event = 'i13-radialmenu:ToggleClothing',
                                 shouldClose = true
                             }, {
                                 id = 'Bag',
                                 title = 'Bag',
                                 icon = 'shopping-bag',
                                 type = 'client',
-                                event = 'qb-radialmenu:ToggleClothing',
+                                event = 'i13-radialmenu:ToggleClothing',
                                 shouldClose = true
                             }, {
                                 id = 'Bracelet',
                                 title = 'Bracelet',
                                 icon = 'user',
                                 type = 'client',
-                                event = 'qb-radialmenu:ToggleProps',
+                                event = 'i13-radialmenu:ToggleProps',
                                 shouldClose = true
                             }, {
                                 id = 'Watch',
                                 title = 'Watch',
                                 icon = 'stopwatch',
                                 type = 'client',
-                                event = 'qb-radialmenu:ToggleProps',
+                                event = 'i13-radialmenu:ToggleProps',
                                 shouldClose = true
                             }, {
                                 id = 'Gloves',
                                 title = 'Gloves',
                                 icon = 'mitten',
                                 type = 'client',
-                                event = 'qb-radialmenu:ToggleClothing',
+                                event = 'i13-radialmenu:ToggleClothing',
                                 shouldClose = true
                             }
                         }
@@ -176,7 +176,7 @@ Config.MenuItems = {
                 title = 'Flipi Sõiduk',
                 icon = 'truck-pickup',
                 type = 'client',
-                event = 'qb-radialmenu:client:flipvehicle',
+                event = 'i13-radialmenu:client:flipvehicle',
                 shouldClose = true
              }
         }
@@ -212,91 +212,91 @@ Config.MenuItems = {
                         title = 'Extra 1',
                         icon = 'box-open',
                         type = 'client',
-                        event = 'qb-radialmenu:client:setExtra',
+                        event = 'i13-radialmenu:client:setExtra',
                         shouldClose = false
                     }, {
                         id = 'extra2',
                         title = 'Extra 2',
                         icon = 'box-open',
                         type = 'client',
-                        event = 'qb-radialmenu:client:setExtra',
+                        event = 'i13-radialmenu:client:setExtra',
                         shouldClose = false
                     }, {
                         id = 'extra3',
                         title = 'Extra 3',
                         icon = 'box-open',
                         type = 'client',
-                        event = 'qb-radialmenu:client:setExtra',
+                        event = 'i13-radialmenu:client:setExtra',
                         shouldClose = false
                     }, {
                         id = 'extra4',
                         title = 'Extra 4',
                         icon = 'box-open',
                         type = 'client',
-                        event = 'qb-radialmenu:client:setExtra',
+                        event = 'i13-radialmenu:client:setExtra',
                         shouldClose = false
                     }, {
                         id = 'extra5',
                         title = 'Extra 5',
                         icon = 'box-open',
                         type = 'client',
-                        event = 'qb-radialmenu:client:setExtra',
+                        event = 'i13-radialmenu:client:setExtra',
                         shouldClose = false
                     }, {
                         id = 'extra6',
                         title = 'Extra 6',
                         icon = 'box-open',
                         type = 'client',
-                        event = 'qb-radialmenu:client:setExtra',
+                        event = 'i13-radialmenu:client:setExtra',
                         shouldClose = false
                     }, {
                         id = 'extra7',
                         title = 'Extra 7',
                         icon = 'box-open',
                         type = 'client',
-                        event = 'qb-radialmenu:client:setExtra',
+                        event = 'i13-radialmenu:client:setExtra',
                         shouldClose = false
                     }, {
                         id = 'extra8',
                         title = 'Extra 8',
                         icon = 'box-open',
                         type = 'client',
-                        event = 'qb-radialmenu:client:setExtra',
+                        event = 'i13-radialmenu:client:setExtra',
                         shouldClose = false
                     }, {
                         id = 'extra9',
                         title = 'Extra 9',
                         icon = 'box-open',
                         type = 'client',
-                        event = 'qb-radialmenu:client:setExtra',
+                        event = 'i13-radialmenu:client:setExtra',
                         shouldClose = false
                     }, {
                         id = 'extra10',
                         title = 'Extra 10',
                         icon = 'box-open',
                         type = 'client',
-                        event = 'qb-radialmenu:client:setExtra',
+                        event = 'i13-radialmenu:client:setExtra',
                         shouldClose = false
                     }, {
                         id = 'extra11',
                         title = 'Extra 11',
                         icon = 'box-open',
                         type = 'client',
-                        event = 'qb-radialmenu:client:setExtra',
+                        event = 'i13-radialmenu:client:setExtra',
                         shouldClose = false
                     }, {
                         id = 'extra12',
                         title = 'Extra 12',
                         icon = 'box-open',
                         type = 'client',
-                        event = 'qb-radialmenu:client:setExtra',
+                        event = 'i13-radialmenu:client:setExtra',
                         shouldClose = false
                     }, {
                         id = 'extra13',
                         title = 'Extra 13',
                         icon = 'box-open',
                         type = 'client',
-                        event = 'qb-radialmenu:client:setExtra',
+                        event = 'i13-radialmenu:client:setExtra',
                         shouldClose = false
                     },
                 },
@@ -352,42 +352,42 @@ Config.JobInteractions = {
                     title = 'Kanal 1',
                     icon = 'info-circle',
                     type = 'client',
-                    event = 'qb-radio:client:JoinRadioChannel1',
+                    event = 'i13-radio:client:JoinRadioChannel1',
                     shouldClose = true
                 }, {
                     id = 'emsjoinradio2',
                     title = 'Kanal 2',
                     icon = 'info-circle',
                     type = 'client',
-                    event = 'qb-radio:client:JoinRadioChannel2',
+                    event = 'i13-radio:client:JoinRadioChannel2',
                     shouldClose = true
                 }, {
                     id = 'emsjoinradio3',
                     title = 'Kanal 3',
                     icon = 'info-circle',
                     type = 'client',
-                    event = 'qb-radio:client:JoinRadioChannel3',
+                    event = 'i13-radio:client:JoinRadioChannel3',
                     shouldClose = true
                 }, {
                     id = 'emsjoinradio4',
                     title = 'Kanal 4',
                     icon = 'info-circle',
                     type = 'client',
-                    event = 'qb-radio:client:JoinRadioChannel4',
+                    event = 'i13-radio:client:JoinRadioChannel4',
                     shouldClose = true
                 }, {
                     id = 'emsjoinradio5',
                     title = 'Kanal 5',
                     icon = 'info-circle',
                     type = 'client',
-                    event = 'qb-radio:client:JoinRadioChannel5',
+                    event = 'i13-radio:client:JoinRadioChannel5',
                     shouldClose = true
                 }, {
                     id = 'emsjoinradio6',
                     title = 'Kanal 6',
                     icon = 'info-circle',
                     type = 'client',
-                    event = 'qb-radio:client:JoinRadioChannel6',
+                    event = 'i13-radio:client:JoinRadioChannel6',
                     shouldClose = true
                 }
             }
@@ -399,21 +399,21 @@ Config.JobInteractions = {
             title = 'Näita/Peida Mõõtja',
             icon = 'eye-slash',
             type = 'client',
-            event = 'qb-taxi:client:toggleMeter',
+            event = 'i13-taxi:client:toggleMeter',
             shouldClose = false
         }, {
             id = 'togglemouse',
             title = 'Alusta/Peata Mõõtja',
             icon = 'hourglass-start',
             type = 'client',
-            event = 'qb-taxi:client:enableMeter',
+            event = 'i13-taxi:client:enableMeter',
             shouldClose = true
         }, {
             id = 'npc_mission',
             title = 'NPC Sõit',
             icon = 'taxi',
             type = 'client',
-            event = 'qb-taxi:client:DoTaxiNpc',
+            event = 'i13-taxi:client:DoTaxiNpc',
             shouldClose = true
         }
     },
@@ -423,7 +423,7 @@ Config.JobInteractions = {
             title = 'Vea Sõidukit',
             icon = 'truck-pickup',
             type = 'client',
-            event = 'qb-tow:client:TowVehicle',
+            event = 'i13-tow:client:TowVehicle',
             shouldClose = true
         }
     },
@@ -499,42 +499,42 @@ Config.JobInteractions = {
                     title = 'Kanal 1',
                     icon = 'info-circle',
                     type = 'client',
-                    event = 'qb-radio:client:JoinRadioChannel1',
+                    event = 'i13-radio:client:JoinRadioChannel1',
                     shouldClose = true
                 }, {
                     id = 'pdjoinradio2',
                     title = 'Kanal 2',
                     icon = 'info-circle',
                     type = 'client',
-                    event = 'qb-radio:client:JoinRadioChannel2',
+                    event = 'i13-radio:client:JoinRadioChannel2',
                     shouldClose = true
                 }, {
                     id = 'pdjoinradio3',
                     title = 'Kanal 3',
                     icon = 'info-circle',
                     type = 'client',
-                    event = 'qb-radio:client:JoinRadioChannel3',
+                    event = 'i13-radio:client:JoinRadioChannel3',
                     shouldClose = true
                 }, {
                     id = 'pdjoinradio4',
                     title = 'Kanal 4',
                     icon = 'info-circle',
                     type = 'client',
-                    event = 'qb-radio:client:JoinRadioChannel4',
+                    event = 'i13-radio:client:JoinRadioChannel4',
                     shouldClose = true
                 }, {
                     id = 'pdjoinradio5',
                     title = 'Kanal 5',
                     icon = 'info-circle',
                     type = 'client',
-                    event = 'qb-radio:client:JoinRadioChannel5',
+                    event = 'i13-radio:client:JoinRadioChannel5',
                     shouldClose = true
                 }, {
                     id = 'pdjoinradio6',
                     title = 'Kanal 6',
                     icon = 'info-circle',
                     type = 'client',
-                    event = 'qb-radio:client:JoinRadioChannel6',
+                    event = 'i13-radio:client:JoinRadioChannel6',
                     shouldClose = true
                 }
             }
@@ -595,7 +595,7 @@ Config.JobInteractions = {
     --         title = 'Alusta/Lõpeta Müük',
     --         icon = 'hotdog',
     --         type = 'client',
-    --         event = 'qb-hotdogjob:client:ToggleSell',
+    --         event = 'i13-hotdogjob:client:ToggleSell',
     --         shouldClose = true
     --     }
     -- }

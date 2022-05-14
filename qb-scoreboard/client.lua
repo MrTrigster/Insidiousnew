@@ -56,21 +56,21 @@ end
 RegisterNetEvent('QBCore:Client:OnPlayerLoaded')
 AddEventHandler('QBCore:Client:OnPlayerLoaded', function()
     isLoggedIn = true
-    QBCore.Functions.TriggerCallback('qb-scoreboard:server:GetConfig', function(config)
+    QBCore.Functions.TriggerCallback('i13-scoreboard:server:GetConfig', function(config)
         Config.IllegalActions = config
     end)
 end)
 
-RegisterNetEvent('qb-scoreboard:client:SetActivityBusy')
-AddEventHandler('qb-scoreboard:client:SetActivityBusy', function(activity, busy)
+RegisterNetEvent('i13-scoreboard:client:SetActivityBusy')
+AddEventHandler('i13-scoreboard:client:SetActivityBusy', function(activity, busy)
     Config.IllegalActions[activity].busy = busy
 end)
 
 RegisterCommand('scoreboard', function()
     if not scoreboardOpen then
-        QBCore.Functions.TriggerCallback('qb-scoreboard:server:GetPlayersArrays', function(playerList)
-            QBCore.Functions.TriggerCallback('qb-scoreboard:server:GetActivity', function(cops, ambulance)
-                QBCore.Functions.TriggerCallback("qb-scoreboard:server:GetCurrentPlayers", function(Players)
+        QBCore.Functions.TriggerCallback('i13-scoreboard:server:GetPlayersArrays', function(playerList)
+            QBCore.Functions.TriggerCallback('i13-scoreboard:server:GetActivity', function(cops, ambulance)
+                QBCore.Functions.TriggerCallback("i13-scoreboard:server:GetCurrentPlayers", function(Players)
                     PlayerOptin = playerList
                     Config.CurrentCops = cops
 

@@ -1,4 +1,4 @@
-local QBCore = exports["qb-core"]:GetCoreObject()
+local QBCore = exports['qb-core']:GetCoreObject()
 
 local gear = 1
 local currentVehicle = 0
@@ -126,7 +126,7 @@ local function changeVehicleMode(vehicle)
     end
     currentVehicle = vehicle
     currentVehicleMode = Config.VehicleModes[gear]
-    TriggerEvent('qb-pursuitmode:vehicleModeChanged', currentVehicleMode)
+    TriggerEvent('i13-pursuitmode:vehicleModeChanged', currentVehicleMode)
 end
 
 local function updatePlayerInfo()
@@ -161,8 +161,8 @@ local function playSound(vehicle)
     end
 end
 
-RegisterNetEvent('qb-pursuitmode:client:changeVehicleMode')
-AddEventHandler('qb-pursuitmode:client:changeVehicleMode', function()
+RegisterNetEvent('i13-pursuitmode:client:changeVehicleMode')
+AddEventHandler('i13-pursuitmode:client:changeVehicleMode', function()
     local ped = PlayerPedId()
     if IsPedInAnyVehicle(ped, false) then
         local vehicle = GetVehiclePedIsIn(ped)
@@ -196,7 +196,7 @@ end)
 
 
 RegisterCommand("pursuitmode", function(source, args, rawCommand)
-    TriggerEvent('qb-pursuitmode:client:changeVehicleMode')
+    TriggerEvent('i13-pursuitmode:client:changeVehicleMode')
 end, false)
 
 RegisterKeyMapping('pursuitmode', 'Change pursuitmode (POLICE ONLY)', 'keyboard', Config.DefaultKey)

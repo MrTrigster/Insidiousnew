@@ -49,7 +49,7 @@ CreateThread(function()
                                 disableMouse = false,
                                 disableCombat = true
                             }, {}, {}, {}, function() -- Done
-                                TriggerServerEvent('qb-vehiclekeys:server:AcquireVehicleKeys', plate)
+                                TriggerServerEvent('i13-vehiclekeys:server:AcquireVehicleKeys', plate)
                                 isTakingKeys = false
                             end, function()
                                 isTakingKeys = false
@@ -146,7 +146,7 @@ RegisterNetEvent('QBCore:Client:OnPlayerUnload', function()
     KeysList = {}
 end)
 
-RegisterNetEvent('qb-vehiclekeys:client:AddKeys', function(plate)
+RegisterNetEvent('i13-vehiclekeys:client:AddKeys', function(plate)
     KeysList[plate] = true
 
     local ped = PlayerPedId()
@@ -160,11 +160,11 @@ RegisterNetEvent('qb-vehiclekeys:client:AddKeys', function(plate)
     end
 end)
 
-RegisterNetEvent('qb-vehiclekeys:client:RemoveKeys', function(plate)
+RegisterNetEvent('i13-vehiclekeys:client:RemoveKeys', function(plate)
     KeysList[plate] = nil
 end)
 
-RegisterNetEvent('qb-vehiclekeys:client:ToggleEngine', function()
+RegisterNetEvent('i13-vehiclekeys:client:ToggleEngine', function()
     local EngineOn = GetIsVehicleEngineRunning(GetVehiclePedIsIn(PlayerPedId()))
     local vehicle = GetVehiclePedIsIn(PlayerPedId(), true)
     if HasKeys(QBCore.Functions.GetPlate(vehicle)) then
@@ -176,7 +176,7 @@ RegisterNetEvent('qb-vehiclekeys:client:ToggleEngine', function()
     end
 end)
 
-RegisterNetEvent('qb-vehiclekeys:client:GiveKeysTarget', function()
+RegisterNetEvent('i13-vehiclekeys:client:GiveKeysTarget', function()
     local targetVehicle = GetVehicle()
     local target, distance = QBCore.Functions.GetClosestPlayer()
     local id = GetPlayerServerId(target)
@@ -195,7 +195,7 @@ RegisterNetEvent('qb-vehiclekeys:client:GiveKeysTarget', function()
     end
 end)
 
-RegisterNetEvent('qb-vehiclekeys:client:GiveKeys', function(id)
+RegisterNetEvent('i13-vehiclekeys:client:GiveKeys', function(id)
     local targetVehicle = GetVehicle()
 
     if targetVehicle then
@@ -207,7 +207,7 @@ RegisterNetEvent('qb-vehiclekeys:client:GiveKeys', function(id)
                 if IsPedSittingInVehicle(PlayerPedId(), targetVehicle) then -- Give keys to everyone in vehicle
                     local otherOccupants = GetOtherPlayersInVehicle(targetVehicle)
                     for p=1,#otherOccupants do
-                        TriggerServerEvent('qb-vehiclekeys:server:GiveVehicleKeys', GetPlayerServerId(NetworkGetPlayerIndexFromPed(otherOccupants[p])), targetPlate)
+                        TriggerServerEvent('i13-vehiclekeys:server:GiveVehicleKeys', GetPlayerServerId(NetworkGetPlayerIndexFromPed(otherOccupants[p])), targetPlate)
                     end
                 else -- Give keys to closest player
                     GiveKeys(GetPlayerServerId(QBCore.Functions.GetClosestPlayer()), targetPlate)
@@ -235,7 +235,7 @@ end)
 
 -- Backwards Compatibility ONLY -- Remove at some point --
 RegisterNetEvent('vehiclekeys:client:SetOwner', function(plate)
-    TriggerServerEvent('qb-vehiclekeys:server:AcquireVehicleKeys', plate)
+    TriggerServerEvent('i13-vehiclekeys:server:AcquireVehicleKeys', plate)
 end)
 -- Backwards Compatibility ONLY -- Remove at some point --
 
@@ -246,14 +246,14 @@ end)
 function GiveKeys(id, plate)
     local distance = #(GetEntityCoords(PlayerPedId()) - GetEntityCoords(GetPlayerPed(GetPlayerFromServerId(id))))
     if distance < 1.5 and distance > 0.0 then
-        TriggerServerEvent('qb-vehiclekeys:server:GiveVehicleKeys', id, plate)
+        TriggerServerEvent('i13-vehiclekeys:server:GiveVehicleKeys', id, plate)
     else
         QBCore.Functions.Notify('Kedagi pole lähedal, kellele võtmeid anda','error')
     end
 end
 
 function GetKeys()
-    QBCore.Functions.TriggerCallback('qb-vehiclekeys:server:GetVehicleKeys', function(_KeysList)
+    QBCore.Functions.TriggerCallback('i13-vehiclekeys:server:GetVehicleKeys', function(_KeysList)
         KeysList = _KeysList
     end)
 end
@@ -414,7 +414,7 @@ function LockpickIgnition(isAdvanced)
 						QBCore.Functions.Notify("Muukimine ebaõnnestus", "error")
                         SetVehicleEngineOn(veh, false, false, true)
 					end
-                    TriggerServerEvent('qb-durability:server:RemoveItemQuality', 5, 'advancedlockpick')
+                    -- TriggerServerEvent('i13-durability:server:RemoveItemQuality', 5, 'advancedlockpick')
 				else
                     local seconds = math.random(8,11)
 					local circles = math.random(4,6)
@@ -434,7 +434,7 @@ function LockpickIgnition(isAdvanced)
 						QBCore.Functions.Notify("Muukimine ebaõnnestus", "error")
                         SetVehicleEngineOn(veh, false, false, true)
 					end
-                    TriggerServerEvent('qb-durability:server:RemoveItemQuality', 5, 'lockpick')
+                    -- TriggerServerEvent('i13-durability:server:RemoveItemQuality', 5, 'lockpick')
                 end
             end
         end
@@ -475,14 +475,14 @@ function lockpickFinish(success)
     if success then
         lastPickedVehicle = vehicle
         if GetPedInVehicleSeat(vehicle, -1) == PlayerPedId() then
-            TriggerServerEvent('qb-vehiclekeys:server:AcquireVehicleKeys', QBCore.Functions.GetPlate(vehicle))
+            TriggerServerEvent('i13-vehiclekeys:server:AcquireVehicleKeys', QBCore.Functions.GetPlate(vehicle))
         else
             QBCore.Functions.Notify('Uks Avatud', 'success')
             SetVehicleDoorsLocked(vehicle, 1)
             if usingAdvanced then
-                TriggerServerEvent('qb-durability:server:RemoveItemQuality', 5, 'advancedlockpick')
+                -- TriggerServerEvent('i13-durability:server:RemoveItemQuality', 5, 'advancedlockpick')
             else
-                TriggerServerEvent('qb-durability:server:RemoveItemQuality', 5, 'lockpick')
+                -- TriggerServerEvent('i13-durability:server:RemoveItemQuality', 5, 'lockpick')
             end
         end
     else
@@ -492,13 +492,13 @@ function lockpickFinish(success)
                 TriggerEvent('inventory:client:ItemBox', QBCore.Shared.Items["advancedlockpick"], "remove")
                 TriggerServerEvent("QBCore:Server:RemoveItem", "advancedlockpick", 1)
             end
-            TriggerServerEvent('qb-durability:server:RemoveItemQuality', 5, 'advancedlockpick')
+            -- TriggerServerEvent('i13-durability:server:RemoveItemQuality', 5, 'advancedlockpick')
         else
             if chance <= Config.RemoveLockpickNormal then
                 TriggerEvent('inventory:client:ItemBox', QBCore.Shared.Items["lockpick"], "remove")
                 TriggerServerEvent("QBCore:Server:RemoveItem", "lockpick", 1)
             end
-            TriggerServerEvent('qb-durability:server:RemoveItemQuality', 5, 'lockpick')
+            -- TriggerServerEvent('i13-durability:server:RemoveItemQuality', 5, 'lockpick')
         end
     end
 end
@@ -575,7 +575,7 @@ function CarjackVehicle(target)
                         MakePedFlee(ped)
                     end)
                 end
-                TriggerServerEvent('qb-vehiclekeys:server:AcquireVehicleKeys', plate)
+                TriggerServerEvent('i13-vehiclekeys:server:AcquireVehicleKeys', plate)
             else
                 MakePedFlee(target)
             end

@@ -31,19 +31,19 @@ end
 -- function SellFish()
 
 
-RegisterNetEvent("qb-fishing:tryToFish", function()
+RegisterNetEvent("i13-fishing:tryToFish", function()
 	TryToFish() 
 end)
 
-RegisterNetEvent("qb-fishing:calculatedistances", pos, function()
+RegisterNetEvent("i13-fishing:calculatedistances", pos, function()
 
 end)
 
-RegisterNetEvent('qb-fishing:client:sellFish', function()
+RegisterNetEvent('i13-fishing:client:sellFish', function()
 	SellFish()
 end)
 
-RegisterNetEvent('qb-fishing:client:startWorking', function()
+RegisterNetEvent('i13-fishing:client:startWorking', function()
 	if not JobBusy then
 		JobBusy = true
 		-- CreateBlips()
@@ -53,7 +53,7 @@ RegisterNetEvent('qb-fishing:client:startWorking', function()
 	end
 end)
 
-RegisterNetEvent('qb-fishing:client:stopWorking', function()
+RegisterNetEvent('i13-fishing:client:stopWorking', function()
 	if JobBusy then
 		JobBusy = false
 		-- DeleteBlips()
@@ -107,7 +107,7 @@ CreateThread(function()
 		options = {
 			{
 				type = 'client',
-				event = 'qb-fishing:client:sellFish',
+				event = 'i13-fishing:client:sellFish',
 				icon = 'fas fa-dollar-sign',
 				label = 'Müü Kala',
 			},

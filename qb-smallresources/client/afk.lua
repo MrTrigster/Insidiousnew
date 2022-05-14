@@ -5,7 +5,7 @@ local QBCore = exports['qb-core']:GetCoreObject()
 local prevPos, time = nil, nil
 
 RegisterNetEvent('QBCore:Client:OnPlayerLoaded', function()
-    QBCore.Functions.TriggerCallback('qb-afkkick:server:GetPermissions', function(UserGroup)
+    QBCore.Functions.TriggerCallback('i13-afkkick:server:GetPermissions', function(UserGroup)
         group = UserGroup
     end)
 end)

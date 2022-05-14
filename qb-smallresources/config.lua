@@ -22,8 +22,8 @@ Config.AutoDisableDrawing = true
 Config.AutoDisableDrawingTime = 120000
 
 ConsumeablesEat = {
-	["sandwich"] = math.random(5, 20),
-	["tosti"] = math.random(5, 30),
+	["sandwich"] = math.random(15, 32),
+	["tosti"] = math.random(15, 30),
 	["twerks_candy"] = math.random(5, 10),
 	["snikkel_candy"] = math.random(5, 12),
 

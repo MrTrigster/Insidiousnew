@@ -29,7 +29,7 @@ local musicHeader = {
     {
         header = 'Mängi Muusikat',
         params = {
-            event = 'qb-djbooth:client:playMusic'
+            event = 'i13-djbooth:client:playMusic'
         }
     }
 }
@@ -46,7 +46,7 @@ function createMusicMenu()
             header = '🎶 | Mängi Muusikat',
             txt = 'Sisesta Youtube URL',
             params = {
-                event = 'qb-djbooth:client:musicMenu',
+                event = 'i13-djbooth:client:musicMenu',
                 args = {
                     zoneName = currentZone
                 }
@@ -57,7 +57,7 @@ function createMusicMenu()
             txt = 'Pane muusika pausile',
             params = {
                 isServer = true,
-                event = 'qb-djbooth:server:pauseMusic',
+                event = 'i13-djbooth:server:pauseMusic',
                 args = {
                     zoneName = currentZone
                 }
@@ -68,7 +68,7 @@ function createMusicMenu()
             txt = 'Jätka muusika mängimist',
             params = {
                 isServer = true,
-                event = 'qb-djbooth:server:resumeMusic',
+                event = 'i13-djbooth:server:resumeMusic',
                 args = {
                     zoneName = currentZone
                 }
@@ -78,7 +78,7 @@ function createMusicMenu()
             header = '🔈 | Helitugevus',
             txt = 'Muuda helitugevust',
             params = {
-                event = 'qb-djbooth:client:changeVolume',
+                event = 'i13-djbooth:client:changeVolume',
                 args = {
                     zoneName = currentZone
                 }
@@ -89,7 +89,7 @@ function createMusicMenu()
             txt = 'Pane muusika kinni',
             params = {
                 isServer = true,
-                event = 'qb-djbooth:server:stopMusic',
+                event = 'i13-djbooth:server:stopMusic',
                 args = {
                     zoneName = currentZone
                 }
@@ -132,12 +132,12 @@ end)
 
 -- Events
 
-RegisterNetEvent('qb-djbooth:client:playMusic', function()
+RegisterNetEvent('i13-djbooth:client:playMusic', function()
     createMusicMenu()
     exports['qb-menu']:openMenu(musicMenu)
 end)
 
-RegisterNetEvent('qb-djbooth:client:musicMenu', function()
+RegisterNetEvent('i13-djbooth:client:musicMenu', function()
     local dialog = exports['qb-input']:ShowInput({
         header = 'Muusika valimine',
         submitText = "Kinnita",
@@ -152,11 +152,11 @@ RegisterNetEvent('qb-djbooth:client:musicMenu', function()
     })
     if dialog then
         if not dialog.song then return end
-        TriggerServerEvent('qb-djbooth:server:playMusic', dialog.song, currentZone)
+        TriggerServerEvent('i13-djbooth:server:playMusic', dialog.song, currentZone)
     end
 end)
 
-RegisterNetEvent('qb-djbooth:client:changeVolume', function()
+RegisterNetEvent('i13-djbooth:client:changeVolume', function()
     local dialog = exports['qb-input']:ShowInput({
         header = 'Helitugevus',
         submitText = "Kinnita",
@@ -171,6 +171,6 @@ RegisterNetEvent('qb-djbooth:client:changeVolume', function()
     })
     if dialog then
         if not dialog.volume then return end
-        TriggerServerEvent('qb-djbooth:server:changeVolume', dialog.volume, currentZone)
+        TriggerServerEvent('i13-djbooth:server:changeVolume', dialog.volume, currentZone)
     end
 end)

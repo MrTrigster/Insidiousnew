@@ -1,7 +1,7 @@
 fx_version 'cerulean'
 game 'gta5'
 
-description 'QB-Input'
+description 'i13-Input'
 version '0.0.1'
 
 client_script 'client/main.lua'

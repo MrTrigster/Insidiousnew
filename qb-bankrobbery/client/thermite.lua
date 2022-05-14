@@ -1,7 +1,7 @@
 local QBCore = exports['qb-core']:GetCoreObject()
 local currentGate = 0
 
-RegisterNetEvent('qb-bankrobbery:client:useThermite', function()
+RegisterNetEvent('i13-bankrobbery:client:useThermite', function()
     local ped = PlayerPedId()
     local pos = GetEntityCoords(ped)
 
@@ -82,7 +82,7 @@ RegisterNetEvent('qb-bankrobbery:client:useThermite', function()
 
             exports["memorygame"]:thermiteminigame(9, 2, 2, 7,
     		function() -- success
-				TriggerServerEvent('qb-bankrobbery:server:thermiteFX', currentGate)
+				TriggerServerEvent('i13-bankrobbery:server:thermiteFX', currentGate)
                 SetPtfxAssetNextCall("scr_ornate_heist")
                 local effect = StartParticleFxLoopedAtCoord("scr_heist_ornate_thermal_burn", ptfx, 0.0, 0.0, 0.0, 1.0, false, false, false, false)
                 NetworkStopSynchronisedScene(thermiteScene)
@@ -93,18 +93,18 @@ RegisterNetEvent('qb-bankrobbery:client:useThermite', function()
                 ClearPedTasks(ped)
                 Wait(2000)
                 DeleteObject(bomb)
-                --TriggerServerEvent('qb-bankrobbery:server:meltGate', loc, oldmodel, newmodel)
+                --TriggerServerEvent('i13-bankrobbery:server:meltGate', loc, oldmodel, newmodel)
                 Wait(9000)
                 StopParticleFxLooped(effect, 0)
 
                 if currentGate == Config.BigBanks['pacific']['thermite'][1]['doorId'] then
-                    TriggerServerEvent('qb-doorlock:server:updateState', 4, false, false, false, true)
+                    TriggerServerEvent('i13-doorlock:server:updateState', 4, false, false, false, true)
                     Config.BigBanks['pacific']['thermite'][1]['isOpened'] = true
                 elseif currentGate == Config.BigBanks['pacific']['thermite'][2]['doorId'] then
-                    TriggerServerEvent('qb-doorlock:server:updateState', 2, false, false, false, true)
+                    TriggerServerEvent('i13-doorlock:server:updateState', 2, false, false, false, true)
                     Config.BigBanks['pacific']['thermite'][2]['isOpened'] = true
                 elseif currentGate == Config.BigBanks['pacific']['thermite'][3]['doorId'] then
-                    TriggerServerEvent('qb-doorlock:server:updateState', 3, false, false, false, true)
+                    TriggerServerEvent('i13-doorlock:server:updateState', 3, false, false, false, true)
                     Config.BigBanks['pacific']['thermite'][3]['isOpened'] = true
                 end
 
@@ -120,7 +120,7 @@ RegisterNetEvent('qb-bankrobbery:client:useThermite', function()
     end
 end)
 
-RegisterNetEvent('qb-bankrobbery:client:thermiteFX', function(gate)
+RegisterNetEvent('i13-bankrobbery:client:thermiteFX', function(gate)
     local ptfx
 
     RequestNamedPtfxAsset("scr_ornate_heist")
@@ -141,11 +141,11 @@ RegisterNetEvent('qb-bankrobbery:client:thermiteFX', function(gate)
     StopParticleFxLooped(effect, 0)
 end)
 
-RegisterNetEvent('qb-bankrobbery:client:meltGate', function(loc, oldmodel, newmodel)
+RegisterNetEvent('i13-bankrobbery:client:meltGate', function(loc, oldmodel, newmodel)
     CreateModelSwap(loc.x, loc.y, loc.z, 5, GetHashKey(oldmodel), GetHashKey(newmodel), 1)
 end)
 
-RegisterNetEvent('qb-bankrobbery:client:fixPacificThermiteDoors', function(state)
+RegisterNetEvent('i13-bankrobbery:client:fixPacificThermiteDoors', function(state)
     Config.BigBanks['pacific']['thermite'][1]['isOpened'] = state
     Config.BigBanks['pacific']['thermite'][2]['isOpened'] = state
     Config.BigBanks['pacific']['thermite'][3]['isOpened'] = state

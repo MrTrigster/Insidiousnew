@@ -219,15 +219,15 @@ end
 
 -- Events
 
-RegisterNetEvent('qb-shops:client:UpdateShop', function(shop, itemData, amount)
-    TriggerServerEvent('qb-shops:server:UpdateShopItems', shop, itemData, amount)
+RegisterNetEvent('i13-shops:client:UpdateShop', function(shop, itemData, amount)
+    TriggerServerEvent('i13-shops:server:UpdateShopItems', shop, itemData, amount)
 end)
 
-RegisterNetEvent('qb-shops:client:SetShopItems', function(shop, shopProducts)
+RegisterNetEvent('i13-shops:client:SetShopItems', function(shop, shopProducts)
     Config.Locations[shop]['products'] = shopProducts
 end)
 
-RegisterNetEvent('qb-shops:client:RestockShopItems', function(shop, amount)
+RegisterNetEvent('i13-shops:client:RestockShopItems', function(shop, amount)
     if Config.Locations[shop]['products'] ~= nil then
         for k, v in pairs(Config.Locations[shop]['products']) do
             Config.Locations[shop]['products'][k].amount = Config.Locations[shop]['products'][k].amount + amount
@@ -235,7 +235,7 @@ RegisterNetEvent('qb-shops:client:RestockShopItems', function(shop, amount)
     end
 end)
 
-RegisterNetEvent('qb-shops:client:OpenShop', function()
+RegisterNetEvent('i13-shops:client:OpenShop', function()
     local products = Config.Products['normal']
     local ShopItems = {}
     ShopItems.items = {}
@@ -250,7 +250,7 @@ RegisterNetEvent('qb-shops:client:OpenShop', function()
     TriggerServerEvent('inventory:server:OpenInventory', 'shop', 'store_shop', ShopItems)
 end)
 
-RegisterNetEvent('qb-shops:client:OpenHardwareShop', function()
+RegisterNetEvent('i13-shops:client:OpenHardwareShop', function()
     local products = Config.Products['hardware']
     local ShopItems = {}
     ShopItems.items = {}
@@ -265,7 +265,7 @@ RegisterNetEvent('qb-shops:client:OpenHardwareShop', function()
     TriggerServerEvent('inventory:server:OpenInventory', 'shop', 'store_hardware', ShopItems)
 end)
 
-RegisterNetEvent('qb-shops:client:OpenAlkoShop', function()
+RegisterNetEvent('i13-shops:client:OpenAlkoShop', function()
     local products = Config.Products['alcohol']
     local ShopItems = {}
     ShopItems.items = {}
@@ -280,12 +280,12 @@ RegisterNetEvent('qb-shops:client:OpenAlkoShop', function()
     TriggerServerEvent('inventory:server:OpenInventory', 'shop', 'store_alko', ShopItems)
 end)
 
-RegisterNetEvent('qb-shops:client:OpenAmmunationShop', function()
+RegisterNetEvent('i13-shops:client:OpenAmmunationShop', function()
     local products = Config.Products['weapons']
     local ShopItems = {}
     ShopItems.items = {}
     ShopItems.label = 'Relvapood'
-    QBCore.Functions.TriggerCallback('qb-shops:server:getLicenseStatus', function(hasLicense, hasLicenseItem)
+    QBCore.Functions.TriggerCallback('i13-shops:server:getLicenseStatus', function(hasLicense, hasLicenseItem)
         if hasLicense and hasLicenseItem then
             ShopItems.items = SetupAmmunationItems()
             QBCore.Functions.Notify('Poemüüja kinnitas su relvaloa', 'success')
@@ -318,7 +318,7 @@ RegisterNetEvent('qb-shops:client:OpenAmmunationShop', function()
     end)
 end)
 
-RegisterNetEvent('qb-shops:client:OpenPharmacyShop', function()
+RegisterNetEvent('i13-shops:client:OpenPharmacyShop', function()
     local products = Config.Products['pharmacy']
     local ShopItems = {}
     ShopItems.items = {}
@@ -333,7 +333,7 @@ RegisterNetEvent('qb-shops:client:OpenPharmacyShop', function()
     TriggerServerEvent('inventory:server:OpenInventory', 'shop', 'store_pharmacy', ShopItems)
 end)
 
-RegisterNetEvent('qb-shops:client:OpenPartsShop', function()
+RegisterNetEvent('i13-shops:client:OpenPartsShop', function()
     local products = Config.Products['parts']
     local ShopItems = {}
     ShopItems.items = {}
@@ -348,7 +348,7 @@ RegisterNetEvent('qb-shops:client:OpenPartsShop', function()
     TriggerServerEvent('inventory:server:OpenInventory', 'shop', 'store_parts', ShopItems)
 end)
 
-RegisterNetEvent('qb-shops:client:OpenWeedShop', function()
+RegisterNetEvent('i13-shops:client:OpenWeedShop', function()
     local products = Config.Products['weed']
     local ShopItems = {}
     ShopItems.items = {}
@@ -363,7 +363,7 @@ RegisterNetEvent('qb-shops:client:OpenWeedShop', function()
     TriggerServerEvent('inventory:server:OpenInventory', 'shop', 'store_weed', ShopItems)
 end)
 
-RegisterNetEvent('qb-shops:client:OpenMethShop', function()
+RegisterNetEvent('i13-shops:client:OpenMethShop', function()
     local products = Config.Products['meth']
     local ShopItems = {}
     ShopItems.items = {}
@@ -378,7 +378,7 @@ RegisterNetEvent('qb-shops:client:OpenMethShop', function()
     TriggerServerEvent('inventory:server:OpenInventory', 'shop', 'store_meth', ShopItems)
 end)
 
-RegisterNetEvent('qb-shops:client:openWeapShop', function()
+RegisterNetEvent('i13-shops:client:openWeapShop', function()
     local products = Config.Products['weap']
     local ShopItems = {}
     ShopItems.items = {}
@@ -393,7 +393,7 @@ RegisterNetEvent('qb-shops:client:openWeapShop', function()
     TriggerServerEvent('inventory:server:OpenInventory', 'shop', 'store_weap', ShopItems)
 end)
 
-RegisterNetEvent('qb-shops:client:openPetShop', function()
+RegisterNetEvent('i13-shops:client:openPetShop', function()
     local products = Config.Products['petshop']
     local ShopItems = {}
     ShopItems.items = {}
@@ -430,7 +430,7 @@ end)
                             if IsControlJustPressed(0, 38) then -- E
                                 local ShopItems = {}
                                 ShopItems.items = {}
-                                QBCore.Functions.TriggerCallback('qb-shops:server:getLicenseStatus', function(hasLicense, hasLicenseItem)
+                                QBCore.Functions.TriggerCallback('i13-shops:server:getLicenseStatus', function(hasLicense, hasLicenseItem)
                                     ShopItems.label = Config.Locations[shop]['label']
                                     if Config.Locations[shop].type == 'weapon' then
                                         if hasLicense and hasLicenseItem then
@@ -659,7 +659,7 @@ CreateThread(function()
         options = {
             {
                 type = 'client',
-                event = 'qb-shops:client:openWeapShop',
+                event = 'i13-shops:client:openWeapShop',
                 label = 'Pood',
                 icon = 'fas fa-comment-dollar',
                 item = 'coin',
@@ -689,7 +689,7 @@ CreateThread(function()
         options = {
             {
                 type = 'client',
-                event = 'qb-shops:client:openPetShop',
+                event = 'i13-shops:client:openPetShop',
                 label = 'Loomapood',
                 icon = 'fas fa-comment-dollar',
             }
@@ -706,7 +706,7 @@ CreateThread(function()
         options = {
             {
                 type = 'client',
-                event = 'qb-shops:client:OpenShop',
+                event = 'i13-shops:client:OpenShop',
                 icon = 'fas fa-comment-dollar',
                 label = 'Pood',
             }
@@ -723,7 +723,7 @@ CreateThread(function()
         options = {
             {
                 type = 'client',
-                event = 'qb-shops:client:OpenHardwareShop',
+                event = 'i13-shops:client:OpenHardwareShop',
                 icon = 'fas fa-comment-dollar',
                 label = 'Tööriistapood',
             }
@@ -740,7 +740,7 @@ CreateThread(function()
         options = {
             {
                 type = 'client',
-                event = 'qb-shops:client:OpenAlkoShop',
+                event = 'i13-shops:client:OpenAlkoShop',
                 icon = 'fas fa-comment-dollar',
                 label = 'Alkopood',
             }
@@ -757,7 +757,7 @@ CreateThread(function()
         options = {
             {
                 type = 'client',
-                event = 'qb-shops:client:OpenAmmunationShop',
+                event = 'i13-shops:client:OpenAmmunationShop',
                 icon = 'fas fa-comment-dollar',
                 label = 'Relvapood',
             }
@@ -774,7 +774,7 @@ CreateThread(function()
         options = {
             {
                 type = 'client',
-                event = 'qb-shops:client:OpenPharmacyShop',
+                event = 'i13-shops:client:OpenPharmacyShop',
                 icon = 'fas fa-comment-dollar',
                 label = 'Apteek',
             }
@@ -791,7 +791,7 @@ CreateThread(function()
         options = {
             {
                 type = 'client',
-                event = 'qb-shops:client:OpenPartsShop',
+                event = 'i13-shops:client:OpenPartsShop',
                 icon = 'fas fa-comment-dollar',
                 label = 'Autoosad',
                 job = 'mechanic',

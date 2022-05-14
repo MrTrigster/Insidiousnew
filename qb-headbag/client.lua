@@ -2,12 +2,12 @@ local QBCore = exports['qb-core']:GetCoreObject()
 
 local HaveBagOnHead = false
 
-RegisterNetEvent('qb-headbag:puton') 
-AddEventHandler('qb-headbag:puton', function()
+RegisterNetEvent('i13-headbag:puton') 
+AddEventHandler('i13-headbag:puton', function()
   local closestplayer = GetClosestPlayer(2)
   local target = GetPlayerServerId(closestplayer)
   local targetPed = GetPlayerPed(GetPlayerFromServerId(target))
-  TriggerServerEvent("qb-handbag:MaskPlayer", target)
+  TriggerServerEvent("i13-handbag:MaskPlayer", target)
 end)
 
 CreateThread(function()
@@ -27,7 +27,7 @@ end)
 	
 
 
-RegisterNetEvent('qb-handbag:GetMasked', function(playerId)
+RegisterNetEvent('i13-handbag:GetMasked', function(playerId)
 	
 	
     	

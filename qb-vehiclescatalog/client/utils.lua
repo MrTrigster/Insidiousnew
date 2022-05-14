@@ -21,7 +21,7 @@ function GeneratePlate()
 			generatedPlate = string.upper(GetRandomLetter(Config.PlateLetters) .. GetRandomNumber(Config.PlateNumbers))
 		end
 
-		QBCore.Functions.TriggerCallback('qb-vehicleshop.isPlateTaken', function (isPlateTaken)
+		QBCore.Functions.TriggerCallback('i13-vehicleshop.isPlateTaken', function (isPlateTaken)
 			if not isPlateTaken then
 				doBreak = true
 			end
@@ -38,7 +38,7 @@ end
 function IsPlateTaken(plate)
 	local callback = 'waiting'
 
-	QBCore.Functions.TriggerCallback('qb-vehicleshop.isPlateTaken', function(isPlateTaken)
+	QBCore.Functions.TriggerCallback('i13-vehicleshop.isPlateTaken', function(isPlateTaken)
 		callback = isPlateTaken
 	end, plate)
 

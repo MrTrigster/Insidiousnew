@@ -57,8 +57,8 @@ end
 AddEventHandler('onResourceStop', function(resource)
     if resource == GetCurrentResourceName() then
         ResetBankDoors()
-        --TriggerServerEvent('qb-bankrobbery:server:resetThermiteDoors')
-        TriggerEvent('qb-bankrobbery:client:deletePacificTrolleys')
+        --TriggerServerEvent('i13-bankrobbery:server:resetThermiteDoors')
+        TriggerEvent('i13-bankrobbery:client:deletePacificTrolleys')
     end
 end)
 
@@ -73,7 +73,7 @@ end)
 
 RegisterNetEvent('QBCore:Client:OnPlayerLoaded', function()
     PlayerJob = QBCore.Functions.GetPlayerData().job
-    QBCore.Functions.TriggerCallback('qb-bankrobbery:server:GetConfig', function(config)
+    QBCore.Functions.TriggerCallback('i13-bankrobbery:server:GetConfig', function(config)
         Config = config
     end)
     onDuty = true
@@ -140,7 +140,7 @@ local function spawnFleecaOneObj()
             options = {
                 {
                     type = 'client',
-                    event = 'qb-bankrobbery:client:startFleeca1CashGrab',
+                    event = 'i13-bankrobbery:client:startFleeca1CashGrab',
                     icon = 'fas fa-dollar-sign',
                     label = 'Võta Raha',
                 }
@@ -166,7 +166,7 @@ local function spawnFleecaTwoObj()
             options = {
                 {
                     type = 'client',
-                    event = 'qb-bankrobbery:client:startFleeca2CashGrab',
+                    event = 'i13-bankrobbery:client:startFleeca2CashGrab',
                     icon = 'fas fa-dollar-sign',
                     label = 'Võta Raha',
                 }
@@ -192,7 +192,7 @@ local function spawnFleecaThreeObj()
             options = {
                 {
                     type = 'client',
-                    event = 'qb-bankrobbery:client:startFleeca3CashGrab',
+                    event = 'i13-bankrobbery:client:startFleeca3CashGrab',
                     icon = 'fas fa-dollar-sign',
                     label = 'Võta Raha',
                 }
@@ -218,7 +218,7 @@ local function spawnFleecaFourObj()
             options = {
                 {
                     type = 'client',
-                    event = 'qb-bankrobbery:client:startFleeca4CashGrab',
+                    event = 'i13-bankrobbery:client:startFleeca4CashGrab',
                     icon = 'fas fa-dollar-sign',
                     label = 'Võta Raha',
                 }
@@ -244,7 +244,7 @@ local function spawnFleecaFiveObj()
             options = {
                 {
                     type = 'client',
-                    event = 'qb-bankrobbery:client:startFleeca5CashGrab',
+                    event = 'i13-bankrobbery:client:startFleeca5CashGrab',
                     icon = 'fas fa-dollar-sign',
                     label = 'Võta Raha',
                 }
@@ -270,7 +270,7 @@ local function spawnFleecaSixObj()
             options = {
                 {
                     type = 'client',
-                    event = 'qb-bankrobbery:client:startFleeca6CashGrab',
+                    event = 'i13-bankrobbery:client:startFleeca6CashGrab',
                     icon = 'fas fa-dollar-sign',
                     label = 'Võta Raha',
                 }
@@ -542,36 +542,36 @@ local function grabCash(cartLocation)
         removeFleecaTarget('fleecatrolley6')
     end
 
-    TriggerServerEvent('qb-bankrobbery:server:recieveItem', 'fleeca')
+    TriggerServerEvent('i13-bankrobbery:server:recieveItem', 'fleeca')
 end
 
 -- Events
 
-RegisterNetEvent('qb-bankrobbery:client:startFleeca1CashGrab', function()
+RegisterNetEvent('i13-bankrobbery:client:startFleeca1CashGrab', function()
     grabCash(1)
 end)
 
-RegisterNetEvent('qb-bankrobbery:client:startFleeca2CashGrab', function()
+RegisterNetEvent('i13-bankrobbery:client:startFleeca2CashGrab', function()
     grabCash(2)
 end)
 
-RegisterNetEvent('qb-bankrobbery:client:startFleeca3CashGrab', function()
+RegisterNetEvent('i13-bankrobbery:client:startFleeca3CashGrab', function()
     grabCash(3)
 end)
 
-RegisterNetEvent('qb-bankrobbery:client:startFleeca4CashGrab', function()
+RegisterNetEvent('i13-bankrobbery:client:startFleeca4CashGrab', function()
     grabCash(4)
 end)
 
-RegisterNetEvent('qb-bankrobbery:client:startFleeca5CashGrab', function()
+RegisterNetEvent('i13-bankrobbery:client:startFleeca5CashGrab', function()
     grabCash(5)
 end)
 
-RegisterNetEvent('qb-bankrobbery:client:startFleeca6CashGrab', function()
+RegisterNetEvent('i13-bankrobbery:client:startFleeca6CashGrab', function()
     grabCash(6)
 end)
 
-RegisterNetEvent('qb-bankrobbery:client:setBankState', function(bankId, state)
+RegisterNetEvent('i13-bankrobbery:client:setBankState', function(bankId, state)
     if bankId == 'pacific' then
         Config.BigBanks['pacific']['isOpened'] = state
         if state then
@@ -590,11 +590,11 @@ RegisterNetEvent('qb-bankrobbery:client:setBankState', function(bankId, state)
     end
 end)
 
-RegisterNetEvent('qb-bankrobbery:client:useFleecaLaptop', function()
+RegisterNetEvent('i13-bankrobbery:client:useFleecaLaptop', function()
     local ped = PlayerPedId()
     local pos = GetEntityCoords(ped)
     if closestBank ~= nil then
-        QBCore.Functions.TriggerCallback('qb-bankrobbery:server:isRobberyActive', function(isBusy)
+        QBCore.Functions.TriggerCallback('i13-bankrobbery:server:isRobberyActive', function(isBusy)
             if not isBusy then
                 if closestBank ~= nil then
                     local dist = #(pos - Config.SmallBanks[closestBank]['coords'])
@@ -607,7 +607,7 @@ RegisterNetEvent('qb-bankrobbery:client:useFleecaLaptop', function()
                                     end
                                     TriggerServerEvent('QBCore:Server:RemoveItem', 'electronickit', 1)
                                     TriggerEvent('inventory:client:ItemBox', QBCore.Shared.Items['electronickit'], 'remove')
-                                    TriggerServerEvent('qb-durability:server:RemoveItemQuality', 34, 'laptop_fleeca')
+                                    TriggerServerEvent('i13-durability:server:RemoveItemQuality', 34, 'laptop_fleeca')
                                     QBCore.Functions.Progressbar('hack_gate', 'Ühendab seadet...', math.random(5000, 10000), false, true, {
                                         disableMovement = true,
                                         disableCarMovement = true,
@@ -621,14 +621,14 @@ RegisterNetEvent('qb-bankrobbery:client:useFleecaLaptop', function()
                                         StopAnimTask(PlayerPedId(), 'anim@gangops@facility@servers@', 'hotwire', 1.0)
                                         exports['hacking']:OpenHackingGame(function(success)
                                             if success then
-                                                TriggerServerEvent('qb-bankrobbery:server:setBankState', closestBank, true)
-                                                TriggerServerEvent('qb-bankrobbery:server:spawnFleecaCarts', closestBank)
-                                                -- TriggerEvent('qb-bankrobbery:client:callCops', closestBank)
+                                                TriggerServerEvent('i13-bankrobbery:server:setBankState', closestBank, true)
+                                                TriggerServerEvent('i13-bankrobbery:server:spawnFleecaCarts', closestBank)
+                                                -- TriggerEvent('i13-bankrobbery:client:callCops', closestBank)
                                                 exports['qb-dispatch']:FleecaBankRobbery()
-                                                TriggerServerEvent('qb-bankrobbery:server:laptopAlert', closestBank)
+                                                TriggerServerEvent('i13-bankrobbery:server:laptopAlert', closestBank)
                                             else
                                                 QBCore.Functions.Notify('Hack Ebaõnnestus', 'error')
-                                                -- TriggerEvent('qb-bankrobbery:client:callCops', closestBank)
+                                                -- TriggerEvent('i13-bankrobbery:client:callCops', closestBank)
                                                 exports['qb-dispatch']:FleecaBankRobbery()
                                             end
                                         end)
@@ -652,7 +652,7 @@ RegisterNetEvent('qb-bankrobbery:client:useFleecaLaptop', function()
     end
 end)
 
--- RegisterNetEvent('qb-bankrobbery:client:callCops', function(bank)
+-- RegisterNetEvent('i13-bankrobbery:client:callCops', function(bank)
 --     if bank == 'fleeca1' then
 --         if not blackoutIsActive then
 --             if not copsCalled1 then
@@ -710,7 +710,7 @@ end)
 --     end
 -- end)
 
-RegisterNetEvent('qb-bankrobbery:client:spawnFleecaCarts', function(bank)
+RegisterNetEvent('i13-bankrobbery:client:spawnFleecaCarts', function(bank)
     if bank == 'fleeca1' then
         spawnFleecaOneObj()
     elseif bank == 'fleeca2' then
@@ -726,42 +726,42 @@ RegisterNetEvent('qb-bankrobbery:client:spawnFleecaCarts', function(bank)
     end
 end)
 
-RegisterNetEvent('qb-bankrobbery:client:deleteFleeca1Trolleys', function()
+RegisterNetEvent('i13-bankrobbery:client:deleteFleeca1Trolleys', function()
     DeleteObject(EmptyTrolley1)
     DeleteObject(FleecaOneTrolley)
     removeFleecaTarget('fleecatrolley1')
     copsCalled1 = false
 end)
 
-RegisterNetEvent('qb-bankrobbery:client:deleteFleeca2Trolleys', function()
+RegisterNetEvent('i13-bankrobbery:client:deleteFleeca2Trolleys', function()
     DeleteObject(EmptyTrolley2)
     DeleteObject(FleecaTwoTrolley)
     removeFleecaTarget('fleecatrolley2')
     copsCalled2 = false
 end)
 
-RegisterNetEvent('qb-bankrobbery:client:deleteFleeca3Trolleys', function()
+RegisterNetEvent('i13-bankrobbery:client:deleteFleeca3Trolleys', function()
     DeleteObject(EmptyTrolley3)
     DeleteObject(FleecaThreeTrolley)
     removeFleecaTarget('fleecatrolley3')
     copsCalled3 = false
 end)
 
-RegisterNetEvent('qb-bankrobbery:client:deleteFleeca4Trolleys', function()
+RegisterNetEvent('i13-bankrobbery:client:deleteFleeca4Trolleys', function()
     DeleteObject(EmptyTrolley4)
     DeleteObject(FleecaFourTrolley)
     removeFleecaTarget('fleecatrolley4')
     copsCalled4 = false
 end)
 
-RegisterNetEvent('qb-bankrobbery:client:deleteFleeca5Trolleys', function()
+RegisterNetEvent('i13-bankrobbery:client:deleteFleeca5Trolleys', function()
     DeleteObject(EmptyTrolley5)
     DeleteObject(FleecaFiveTrolley)
     removeFleecaTarget('fleecatrolley5')
     copsCalled5 = false
 end)
 
-RegisterNetEvent('qb-bankrobbery:client:deleteFleeca6Trolleys', function()
+RegisterNetEvent('i13-bankrobbery:client:deleteFleeca6Trolleys', function()
     DeleteObject(EmptyTrolley6)
     DeleteObject(FleecaSixTrolley)
     removeFleecaTarget('fleecatrolley6')
@@ -770,8 +770,8 @@ end)
 
 
 
-RegisterNetEvent('qb-bankrobbery:client:useTestLaptop', function()
-    TriggerServerEvent('qb-durability:server:RemoveItemQuality', 10, 'laptop_test')
+RegisterNetEvent('i13-bankrobbery:client:useTestLaptop', function()
+    TriggerServerEvent('i13-durability:server:RemoveItemQuality', 10, 'laptop_test')
     exports['hacking']:OpenHackingGame(function(success)
         if success then
             QBCore.Functions.Notify('Hack Edukas', 'success')

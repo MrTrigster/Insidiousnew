@@ -124,7 +124,7 @@ function TakeOutImpound(vehicle)
     local coords = Config.Locations["impound"][currentGarage]
     if coords then
         QBCore.Functions.SpawnVehicle(vehicle.vehicle, function(veh)
-            QBCore.Functions.TriggerCallback('qb-garage:server:GetVehicleProperties', function(properties)
+            QBCore.Functions.TriggerCallback('i13-garage:server:GetVehicleProperties', function(properties)
                 QBCore.Functions.SetVehicleProperties(veh, properties)
                 SetVehicleNumberPlateText(veh, vehicle.plate)
                 SetEntityHeading(veh, coords.w)
@@ -225,7 +225,7 @@ function MenuGarage(currentSelection)
         header = "⬅ Sulge Menu",
         txt = "",
         params = {
-            event = "qb-menu:client:closeMenu"
+            event = "i13-menu:client:closeMenu"
         }
 
     }
@@ -271,7 +271,7 @@ function MenuImpound(currentSelection)
                 header = "⬅ Sulge Menu",
                 txt = "",
                 params = {
-                    event = "qb-menu:client:closeMenu"
+                    event = "i13-menu:client:closeMenu"
                 }
 
             }
@@ -360,7 +360,7 @@ RegisterNetEvent('police:client:ImpoundVehicle', function(fullImpound, price)
             TriggerServerEvent("police:server:Impound", plate, fullImpound, price, bodyDamage, engineDamage, totalFuel)			
             -- QBCore.Functions.DeleteVehicle(vehicle)
             DeleteEntity(vehicle)
-            TriggerServerEvent('qb-garages:server:removeOutsideVehicles', plate)
+            TriggerServerEvent('i13-garages:server:removeOutsideVehicles', plate)
         end
     end
 end)
@@ -460,7 +460,7 @@ RegisterNetEvent('police:client:EvidenceStashDrawer', function(data)
 end)
 
 -- Toggle Duty in an event.
-RegisterNetEvent('qb-policejob:ToggleDuty', function()
+RegisterNetEvent('i13-policejob:ToggleDuty', function()
     onDuty = not onDuty
     TriggerServerEvent('police:server:LogDuty', onDuty)
     TriggerServerEvent("police:server:UpdateCurrentCops")
@@ -575,7 +575,7 @@ CreateThread(function()
         options = {
             {
                 type = 'client',
-                event = 'qb-policejob:ToggleDuty',
+                event = 'i13-policejob:ToggleDuty',
                 label = 'On Duty / Off Duty',
                 icon = 'fas fa-clipboard-list',
                 job = 'police'

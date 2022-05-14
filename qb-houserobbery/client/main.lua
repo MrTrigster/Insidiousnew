@@ -59,8 +59,8 @@ local function enterRobberyHouse(house)
     inside = true
     currentHouse = house
     Wait(500)
-    -- TriggerEvent('qb-weathersync:client:DisableSync')
-    TriggerEvent('qb-weathersync:client:DisableShellSync')
+    -- TriggerEvent('i13-weathersync:client:DisableSync')
+    TriggerEvent('i13-weathersync:client:DisableShellSync')
 end
 
 local function leaveRobberyHouse(house)
@@ -71,7 +71,7 @@ local function leaveRobberyHouse(house)
     DoScreenFadeOut(250)
     Wait(500)
     exports['qb-interior']:DespawnInterior(houseObj, function()
-        TriggerEvent('qb-weathersync:client:EnableSync')
+        TriggerEvent('i13-weathersync:client:EnableSync')
         Wait(250)
         DoScreenFadeIn(250)
         SetEntityCoords(ped, Config.Houses[house]["coords"]["x"], Config.Houses[house]["coords"]["y"], Config.Houses[house]["coords"]["z"] + 0.5)
@@ -132,7 +132,7 @@ local function searchCabin(cabin)
         TriggerServerEvent("evidence:server:CreateFingerDrop", pos)
     end
     LockpickDoorAnim()
-    TriggerServerEvent('qb-houserobbery:server:SetBusyState', cabin, currentHouse, true)
+    TriggerServerEvent('i13-houserobbery:server:SetBusyState', cabin, currentHouse, true)
     FreezeEntityPosition(ped, true)
     IsLockpicking = true
     local seconds = math.random(9, 14)
@@ -141,9 +141,9 @@ local function searchCabin(cabin)
     if success then
         openingDoor = false
         ClearPedTasks(PlayerPedId())
-        TriggerServerEvent('qb-houserobbery:server:searchCabin', cabin, currentHouse)
+        TriggerServerEvent('i13-houserobbery:server:searchCabin', cabin, currentHouse)
         Config.Houses[currentHouse]["furniture"][cabin]["searched"] = true
-        TriggerServerEvent('qb-houserobbery:server:SetBusyState', cabin, currentHouse, false)
+        TriggerServerEvent('i13-houserobbery:server:SetBusyState', cabin, currentHouse, false)
         SucceededAttempts = 0
         FreezeEntityPosition(ped, false)
         SetTimeout(500, function()
@@ -152,7 +152,7 @@ local function searchCabin(cabin)
     else
         openingDoor = false
         ClearPedTasks(PlayerPedId())
-        TriggerServerEvent('qb-houserobbery:server:SetBusyState', cabin, currentHouse, false)
+        TriggerServerEvent('i13-houserobbery:server:SetBusyState', cabin, currentHouse, false)
         QBCore.Functions.Notify('Ebaõnnestus', "error")
         SucceededAttempts = 0
         FreezeEntityPosition(ped, false)
@@ -165,12 +165,12 @@ end
 -- Events
 
 RegisterNetEvent('QBCore:Client:OnPlayerLoaded', function()
-    QBCore.Functions.TriggerCallback('qb-houserobbery:server:GetHouseConfig', function(HouseConfig)
+    QBCore.Functions.TriggerCallback('i13-houserobbery:server:GetHouseConfig', function(HouseConfig)
         Config.Houses = HouseConfig
     end)
 end)
 
-RegisterNetEvent('qb-houserobbery:client:ResetHouseState', function(house)
+RegisterNetEvent('i13-houserobbery:client:ResetHouseState', function(house)
     Config.Houses[house]["opened"] = false
     for k, v in pairs(Config.Houses[house]["furniture"]) do
         v["searched"] = false
@@ -181,19 +181,19 @@ RegisterNetEvent('police:SetCopCount', function(amount)
     CurrentCops = amount
 end)
 
-RegisterNetEvent('qb-houserobbery:client:enterHouse', function(house)
+RegisterNetEvent('i13-houserobbery:client:enterHouse', function(house)
     enterRobberyHouse(house)
 end)
 
-RegisterNetEvent('qb-houserobbery:client:setHouseState', function(house, state)
+RegisterNetEvent('i13-houserobbery:client:setHouseState', function(house, state)
     Config.Houses[house]["opened"] = state
 end)
 
-RegisterNetEvent('qb-houserobbery:client:setCabinState', function(house, cabin, state)
+RegisterNetEvent('i13-houserobbery:client:setCabinState', function(house, cabin, state)
     Config.Houses[house]["furniture"][cabin]["searched"] = state
 end)
 
-RegisterNetEvent('qb-houserobbery:client:SetBusyState', function(cabin, house, bool)
+RegisterNetEvent('i13-houserobbery:client:SetBusyState', function(cabin, house, bool)
     Config.Houses[house]["furniture"][cabin]["isBusy"] = bool
 end)
 
@@ -209,14 +209,14 @@ RegisterNetEvent('lockpicks:UseLockpick', function(isAdvanced)
                         local circles = math.random(8, 12)
                         local success = exports['qb-lock']:StartLockPickCircle(circles, seconds, success)
                         if success then
-                            TriggerServerEvent('qb-houserobbery:server:enterHouse', closestHouse)
+                            TriggerServerEvent('i13-houserobbery:server:enterHouse', closestHouse)
                             QBCore.Functions.Notify('Muukimine õnnestus', 'success')
                             PoliceCall()
-                            TriggerServerEvent('qb-durability:server:RemoveItemQuality', 5, 'advancedlockpick')
+                            TriggerServerEvent('i13-durability:server:RemoveItemQuality', 5, 'advancedlockpick')
                         else
                             PoliceCall()
                             QBCore.Functions.Notify('Ebaõnnestus', "error")
-                            TriggerServerEvent('qb-durability:server:RemoveItemQuality', 5, 'advancedlockpick')
+                            TriggerServerEvent('i13-durability:server:RemoveItemQuality', 5, 'advancedlockpick')
                             if math.random(1, 100) <= 20 then
                                 TriggerServerEvent("QBCore:Server:RemoveItem", "advancedlockpick", 1)
                                 TriggerEvent('inventory:client:ItemBox', QBCore.Shared.Items["advancedlockpick"], "remove")
@@ -244,14 +244,14 @@ RegisterNetEvent('lockpicks:UseLockpick', function(isAdvanced)
                                 local circles = math.random(10, 14)
                                 local success = exports['qb-lock']:StartLockPickCircle(circles, seconds, success)
                                 if success then
-                                    TriggerServerEvent('qb-houserobbery:server:enterHouse', closestHouse)
+                                    TriggerServerEvent('i13-houserobbery:server:enterHouse', closestHouse)
                                     QBCore.Functions.Notify('Muukimine õnnestus', 'success')
                                     PoliceCall()
-                                    TriggerServerEvent('qb-durability:server:RemoveItemQuality', 5, 'lockpick')
+                                    TriggerServerEvent('i13-durability:server:RemoveItemQuality', 5, 'lockpick')
                                 else
                                     PoliceCall()
                                     QBCore.Functions.Notify('Ebaõnnestus', "error")
-                                    TriggerServerEvent('qb-durability:server:RemoveItemQuality', 5, 'lockpick')
+                                    TriggerServerEvent('i13-durability:server:RemoveItemQuality', 5, 'lockpick')
                                     if math.random(1, 100) <= 40 then
                                         TriggerServerEvent("QBCore:Server:RemoveItem", "lockpick", 1)
                                         TriggerEvent('inventory:client:ItemBox', QBCore.Shared.Items["lockpick"], "remove")

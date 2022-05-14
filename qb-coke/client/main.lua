@@ -52,7 +52,7 @@ local function startPlaneLanding()
       options = {
         {
           type = 'client',
-          event = 'qb-coke:client:grabCoke',
+          event = 'i13-coke:client:grabCoke',
           label = 'Võta Koka',
           icon = 'fas fa-box',
         }
@@ -82,18 +82,18 @@ end
 
 -- Events
 
-RegisterNetEvent('qb-coke:client:grabCoke', function()
+RegisterNetEvent('i13-coke:client:grabCoke', function()
   exports['qb-target']:RemoveTargetEntity(plane, 'test')
   DeleteEntity(plane)
   DeleteEntity(pilot)
   planeHasSpawned = false
-  TriggerServerEvent('qb-coke:server:getCoke')
+  TriggerServerEvent('i13-coke:server:getCoke')
   jobStarted = false
   jobFinished = true
 end)
 
-RegisterNetEvent('qb-coke:client:getLocation', function()
-  QBCore.Functions.TriggerCallback('qb-coke:server:checkLocationMoney', function(result)
+RegisterNetEvent('i13-coke:client:getLocation', function()
+  QBCore.Functions.TriggerCallback('i13-coke:server:checkLocationMoney', function(result)
     if not jobFinished then
       if not jobStarted then
         if result then
@@ -149,7 +149,7 @@ CreateThread(function()
     options = {
       {
         type = 'client',
-        event = 'qb-coke:client:getLocation',
+        event = 'i13-coke:client:getLocation',
         label = 'Telli Pulbrit $6,000',
         icon = 'fas fa-copy',
         item = 'secret_documents',
@@ -170,7 +170,7 @@ CreateThread(function()
     options = {
       {
         type = 'client',
-        event = 'qb-coke:client:processMenu',
+        event = 'i13-coke:client:processMenu',
         label = 'Protsessi Kokat',
         icon = 'fas fa-scale-balanced',
       }

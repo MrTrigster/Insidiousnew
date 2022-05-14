@@ -9,17 +9,17 @@ local function removeTheZone(zoneName)
     end)
 end
 
-RegisterNetEvent('qb-fooddelivery:client:startDelivery', function()
+RegisterNetEvent('i13-fooddelivery:client:startDelivery', function()
     if not isDelivering then
         isDelivering = true
-        QBCore.Functions.TriggerCallback('qb-fooddelivery:server:createDeliveryItems', function(item1, item2)
+        QBCore.Functions.TriggerCallback('i13-fooddelivery:server:createDeliveryItems', function(item1, item2)
             if item1 and item2 then
                 -- print(item1)
                 -- print(item2)
                 local itemLabel1 = QBCore.Shared.Items[item1].label
                 local itemLabel2 = QBCore.Shared.Items[item2].label
 
-                TriggerServerEvent('qb-phone:server:sendNewMail', {
+                TriggerServerEvent('i13-phone:server:sendNewMail', {
                     sender = "Solk OÜ",
                     subject = "Tellimuse Sisu",
                     message = "Kohale tuleb toimetada:<br />x1 ".. itemLabel1 .. "<br />x1 " .. itemLabel2 .. "<br /><br />Kliendi asukoht on märgitud Teile GPS seadmele.<br /><br />Soovime Teile head kohaletoimetamist.<br /><br />Solk Ltd"
@@ -51,7 +51,7 @@ RegisterNetEvent('qb-fooddelivery:client:startDelivery', function()
                                 icon = 'fas fa-bell',
                                 label = 'Toimeta Tellimus Kohale',
                                 action = function()
-                                    QBCore.Functions.TriggerCallback('qb-fooddelivery:server:checkItems', function(HasItems)
+                                    QBCore.Functions.TriggerCallback('i13-fooddelivery:server:checkItems', function(HasItems)
                                         if HasItems then
                                             QBCore.Functions.Progressbar('fooddelivery', 'Koputab uksele...', 3000, false, true, {
                                                 disableMovement = true,
@@ -63,7 +63,7 @@ RegisterNetEvent('qb-fooddelivery:client:startDelivery', function()
                                                 anim = 'knockdoor_idle',
                                                 flags = 0,
                                             }, {}, {}, function()
-                                                TriggerServerEvent('qb-fooddelivery:server:finishDelivery', item1, item2)
+                                                TriggerServerEvent('i13-fooddelivery:server:finishDelivery', item1, item2)
                                                 isDelivering = false
                                                 removeTheZone(ZoneName)
                                                 RemoveBlip(deliveryBlip)
@@ -84,7 +84,7 @@ RegisterNetEvent('qb-fooddelivery:client:startDelivery', function()
             end
         end)
     else
-        TriggerEvent('qb-phone:client:CustomNotification',
+        TriggerEvent('i13-phone:client:CustomNotification',
             'Solk',
             'Sul on juba tellimus pooleli',
             'fas fa-pepper-hot',
@@ -94,13 +94,13 @@ RegisterNetEvent('qb-fooddelivery:client:startDelivery', function()
     end
 end)
 
-RegisterNetEvent('qb-fooddelivery:client:cancelDelivery', function()
+RegisterNetEvent('i13-fooddelivery:client:cancelDelivery', function()
     if isDelivering then
         isDelivering = false
         removeTheZone(ZoneName)
         RemoveBlip(deliveryBlip)
         ClearAllBlipRoutes()
-        TriggerEvent('qb-phone:client:CustomNotification',
+        TriggerEvent('i13-phone:client:CustomNotification',
             'Solk',
             'Tellimus edukalt tühistatud',
             'fas fa-pepper-hot',
@@ -108,7 +108,7 @@ RegisterNetEvent('qb-fooddelivery:client:cancelDelivery', function()
             2500
         )
     else
-        TriggerEvent('qb-phone:client:CustomNotification',
+        TriggerEvent('i13-phone:client:CustomNotification',
             'Solk',
             'Sul ei ole ühtegi tellimust pooleli',
             'fas fa-pepper-hot',

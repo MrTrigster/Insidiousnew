@@ -20,11 +20,11 @@ local devmode = false
 
 -- Events
 
-RegisterNetEvent('qb-admin:client:inventory', function(targetPed)
+RegisterNetEvent('i13-admin:client:inventory', function(targetPed)
     TriggerServerEvent("inventory:server:OpenInventory", "otherplayer", targetPed)
 end)
 
-RegisterNetEvent('qb-admin:client:spectate', function(targetPed, coords)
+RegisterNetEvent('i13-admin:client:spectate', function(targetPed, coords)
     local myPed = PlayerPedId()
     local targetplayer = GetPlayerFromServerId(targetPed)
     local target = GetPlayerPed(targetplayer)
@@ -45,15 +45,15 @@ RegisterNetEvent('qb-admin:client:spectate', function(targetPed, coords)
     end
 end)
 
-RegisterNetEvent('qb-admin:client:SendReport', function(name, src, msg)
-    TriggerServerEvent('qb-admin:server:SendReport', name, src, msg)
+RegisterNetEvent('i13-admin:client:SendReport', function(name, src, msg)
+    TriggerServerEvent('i13-admin:server:SendReport', name, src, msg)
 end)
 
-RegisterNetEvent('qb-admin:client:SendStaffChat', function(name, msg)
-    TriggerServerEvent('qb-admin:server:StaffChatMessage', name, msg)
+RegisterNetEvent('i13-admin:client:SendStaffChat', function(name, msg)
+    TriggerServerEvent('i13-admin:server:StaffChatMessage', name, msg)
 end)
 
-RegisterNetEvent('qb-admin:client:SaveCar', function()
+RegisterNetEvent('i13-admin:client:SaveCar', function()
     local ped = PlayerPedId()
     local veh = GetVehiclePedIsIn(ped)
 
@@ -63,7 +63,7 @@ RegisterNetEvent('qb-admin:client:SaveCar', function()
         local hash = props.model
         local vehname = GetDisplayNameFromVehicleModel(hash):lower()
         if QBCore.Shared.Vehicles[vehname] ~= nil and next(QBCore.Shared.Vehicles[vehname]) ~= nil then
-            TriggerServerEvent('qb-admin:server:SaveCar', props, QBCore.Shared.Vehicles[vehname], GetHashKey(veh), plate)
+            TriggerServerEvent('i13-admin:server:SaveCar', props, QBCore.Shared.Vehicles[vehname], GetHashKey(veh), plate)
         else
             QBCore.Functions.Notify('You cant store this vehicle in your garage..', 'error')
         end
@@ -89,7 +89,7 @@ local function isPedAllowedRandom(skin)
     return retval
 end
 
-RegisterNetEvent('qb-admin:client:SetModel', function(skin)
+RegisterNetEvent('i13-admin:client:SetModel', function(skin)
     local ped = PlayerPedId()
     local model = GetHashKey(skin)
     SetEntityInvincible(ped, true)
@@ -107,7 +107,7 @@ RegisterNetEvent('qb-admin:client:SetModel', function(skin)
 	SetEntityInvincible(ped, false)
 end)
 
-RegisterNetEvent('qb-admin:client:SetSpeed', function(speed)
+RegisterNetEvent('i13-admin:client:SetSpeed', function(speed)
     local ped = PlayerId()
     if speed == "fast" then
         SetRunSprintMultiplierForPlayer(ped, 1.49)
@@ -118,7 +118,7 @@ RegisterNetEvent('qb-admin:client:SetSpeed', function(speed)
     end
 end)
 
-RegisterNetEvent('qb-weapons:client:SetWeaponAmmoManual', function(weapon, ammo)
+RegisterNetEvent('i13-weapons:client:SetWeaponAmmoManual', function(weapon, ammo)
     local ped = PlayerPedId()
     if weapon ~= "current" then
         local weapon = weapon:upper()
@@ -135,11 +135,11 @@ RegisterNetEvent('qb-weapons:client:SetWeaponAmmoManual', function(weapon, ammo)
     end
 end)
 
-RegisterNetEvent('qb-admin:client:GiveNuiFocus', function(focus, mouse)
+RegisterNetEvent('i13-admin:client:GiveNuiFocus', function(focus, mouse)
     SetNuiFocus(focus, mouse)
 end)
 
-RegisterNetEvent('qb-admin:client:ToggleDevmode', function()
+RegisterNetEvent('i13-admin:client:ToggleDevmode', function()
     if devmode == false then
         SetPlayerInvincible(PlayerId(), true)
         devmode = true

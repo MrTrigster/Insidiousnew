@@ -18,7 +18,7 @@ local menu12 = MenuV:CreateMenu(false, 'Vehicle Options', 'topright', 68, 68, 68
 local menu13 = MenuV:CreateMenu(false, 'Vehicle Categories', 'topright', 68, 68, 68, 'size-125', 'none', 'menuv', 'test12')
 local menu14 = MenuV:CreateMenu(false, 'Vehicle Models', 'topright', 68, 68, 68, 'size-125', 'none', 'menuv', 'test13')
 
-RegisterNetEvent('qb-admin:client:openMenu', function()
+RegisterNetEvent('i13-admin:client:openMenu', function()
     MenuV:OpenMenu(menu)
 end)
 
@@ -295,7 +295,7 @@ menu_button11:On("select",function()
     for k,v in ipairs(elements) do
         local menu_button14 = menu6:AddButton({icon = v.icon,label = v.label,value = v,description = v.description,select = function(btn)
             local selection = btn.Value
-            TriggerServerEvent('qb-weathersync:server:setWeather', selection.value)
+            TriggerServerEvent('i13-weathersync:server:setWeather', selection.value)
             QBCore.Functions.Notify('Weather Changed To: '..selection.label)
         end})
     end
@@ -450,7 +450,7 @@ local function ToggleShowCoordinates()
     end)
 end
 
-RegisterNetEvent('qb-admin:client:ToggleCoords', function()
+RegisterNetEvent('i13-admin:client:ToggleCoords', function()
     ToggleShowCoordinates()
 end)
 
@@ -556,10 +556,10 @@ menu12_button4:On('Select', function(item)
 end)
 
 names_button:On('change', function()           
-    TriggerEvent('qb-admin:client:toggleNames')
+    TriggerEvent('i13-admin:client:toggleNames')
 end)                                           
 blips_button:On('change', function()           
-    TriggerEvent('qb-admin:client:toggleBlips')
+    TriggerEvent('i13-admin:client:toggleBlips')
 end)
 
 -- Dealer List
@@ -622,7 +622,7 @@ end)
 -- Player List
 
 local function OpenPermsMenu(permsply)
-    QBCore.Functions.TriggerCallback('qb-admin:server:getrank', function(rank)
+    QBCore.Functions.TriggerCallback('i13-admin:server:getrank', function(rank)
         if rank then
             local selectedgroup = 'Unknown'
             MenuV:OpenMenu(menu10)
@@ -666,7 +666,7 @@ local function OpenPermsMenu(permsply)
                 description = 'Give the permission group',
                 select = function(btn)
                     if selectedgroup ~= 'Unknown' then
-                        TriggerServerEvent('qb-admin:server:setPermissions', permsply.id, selectedgroup)
+                        TriggerServerEvent('i13-admin:server:setPermissions', permsply.id, selectedgroup)
 			            QBCore.Functions.Notify('Authority group changed!', 'success')
                         selectedgroup = 'Unknown'
                     else
@@ -727,7 +727,7 @@ local function OpenKickMenu(kickplayer)
         description = 'Confirm the kick',
         select = function(btn)
             if kickreason ~= 'Unknown' then
-                TriggerServerEvent('qb-admin:server:kick', kickplayer, kickreason)
+                TriggerServerEvent('i13-admin:server:kick', kickplayer, kickreason)
                 kickreason = 'Unknown'
             else
                 QBCore.Functions.Notify('You must give a reason!', 'error')
@@ -818,7 +818,7 @@ local function OpenBanMenu(banplayer)
         description = 'Confirm the ban',
         select = function(btn)
             if banreason ~= 'Unknown' and banlength ~= nil then
-                TriggerServerEvent('qb-admin:server:ban', banplayer, banlength, banreason)
+                TriggerServerEvent('i13-admin:server:ban', banplayer, banlength, banreason)
                 banreason = 'Unknown'
                 banlength = nil
             else
@@ -921,7 +921,7 @@ local function OpenPlayerMenus(player)
             select = function(btn)
                 local values = btn.Value
                 if values ~= "ban" and values ~= "kick" and values ~= "perms" then
-                    TriggerServerEvent('qb-admin:server:'..values, player)
+                    TriggerServerEvent('i13-admin:server:'..values, player)
                 elseif values == "ban" then
                     OpenBanMenu(player)
                 elseif values == "kick" then
@@ -952,7 +952,7 @@ menu_button2:On('select', function(item)
 end)
 
 menu_button13:On("select", function(item, value)
-    TriggerServerEvent("qb-weathersync:server:setTime", value, value)
+    TriggerServerEvent("i13-weathersync:server:setTime", value, value)
     QBCore.Functions.Notify("Time changed to " .. value .. " hs 00 min")
 
 end)

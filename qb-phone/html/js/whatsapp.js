@@ -354,7 +354,7 @@ $(document).on('click', '#whatsapp-openedchat-message-extras', function(e){
 
     if (!ExtraButtonsOpen) {
         $(".whatsapp-extra-buttons").css({"display":"block"}).animate({
-            left: 0+"vh"
+            left: 1+"vh"
         }, 250);
         ExtraButtonsOpen = true;
     } else {

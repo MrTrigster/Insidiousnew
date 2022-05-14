@@ -1,7 +1,7 @@
 fx_version 'cerulean'
 game 'gta5'
 
-description 'qb-hud'
+description 'i13-hud'
 version '2.1.0'
 
 shared_scripts {

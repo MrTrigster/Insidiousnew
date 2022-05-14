@@ -48,7 +48,7 @@ end
 --         icon = "fa-solid fa-scythe",
 --         label = "Flip",
 --         action = function(entity)
---             local QBcore = exports['qb-core']:GetCoreObject()
+--             local QBCore = exports['qb-core']:GetCoreObject()
 --             QBcore.Functions.Progressbar("flipingcAr", "Fliping car", Config.Settings.carFlipingDuration * 1000,
 --                 false, false, {
 --                     disableMovement = true,

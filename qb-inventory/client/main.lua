@@ -668,7 +668,7 @@ for i = 1, 6 do
     RegisterKeyMapping('slot' .. i, 'Uses the item in slot ' .. i, 'keyboard', i)
 end
 
-RegisterNetEvent('qb-inventory:client:giveAnim', function()
+RegisterNetEvent('i13-inventory:client:giveAnim', function()
     LoadAnimDict('mp_common')
 	TaskPlayAnim(PlayerPedId(), 'mp_common', 'givetake1_b', 8.0, 1.0, -1, 16, 0, 0, 0, 0)
 end)

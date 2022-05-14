@@ -71,7 +71,7 @@ function DestroyPlant()
         table.insert(HarvestedPlants, plant.id)
         local ped = GetPlayerPed(-1)
         isDoingAction = true
-        TriggerServerEvent('qb-weed:plantHasBeenHarvested', plant.id)
+        TriggerServerEvent('i13-weed:plantHasBeenHarvested', plant.id)
 
         RequestAnimDict('amb@prop_human_bum_bin@base')
         while not HasAnimDictLoaded('amb@prop_human_bum_bin@base') do
@@ -86,7 +86,7 @@ function DestroyPlant()
             disableMouse = false,
             disableCombat = true,
         }, {}, {}, {}, function() -- Done
-            TriggerServerEvent('qb-weed:destroyPlant', plant.id)
+            TriggerServerEvent('i13-weed:destroyPlant', plant.id)
             isDoingAction = false
             canHarvest = true
             FreezeEntityPosition(ped, false)
@@ -111,7 +111,7 @@ function HarvestWeedPlant()
         table.insert(HarvestedPlants, plant.id)
         local ped = GetPlayerPed(-1)
         isDoingAction = true
-        TriggerServerEvent('qb-weed:plantHasBeenHarvested', plant.id)
+        TriggerServerEvent('i13-weed:plantHasBeenHarvested', plant.id)
 
         RequestAnimDict('amb@prop_human_bum_bin@base')
         while not HasAnimDictLoaded('amb@prop_human_bum_bin@base') do
@@ -126,7 +126,7 @@ function HarvestWeedPlant()
             disableMouse = false,
             disableCombat = true,
         }, {}, {}, {}, function() -- Done
-            TriggerServerEvent('qb-weed:harvestWeed', plant.id)
+            TriggerServerEvent('i13-weed:harvestWeed', plant.id)
             isDoingAction = false
             canHarvest = true
             FreezeEntityPosition(ped, false)
@@ -190,7 +190,7 @@ local function waterWeedPlant()
         disableCombat = true,
     }, {}, {}, {}, function() -- Done
         FreezeEntityPosition(ped, false)
-        TriggerServerEvent('qb-weed:server:waterPlant', plant.id)
+        TriggerServerEvent('i13-weed:server:waterPlant', plant.id)
         ClearPedTasksImmediately(GetPlayerPed(-1))
         isDoingAction = false
     end)
@@ -224,13 +224,13 @@ local function fertilizerWeedPlant()
         disableCombat = true,
     }, {}, {}, {}, function() -- Done
         FreezeEntityPosition(ped, false)
-        TriggerServerEvent('qb-weed:server:feedPlant', plant.id)
+        TriggerServerEvent('i13-weed:server:feedPlant', plant.id)
         ClearPedTasksImmediately(GetPlayerPed(-1))
         isDoingAction = false
     end)
 end
 
-RegisterNetEvent('qb-weed:weedActions', function()
+RegisterNetEvent('i13-weed:weedActions', function()
     for k,v in pairs(Config.Plants) do
         if not isDoingAction and not v.beingHarvested and not IsPedInAnyVehicle(GetPlayerPed(-1), false) then
             if PlayerJob.name == 'police' then
@@ -245,7 +245,7 @@ RegisterNetEvent('qb-weed:weedActions', function()
                             header = 'Hävita',
                             txt = 'Hävita taim',
                             params = {
-                                event = 'qb-weed:client:destroyWeed',
+                                event = 'i13-weed:client:destroyWeed',
                             }
                         },
                     })
@@ -263,14 +263,14 @@ RegisterNetEvent('qb-weed:weedActions', function()
                                 header = 'Vesi: '..v.thirst..'%',
                                 txt = 'Anna taimele vett',
                                 params = {
-                                    event = 'qb-weed:client:giveWaterWeed',
+                                    event = 'i13-weed:client:giveWaterWeed',
                                 }
                             },
                             {
                                 header = 'Väetis: '..v.hunger..'%',
                                 txt = 'Anna taimele väetist',
                                 params = {
-                                    event = 'qb-weed:client:giveFertilizerWeed',
+                                    event = 'i13-weed:client:giveFertilizerWeed',
                                 }
                             },
                         })
@@ -287,7 +287,7 @@ RegisterNetEvent('qb-weed:weedActions', function()
                                 header = 'Korja',
                                 txt = 'Korja valminud saak',
                                 params = {
-                                    event = 'qb-weed:client:harvestReadyWeed',
+                                    event = 'i13-weed:client:harvestReadyWeed',
                                 }
                             },
                         })
@@ -298,11 +298,11 @@ RegisterNetEvent('qb-weed:weedActions', function()
     end
 end)
 
-RegisterNetEvent('qb-weed:client:destroyWeed', function()
+RegisterNetEvent('i13-weed:client:destroyWeed', function()
     DestroyPlant()
 end)
 
-RegisterNetEvent('qb-weed:client:giveWaterWeed', function()
+RegisterNetEvent('i13-weed:client:giveWaterWeed', function()
     QBCore.Functions.TriggerCallback('QBCore:HasItem', function(HasItem)
         if HasItem then
             waterWeedPlant()
@@ -312,7 +312,7 @@ RegisterNetEvent('qb-weed:client:giveWaterWeed', function()
     end, 'water_bottle')
 end)
 
-RegisterNetEvent('qb-weed:client:giveFertilizerWeed', function()
+RegisterNetEvent('i13-weed:client:giveFertilizerWeed', function()
     QBCore.Functions.TriggerCallback('QBCore:HasItem', function(HasItem)
         if HasItem then
             fertilizerWeedPlant()
@@ -322,13 +322,13 @@ RegisterNetEvent('qb-weed:client:giveFertilizerWeed', function()
     end, 'fertilizer')
 end)
 
-RegisterNetEvent('qb-weed:client:harvestReadyWeed', function()
+RegisterNetEvent('i13-weed:client:harvestReadyWeed', function()
     if canHarvest then
         HarvestWeedPlant()
     end
 end)
 
-RegisterNetEvent('qb-weed:client:removeWeedObject', function(plant)
+RegisterNetEvent('i13-weed:client:removeWeedObject', function(plant)
     for i = 1, #SpawnedPlants do
         local o = SpawnedPlants[i]
         if o.id == plant then
@@ -339,11 +339,11 @@ RegisterNetEvent('qb-weed:client:removeWeedObject', function(plant)
     end
 end)
 
-RegisterNetEvent('qb-weed:client:updateWeedData', function(data)
+RegisterNetEvent('i13-weed:client:updateWeedData', function(data)
     Config.Plants = data
 end)
 
-RegisterNetEvent('qb-weed:client:plantNewSeed', function(type, itemname)
+RegisterNetEvent('i13-weed:client:plantNewSeed', function(type, itemname)
     local pos = GetOffsetFromEntityInWorldCoords(GetPlayerPed(-1), 0.0, 1.0, -0.35)
 
     if CanPlantSeedHere(pos) and not IsPedInAnyVehicle(GetPlayerPed(-1), false) then
@@ -353,14 +353,14 @@ RegisterNetEvent('qb-weed:client:plantNewSeed', function(type, itemname)
             disableMouse = false,
             disableCombat = true,
         }, {}, {}, {}, function() -- Done
-            TriggerServerEvent('qb-weed:server:plantNewSeed', type, pos, itemname)
+            TriggerServerEvent('i13-weed:server:plantNewSeed', type, pos, itemname)
         end)
     else
         QBCore.Functions.Notify("Liiga lähedal teisele taimele", "error")
     end
 end)
 
-RegisterNetEvent('qb-weed:client:plantSeedConfirm', function()
+RegisterNetEvent('i13-weed:client:plantSeedConfirm', function()
     RequestAnimDict("pickup_object")
     while not HasAnimDictLoaded("pickup_object") do
         Wait(7)
@@ -485,11 +485,11 @@ end)
                             DrawText3D(v.x, v.y, v.z - 0.18, '~b~G~w~ - Water      ~y~H~w~ - Feed')
                             if IsControlJustReleased(0, Keys["G"]) then
                                 if v.id == plant.id then
-                                    TriggerServerEvent('orp:server:checkPlayerHasThisItem', 'water_bottle', 'qb-weed:client:waterPlant', true)
+                                    TriggerServerEvent('orp:server:checkPlayerHasThisItem', 'water_bottle', 'i13-weed:client:waterPlant', true)
                                 end
                             elseif IsControlJustReleased(0, Keys["H"]) then
                                 if v.id == plant.id then
-                                    TriggerServerEvent('orp:server:checkPlayerHasThisItem', 'fertilizer', 'qb-weed:client:feedPlant', true)
+                                    TriggerServerEvent('orp:server:checkPlayerHasThisItem', 'fertilizer', 'i13-weed:client:feedPlant', true)
                                 end
                             end
                         else
@@ -544,7 +544,7 @@ end) ]]
                     end)
 
                     if math.random(1, 10) == 7 then
-                        TriggerServerEvent('qb-weed:server:giveShittySeed')
+                        TriggerServerEvent('i13-weed:server:giveShittySeed')
                     end
                 end
             else
@@ -563,7 +563,7 @@ CreateThread(function()
         options = {
             {
                 type = 'client',
-                event = 'qb-weed:weedActions',
+                event = 'i13-weed:weedActions',
                 icon = 'fas fa-cannabis',
                 label = 'Kanepitaime Tegevused',
             }
@@ -583,7 +583,7 @@ CreateThread(function()
         options = {
             {
                 type = 'client',
-                event = 'qb-shops:client:OpenWeedShop',
+                event = 'i13-shops:client:OpenWeedShop',
                 label = 'Osta Seemneid',
                 icon = 'fas fa-cannabis',
             }

@@ -22,17 +22,17 @@ RegisterNetEvent('nitrous:client:getNosLevel', function()
     local hasNitro = tableHasKey(VehicleNitrous, modelPlate)
 
     if hasNitro then
-        TriggerServerEvent('qb-garage:server:updateVehicleNos', VehicleNitrous[modelPlate].level, modelPlate)
+        TriggerServerEvent('i13-garage:server:updateVehicleNos', VehicleNitrous[modelPlate].level, modelPlate)
     end
 end)
 
 -- RegisterNetEvent('QBCore:Client:OnPlayerLoaded', function()
---     QBCore.Functions.TriggerCallback('qb-garage:server:GetVehicleNitrous', function(nitrous)
+--     QBCore.Functions.TriggerCallback('i13-garage:server:GetVehicleNitrous', function(nitrous)
 --         TriggerServerEvent('nitrous:client:getNosLevel', nitrous, veh)
 --     end, vehicle.plate)
 -- end)
 
-RegisterNetEvent('qb-nitrous:client:LoadNitrous', function()
+RegisterNetEvent('i13-nitrous:client:LoadNitrous', function()
     local IsInVehicle = IsPedInAnyVehicle(PlayerPedId())
     local ped = PlayerPedId()
     local veh = GetVehiclePedIsIn(ped)

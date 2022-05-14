@@ -84,27 +84,27 @@ local function smashVitrine(k)
         disableMouse = false,
         disableCombat = true,
     }, {}, {}, {}, function() -- Done
-        TriggerServerEvent('qb-jewellery:server:setVitrineState', "isOpened", true, k)
-        TriggerServerEvent('qb-jewellery:server:setVitrineState', "isBusy", false, k)
-        TriggerServerEvent('qb-jewellery:server:vitrineReward')
+        TriggerServerEvent('i13-jewellery:server:setVitrineState', "isOpened", true, k)
+        TriggerServerEvent('i13-jewellery:server:setVitrineState', "isBusy", false, k)
+        TriggerServerEvent('i13-jewellery:server:vitrineReward')
         if not firstAlarm then
             --TriggerServerEvent('police:server:policeJeweleryAlert', 'Juveelipoe Rööv<br>Kaamerad: 31, 32, 33, 34') --camera 31, 32, 33, 34
             -- local data = {displayCode = '10-72', description = 'Juveelipoerööv', isImportant = 1, recipientList = {'police'}, length = '10000', infoM = 'fa-info-circle', info = 'Vangelico Juveelipood'}
             -- local dispatchData = {dispatchData = data, caller = 'Poe Alarm', coords = vector3(-630.5, -237.13, 38.08)}
             -- TriggerServerEvent('wf-alerts:svNotify', dispatchData)
             exports['qb-dispatch']:VangelicoRobbery()
-            TriggerServerEvent('qb-jewellery:server:log')
-            TriggerServerEvent('qb-jewellery:server:setTimeout')
+            TriggerServerEvent('i13-jewellery:server:log')
+            TriggerServerEvent('i13-jewellery:server:setTimeout')
             firstAlarm = true
         end
         smashing = false
         TaskPlayAnim(ped, animDict, "exit", 3.0, 3.0, -1, 2, 0, 0, 0, 0)
     end, function() -- Cancel
-        TriggerServerEvent('qb-jewellery:server:setVitrineState', "isBusy", false, k)
+        TriggerServerEvent('i13-jewellery:server:setVitrineState', "isBusy", false, k)
         smashing = false
         TaskPlayAnim(ped, animDict, "exit", 3.0, 3.0, -1, 2, 0, 0, 0, 0)
     end)
-    TriggerServerEvent('qb-jewellery:server:setVitrineState', "isBusy", true, k)
+    TriggerServerEvent('i13-jewellery:server:setVitrineState', "isBusy", true, k)
 
     CreateThread(function()
         while smashing do
@@ -121,20 +121,20 @@ end
 
 -- Events
 
-RegisterNetEvent('qb-jewellery:client:setVitrineState', function(stateType, state, k)
+RegisterNetEvent('i13-jewellery:client:setVitrineState', function(stateType, state, k)
     Config.Locations[k][stateType] = state
 end)
 
-RegisterNetEvent('qb-jewellery:client:setFirstAlarm', function(state)
+RegisterNetEvent('i13-jewellery:client:setFirstAlarm', function(state)
     firstAlarm = state
 end)
 
-RegisterNetEvent('qb-jewellery:client:setHackStatus', function(state)
+RegisterNetEvent('i13-jewellery:client:setHackStatus', function(state)
     hacked = state
     TriggerServerEvent('nui_doorlock:server:updateState', 'main_door', true, false, false, true)
 end)
 
-RegisterNetEvent('qb-jewellery:client:hackJewelery', function()
+RegisterNetEvent('i13-jewellery:client:hackJewelery', function()
     QBCore.Functions.TriggerCallback('QBCore:HasItem', function(status)
         if status then
             if not hacked then
@@ -155,7 +155,7 @@ RegisterNetEvent('qb-jewellery:client:hackJewelery', function()
                     if minigame == true then
                         hacked = true
                         -- TriggerServerEvent('nui_doorlock:server:updateState', 'main_door', false, false, false, true)
-                        TriggerServerEvent('qb-doorlock:server:updateState', 'vangelico_doors-vangelico_main', false, false, false, true)
+                        TriggerServerEvent('i13-doorlock:server:updateState', 'vangelico_doors-vangelico_main', false, false, false, true)
                         local chance = math.random(1, 100)
                         if chance <= 25 then
                             -- local data = {displayCode = '10-72', description = 'Juveelipood', isImportant = 0, recipientList = {'police'}, length = '10000', infoM = 'fa-info-circle', info = 'Juveelipoe turvalukk välja lülitatud'}
@@ -163,7 +163,7 @@ RegisterNetEvent('qb-jewellery:client:hackJewelery', function()
                             -- TriggerServerEvent('wf-alerts:svNotify', dispatchData)
                             exports['qb-dispatch']:VangelicoRobbery()
                         end
-                        TriggerServerEvent('qb-jewellery:server:hackAlert')
+                        TriggerServerEvent('i13-jewellery:server:hackAlert')
                         QBCore.Functions.Notify('Turvalukk eemaldatud', 'success')
                     else
                         QBCore.Functions.Notify('Ebaõnnestus', 'error')
@@ -214,7 +214,7 @@ CreateThread(function()
                         if not Config.Locations[case]["isBusy"] and not Config.Locations[case]["isOpened"] then
                             DrawText3Ds(Config.Locations[case]["coords"]["x"], Config.Locations[case]["coords"]["y"], Config.Locations[case]["coords"]["z"], '[E] Lõhu Klaas')
                             if IsControlJustPressed(0, 38) then
-                                QBCore.Functions.TriggerCallback('qb-jewellery:server:getCops', function(cops)
+                                QBCore.Functions.TriggerCallback('i13-jewellery:server:getCops', function(cops)
                                     if cops >= Config.RequiredCops then
                                         if validWeapon() then
                                             smashVitrine(case)
@@ -251,7 +251,7 @@ CreateThread(function()
         options = {
             {
                 type = 'client',
-                event = 'qb-jewellery:client:hackJewelery',
+                event = 'i13-jewellery:client:hackJewelery',
                 icon = 'fas fa-bolt',
                 label = 'Eemalda Turvalukk',
             }

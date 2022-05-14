@@ -135,7 +135,7 @@
 -- RegisterNetEvent('prison:client:PrisonBreakAlert')
 -- AddEventHandler('prison:client:PrisonBreakAlert', function()
 --     -- TriggerEvent("chatMessage", "ALERT", "error", "Attentie alle eenheden! Poging tot uitbraak in de gevangenis!")
---     TriggerEvent('qb-policealerts:client:AddPoliceAlert', {
+--     TriggerEvent('i13-policealerts:client:AddPoliceAlert', {
 --         timeOut = 10000,
 --         alertTitle = "Prison outbreak",
 --         details = {
@@ -176,7 +176,7 @@
 -- function OnHackDone(success, timeremaining)
 --     if success then
 --         TriggerServerEvent("prison:server:SetGateHit", currentGate)
--- 		TriggerServerEvent('qb-doorlock:server:updateState', Gates[currentGate].gatekey, false)
+-- 		TriggerServerEvent('i13-doorlock:server:updateState', Gates[currentGate].gatekey, false)
 -- 		TriggerEvent('mhacking:hide')
 --     else
 --         TriggerServerEvent("prison:server:SecurityLockdown")

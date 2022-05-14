@@ -42,7 +42,7 @@ local function spawnPaletoObj()
             options = {
                 {
                     type = 'client',
-                    event = 'qb-bankrobbery:client:startPaletoCashGrab1',
+                    event = 'i13-bankrobbery:client:startPaletoCashGrab1',
                     icon = 'fas fa-dollar-sign',
                     label = 'Võta Raha',
                 }
@@ -56,7 +56,7 @@ local function spawnPaletoObj()
             options = {
                 {
                     type = 'client',
-                    event = 'qb-bankrobbery:client:startPaletoCashGrab2',
+                    event = 'i13-bankrobbery:client:startPaletoCashGrab2',
                     icon = 'fas fa-dollar-sign',
                     label = 'Võta Raha',
                 }
@@ -159,12 +159,12 @@ local function grabCash(cartLocation)
         removePaletoTarget('paletotrolley2')
     end
 
-    TriggerServerEvent('qb-bankrobbery:server:recieveItem', 'paleto')
+    TriggerServerEvent('i13-bankrobbery:server:recieveItem', 'paleto')
 end
 
 -- Events
 
-RegisterNetEvent('qb-bankrobbery:client:deletePaletoTrolleys', function()
+RegisterNetEvent('i13-bankrobbery:client:deletePaletoTrolleys', function()
     DeleteObject(EmptyTrolley1)
     DeleteObject(EmptyTrolley2)
     DeleteObject(PaletoTrolley1)
@@ -175,20 +175,20 @@ RegisterNetEvent('qb-bankrobbery:client:deletePaletoTrolleys', function()
     copsCalled = false
 end)
 
-RegisterNetEvent('qb-bankrobbery:client:startPaletoCashGrab1', function()
+RegisterNetEvent('i13-bankrobbery:client:startPaletoCashGrab1', function()
     grabCash(1)
 end)
 
-RegisterNetEvent('qb-bankrobbery:client:startPaletoCashGrab2', function()
+RegisterNetEvent('i13-bankrobbery:client:startPaletoCashGrab2', function()
     grabCash(2)
 end)
 
-RegisterNetEvent('qb-bankrobbery:client:usePaletoLaptop', function()
+RegisterNetEvent('i13-bankrobbery:client:usePaletoLaptop', function()
     local ped = PlayerPedId()
     local pos = GetEntityCoords(ped)
     local dist = #(pos - Config.BigBanks['paleto']['coords'])
     if dist < 1.5 then
-        QBCore.Functions.TriggerCallback('qb-bankrobbery:server:isPaletoActive', function(isBusy)
+        QBCore.Functions.TriggerCallback('i13-bankrobbery:server:isPaletoActive', function(isBusy)
             if not isBusy then
                 local dist = #(pos - Config.BigBanks['paleto']['coords'])
                 if dist < 1.5 then
@@ -201,7 +201,7 @@ RegisterNetEvent('qb-bankrobbery:client:usePaletoLaptop', function()
                                     end
                                     TriggerServerEvent('QBCore:Server:RemoveItem', 'electronickit', 1)
                                     TriggerEvent('inventory:client:ItemBox', QBCore.Shared.Items['electronickit'], 'remove')
-                                    TriggerServerEvent('qb-durability:server:RemoveItemQuality', 34, 'laptop_paleto')
+                                    TriggerServerEvent('i13-durability:server:RemoveItemQuality', 34, 'laptop_paleto')
                                     QBCore.Functions.Progressbar('hack_gate', 'Ühendab seadet...', math.random(5000, 10000), false, true, {
                                         disableMovement = true,
                                         disableCarMovement = true,
@@ -215,8 +215,8 @@ RegisterNetEvent('qb-bankrobbery:client:usePaletoLaptop', function()
                                         StopAnimTask(PlayerPedId(), 'anim@gangops@facility@servers@', 'hotwire', 1.0)
                                         exports['hacking']:OpenHackingGame(function(success)
                                             if success then
-                                                TriggerServerEvent('qb-bankrobbery:server:setBankState', 'paleto', true)
-                                                TriggerServerEvent('qb-bankrobbery:server:spawnPaletoCarts')
+                                                TriggerServerEvent('i13-bankrobbery:server:setBankState', 'paleto', true)
+                                                TriggerServerEvent('i13-bankrobbery:server:spawnPaletoCarts')
                                                 if not blackoutIsActive then
                                                     if not copsCalled then
                                                         -- local data = {displayCode = '10-72', description = 'Pangarööv', isImportant = 1, recipientList = {'police'}, length = '10000', infoM = 'fa-info-circle', info = 'Paleto Bay Pank'}
@@ -226,7 +226,7 @@ RegisterNetEvent('qb-bankrobbery:client:usePaletoLaptop', function()
                                                         copsCalled = true
                                                     end
                                                 end
-                                                TriggerServerEvent('qb-bankrobbery:server:laptopAlert', 'paleto')
+                                                TriggerServerEvent('i13-bankrobbery:server:laptopAlert', 'paleto')
                                             else
                                                 QBCore.Functions.Notify('Hack Ebaõnnestus', 'error')
                                                 if not blackoutIsActive then
@@ -262,6 +262,6 @@ RegisterNetEvent('qb-bankrobbery:client:usePaletoLaptop', function()
     end
 end)
 
-RegisterNetEvent('qb-bankrobbery:client:spawnPaletoCarts', function()
+RegisterNetEvent('i13-bankrobbery:client:spawnPaletoCarts', function()
     spawnPaletoObj()
 end)

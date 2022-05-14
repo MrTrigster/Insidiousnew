@@ -8,12 +8,12 @@ CreateThread(function()
     while true do
         Wait(1000)
         if NetCheck1 or NetCheck2 then
-            TriggerServerEvent('qb-admin:server:GetPlayersForBlips')
+            TriggerServerEvent('i13-admin:server:GetPlayersForBlips')
         end
     end
 end)
 
-RegisterNetEvent('qb-admin:client:toggleBlips', function()
+RegisterNetEvent('i13-admin:client:toggleBlips', function()
     if not ShowBlips then
         ShowBlips = true
         NetCheck1 = true
@@ -24,7 +24,7 @@ RegisterNetEvent('qb-admin:client:toggleBlips', function()
     end
 end)
 
-RegisterNetEvent('qb-admin:client:toggleNames', function()
+RegisterNetEvent('i13-admin:client:toggleNames', function()
     if not ShowNames then
         ShowNames = true
         NetCheck2 = true
@@ -35,7 +35,7 @@ RegisterNetEvent('qb-admin:client:toggleNames', function()
     end
 end)
 
-RegisterNetEvent('qb-admin:client:Show', function(players)
+RegisterNetEvent('i13-admin:client:Show', function(players)
     for k, player in pairs(players) do
         local playeridx = GetPlayerFromServerId(player.id)
         local ped = GetPlayerPed(playeridx)

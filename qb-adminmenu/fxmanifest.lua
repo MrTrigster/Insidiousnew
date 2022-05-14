@@ -1,7 +1,7 @@
 fx_version 'cerulean'
 game 'gta5'
 
-description 'QB-AdminMenu'
+description 'i13-AdminMenu'
 version '1.0.0'
 
 ui_page 'html/index.html'

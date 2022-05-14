@@ -12,8 +12,8 @@ local banks = {
 	{name="Pank", id=108, x=1175.064, y=2706.643, z=38.094}
 }
 
-RegisterNetEvent("qb-banking:client:ExtNotify")
-AddEventHandler("qb-banking:client:ExtNotify", function(msg)
+RegisterNetEvent("i13-banking:client:ExtNotify")
+AddEventHandler("i13-banking:client:ExtNotify", function(msg)
 	if (not msg or msg == "") then return end
 
 	QBCore.Functions.Notify(msg)
@@ -35,8 +35,8 @@ Citizen.CreateThread(function()
 end)
 
 
-RegisterNetEvent('qb-banking:client:bank:openUI')
-AddEventHandler('qb-banking:client:bank:openUI', function() -- this one bank from target models
+RegisterNetEvent('i13-banking:client:bank:openUI')
+AddEventHandler('i13-banking:client:bank:openUI', function() -- this one bank from target models
 	if not bMenuOpen then
 		--TriggerEvent('animations:client:EmoteCommandStart', {"ATM"})
 
@@ -53,8 +53,8 @@ AddEventHandler('qb-banking:client:bank:openUI', function() -- this one bank fro
 		end)
 	end
 end)
-RegisterNetEvent('qb-banking:client:atm:openUI')
-AddEventHandler('qb-banking:client:atm:openUI', function() -- this opens ATM
+RegisterNetEvent('i13-banking:client:atm:openUI')
+AddEventHandler('i13-banking:client:atm:openUI', function() -- this opens ATM
 	if not bMenuOpen then
 		TriggerEvent('animations:client:EmoteCommandStart', {"ATM"})
 
@@ -84,7 +84,7 @@ CreateThread(function()
 		options = {
 			{
 				type = 'client',
-				event = 'qb-banking:client:bank:openUI',
+				event = 'i13-banking:client:bank:openUI',
 				icon = 'fas fa-university',
 				label = 'Pank',
 			},
@@ -102,7 +102,7 @@ CreateThread(function()
 		options = {
 			{
 				type = 'client',
-				event = 'qb-banking:client:bank:openUI',
+				event = 'i13-banking:client:bank:openUI',
 				icon = 'fas fa-university',
 				label = 'Pank',
 			},
@@ -120,7 +120,7 @@ CreateThread(function()
 		options = {
 			{
 				type = 'client',
-				event = 'qb-banking:client:bank:openUI',
+				event = 'i13-banking:client:bank:openUI',
 				icon = 'fas fa-university',
 				label = 'Pank',
 			},
@@ -138,7 +138,7 @@ CreateThread(function()
 		options = {
 			{
 				type = 'client',
-				event = 'qb-banking:client:bank:openUI',
+				event = 'i13-banking:client:bank:openUI',
 				icon = 'fas fa-university',
 				label = 'Pank',
 			},
@@ -156,7 +156,7 @@ CreateThread(function()
 		options = {
 			{
 				type = 'client',
-				event = 'qb-banking:client:bank:openUI',
+				event = 'i13-banking:client:bank:openUI',
 				icon = 'fas fa-university',
 				label = 'Pank',
 			},
@@ -174,7 +174,7 @@ CreateThread(function()
 		options = {
 			{
 				type = 'client',
-				event = 'qb-banking:client:bank:openUI',
+				event = 'i13-banking:client:bank:openUI',
 				icon = 'fas fa-university',
 				label = 'Pank',
 			},
@@ -192,7 +192,7 @@ CreateThread(function()
 		options = {
 			{
 				type = 'client',
-				event = 'qb-banking:client:bank:openUI',
+				event = 'i13-banking:client:bank:openUI',
 				icon = 'fas fa-university',
 				label = 'Pank',
 			},
@@ -210,7 +210,7 @@ CreateThread(function()
 		options = {
 			{
 				type = 'client',
-				event = 'qb-banking:client:bank:openUI',
+				event = 'i13-banking:client:bank:openUI',
 				icon = 'fas fa-university',
 				label = 'Pank',
 			},
@@ -228,7 +228,7 @@ CreateThread(function()
         options = {
             {
                 type = 'client',
-                event = 'qb-banking:client:atm:openUI',
+                event = 'i13-banking:client:atm:openUI',
                 icon = 'fas fa-credit-card',
                 label = 'ATM',
             }

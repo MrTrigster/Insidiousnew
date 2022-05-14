@@ -51,7 +51,7 @@ local function EnableEditMode()
 	SetEntityCollision(PlayerPedId(), false, false)
 	CreateEditCamera()
 	DecoMode = true
-	TriggerEvent('qb-anticheat:client:ToggleDecorate', true)
+	TriggerEvent('i13-anticheat:client:ToggleDecorate', true)
 end
 
 local function SaveDecorations()
@@ -71,7 +71,7 @@ local function SaveDecorations()
 				DeleteObject(v.object)
 			end
 		end
-		TriggerServerEvent("qb-houses:server:savedecorations", ClosestHouse, ObjectList)
+		TriggerServerEvent("i13-houses:server:savedecorations", ClosestHouse, ObjectList)
 	end
 end
 
@@ -93,7 +93,7 @@ local function DisableEditMode()
 	SelectedObj = nil
 	peanut = false
 	DecoMode = false
-	TriggerEvent('qb-anticheat:client:ToggleDecorate', false)
+	TriggerEvent('i13-anticheat:client:ToggleDecorate', false)
 end
 
 local function CheckObjMovementInput()
@@ -215,7 +215,7 @@ end
 
 -- Events
 
-RegisterNetEvent('qb-houses:client:decorate', function()
+RegisterNetEvent('i13-houses:client:decorate', function()
 	Citizen.Wait(500)
 	if IsInside then
 		if HasKey then
@@ -259,7 +259,7 @@ RegisterNUICallback("cancelSelectedObject", function(data, cb)
 end)
 
 RegisterNUICallback("buySelectedObject", function(data, cb)
-    QBCore.Functions.TriggerCallback('qb-houses:server:buyFurniture', function(isSuccess)
+    QBCore.Functions.TriggerCallback('i13-houses:server:buyFurniture', function(isSuccess)
         if isSuccess then
             SetNuiFocus(false, false)
             cursorEnabled = not cursorEnabled

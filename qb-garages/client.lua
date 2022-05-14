@@ -544,13 +544,13 @@ local function SetVehicleModifications(vehicle, props)-- Apply all modifications
             SetVehicleEngineHealth(vehicle, props.engineHealth + 0.0)
         end
 		if props.engineHealth and renderScorched and props.engineHealth < -3999.0 then
-			TriggerServerEvent('qb-garages:server:renderScorched', NetworkGetNetworkIdFromEntity(vehicle), true)
+			TriggerServerEvent('i13-garages:server:renderScorched', NetworkGetNetworkIdFromEntity(vehicle), true)
 		end
 		if props.tankHealth then
             SetVehiclePetrolTankHealth(vehicle, props.tankHealth + 0.0)
         end
 		if props.tankHealth and renderScorched and props.tankHealth < -999.0 then
-			TriggerServerEvent('qb-garages:server:renderScorched', NetworkGetNetworkIdFromEntity(vehicle), true)
+			TriggerServerEvent('i13-garages:server:renderScorched', NetworkGetNetworkIdFromEntity(vehicle), true)
 		end
 		if props.dirtLevel then
             SetVehicleDirtLevel(vehicle, props.dirtLevel + 0.0)
@@ -813,7 +813,7 @@ local function CheckPlayers(vehicle) -- Check if there is someone in the car, if
             SetVehicleDoorsLocked(vehicle)			
             Wait(3000)
 			local networkId = NetworkGetNetworkIdFromEntity(vehicle)
-			TriggerEvent('qb-garages:client:updateVehicle', networkId)
+			TriggerEvent('i13-garages:client:updateVehicle', networkId)
 			Wait(100)
             QBCore.Functions.DeleteVehicle(vehicle)
         end
@@ -825,41 +825,41 @@ function GetAllVehicles() -- Returns all loaded vehicles on client side
 end
 
 -- Events
-RegisterNetEvent('qb-garages:client:renderScorched', function(vehicleNetId, scorched)
+RegisterNetEvent('i13-garages:client:renderScorched', function(vehicleNetId, scorched)
 	local vehicle = NetworkGetEntityFromNetworkId(vehicleNetId)
 	if (DoesEntityExist(vehicle)) then
 		SetEntityRenderScorched(vehicle, scorched)
 	end
 end)
 
-RegisterNetEvent('qb-garages:client:setVehicleMods', function(netId, plate, modifications)
+RegisterNetEvent('i13-garages:client:setVehicleMods', function(netId, plate, modifications)
 	local timer = GetGameTimer()
 	while (not NetworkDoesEntityExistWithNetworkId(netId)) do
 		Wait(0)
 		if (GetGameTimer() - 10000 > timer) then
-			TriggerServerEvent('qb-garages:server:setVehicleModsFailed', plate)
+			TriggerServerEvent('i13-garages:server:setVehicleModsFailed', plate)
 			return
 		end
 	end
 	local vehicle = NetworkGetEntityFromNetworkId(netId)
     if (DoesEntityExist(vehicle) and NetworkHasControlOfEntity(vehicle)) then
         SetVehicleModifications(vehicle, modifications)
-		TriggerServerEvent('qb-garages:server:setVehicleModsSuccess', plate)
+		TriggerServerEvent('i13-garages:server:setVehicleModsSuccess', plate)
 	else
-		TriggerServerEvent('qb-garages:server:setVehicleModsFailed', plate)
+		TriggerServerEvent('i13-garages:server:setVehicleModsFailed', plate)
     end
 end)
 
-RegisterNetEvent('qb-garages:client:updateVehicle', function(netId)
+RegisterNetEvent('i13-garages:client:updateVehicle', function(netId)
 	local vehicle = NetworkGetEntityFromNetworkId(netId)
 	if (vehicle == nil) then
 		return
 	end
 	local plate = QBCore.Functions.GetPlate(vehicle)
 	if NetworkGetEntityIsNetworked(vehicle) and DoesEntityExist(vehicle) then
-		QBCore.Functions.TriggerCallback('qb-garages:server:checkHasVehicleOwner', function(hasowned)
+		QBCore.Functions.TriggerCallback('i13-garages:server:checkHasVehicleOwner', function(hasowned)
 			if hasowned then					
-				QBCore.Functions.TriggerCallback('qb-garages:server:getVehicleData', function(VehicleData)
+				QBCore.Functions.TriggerCallback('i13-garages:server:getVehicleData', function(VehicleData)
 					if VehicleData then					
 						local modifications = GetVehicleModifications(vehicle)
 						local oldmodifications = json.decode(VehicleData.mods)
@@ -873,7 +873,7 @@ RegisterNetEvent('qb-garages:client:updateVehicle', function(netId)
 							or math.abs(modifications.tankHealth - oldmodifications.tankHealth) > 5.0
 						) then
 							local networkId = NetworkGetNetworkIdFromEntity(vehicle)
-							TriggerServerEvent('qb-garages:server:updateVehicle', networkId, plate, modifications)
+							TriggerServerEvent('i13-garages:server:updateVehicle', networkId, plate, modifications)
 							TriggerEvent('nitrous:client:getNosLevel')
 						end
 					end
@@ -884,19 +884,19 @@ RegisterNetEvent('qb-garages:client:updateVehicle', function(netId)
 end)
 
 RegisterNetEvent('QBCore:Client:OnPlayerLoaded', function() -- Event when player has successfully loaded
-    TriggerEvent('qb-garages:client:DestroyingZone') -- Destroying all zone
+    TriggerEvent('i13-garages:client:DestroyingZone') -- Destroying all zone
 	Wait(100)
 	PlayerData = QBCore.Functions.GetPlayerData() -- Reload player information
 	Wait(100)
-	TriggerServerEvent('qb-garages:server:updateHouseKeys') 	-- Reload house key information	
+	TriggerServerEvent('i13-garages:server:updateHouseKeys') 	-- Reload house key information	
 	Wait(100)
-	TriggerServerEvent('qb-garages:server:UpdateGaragesZone') -- Reload garage information
+	TriggerServerEvent('i13-garages:server:UpdateGaragesZone') -- Reload garage information
 	Wait(100)
 	CreateBlip() --Reload blips
 end)
 
 RegisterNetEvent('QBCore:Client:OnPlayerUnload', function() -- Event when the player has left --Reset all variables
-	TriggerEvent('qb-garages:client:DestroyingZone') -- Destroying all zone
+	TriggerEvent('i13-garages:client:DestroyingZone') -- Destroying all zone
 	GarageLocation = {} 
 	inGarageStation = false
 	currentgarage = nil
@@ -912,43 +912,43 @@ end)
 
 AddEventHandler('onResourceStart', function(resource) -- Event when resource is reloaded
     if resource == GetCurrentResourceName() then -- Reload player information
-        TriggerEvent('qb-garages:client:DestroyingZone') -- Destroying all zone
+        TriggerEvent('i13-garages:client:DestroyingZone') -- Destroying all zone
 		Wait(100)
 		PlayerData = QBCore.Functions.GetPlayerData() -- Reload player information
 		Wait(100)
-		TriggerServerEvent('qb-garages:server:updateHouseKeys') 	-- Reload house key information	
+		TriggerServerEvent('i13-garages:server:updateHouseKeys') 	-- Reload house key information	
 		Wait(100)
-		TriggerServerEvent('qb-garages:server:UpdateGaragesZone') -- Reload garage information
+		TriggerServerEvent('i13-garages:server:UpdateGaragesZone') -- Reload garage information
 		Wait(100)
 		CreateBlip() --Reload blips
     end
 end)
 
 RegisterNetEvent('QBCore:Client:OnJobUpdate', function(JobInfo) --Events when players change jobs
-	TriggerEvent('qb-garages:client:DestroyingZone') -- Destroying all zone
+	TriggerEvent('i13-garages:client:DestroyingZone') -- Destroying all zone
 	Wait(100)
 	PlayerData = QBCore.Functions.GetPlayerData() -- Reload player information
 	Wait(100)
-	TriggerServerEvent('qb-garages:server:updateHouseKeys') 	-- Reload house key information	
+	TriggerServerEvent('i13-garages:server:updateHouseKeys') 	-- Reload house key information	
 	Wait(100)
-	TriggerServerEvent('qb-garages:server:UpdateGaragesZone') -- Reload garage information
+	TriggerServerEvent('i13-garages:server:UpdateGaragesZone') -- Reload garage information
 	Wait(100)
 	CreateBlip() --Reload blips
 end)
 
 RegisterNetEvent('QBCore:Client:OnGangUpdate', function(GangInfo) -- Reload player information
-	TriggerEvent('qb-garages:client:DestroyingZone') -- Destroying all zone
+	TriggerEvent('i13-garages:client:DestroyingZone') -- Destroying all zone
 	Wait(100)
 	PlayerData = QBCore.Functions.GetPlayerData() -- Reload player information
 	Wait(100)
-	TriggerServerEvent('qb-garages:server:updateHouseKeys') 	-- Reload house key information	
+	TriggerServerEvent('i13-garages:server:updateHouseKeys') 	-- Reload house key information	
 	Wait(100)
-	TriggerServerEvent('qb-garages:server:UpdateGaragesZone') -- Reload garage information
+	TriggerServerEvent('i13-garages:server:UpdateGaragesZone') -- Reload garage information
 	Wait(100)
 	CreateBlip() --Reload blips
 end)
 
-RegisterNetEvent('qb-garages:client:UpdateGaragesZone', function(garageConfig) -- Update Garages Zone
+RegisterNetEvent('i13-garages:client:UpdateGaragesZone', function(garageConfig) -- Update Garages Zone
 	if garageConfig then		
 		Garages = garageConfig
 		for k, v in pairs(Garages) do
@@ -984,7 +984,7 @@ RegisterNetEvent('qb-garages:client:UpdateGaragesZone', function(garageConfig) -
 	end
 end)
 
-RegisterNetEvent('qb-garages:client:DestroyingZone', function() -- Destroying all zone
+RegisterNetEvent('i13-garages:client:DestroyingZone', function() -- Destroying all zone
 	if GarageLocation then
 		for k, v in pairs(GarageLocation) do
 			GarageLocation[k]:destroy()
@@ -994,28 +994,28 @@ RegisterNetEvent('qb-garages:client:DestroyingZone', function() -- Destroying al
 	GarageLocation = {}
 end)
 
-RegisterNetEvent('qb-garages:client:updateGarage', function() -- Update Garages
-	TriggerEvent('qb-garages:client:DestroyingZone') -- Destroying all zone
+RegisterNetEvent('i13-garages:client:updateGarage', function() -- Update Garages
+	TriggerEvent('i13-garages:client:DestroyingZone') -- Destroying all zone
 	Wait(100)
 	PlayerData = QBCore.Functions.GetPlayerData() -- Reload player information
 	Wait(100)
-	TriggerServerEvent('qb-garages:server:updateHouseKeys') 	-- Reload house key information	
+	TriggerServerEvent('i13-garages:server:updateHouseKeys') 	-- Reload house key information	
 	Wait(100)
-	TriggerServerEvent('qb-garages:server:UpdateGaragesZone') -- Reload garage information
+	TriggerServerEvent('i13-garages:server:UpdateGaragesZone') -- Reload garage information
 	Wait(100)
 	CreateBlip() --Reload blips
 end)
 
-RegisterNetEvent('qb-garages:client:updateHouseKeys', function(keylist) --Update House Keys
+RegisterNetEvent('i13-garages:client:updateHouseKeys', function(keylist) --Update House Keys
 	if keylist then
 		HouseKeys = keylist
 	end
 end)
 
-RegisterNetEvent('qb-garages:client:openGarage', function() -- Garages Menu
+RegisterNetEvent('i13-garages:client:openGarage', function() -- Garages Menu
     if inGarageStation and currentgarage ~= nil then
 		if currentgarage == 'impound' and PlayerData.job.name == 'police' then
-			QBCore.Functions.TriggerCallback('qb-garages:server:GetimpoundVehicles', function(result)
+			QBCore.Functions.TriggerCallback('i13-garages:server:GetimpoundVehicles', function(result)
 				if result then
 					local MenuGaraOptions = {
 						{
@@ -1027,7 +1027,7 @@ RegisterNetEvent('qb-garages:client:openGarage', function() -- Garages Menu
 						header = '❌| Sulge',
 						txt = '',
 						params = {
-							event = 'qb-menu:closeMenu',
+							event = 'i13-menu:closeMenu',
 						}
 					}
 					for i, v in pairs(result) do
@@ -1050,7 +1050,7 @@ RegisterNetEvent('qb-garages:client:openGarage', function() -- Garages Menu
 								header = QBCore.Shared.Vehicles[v.vehicle].name.. " | Numbrimärk: "..v.plate,
 								txt = "Seisund: "..v.state.." | Hind: $"..v.depotprice.."<br>Kütus: "..currentFuel.." | Mootor: "..enginePercent.." | Kere: "..bodyPercent,
 								params = {
-									event = 'qb-garages:client:TakeOutVehicle',
+									event = 'i13-garages:client:TakeOutVehicle',
 									args = v
 								}
 							}
@@ -1062,7 +1062,7 @@ RegisterNetEvent('qb-garages:client:openGarage', function() -- Garages Menu
 				end
 			end)
 		else
-			QBCore.Functions.TriggerCallback('qb-garages:server:GetUserVehicles', function(result)
+			QBCore.Functions.TriggerCallback('i13-garages:server:GetUserVehicles', function(result)
 				if result then
 					local MenuGaraOptions = {
 						{
@@ -1074,7 +1074,7 @@ RegisterNetEvent('qb-garages:client:openGarage', function() -- Garages Menu
 						header = '❌| Sulge',
 						txt = '',
 						params = {
-							event = 'qb-menu:closeMenu',
+							event = 'i13-menu:closeMenu',
 						}
 					}
 					for i, v in pairs(result) do
@@ -1099,7 +1099,7 @@ RegisterNetEvent('qb-garages:client:openGarage', function() -- Garages Menu
 										header = QBCore.Shared.Vehicles[v.vehicle].name.. " | Numbrimärk: "..v.plate,
 										txt = "Seisund: "..v.state.. "<br>Kütus: "..currentFuel.." | Mootor: "..enginePercent.." | Kere: "..bodyPercent,
 										params = {
-											event = 'qb-garages:client:TakeOutVehicle',
+											event = 'i13-garages:client:TakeOutVehicle',
 											args = v
 										}
 									}
@@ -1128,7 +1128,7 @@ RegisterNetEvent('qb-garages:client:openGarage', function() -- Garages Menu
 												header = QBCore.Shared.Vehicles[v.vehicle].name.. " | Numbrimärk: "..v.plate,
 												txt = "Seisund: "..v.state.. "<br>Kütus: "..currentFuel.." | Mootor: "..enginePercent.." | Kere: "..bodyPercent,
 												params = {
-													event = 'qb-garages:client:TakeOutVehicle',
+													event = 'i13-garages:client:TakeOutVehicle',
 													args = v
 												}
 											}
@@ -1154,7 +1154,7 @@ RegisterNetEvent('qb-garages:client:openGarage', function() -- Garages Menu
 									header = QBCore.Shared.Vehicles[v.vehicle].name.. " | Numbrimärk: "..v.plate,
 									txt = "Seisund: "..v.state.. "<br>Kütus: "..currentFuel.." | Mootor: "..enginePercent.." | Kere: "..bodyPercent,
 									params = {
-										event = 'qb-garages:client:TakeOutVehicle',
+										event = 'i13-garages:client:TakeOutVehicle',
 										args = v
 									}
 								}
@@ -1170,18 +1170,18 @@ RegisterNetEvent('qb-garages:client:openGarage', function() -- Garages Menu
 	end
 end)
 
-RegisterNetEvent('qb-garages:client:TakeOutVehicle', function(vehicle) -- Option to take the vehicle out
+RegisterNetEvent('i13-garages:client:TakeOutVehicle', function(vehicle) -- Option to take the vehicle out
     if inGarageStation and currentgarage ~= nil and nearspawnpoint ~= nil then
 		if vehicle.state == 2 and vehicle.depotprice > 0 then
-			TriggerServerEvent('qb-garages:server:PayDepotPrice', vehicle)
+			TriggerServerEvent('i13-garages:server:PayDepotPrice', vehicle)
 			Wait(1000)
 		else
-			TriggerEvent('qb-garages:client:doTakeOutVehicle', vehicle)
+			TriggerEvent('i13-garages:client:doTakeOutVehicle', vehicle)
 		end
 	end
 end)
 
-RegisterNetEvent('qb-garages:client:doTakeOutVehicle', function(vehicle) -- Take the vehicle out
+RegisterNetEvent('i13-garages:client:doTakeOutVehicle', function(vehicle) -- Take the vehicle out
     if inGarageStation and currentgarage ~= nil and nearspawnpoint ~= nil then
 		local lastnearspawnpoint = nearspawnpoint		
 		if not IsSpawnPointClear(vector3(Garages[currentgarage].spawnPoint[lastnearspawnpoint].x, Garages[currentgarage].spawnPoint[lastnearspawnpoint].y, Garages[currentgarage].spawnPoint[lastnearspawnpoint].z), 2.5) then
@@ -1197,7 +1197,7 @@ RegisterNetEvent('qb-garages:client:doTakeOutVehicle', function(vehicle) -- Take
 				end
 				SetEntityHeading(veh, Garages[currentgarage].spawnPoint[lastnearspawnpoint].w)
 				exports['LegacyFuel']:SetFuel(veh, properties.fuelLevel)
-				TriggerServerEvent('qb-garages:server:updateVehicleState', 0, vehicle.plate, vehicle.garage)
+				TriggerServerEvent('i13-garages:server:updateVehicleState', 0, vehicle.plate, vehicle.garage)
 				QBCore.Functions.Notify('Sõiduk garaazist välja võetud', 'success', 4500)
 				TriggerEvent('vehiclekeys:client:SetOwner', QBCore.Functions.GetPlate(veh))
 			end, Garages[currentgarage].spawnPoint[lastnearspawnpoint], true)
@@ -1205,8 +1205,8 @@ RegisterNetEvent('qb-garages:client:doTakeOutVehicle', function(vehicle) -- Take
 	end
 end)
 
-RegisterNetEvent('qb-garages:client:trackVehicle', function(plate) -- Track Vehicle
-    QBCore.Functions.TriggerCallback('qb-garages:server:getVehicleData', function(location)
+RegisterNetEvent('i13-garages:client:trackVehicle', function(plate) -- Track Vehicle
+    QBCore.Functions.TriggerCallback('i13-garages:server:getVehicleData', function(location)
 		if location then
 			if location.state == 1 then
 				SetNewWaypoint(Garages[location.garage].blippoint.x, Garages[location.garage].blippoint.y)
@@ -1227,7 +1227,7 @@ RegisterNetEvent('qb-garages:client:trackVehicle', function(plate) -- Track Vehi
 	end, plate)
 end)
 
-RegisterNetEvent('qb-garages:client:storeVehicle', function() -- Store Vehicle
+RegisterNetEvent('i13-garages:client:storeVehicle', function() -- Store Vehicle
     if inGarageStation and currentgarage ~= nil then
 		local lastcurrentgarage = currentgarage
 		if Garages[lastcurrentgarage].garastate == 1 then
@@ -1241,19 +1241,19 @@ RegisterNetEvent('qb-garages:client:storeVehicle', function() -- Store Vehicle
 			local vehpos = GetEntityCoords(curVeh)
 			if exports['qb-vehiclekeys']:HasKeys(plate) then
 				if curVeh and #(pos - vehpos) < 7.5 then
-					QBCore.Functions.TriggerCallback('qb-garages:server:checkVehicleOwner', function(owned)
+					QBCore.Functions.TriggerCallback('i13-garages:server:checkVehicleOwner', function(owned)
 						if owned then
 							
 							if IsPedInAnyVehicle(ped) then
 								CheckPlayers(curVeh)
 							else
 								local networkId = NetworkGetNetworkIdFromEntity(curVeh)
-								TriggerEvent('qb-garages:client:updateVehicle', networkId)
+								TriggerEvent('i13-garages:client:updateVehicle', networkId)
 								Wait(100)
 								QBCore.Functions.DeleteVehicle(curVeh)
 							end
-							TriggerServerEvent('qb-garages:server:updateVehicleState', 1, plate, lastcurrentgarage)
-							TriggerServerEvent('qb-garages:server:removeOutsideVehicles', plate)
+							TriggerServerEvent('i13-garages:server:updateVehicleState', 1, plate, lastcurrentgarage)
+							TriggerServerEvent('i13-garages:server:removeOutsideVehicles', plate)
 							if plate ~= nil then
 								OutsideVehicles[plate] = nil
 							end
@@ -1268,7 +1268,7 @@ RegisterNetEvent('qb-garages:client:storeVehicle', function() -- Store Vehicle
 	end
 end)
 
-RegisterNetEvent('qb-garages:client:openJobVehList', function() --Job Vehicles Menu
+RegisterNetEvent('i13-garages:client:openJobVehList', function() --Job Vehicles Menu
 	PlayerData = QBCore.Functions.GetPlayerData()
 	if lastjobveh ~= nil then
 		QBCore.Functions.Notify('Pead tagastama eelmise võetud sõiduki enne kui saad uue võtta', 'error', 3500)
@@ -1283,7 +1283,7 @@ RegisterNetEvent('qb-garages:client:openJobVehList', function() --Job Vehicles M
 			header = '❌| Sulge',
 			txt = '',
 			params = {
-				event = 'qb-menu:closeMenu',
+				event = 'i13-menu:closeMenu',
 			}
 		}
 		for k, v in pairs(JobVeh[PlayerData.job.name][currentgarage].vehicle[PlayerData.job.grade.level]) do
@@ -1292,7 +1292,7 @@ RegisterNetEvent('qb-garages:client:openJobVehList', function() --Job Vehicles M
 				header = v.name,
 				txt = "Seisund: 100<br>Kütus: 100 | Mootor: 100 | Kere: 100",
 				params = {
-					event = 'qb-garages:client:SpawnJobVeh',
+					event = 'i13-garages:client:SpawnJobVeh',
 					args = {
 						model = k,
 						plate = plate,
@@ -1307,7 +1307,7 @@ RegisterNetEvent('qb-garages:client:openJobVehList', function() --Job Vehicles M
 	end
 end)
 
-RegisterNetEvent('qb-garages:client:SpawnJobVeh', function(data) -- Take vehicle for job
+RegisterNetEvent('i13-garages:client:SpawnJobVeh', function(data) -- Take vehicle for job
 	local pos = nil
 	local header = nil
 	local lastnearspawnpoint = nearspawnpoint
@@ -1336,7 +1336,7 @@ RegisterNetEvent('qb-garages:client:SpawnJobVeh', function(data) -- Take vehicle
     end, pos, true)
 end)
 
-RegisterNetEvent('qb-garages:client:HideJobVeh', function() -- Hide vehicle for job
+RegisterNetEvent('i13-garages:client:HideJobVeh', function() -- Hide vehicle for job
 	local ped = PlayerPedId()
 	local pos = GetEntityCoords(ped)
 	local curVeh = QBCore.Functions.GetClosestVehicle(pos)
@@ -1354,10 +1354,10 @@ RegisterNetEvent('qb-garages:client:HideJobVeh', function() -- Hide vehicle for 
 	end
 end)
 
-RegisterNetEvent('qb-garages:client:updateVehicleKey', function(plate) -- Update vehicle key for qb-vehiclekey
-	QBCore.Functions.TriggerCallback('qb-garages:server:getVehicleData', function(owner)
+RegisterNetEvent('i13-garages:client:updateVehicleKey', function(plate) -- Update vehicle key for qb-vehiclekey
+	QBCore.Functions.TriggerCallback('i13-garages:server:getVehicleData', function(owner)
 		if owner ~= nil then
-			TriggerServerEvent('qb-garages:server:updateOutSiteVehicleKeys', plate, owner.citizenid)
+			TriggerServerEvent('i13-garages:server:updateOutSiteVehicleKeys', plate, owner.citizenid)
 		end
 	end, plate)
 end)
@@ -1380,12 +1380,12 @@ CreateThread(function() --Save vehicle data on real times
 			local curVeh = GetVehiclePedIsIn(ped)
 			local plate = QBCore.Functions.GetPlate(curVeh)
 			if NetworkGetEntityIsNetworked(curVeh) and DoesEntityExist(curVeh) then
-				QBCore.Functions.TriggerCallback('qb-garages:server:checkHasVehicleOwner', function(hasowned)
+				QBCore.Functions.TriggerCallback('i13-garages:server:checkHasVehicleOwner', function(hasowned)
 					if hasowned then					
-						QBCore.Functions.TriggerCallback('qb-garages:server:getVehicleData', function(VehicleData)
+						QBCore.Functions.TriggerCallback('i13-garages:server:getVehicleData', function(VehicleData)
 							if VehicleData then					
 								local networkId = NetworkGetNetworkIdFromEntity(curVeh)
-								TriggerEvent('qb-garages:client:updateVehicle', networkId)
+								TriggerEvent('i13-garages:client:updateVehicle', networkId)
 							end
 						end, plate)
 					end
@@ -1400,7 +1400,7 @@ CreateThread(function() -- sync player position
 	while (true) do
 		local playerPed = PlayerPedId()
 		if (DoesEntityExist(playerPed)) then
-			TriggerServerEvent('qb-garages:server:syncPlayerPosition', GetEntityCoords(playerPed))
+			TriggerServerEvent('i13-garages:server:syncPlayerPosition', GetEntityCoords(playerPed))
 		end
 		Wait(3000)
 	end

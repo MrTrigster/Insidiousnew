@@ -70,7 +70,7 @@ function AttemptPurchase(type, upgradeLevel)
     if upgradeLevel ~= nil then
         upgradeLevel = upgradeLevel + 2
     end
-    TriggerServerEvent("qb-customs:attemptPurchase", type, upgradeLevel)
+    TriggerServerEvent("i13-customs:attemptPurchase", type, upgradeLevel)
 
     attemptingPurchase = true
 
@@ -818,13 +818,13 @@ end
 end)]]
 
 --#[Event Handlers]#--
-RegisterNetEvent("qb-customs:purchaseSuccessful", function()
+RegisterNetEvent("i13-customs:purchaseSuccessful", function()
     isPurchaseSuccessful = true
     attemptingPurchase = false
     QBCore.Functions.Notify("Ost edukas")
 end)
 
-RegisterNetEvent("qb-customs:purchaseFailed", function()
+RegisterNetEvent("i13-customs:purchaseFailed", function()
     isPurchaseSuccessful = false
     attemptingPurchase = false
     QBCore.Functions.Notify("Sul ei ole piisavalt raha", "error")

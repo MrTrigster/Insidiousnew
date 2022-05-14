@@ -7,7 +7,7 @@ local function listenClothesControls()
         while textShown do
             if IsControlJustReleased(0, 38) then
                 customCamLocation = nil
-                QBCore.Functions.TriggerCallback('qb-clothing:server:getOutfits', function(result)
+                QBCore.Functions.TriggerCallback('i13-clothing:server:getOutfits', function(result)
                     openMenu({
                         {menu = "character", label = "Riided", selected = true},
                         {menu = "accessoires", label = "Aksessuaarid", selected = false},

@@ -1,0 +1,3 @@
+-- RegisterNetEvent('speed:client:SetSpeed', function(speed)
+--         SetRunSprintMultiplierForPlayer(PlayerId(), speed)
+-- end)

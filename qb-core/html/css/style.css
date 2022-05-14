@@ -1,0 +1,39 @@
+html::-webkit-scrollbar {
+  display: none;
+}
+
+.success {
+  background-color: rgba(34, 40, 46, 100%);
+  border-radius: .2vh;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  border-top: .3vh solid #16d339;
+}
+
+.primary {
+  background-color: rgba(34, 40, 46, 100%);
+  border-radius: .2vh;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  border-top: .3vh solid #1c69cf;
+}
+
+.error {
+  background-color: rgba(34, 40, 46, 100%);
+  border-radius: .2vh;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  border-top: .3vh solid #dc143c;
+}
+
+.police {
+  background-color: rgba(34, 40, 46, 100%);
+  border-radius: .2vh;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  border-top: .3vh solid #1c69cf;
+}
+
+.ambulance {
+  background-color: rgba(34, 40, 46, 100%);
+  border-radius: .2vh;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  border-top: .3vh solid #de2020;
+}
+

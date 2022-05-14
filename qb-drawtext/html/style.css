@@ -1,0 +1,85 @@
+@import url('https://fonts.googleapis.com/css?family=Staatliches');
+:root {
+    --primary-bg: rgb(34 40 46);
+    --active-bg: #dc143c;
+    --font-color: white;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    font-family: "Roboto" !important;
+    font-weight: bold;
+    font-size: 1.7vh;
+}
+
+html::-webkit-scrollbar {
+    display: none;
+}
+
+#container {
+    display: none;
+    width: fit-content;
+    height: 100%;
+    overflow: hidden;
+}
+.text {
+    position: absolute;
+    background: var(--primary-bg);
+    color: var(--font-color);
+    margin-top: 0.5rem;
+    padding: 1.2vh 0.7vh;
+    border-radius: .2vh;
+    text-shadow: 0.05vh 0.05vh 0.01vh rgba(0, 0, 0, 0.389);
+    box-shadow: 0vh 0vh 0.6vh 0.02vh black;
+}
+
+.text.pressed {
+    background: var(--active-bg);
+}
+
+.top {
+    left: 45vw;
+    top: -100px;
+}
+.top.show {
+    transition: 0.5s;
+    top: 10px;
+    opacity: 1;
+}
+.top.hide {
+    transition: 0.5s;
+    top: -100px;
+    opacity: 0;
+}
+
+.right {
+    top: 50%;
+    right: -100px;
+}
+.right.show {
+    transition: 0.5s;
+    right: 10px;
+    opacity: 1;
+}
+.right.hide {
+    transition: 0.5s;
+    right: -100px;
+    opacity: 0;
+}
+
+.left {
+    top: 40vh;
+    left: -100px;
+}
+
+.left.show {
+    transition: 0.5s;
+    left: 10px;
+    opacity: 1;
+}
+.left.hide {
+    transition: 0.5s;
+    left: -100px;
+    opacity: 0;
+}

@@ -1,0 +1,53 @@
+@import url('https://fonts.googleapis.com/css?family=Staatliches');
+
+body {
+    font-family: 'Roboto';
+    font-weight: bold;
+}
+
+.textInfo {
+    position: absolute;
+    top: 50%;
+    float: left;
+    color: white;
+}
+
+#doorlock-container {
+    position: absolute;
+    flex-wrap: wrap;
+    top: 36vh;
+    padding: 1.2vh 0.7vh;
+    width: fit-content;
+    color: white;
+    font-size: 1.7vh;
+    border-radius: .2vh;
+    left: -15%;
+    box-shadow: 0vh 0vh 0.6vh 0.02vh black;
+    text-shadow: 0.05vh 0.05vh 0.01vh rgba(0, 0, 0, 0.389);
+}
+
+.slide_in {
+    animation: slide-in 1s forwards;
+}
+
+.slide_out {
+    animation: slide-out 1s forwards;
+}
+
+@keyframes slide-in {
+    0% {
+        left: -15%;
+    }
+    100% {
+        left: 0.5%;
+    }
+}
+
+@keyframes slide-out {
+    0% {
+        left: 0.5%;
+    }
+    100% {
+        left: -15%;
+    }
+}

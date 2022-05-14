@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SInteriorOrderData>
+	<startFrom value="3900" />
+	<filePathHash value="0" />
+	<proxies>
+		<Item>gabz_mrpd_milo_</Item>
+		<Item>gabz_pillbox_milo_</Item>
+		<Item>denis3d_tunershop_milo_</Item>
+		<Item>bh1_occl_05</Item>
+		<Item>hei_bh1_16_strm_0</Item>
+		<Item>int_storedt_milo_</Item>
+		<Item>bh1_occl_05</Item>
+    <Item>clawles_int_placement</Item>
+    <Item>int_cityhall_milo_</Item>
+		<Item>dt1_occl_05</Item>
+    <Item>hei_id2_occl_00</Item>
+    <Item>id2_occl_00</Item>
+    <Item>pw-weedwarehouse</Item>
+	</proxies>
+</SInteriorOrderData>

@@ -1,0 +1,220 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap');
+
+.employment-app {
+    display: none;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    background: #222831;
+}
+
+.employment-header {
+    position: absolute;
+    width: 100%;
+    height: 10%;
+    top: 82%;
+    right: 0;
+    color: white;
+    font-size: 1.8vh;
+}
+
+.employment-header > p {
+    line-height: 12vh;
+    text-indent: 2vh;
+    margin: 0 0 0 9vh;
+}
+
+.employment-header > span {
+    position: absolute;
+    top: 8vh;
+    left: 9vh;
+    font-size: 1.2vh;
+    height: 2vh;
+    color: white;
+}
+
+.employment-list {
+    position: absolute;
+    width: 87%;
+    height: 75%;
+    margin: 0 auto;
+    left: -1%;
+    right: 0;
+    bottom: 15%;
+    border-radius: .5vh;
+    overflow-y: scroll;
+}
+
+.employment-list::-webkit-scrollbar {
+    display: none;
+}
+
+.employment-btn-create-group{
+    position: absolute;
+    top: 85%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #48586f;
+    padding: .8vh;
+    transition: 0.2s;
+    border-radius: .2vh;
+    color: white;
+}
+.employment-btn-create-group:hover{
+    background: #dc143c;
+}
+
+.employment-div-job-group{
+    width: 98%;
+    margin-left: 1%;
+    margin-bottom: 2%;
+    padding-left: 5%;
+    background: #374252;
+    border: #2b3544 3px solid;
+    transition: 0.2s;
+    color: whitesmoke;
+    border-radius: .4vh;
+}
+.employment-div-job-group:hover{
+    background-color: #dc143c;
+    border: 3px solid #880a23;
+}
+
+.employment-div-job-group-image{
+    font-size: 250%;
+    display: inline-block;
+}
+
+.employment-div-job-group-body-main{
+    display: inline-block;
+    position: absolute;
+    width: 70%;
+    max-width: 70%;
+    margin-top: 4%;
+    margin-left: 4%;
+}
+
+#employment-join-grouped{
+    display: block;
+    position: absolute;
+    font-size: 110%;
+}
+#employment-join-grouped:hover{
+    color: #f16b86;
+}
+
+#employment-leave-grouped{
+    display: block;
+    position: absolute;
+    font-size: 110%;
+    color: #48586f;
+}
+#employment-leave-grouped:hover{
+    color: #dc143c;
+}
+
+#employment-block-grouped{
+    display: block;
+    position: absolute;
+    font-size: 110%;
+    color: rgb(0, 0, 0);
+}
+
+.employment-option-class-body{
+    text-align: right;
+}
+
+#employment-delete-group:hover{
+    color: #f16b86;
+}
+
+#employment-list-group:hover{
+    color: #f16b86;
+}
+
+
+.phone-new-box-body{
+    display: none;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 200%;
+    background-color: rgba(0, 0, 0, 0.624);
+    z-index: 700;
+}
+
+.phone-new-box-main{
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+    padding-top: 3%;
+    padding-bottom: 3%;
+    width: 80%;
+    /* height: 100%; */
+    background-color: #2b333e;
+    border-radius: .2vh;
+}
+
+.phone-new-input-class{
+    position: relative;
+    margin-left: 10%;
+    margin-bottom: 5%;
+    /* height: 4vh; */
+    width: 80%;
+    /* border-radius: 1vh; */
+    border: none;
+    background: none;
+    outline: none;
+    /* box-shadow: 0rem 0rem 0.1rem 0.05rem #000000; */
+    text-indent: 1vh;
+    /* font-family: 'Poppins', sans-serif; */
+    text-align: left;
+    line-height: 3.9vh;
+    font-size: 1.75vh;
+    overflow: hidden;
+    color: white;
+    border-bottom: .1vh solid #f5f5f5ad;
+    transition: 0.25s;
+}
+
+.phone-new-box-btn{
+    display: inline;
+    width: 20%;
+    transition: 0.25s;
+    padding: 2%;
+    border-radius: .2vh;
+    color: white;
+    font-size: 95%;
+    margin-top: 10%;
+}
+
+.box-new-red{
+    background: #48586f;
+    margin-left: 10%;
+}
+.box-new-red:hover{
+    background: #dc143c;
+}
+.box-new-green{
+    background: #48586f;
+    margin-left: 30%;
+}
+.box-new-green:hover{
+    background: #dc143c;
+}
+
+.phone-new-box-main input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+
+.phone-new-input-class:focus {
+    border-bottom: .1vh solid #8ee074;
+}
+
+.casino-text-clear{
+    text-align: center;
+    color: whitesmoke;
+}

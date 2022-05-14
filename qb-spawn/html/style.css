@@ -1,0 +1,102 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap');
+
+.container {
+    font-family: 'Poppins', sans-serif;
+}
+ 
+.spawn-locations {
+    text-transform: uppercase;
+    position: absolute;
+    top: 10vh;
+    left: 10vh;
+    background-color: rgba(23, 23, 27, 0.0);
+    border-radius: .3vh;
+    padding: 30px;
+    cursor: default;
+}
+
+.location {
+    width: 28vh;
+    height: 4.5vh;
+    margin-bottom: 2vh;
+    margin-top: 2vh;
+    transition: 0.2s;
+    transition: .1s linear;
+    border-radius: .3vh;
+    cursor: pointer;
+    background-color: rgba(34, 40, 49, 0.7);
+    border: rgb(54, 60, 69) 2px solid;
+}
+
+.location > p {
+    position: relative;
+    color: #ededed;
+    text-align: center;
+    line-height: 4.5vh;
+    font-size: 1.8vh;
+}
+
+.location:hover {
+    background-color: rgba(220, 20, 60, 0.7);
+    border: 2px solid #dc143c;
+    transition: 0.2s;
+}
+
+.selected {
+    background-color: rgba(220, 20, 60, 0.7);
+    border: 2px solid #880a23;
+}
+
+.submit-spawn {
+    background-color: #222831;
+    width: 20vh;
+    height: 4.5vh;
+    margin-bottom: .75vh;
+    transition: 0.2s;
+    border-radius: .3vh;
+    cursor: pointer;
+    margin-left: 50%;
+    transform: translateX(-50%);
+}
+
+.submit-spawn > p {
+    position: relative;
+    color: white;
+    text-align: center;
+    line-height: 4.5vh;
+    font-size: 1.6vh;
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 1px;
+    font-weight: bold;
+}
+
+.submit-spawn:hover {
+    transition: 0.2s;
+    background-color: rgba(220, 20, 60, 0.7);
+}
+
+#spawn-label {
+    color: #ededed;
+    font-weight: bold;
+}
+
+.loclabel {
+    width: 28vh;
+    height: 3vh;
+    transition: 0.2s;
+    margin-bottom: 1vh;
+    padding-top: 1.5vh;
+    border-radius: .3vh;
+    background-color: rgba(34, 40, 49, 0.7);
+    border: rgb(54, 60, 69) 2px solid;
+}
+
+.loclabel > p {
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 1px;
+    font-weight: bold;
+    position: relative;
+    color: #ededed;
+    text-align: center;
+    font-size: 1.5vh;
+}

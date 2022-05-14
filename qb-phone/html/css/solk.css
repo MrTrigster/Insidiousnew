@@ -1,0 +1,106 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap');
+
+@font-face {
+    font-family: 'Keep Calm';
+    src: url(../font/KeepCalm-Medium.ttf);
+}
+
+.solk-app {
+    display: none;
+    background: #222831;
+}
+
+.solk-header {
+    background: #dc143c;
+    height: 8vh;
+    text-align: center;
+    box-shadow: rgb(0 0 0 / 24%) 0px 3px 8px;
+}
+
+.solk-header-text {
+    padding-top: 3.5vh;
+    font-size: 3vh;
+    color: white;
+    height: inherit;
+    font-family: 'Keep Calm';
+}
+
+.solk-image {
+    margin-top: 4vh;
+    padding-bottom: 14.5vh;
+}
+
+.solk-pic {
+    max-width: 85%;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    border: 4px solid #a7a7a7;
+    border-radius: .5vh;
+    box-shadow: 0px 3px 5px black;
+}
+
+.solk-image-partners {
+    color: white;
+    padding: 1vh 2.2vh;
+    text-align: center;
+}
+
+.solk-image-partners-text {
+    padding-top: 1vh;
+    font-size: 2vh;
+}
+
+.solk-247 {
+    float: left;
+    max-height: 12vh;
+    max-width: 12vh;
+}
+
+.solk-burgershot {
+    float: right;
+    max-height: 12vh;
+    max-width: 12vh;
+}
+
+.solk-footer {
+    background: #222831;
+    position: absolute;
+    width: 100%;
+    height: 10vh;
+    bottom: 0;
+    padding-bottom: 40px;
+}
+
+.solk-footer-start-btn {
+    position: absolute;
+    color: white;
+    text-align: center;
+    font-size: 2vh;
+    width: 10vh;
+    left: 3vh;
+    background: #303946;
+    padding: 1vh .5vh;
+    transition: 0.2s;
+    border-radius: .5vh;
+}
+
+.solk-footer-cancel-btn {
+    position: absolute;
+    color: white;
+    text-align: center;
+    font-size: 2vh;
+    width: 10vh;
+    right: 3vh;
+    background: #303946;
+    padding: 1vh .5vh;
+    transition: 0.2s;
+    border-radius: .5vh;
+}
+
+.solk-footer-start-btn:hover {
+    background: #dc143c;
+}
+
+.solk-footer-cancel-btn:hover {
+    background: #dc143c;
+}

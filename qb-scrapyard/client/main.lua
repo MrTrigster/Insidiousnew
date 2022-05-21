@@ -5,7 +5,7 @@ local emailSend = false
 local isBusy = false
 
 RegisterNetEvent("QBCore:Client:OnPlayerLoaded", function()
-    TriggerServerEvent("qb-scrapyard:server:LoadVehicleList")
+    TriggerServerEvent("i13-scrapyard:server:LoadVehicleList")
 end)
 
 CreateThread(function()
@@ -49,7 +49,7 @@ CreateThread(function()
 								if GetPedInVehicleSeat(vehicle, -1) == PlayerPedId() then
 									if IsVehicleValid(GetEntityModel(vehicle)) then
 										local vehiclePlate = QBCore.Functions.GetPlate(vehicle)
-										QBCore.Functions.TriggerCallback('qb-scrapyard:checkOwnerVehicle',function(retval)
+										QBCore.Functions.TriggerCallback('i13-scrapyard:checkOwnerVehicle',function(retval)
 											if retval then 
 												ScrapVehicle(vehicle)
 											else
@@ -93,7 +93,7 @@ CreateThread(function()
 	end
 end)
 
-RegisterNetEvent('qb-scapyard:client:setNewVehicles', function(vehicleList)
+RegisterNetEvent('i13-scapyard:client:setNewVehicles', function(vehicleList)
 	Config.CurrentVehicles = vehicleList
 end)
 
@@ -112,7 +112,7 @@ function CreateListEmail()
 		QBCore.Functions.Notify('Kohe saabub nimekiri')
 		SetTimeout(math.random(15000, 20000), function()
 			emailSend = false
-			TriggerServerEvent('qb-phone:server:sendNewMail', {
+			TriggerServerEvent('i13-phone:server:sendNewMail', {
 				sender = "Fresh\'i Romula",
 				subject = "Autode Nimekiri",
 				message = "Siin on autode nimekiri, mind ei huvita kust sa need autod saad.<br />Võid kõik lammutuselt saadud endale jätta.<br /><br /><strong>Nimekiri:</strong><br />".. vehicleList,
@@ -135,7 +135,7 @@ function ScrapVehicle(vehicle)
 		disableCombat = true,
 	}, {}, {}, {}, function() -- Done
 		StopAnimTask(PlayerPedId(), "mp_car_bomb", "car_bomb_mechanic", 1.0)
-		TriggerServerEvent("qb-scrapyard:server:ScrapVehicle", GetVehicleKey(GetEntityModel(vehicle)))
+		TriggerServerEvent("i13-scrapyard:server:ScrapVehicle", GetVehicleKey(GetEntityModel(vehicle)))
 		SetEntityAsMissionEntity(vehicle, true, true)
 		DeleteVehicle(vehicle)
 		isBusy = false

@@ -28,7 +28,7 @@ PhoneData = {
     Images = {},
 }
 
-RegisterNetEvent('qb-phone:client:RaceNotify', function(message)
+RegisterNetEvent('i13-phone:client:RaceNotify', function(message)
         SendNUIMessage({
             action = "PhoneNotification",
             PhoneNotify = {
@@ -185,7 +185,7 @@ end
 
 local function LoadPhone()
     Wait(100)
-    QBCore.Functions.TriggerCallback('qb-phone:server:GetPhoneData', function(pData)
+    QBCore.Functions.TriggerCallback('i13-phone:server:GetPhoneData', function(pData)
         PlayerJob = QBCore.Functions.GetPlayerData().job
         PhoneData.PlayerData = QBCore.Functions.GetPlayerData()
         local PhoneMeta = PhoneData.PlayerData.metadata["phone"]
@@ -293,13 +293,13 @@ local function LoadPhone()
 end
 
 local function OpenPhone()
-    QBCore.Functions.TriggerCallback('qb-phone:server:HasPhone', function(HasPhone)
+    QBCore.Functions.TriggerCallback('i13-phone:server:HasPhone', function(HasPhone)
         if HasPhone then
             PhoneData.PlayerData = QBCore.Functions.GetPlayerData()
     	    SetNuiFocus(true, true)
             SetNuiFocusKeepInput(true)
             local racingDongle = false
-            QBCore.Functions.TriggerCallback('qb-phone:server:hasRacingDongle', function(result)
+            QBCore.Functions.TriggerCallback('i13-phone:server:hasRacingDongle', function(result)
                 if result then
                     racingDongle = true
                 else
@@ -341,7 +341,7 @@ local function OpenPhone()
                 newPhoneProp()
             end)
     
-            QBCore.Functions.TriggerCallback('qb-phone:server:GetGarageVehicles', function(vehicles)
+            QBCore.Functions.TriggerCallback('i13-phone:server:GetGarageVehicles', function(vehicles)
                 PhoneData.GarageVehicles = vehicles
             end)
         else
@@ -356,7 +356,7 @@ local function GenerateCallId(caller, target)
 end
 
 local function CancelCall()
-    TriggerServerEvent('qb-phone:server:CancelCall', PhoneData.CallData)
+    TriggerServerEvent('i13-phone:server:CancelCall', PhoneData.CallData)
     if PhoneData.CallData.CallType == "ongoing" then
         exports['pma-voice']:removePlayerFromCall(PhoneData.CallData.CallId)
     end
@@ -376,7 +376,7 @@ local function CancelCall()
         PhoneData.AnimationData.anim = nil
     end
 
-    TriggerServerEvent('qb-phone:server:SetCallState', false)
+    TriggerServerEvent('i13-phone:server:SetCallState', false)
 
     if not PhoneData.isOpen then
         SendNUIMessage({
@@ -418,8 +418,8 @@ local function CallContact(CallData, AnonymousCall)
     PhoneData.CallData.AnsweredCall = false
     PhoneData.CallData.CallId = GenerateCallId(PhoneData.PlayerData.charinfo.phone, CallData.number)
 
-    TriggerServerEvent('qb-phone:server:CallContact', PhoneData.CallData.TargetData, PhoneData.CallData.CallId, AnonymousCall)
-    TriggerServerEvent('qb-phone:server:SetCallState', true)
+    TriggerServerEvent('i13-phone:server:CallContact', PhoneData.CallData.TargetData, PhoneData.CallData.CallId, AnonymousCall)
+    TriggerServerEvent('i13-phone:server:SetCallState', true)
 
     for i = 1, Config.CallRepeats + 1, 1 do
         if not PhoneData.CallData.AnsweredCall then
@@ -450,7 +450,7 @@ local function AnswerCall()
         SendNUIMessage({ action = "AnswerCall", CallData = PhoneData.CallData})
         SendNUIMessage({ action = "SetupHomeCall", CallData = PhoneData.CallData})
 
-        TriggerServerEvent('qb-phone:server:SetCallState', true)
+        TriggerServerEvent('i13-phone:server:SetCallState', true)
 
         if PhoneData.isOpen then
             DoPhoneAnimation('cellphone_text_to_call')
@@ -475,7 +475,7 @@ local function AnswerCall()
             end
         end)
 
-        TriggerServerEvent('qb-phone:server:AnswerCall', PhoneData.CallData)
+        TriggerServerEvent('i13-phone:server:AnswerCall', PhoneData.CallData)
         exports['pma-voice']:addPlayerToCall(PhoneData.CallData.CallId)
     else
         PhoneData.CallData.InCall = false
@@ -532,7 +532,7 @@ RegisterNUICallback('AnswerCall', function()
 end)
 
 RegisterNUICallback('ClearRecentAlerts', function(data, cb)
-    TriggerServerEvent('qb-phone:server:SetPhoneAlerts', "phone", 0)
+    TriggerServerEvent('i13-phone:server:SetPhoneAlerts', "phone", 0)
     Config.PhoneApplications["phone"].Alerts = 0
     SendNUIMessage({ action = "RefreshAppAlerts", AppData = Config.PhoneApplications })
 end)
@@ -540,7 +540,7 @@ end)
 RegisterNUICallback('SetBackground', function(data)
     local background = data.background
     PhoneData.MetaData.background = background
-    TriggerServerEvent('qb-phone:server:SaveMetaData', PhoneData.MetaData)
+    TriggerServerEvent('i13-phone:server:SaveMetaData', PhoneData.MetaData)
 end)
 
 RegisterNUICallback('GetMissedCalls', function(data, cb)
@@ -552,7 +552,7 @@ RegisterNUICallback('GetSuggestedContacts', function(data, cb)
 end)
 
 RegisterNUICallback('HasPhone', function(data, cb)
-    QBCore.Functions.TriggerCallback('qb-phone:server:HasPhone', function(HasPhone)
+    QBCore.Functions.TriggerCallback('i13-phone:server:HasPhone', function(HasPhone)
         cb(HasPhone)
     end)
 end)
@@ -564,7 +564,7 @@ end)
 RegisterNUICallback('RemoveMail', function(data, cb)
     local MailId = data.mailId
 
-    TriggerServerEvent('qb-phone:server:RemoveMail', MailId)
+    TriggerServerEvent('i13-phone:server:RemoveMail', MailId)
     cb('ok')
 end)
 
@@ -593,7 +593,7 @@ RegisterNUICallback('AcceptMailButton', function(data)
     if data.buttonEvent ~= nil or  data.buttonData ~= nil then
         TriggerEvent(data.buttonEvent, data.buttonData)
     end
-    TriggerServerEvent('qb-phone:server:ClearButtonData', data.mailId)
+    TriggerServerEvent('i13-phone:server:ClearButtonData', data.mailId)
 end)
 
 RegisterNUICallback('AddNewContact', function(data, cb)
@@ -607,7 +607,7 @@ RegisterNUICallback('AddNewContact', function(data, cb)
     if PhoneData.Chats[data.ContactNumber] ~= nil and next(PhoneData.Chats[data.ContactNumber]) ~= nil then
         PhoneData.Chats[data.ContactNumber].name = data.ContactName
     end
-    TriggerServerEvent('qb-phone:server:AddNewContact', data.ContactName, data.ContactNumber, data.ContactIban)
+    TriggerServerEvent('i13-phone:server:AddNewContact', data.ContactName, data.ContactNumber, data.ContactIban)
 end)
 
 RegisterNUICallback('GetMails', function(data, cb)
@@ -624,7 +624,7 @@ end)
 
 RegisterNUICallback('GetProfilePicture', function(data, cb)
     local number = data.number
-    QBCore.Functions.TriggerCallback('qb-phone:server:GetPicture', function(picture)
+    QBCore.Functions.TriggerCallback('i13-phone:server:GetPicture', function(picture)
         cb(picture)
     end, number)
 end)
@@ -678,7 +678,7 @@ end)
 RegisterNUICallback('GetCurrentPlayers', function(data, cb)
     local job = data.job
 
-    QBCore.Functions.TriggerCallback('qb-phone:server:GetCurrentPlayers', function(Players)
+    QBCore.Functions.TriggerCallback('i13-phone:server:GetCurrentPlayers', function(Players)
         if Players then
             cb(Players)
         end
@@ -688,13 +688,13 @@ end)
 RegisterNUICallback('HireSelectedPlayer', function(data, cb)
     local id = data.id
     local job = data.job
-    TriggerServerEvent('qb-phone:server:HireSelectedPlayer', id, job)
+    TriggerServerEvent('i13-phone:server:HireSelectedPlayer', id, job)
 end)
 
 RegisterNUICallback('GetCurrentWorkers', function(data, cb)
     local job = data.job
 
-    QBCore.Functions.TriggerCallback('qb-phone:server:GetCurrentWorkers', function(Workers)
+    QBCore.Functions.TriggerCallback('i13-phone:server:GetCurrentWorkers', function(Workers)
         if Workers then
             cb(Workers)
         end
@@ -704,7 +704,7 @@ end)
 RegisterNUICallback('FireSelectedPlayer', function(data, cb)
     local id = data.id
     local job = data.job
-    TriggerServerEvent('qb-phone:server:FireSelectedPlayer', id, job)
+    TriggerServerEvent('i13-phone:server:FireSelectedPlayer', id, job)
 end)
 
 RegisterNUICallback('ToggleActiveJob', function(data, cb)
@@ -712,7 +712,7 @@ RegisterNUICallback('ToggleActiveJob', function(data, cb)
     local grade = data.playergrade
     local jobId = data.jobId
 
-    TriggerServerEvent('qb-phone:server:ToggleActiveJob', job, grade, jobId)
+    TriggerServerEvent('i13-phone:server:ToggleActiveJob', job, grade, jobId)
 end)
 
 
@@ -720,20 +720,20 @@ end)
 RegisterNUICallback('AddWorkerMenu', function(data, cb)
     local job = data.job
     local id = data.id
-    TriggerServerEvent('qb-phone:server:AddWorkerMenu', job, id)
+    TriggerServerEvent('i13-phone:server:AddWorkerMenu', job, id)
 end)
 
 RegisterNUICallback('RemoveWorkerMenu', function(data, cb)
     local job = data.job
     local id = data.id
-    TriggerServerEvent('qb-phone:server:RemoveWorkerMenu', job, id)
+    TriggerServerEvent('i13-phone:server:RemoveWorkerMenu', job, id)
 end)
 
 RegisterNUICallback('ChangeWorkerGrade', function(data, cb)
     local grade = data.grade
     local job = data.job
     local id = data.id
-    TriggerServerEvent('qb-phone:server:ChangeWorkerGrade', grade, job, id)
+    TriggerServerEvent('i13-phone:server:ChangeWorkerGrade', grade, job, id)
 end)
 
 RegisterNUICallback('SharedLocation', function(data)
@@ -754,11 +754,11 @@ RegisterNUICallback('SharedLocation', function(data)
 end)
 
 RegisterNUICallback('PostAdvert', function(data)
-    TriggerServerEvent('qb-phone:server:AddAdvert', data.message, data.url)
+    TriggerServerEvent('i13-phone:server:AddAdvert', data.message, data.url)
 end)
 
 RegisterNUICallback("DeleteAdvert", function()
-    TriggerServerEvent("qb-phone:server:DeleteAdvert")
+    TriggerServerEvent("i13-phone:server:DeleteAdvert")
 end)
 
 RegisterNUICallback('LoadAdverts', function()
@@ -775,7 +775,7 @@ RegisterNUICallback('ClearAlerts', function(data, cb)
     if PhoneData.Chats[ChatKey].Unread ~= nil then
         local newAlerts = (Config.PhoneApplications['whatsapp'].Alerts - PhoneData.Chats[ChatKey].Unread)
         Config.PhoneApplications['whatsapp'].Alerts = newAlerts
-        TriggerServerEvent('qb-phone:server:SetPhoneAlerts', "whatsapp", newAlerts)
+        TriggerServerEvent('i13-phone:server:SetPhoneAlerts', "whatsapp", newAlerts)
 
         PhoneData.Chats[ChatKey].Unread = 0
 
@@ -794,11 +794,11 @@ RegisterNUICallback('PayInvoice', function(data, cb)
     local amount = data.amount
     local invoiceId = data.invoiceId
 
-    QBCore.Functions.TriggerCallback('qb-phone:server:PayInvoice', function(CanPay, Invoices)
+    QBCore.Functions.TriggerCallback('i13-phone:server:PayInvoice', function(CanPay, Invoices)
         if CanPay then PhoneData.Invoices = Invoices end
         cb(CanPay)
     end, society, amount, invoiceId, senderCitizenId)
-    TriggerServerEvent('qb-phone:server:BillingEmail', data, true)
+    TriggerServerEvent('i13-phone:server:BillingEmail', data, true)
 end)
 
 RegisterNUICallback('DeclineInvoice', function(data, cb)
@@ -807,11 +807,11 @@ RegisterNUICallback('DeclineInvoice', function(data, cb)
     local amount = data.amount
     local invoiceId = data.invoiceId
 
-    QBCore.Functions.TriggerCallback('qb-phone:server:DeclineInvoice', function(CanPay, Invoices)
+    QBCore.Functions.TriggerCallback('i13-phone:server:DeclineInvoice', function(CanPay, Invoices)
         PhoneData.Invoices = Invoices
         cb('ok')
     end, society, amount, invoiceId)
-    TriggerServerEvent('qb-phone:server:BillingEmail', data, false)
+    TriggerServerEvent('i13-phone:server:BillingEmail', data, false)
 end)
 
 RegisterNUICallback('PayFine', function(data, cb)
@@ -819,7 +819,7 @@ RegisterNUICallback('PayFine', function(data, cb)
     local amount = data.amount
     local fineId = data.fineId
 
-    QBCore.Functions.TriggerCallback('qb-phone:server:PayFine', function(CanPay, Fines)
+    QBCore.Functions.TriggerCallback('i13-phone:server:PayFine', function(CanPay, Fines)
         if CanPay then PhoneData.Fines = Fines end
         cb(CanPay)
     end, society, amount, fineId)
@@ -845,7 +845,7 @@ RegisterNUICallback('EditContact', function(data, cb)
     end
     Wait(100)
     cb(PhoneData.Contacts)
-    TriggerServerEvent('qb-phone:server:EditContact', NewName, NewNumber, NewIban, OldName, OldNumber, OldIban)
+    TriggerServerEvent('i13-phone:server:EditContact', NewName, NewNumber, NewIban, OldName, OldNumber, OldIban)
 end)
 
 RegisterNUICallback('GetHashtagMessages', function(data, cb)
@@ -863,7 +863,7 @@ end)
 RegisterNUICallback('UpdateProfilePicture', function(data)
     local pf = data.profilepicture
     PhoneData.MetaData.profilepicture = pf
-    TriggerServerEvent('qb-phone:server:SaveMetaData', PhoneData.MetaData)
+    TriggerServerEvent('i13-phone:server:SaveMetaData', PhoneData.MetaData)
 end)
 
 RegisterNUICallback('PostNewTweet', function(data, cb)
@@ -889,7 +889,7 @@ RegisterNUICallback('PostNewTweet', function(data, cb)
             if InvalidSymbol then
                 Handle = Handle:gsub("%"..InvalidSymbol, "")
             end
-            TriggerServerEvent('qb-phone:server:UpdateHashtags', Handle, TweetMessage)
+            TriggerServerEvent('i13-phone:server:UpdateHashtags', Handle, TweetMessage)
         end
     end
 
@@ -903,7 +903,7 @@ RegisterNUICallback('PostNewTweet', function(data, cb)
 
             if (Firstname ~= nil and Firstname ~= "") and (Lastname ~= nil and Lastname ~= "") then
                 if Firstname ~= PhoneData.PlayerData.charinfo.firstname and Lastname ~= PhoneData.PlayerData.charinfo.lastname then
-                    TriggerServerEvent('qb-phone:server:MentionedPlayer', Firstname, Lastname, TweetMessage)
+                    TriggerServerEvent('i13-phone:server:MentionedPlayer', Firstname, Lastname, TweetMessage)
                 end
             end
         end
@@ -913,11 +913,11 @@ RegisterNUICallback('PostNewTweet', function(data, cb)
     Wait(100)
     cb(PhoneData.Tweets)
 
-    TriggerServerEvent('qb-phone:server:UpdateTweets', PhoneData.Tweets, TweetMessage)
+    TriggerServerEvent('i13-phone:server:UpdateTweets', PhoneData.Tweets, TweetMessage)
 end)
 
 RegisterNUICallback('DeleteTweet',function(data)
-    TriggerServerEvent('qb-phone:server:DeleteTweet', data.id)
+    TriggerServerEvent('i13-phone:server:DeleteTweet', data.id)
 end)
 
 RegisterNUICallback('GetMentionedTweets', function(data, cb)
@@ -933,7 +933,7 @@ RegisterNUICallback('GetHashtags', function(data, cb)
 end)
 
 RegisterNUICallback('FetchSearchResults', function(data, cb)
-    QBCore.Functions.TriggerCallback('qb-phone:server:FetchResult', function(result)
+    QBCore.Functions.TriggerCallback('i13-phone:server:FetchResult', function(result)
         cb(result)
     end, data.input)
 end)
@@ -947,7 +947,7 @@ RegisterNUICallback('InstallApplication', function(data, cb)
     end
 
     if NewSlot <= Config.MaxSlots then
-        TriggerServerEvent('qb-phone:server:InstallApplication', {
+        TriggerServerEvent('i13-phone:server:InstallApplication', {
             app = data.app,
         })
         cb({
@@ -960,7 +960,7 @@ RegisterNUICallback('InstallApplication', function(data, cb)
 end)
 
 RegisterNUICallback('RemoveApplication', function(data, cb)
-    TriggerServerEvent('qb-phone:server:RemoveInstallation', data.app)
+    TriggerServerEvent('i13-phone:server:RemoveInstallation', data.app)
 end)
 
 RegisterNUICallback('GetTruckerData', function(data, cb)
@@ -975,9 +975,9 @@ RegisterNUICallback('GetGalleryData', function(data, cb)
 end)
 
 RegisterNUICallback('DeleteImage', function(image,cb)
-    TriggerServerEvent('qb-phone:server:RemoveImageFromGallery',image)
+    TriggerServerEvent('i13-phone:server:RemoveImageFromGallery',image)
     Wait(400)
-    TriggerServerEvent('qb-phone:server:getImageFromGallery')
+    TriggerServerEvent('i13-phone:server:getImageFromGallery')
     cb(true)
 end)
 
@@ -994,7 +994,7 @@ end)
 
 RegisterNUICallback('track-vehicle', function(data, cb)
     local veh = data.veh
-    TriggerEvent('qb-garages:client:trackVehicle', veh.plate)
+    TriggerEvent('i13-garages:client:trackVehicle', veh.plate)
 end)
 
 RegisterNUICallback('DeleteContact', function(data, cb)
@@ -1024,29 +1024,29 @@ RegisterNUICallback('DeleteContact', function(data, cb)
     if PhoneData.Chats[Number] ~= nil and next(PhoneData.Chats[Number]) ~= nil then
         PhoneData.Chats[Number].name = Number
     end
-    TriggerServerEvent('qb-phone:server:RemoveContact', Name, Number)
+    TriggerServerEvent('i13-phone:server:RemoveContact', Name, Number)
 end)
 
 RegisterNUICallback('GetCryptoData', function(data, cb)
-    QBCore.Functions.TriggerCallback('qb-crypto:server:GetCryptoData', function(CryptoData)
+    QBCore.Functions.TriggerCallback('i13-crypto:server:GetCryptoData', function(CryptoData)
         cb(CryptoData)
     end, data.crypto)
 end)
 
 RegisterNUICallback('BuyCrypto', function(data, cb)
-    QBCore.Functions.TriggerCallback('qb-crypto:server:BuyCrypto', function(CryptoData)
+    QBCore.Functions.TriggerCallback('i13-crypto:server:BuyCrypto', function(CryptoData)
         cb(CryptoData)
     end, data)
 end)
 
 RegisterNUICallback('SellCrypto', function(data, cb)
-    QBCore.Functions.TriggerCallback('qb-crypto:server:SellCrypto', function(CryptoData)
+    QBCore.Functions.TriggerCallback('i13-crypto:server:SellCrypto', function(CryptoData)
         cb(CryptoData)
     end, data)
 end)
 
 RegisterNUICallback('TransferCrypto', function(data, cb)
-    QBCore.Functions.TriggerCallback('qb-crypto:server:TransferCrypto', function(CryptoData)
+    QBCore.Functions.TriggerCallback('i13-crypto:server:TransferCrypto', function(CryptoData)
         cb(CryptoData)
     end, data)
 end)
@@ -1059,21 +1059,21 @@ RegisterNUICallback('GetCryptoTransactions', function(data, cb)
 end)
 
 RegisterNUICallback('GetAvailableRaces', function(data, cb)
-    QBCore.Functions.TriggerCallback('qb-lapraces:server:GetRaces', function(Races)
+    QBCore.Functions.TriggerCallback('i13-lapraces:server:GetRaces', function(Races)
         cb(Races)
     end)
 end)
     
 RegisterNUICallback('JoinRace', function(data)
-    TriggerServerEvent('qb-lapraces:server:JoinRace', data.RaceData)
+    TriggerServerEvent('i13-lapraces:server:JoinRace', data.RaceData)
 end)
 
 RegisterNUICallback('LeaveRace', function(data)
-    TriggerServerEvent('qb-lapraces:server:LeaveRace', data.RaceData)
+    TriggerServerEvent('i13-lapraces:server:LeaveRace', data.RaceData)
 end)
 
 RegisterNUICallback('StartRace', function(data)
-    TriggerServerEvent('qb-lapraces:server:StartRace', data.RaceData.RaceId)
+    TriggerServerEvent('i13-lapraces:server:StartRace', data.RaceData.RaceId)
 end)
 
 RegisterNUICallback('SetAlertWaypoint', function(data)
@@ -1094,7 +1094,7 @@ RegisterNUICallback('RemoveSuggestion', function(data, cb)
 end)
 
 RegisterNUICallback('FetchVehicleResults', function(data, cb)
-    QBCore.Functions.TriggerCallback('qb-phone:server:GetVehicleSearchResults', function(result)
+    QBCore.Functions.TriggerCallback('i13-phone:server:GetVehicleSearchResults', function(result)
         if result ~= nil then
             for k, v in pairs(result) do
                 QBCore.Functions.TriggerCallback('police:IsPlateFlagged', function(flagged)
@@ -1111,7 +1111,7 @@ RegisterNUICallback('FetchVehicleScan', function(data, cb)
     local vehicle = QBCore.Functions.GetClosestVehicle()
     local plate = QBCore.Functions.GetPlate(vehicle)
     local vehname = GetDisplayNameFromVehicleModel(GetEntityModel(vehicle)):lower()
-    QBCore.Functions.TriggerCallback('qb-phone:server:ScanPlate', function(result)
+    QBCore.Functions.TriggerCallback('i13-phone:server:ScanPlate', function(result)
         QBCore.Functions.TriggerCallback('police:IsPlateFlagged', function(flagged)
             result.isFlagged = flagged
 	    if QBCore.Shared.Vehicles[vehname] ~= nil then
@@ -1125,13 +1125,13 @@ RegisterNUICallback('FetchVehicleScan', function(data, cb)
 end)
 
 RegisterNUICallback('GetRaces', function(data, cb)
-    QBCore.Functions.TriggerCallback('qb-lapraces:server:GetListedRaces', function(Races)
+    QBCore.Functions.TriggerCallback('i13-lapraces:server:GetListedRaces', function(Races)
         cb(Races)
     end)
 end)
 
 RegisterNUICallback('GetTrackData', function(data, cb)
-    QBCore.Functions.TriggerCallback('qb-lapraces:server:GetTrackData', function(TrackData, CreatorData)
+    QBCore.Functions.TriggerCallback('i13-lapraces:server:GetTrackData', function(TrackData, CreatorData)
         TrackData.CreatorData = CreatorData
         cb(TrackData)
     end, data.RaceId)
@@ -1139,11 +1139,11 @@ end)
 
 
 RegisterNUICallback('SetupRace', function(data, cb)
-    TriggerServerEvent('qb-lapraces:server:SetupRace', data.RaceId, tonumber(data.AmountOfLaps))
+    TriggerServerEvent('i13-lapraces:server:SetupRace', data.RaceId, tonumber(data.AmountOfLaps))
 end)
 
 RegisterNUICallback('HasCreatedRace', function(data, cb)
-    QBCore.Functions.TriggerCallback('qb-lapraces:server:HasCreatedRace', function(HasCreated)
+    QBCore.Functions.TriggerCallback('i13-lapraces:server:HasCreatedRace', function(HasCreated)
         cb(HasCreated)
     end)
 end)
@@ -1154,7 +1154,7 @@ RegisterNUICallback('IsInRace', function(data, cb)
 end)
 
 RegisterNUICallback('IsAuthorizedToCreateRaces', function(data, cb)
-    QBCore.Functions.TriggerCallback('qb-lapraces:server:IsAuthorizedToCreateRaces', function(IsAuthorized, NameAvailable)
+    QBCore.Functions.TriggerCallback('i13-lapraces:server:IsAuthorizedToCreateRaces', function(IsAuthorized, NameAvailable)
         local data = {
             IsAuthorized = IsAuthorized,
             IsBusy = exports['qb-lapraces']:IsInEditor(),
@@ -1165,7 +1165,7 @@ RegisterNUICallback('IsAuthorizedToCreateRaces', function(data, cb)
 end)
 
 RegisterNUICallback('IsRacerNameAvailable', function(data, cb)
-    QBCore.Functions.TriggerCallback('qb-lapraces:server:IsRacerNameAvailable', function(nameAvailable)
+    QBCore.Functions.TriggerCallback('i13-lapraces:server:IsRacerNameAvailable', function(nameAvailable)
         local data = {
             IsRNameAvailable = nameAvailable,
         }
@@ -1174,7 +1174,7 @@ RegisterNUICallback('IsRacerNameAvailable', function(data, cb)
 end)
 
 RegisterNUICallback('GetCurrentRacerName', function(data, cb)
-    QBCore.Functions.TriggerCallback('qb-lapraces:server:GetCurrentRacerName', function(racerName)
+    QBCore.Functions.TriggerCallback('i13-lapraces:server:GetCurrentRacerName', function(racerName)
         local data = {
             CurrentRacerName = racerName,
         }
@@ -1183,28 +1183,28 @@ RegisterNUICallback('GetCurrentRacerName', function(data, cb)
 end)
 
 RegisterNUICallback('ChangeRacerName', function(data, cb)
-    TriggerServerEvent('qb-lapraces:server:ChangeRacerName', data.RacingName)
+    TriggerServerEvent('i13-lapraces:server:ChangeRacerName', data.RacingName)
 end)
 
 RegisterNUICallback('StartTrackEditor', function(data, cb)
-    TriggerServerEvent('qb-lapraces:server:CreateLapRace', data.TrackName)
+    TriggerServerEvent('i13-lapraces:server:CreateLapRace', data.TrackName)
 end)
 
 RegisterNUICallback('GetRacingLeaderboards', function(data, cb)
-    QBCore.Functions.TriggerCallback('qb-lapraces:server:GetRacingLeaderboards', function(Races)
+    QBCore.Functions.TriggerCallback('i13-lapraces:server:GetRacingLeaderboards', function(Races)
         cb(Races)
     end)
 end)
 
 RegisterNUICallback('RaceDistanceCheck', function(data, cb)
-    QBCore.Functions.TriggerCallback('qb-lapraces:server:GetRacingData', function(RaceData)
+    QBCore.Functions.TriggerCallback('i13-lapraces:server:GetRacingData', function(RaceData)
         local ped = PlayerPedId()
         local coords = GetEntityCoords(ped)
         local checkpointcoords = RaceData.Checkpoints[1].coords
         local dist = #(coords - vector3(checkpointcoords.x, checkpointcoords.y, checkpointcoords.z))
         if dist <= 115.0 then
             if data.Joined then
-                TriggerEvent('qb-lapraces:client:WaitingDistanceCheck')
+                TriggerEvent('i13-lapraces:client:WaitingDistanceCheck')
             end
             cb(true)
         else
@@ -1224,19 +1224,19 @@ RegisterNUICallback('IsBusyCheck', function(data, cb)
 end)
 
 RegisterNUICallback('CanRaceSetup', function(data, cb)
-    QBCore.Functions.TriggerCallback('qb-lapraces:server:CanRaceSetup', function(CanSetup)
+    QBCore.Functions.TriggerCallback('i13-lapraces:server:CanRaceSetup', function(CanSetup)
         cb(CanSetup)
     end)
 end)
 
 RegisterNUICallback('GetPlayerHouses', function(data, cb)
-    QBCore.Functions.TriggerCallback('qb-phone:server:GetPlayerHouses', function(Houses)
+    QBCore.Functions.TriggerCallback('i13-phone:server:GetPlayerHouses', function(Houses)
         cb(Houses)
     end)
 end)
 
 RegisterNUICallback('GetPlayerKeys', function(data, cb)
-    QBCore.Functions.TriggerCallback('qb-phone:server:GetHouseKeys', function(Keys)
+    QBCore.Functions.TriggerCallback('i13-phone:server:GetHouseKeys', function(Keys)
         cb(Keys)
     end)
 end)
@@ -1247,7 +1247,7 @@ RegisterNUICallback('SetHouseLocation', function(data, cb)
 end)
 
 RegisterNUICallback('RemoveKeyholder', function(data)
-    TriggerServerEvent('qb-houses:server:removeHouseKey', data.HouseData.name, {
+    TriggerServerEvent('i13-houses:server:removeHouseKey', data.HouseData.name, {
         citizenid = data.HolderData.citizenid,
         firstname = data.HolderData.charinfo.firstname,
         lastname = data.HolderData.charinfo.lastname,
@@ -1257,13 +1257,13 @@ end)
 RegisterNUICallback('TransferCid', function(data, cb)
     local TransferedCid = data.newBsn
 
-    QBCore.Functions.TriggerCallback('qb-phone:server:TransferCid', function(CanTransfer)
+    QBCore.Functions.TriggerCallback('i13-phone:server:TransferCid', function(CanTransfer)
         cb(CanTransfer)
     end, TransferedCid, data.HouseData)
 end)
 
 RegisterNUICallback('FetchPlayerHouses', function(data, cb)
-    QBCore.Functions.TriggerCallback('qb-phone:server:MeosGetPlayerHouses', function(result)
+    QBCore.Functions.TriggerCallback('i13-phone:server:MeosGetPlayerHouses', function(result)
         cb(result)
     end, data.input)
 end)
@@ -1284,7 +1284,7 @@ RegisterNUICallback('SetApartmentLocation', function(data, cb)
 end)
 
 RegisterNUICallback('GetCurrentLawyers', function(data, cb)
-    QBCore.Functions.TriggerCallback('qb-phone:server:GetCurrentLawyers', function(lawyers)
+    QBCore.Functions.TriggerCallback('i13-phone:server:GetCurrentLawyers', function(lawyers)
         cb(lawyers)
     end)
 end)
@@ -1304,7 +1304,7 @@ RegisterNUICallback('ClearMentions', function()
         action = "RefreshAppAlerts",
         AppData = Config.PhoneApplications
     })
-    TriggerServerEvent('qb-phone:server:SetPhoneAlerts', "twitter", 0)
+    TriggerServerEvent('i13-phone:server:SetPhoneAlerts', "twitter", 0)
     SendNUIMessage({ action = "RefreshAppAlerts", AppData = Config.PhoneApplications })
 end)
 
@@ -1315,7 +1315,7 @@ RegisterNUICallback('ClearGeneralAlerts', function(data)
             action = "RefreshAppAlerts",
             AppData = Config.PhoneApplications
         })
-        TriggerServerEvent('qb-phone:server:SetPhoneAlerts', data.app, 0)
+        TriggerServerEvent('i13-phone:server:SetPhoneAlerts', data.app, 0)
         SendNUIMessage({ action = "RefreshAppAlerts", AppData = Config.PhoneApplications })
     end)
 end)
@@ -1324,7 +1324,7 @@ RegisterNUICallback('TransferMoney', function(data, cb)
     data.amount = tonumber(data.amount)
     if tonumber(PhoneData.PlayerData.money.bank) >= data.amount then
         local amaountata = PhoneData.PlayerData.money.bank - data.amount
-        TriggerServerEvent('qb-phone:server:TransferMoney', data.iban, data.amount)
+        TriggerServerEvent('i13-phone:server:TransferMoney', data.iban, data.amount)
         local cbdata = {
             CanTransfer = true,
             NewAmount = amaountata 
@@ -1345,7 +1345,7 @@ RegisterNUICallback('CanTransferMoney', function(data, cb)
     local PlayerData = QBCore.Functions.GetPlayerData()
 
     if (PlayerData.money.bank - amount) >= 0 then
-        QBCore.Functions.TriggerCallback('qb-phone:server:CanTransferMoney', function(Transferd)
+        QBCore.Functions.TriggerCallback('i13-phone:server:CanTransferMoney', function(Transferd)
             if Transferd then
                 cb({TransferedMoney = true, NewBalance = (PlayerData.money.bank - amount)})
             else
@@ -1359,13 +1359,13 @@ RegisterNUICallback('CanTransferMoney', function(data, cb)
 end)
 
 RegisterNUICallback('GetWhatsappChats', function(data, cb)
-    QBCore.Functions.TriggerCallback('qb-phone:server:GetContactPictures', function(Chats)
+    QBCore.Functions.TriggerCallback('i13-phone:server:GetContactPictures', function(Chats)
         cb(Chats)
     end, PhoneData.Chats)
 end)
 
 RegisterNUICallback('CallContact', function(data, cb)
-    QBCore.Functions.TriggerCallback('qb-phone:server:GetCallState', function(CanCall, IsOnline, contactData)
+    QBCore.Functions.TriggerCallback('i13-phone:server:GetCallState', function(CanCall, IsOnline, contactData)
         local status = { 
             CanCall = CanCall, 
             IsOnline = IsOnline,
@@ -1423,7 +1423,7 @@ RegisterNUICallback('SendMessage', function(data, cb)
                     },
                 }
             end
-            TriggerServerEvent('qb-phone:server:UpdateMessages', PhoneData.Chats[NumberKey].messages, ChatNumber, false)
+            TriggerServerEvent('i13-phone:server:UpdateMessages', PhoneData.Chats[NumberKey].messages, ChatNumber, false)
             NumberKey = GetKeyByNumber(ChatNumber)
             ReorganizeChats(NumberKey)
         else
@@ -1462,7 +1462,7 @@ RegisterNUICallback('SendMessage', function(data, cb)
                     },
                 }
             end
-            TriggerServerEvent('qb-phone:server:UpdateMessages', PhoneData.Chats[NumberKey].messages, ChatNumber, true)
+            TriggerServerEvent('i13-phone:server:UpdateMessages', PhoneData.Chats[NumberKey].messages, ChatNumber, true)
             NumberKey = GetKeyByNumber(ChatNumber)
             ReorganizeChats(NumberKey)
         end
@@ -1508,12 +1508,12 @@ RegisterNUICallback('SendMessage', function(data, cb)
                 },
             }
         end
-        TriggerServerEvent('qb-phone:server:UpdateMessages', PhoneData.Chats[NumberKey].messages, ChatNumber, true)
+        TriggerServerEvent('i13-phone:server:UpdateMessages', PhoneData.Chats[NumberKey].messages, ChatNumber, true)
         NumberKey = GetKeyByNumber(ChatNumber)
         ReorganizeChats(NumberKey)
     end
 
-    QBCore.Functions.TriggerCallback('qb-phone:server:GetContactPicture', function(Chat)
+    QBCore.Functions.TriggerCallback('i13-phone:server:GetContactPicture', function(Chat)
         SendNUIMessage({
             action = "UpdateChat",
             chatData = Chat,
@@ -1538,15 +1538,15 @@ RegisterNUICallback("TakePhoto", function(data,cb)
         takePhoto = false
         break
       elseif IsControlJustPressed(1, 176) then -- TAKE.. PIC
-         QBCore.Functions.TriggerCallback("qb-phone:server:GetWebhook",function(hook)
+         QBCore.Functions.TriggerCallback("i13-phone:server:GetWebhook",function(hook)
             if hook then
                 exports['screenshot-basic']:requestScreenshotUpload(tostring(hook), "files[]", function(data)
                     local image = json.decode(data)
                     DestroyMobilePhone()
                     CellCamActivate(false, false)
-                    TriggerServerEvent('qb-phone:server:addImageToGallery', image.attachments[1].proxy_url)
+                    TriggerServerEvent('i13-phone:server:addImageToGallery', image.attachments[1].proxy_url)
                     Wait(400)
-                    TriggerServerEvent('qb-phone:server:getImageFromGallery')
+                    TriggerServerEvent('i13-phone:server:getImageFromGallery')
                     cb(json.encode(image.attachments[1].proxy_url))
                   end)
             else
@@ -1569,11 +1569,11 @@ RegisterNUICallback("TakePhoto", function(data,cb)
 end)
 
 RegisterNUICallback("StartSolkDelivery", function(data)
-    TriggerServerEvent('qb-fooddelivery:server:startDelivering')
+    TriggerServerEvent('i13-fooddelivery:server:startDelivering')
 end)
 
 RegisterNUICallback("CancelSolkDelivery", function(data)
-    TriggerServerEvent('qb-fooddelivery:server:cancelDelivering')
+    TriggerServerEvent('i13-fooddelivery:server:cancelDelivering')
 end)
 
 RegisterNUICallback('DisallowMoving', function()
@@ -1587,10 +1587,10 @@ end)
 
 
 RegisterNUICallback('employment_CreateJobGroup', function(data)
-    TriggerServerEvent('qb-phone:server:employment_CreateJobGroup', data)
+    TriggerServerEvent('i13-phone:server:employment_CreateJobGroup', data)
 end)
 
-RegisterNetEvent('qb-phone:client:EveryoneGrupAddsForAll', function(data)
+RegisterNetEvent('i13-phone:client:EveryoneGrupAddsForAll', function(data)
     SendNUIMessage({
         action = "GroupAddDIV",
         datas = data,
@@ -1598,25 +1598,25 @@ RegisterNetEvent('qb-phone:client:EveryoneGrupAddsForAll', function(data)
 end)
 
 RegisterNUICallback('employment_DeleteGroup', function(data)
-    TriggerServerEvent('qb-phone:server:employment_DeleteGroup', data)
+    TriggerServerEvent('i13-phone:server:employment_DeleteGroup', data)
 end)
 
 RegisterNUICallback('GetGroupsApp', function(data, cb)
-    QBCore.Functions.TriggerCallback('qb-phone:server:GetGroupsApp', function(HasGroups)
+    QBCore.Functions.TriggerCallback('i13-phone:server:GetGroupsApp', function(HasGroups)
         cb(HasGroups)
     end)
 end)
 
 RegisterNUICallback('employment_JoinTheGroup', function(data)
-    TriggerServerEvent('qb-phone:server:employment_JoinTheGroup', data)
+    TriggerServerEvent('i13-phone:server:employment_JoinTheGroup', data)
 end)
 
 RegisterNUICallback('employment_leave_grouped', function(data)
-    TriggerServerEvent('qb-phone:server:employment_leave_grouped', data)
+    TriggerServerEvent('i13-phone:server:employment_leave_grouped', data)
 end)
 
 RegisterNUICallback('employment_CheckPlayerNames', function(data, cb)
-    QBCore.Functions.TriggerCallback('qb-phone:server:employment_CheckPlayerNames', function(HasName)
+    QBCore.Functions.TriggerCallback('i13-phone:server:employment_CheckPlayerNames', function(HasName)
         cb(HasName)
     end, tostring(data.id))
 end)
@@ -1624,16 +1624,16 @@ end)
 
 
 RegisterNUICallback('documents_Save_Note_As', function(data)
-    TriggerServerEvent('qb-phone:server:documents_Save_Note_As', data)
+    TriggerServerEvent('i13-phone:server:documents_Save_Note_As', data)
 end)
 
 RegisterNUICallback('GetNote_for_Documents_app', function(data, cb)
-    QBCore.Functions.TriggerCallback('qb-phone:server:GetNote_for_Documents_app', function(Has)
+    QBCore.Functions.TriggerCallback('i13-phone:server:GetNote_for_Documents_app', function(Has)
         cb(Has)
     end)
 end)
 
-RegisterNetEvent('qb-phone:RefReshNotes_Free_Documents', function()
+RegisterNetEvent('i13-phone:RefReshNotes_Free_Documents', function()
     SendNUIMessage({
         action = "DocumentRefresh",
     })
@@ -1645,7 +1645,7 @@ end)
 --     if not args[1] then
 --         QBCore.Functions.Notify("Pead sisestama mängija ID", "error")
 --     else
---         TriggerServerEvent('qb-phone:server:sendPing', args[1])
+--         TriggerServerEvent('i13-phone:server:sendPing', args[1])
 --     end
 -- end)
 
@@ -1656,8 +1656,8 @@ RegisterNetEvent('QBCore:Client:OnPlayerLoaded', function()
     PlayerData = QBCore.Functions.GetPlayerData()
     local citizenid = PlayerData.citizenid
     local gameTime = GetGameTimer()
-    TriggerServerEvent('qb-phone:server:addPlayer', citizenid, gameTime)
-    TriggerServerEvent('qb-phone:server:checkFineTime')
+    TriggerServerEvent('i13-phone:server:addPlayer', citizenid, gameTime)
+    TriggerServerEvent('i13-phone:server:checkFineTime')
 end)
 
 RegisterNetEvent('QBCore:Client:OnPlayerUnload', function()
@@ -1686,7 +1686,7 @@ RegisterNetEvent('QBCore:Client:OnPlayerUnload', function()
     }
 
     local citizenid = PlayerData.citizenid
-    TriggerServerEvent('qb-phone:server:removePlayer', citizenid)
+    TriggerServerEvent('i13-phone:server:removePlayer', citizenid)
     PlayerData = {}
 end)
 
@@ -1702,7 +1702,7 @@ end)
 
 -- Events
 
-RegisterNetEvent('qb-phone:client:removeJobFromTable', function(selectedJob)
+RegisterNetEvent('i13-phone:client:removeJobFromTable', function(selectedJob)
     for k,v in pairs(PhoneData.Jobs) do
         if v.job == selectedJob then
             table.remove(PhoneData.Jobs, k)
@@ -1711,13 +1711,13 @@ RegisterNetEvent('qb-phone:client:removeJobFromTable', function(selectedJob)
     end
 end)
 
-RegisterNetEvent('qb-phone:client:TransferMoney', function(amount, newmoney)
+RegisterNetEvent('i13-phone:client:TransferMoney', function(amount, newmoney)
     PhoneData.PlayerData.money.bank = newmoney
     SendNUIMessage({ action = "PhoneNotification", PhoneNotify = { title = "Pank", text = "&#36;"..amount.." on lisatud Sinu kontole!", icon = "fas fa-university", color = "#badc58", }, })
     SendNUIMessage({ action = "UpdateBank", NewBalance = PhoneData.PlayerData.money.bank })
 end)
 
--- RegisterNetEvent('qb-phone:client:UpdateTweetsDel', function(source, Tweets)
+-- RegisterNetEvent('i13-phone:client:UpdateTweetsDel', function(source, Tweets)
 --     PhoneData.Tweets = Tweets
 --     print(source)
 --     print(PhoneData.PlayerData.source)
@@ -1731,7 +1731,7 @@ end)
 --     end
 -- end)
 
-RegisterNetEvent('qb-phone:client:UpdateTweets', function(src, Tweets, NewTweetData, delete)
+RegisterNetEvent('i13-phone:client:UpdateTweets', function(src, Tweets, NewTweetData, delete)
     PhoneData.Tweets = Tweets
     local MyPlayerId = PhoneData.PlayerData.source
 
@@ -1782,7 +1782,7 @@ RegisterNetEvent('qb-phone:client:UpdateTweets', function(src, Tweets, NewTweetD
     end
 end)
 
-RegisterNetEvent('qb-phone:client:RaceNotify', function(message)
+RegisterNetEvent('i13-phone:client:RaceNotify', function(message)
     SendNUIMessage({
         action = "PhoneNotification",
         PhoneNotify = {
@@ -1795,7 +1795,7 @@ RegisterNetEvent('qb-phone:client:RaceNotify', function(message)
     })
 end)
 
-RegisterNetEvent('qb-phone:client:AddRecentCall', function(data, time, type)
+RegisterNetEvent('i13-phone:client:AddRecentCall', function(data, time, type)
     PhoneData.RecentCalls[#PhoneData.RecentCalls+1] = {
         name = IsNumberInContacts(data.number),
         time = time,
@@ -1803,7 +1803,7 @@ RegisterNetEvent('qb-phone:client:AddRecentCall', function(data, time, type)
         number = data.number,
         anonymous = data.anonymous
     }
-    TriggerServerEvent('qb-phone:server:SetPhoneAlerts', "phone")
+    TriggerServerEvent('i13-phone:server:SetPhoneAlerts', "phone")
     Config.PhoneApplications["phone"].Alerts = Config.PhoneApplications["phone"].Alerts + 1
     SendNUIMessage({
         action = "RefreshAppAlerts",
@@ -1811,7 +1811,7 @@ RegisterNetEvent('qb-phone:client:AddRecentCall', function(data, time, type)
     })
 end)
 
-RegisterNetEvent("qb-phone-new:client:BankNotify", function(text)
+RegisterNetEvent("i13-phone-new:client:BankNotify", function(text)
     SendNUIMessage({
         action = "PhoneNotification",
         NotifyData = {
@@ -1824,7 +1824,7 @@ RegisterNetEvent("qb-phone-new:client:BankNotify", function(text)
     })
 end)
 
-RegisterNetEvent('qb-phone:client:NewMailNotify', function(MailData)
+RegisterNetEvent('i13-phone:client:NewMailNotify', function(MailData)
     SendNUIMessage({
         action = "PhoneNotification",
         PhoneNotify = {
@@ -1836,10 +1836,10 @@ RegisterNetEvent('qb-phone:client:NewMailNotify', function(MailData)
         },
     })
     Config.PhoneApplications['mail'].Alerts = Config.PhoneApplications['mail'].Alerts + 1
-    TriggerServerEvent('qb-phone:server:SetPhoneAlerts', "mail")
+    TriggerServerEvent('i13-phone:server:SetPhoneAlerts', "mail")
 end)
 
-RegisterNetEvent('qb-phone:client:UpdateMails', function(NewMails)
+RegisterNetEvent('i13-phone:client:UpdateMails', function(NewMails)
     SendNUIMessage({
         action = "UpdateMails",
         Mails = NewMails
@@ -1847,7 +1847,7 @@ RegisterNetEvent('qb-phone:client:UpdateMails', function(NewMails)
     PhoneData.Mails = NewMails
 end)
 
-RegisterNetEvent('qb-phone:client:UpdateAdvertsDel', function(Adverts)
+RegisterNetEvent('i13-phone:client:UpdateAdvertsDel', function(Adverts)
     PhoneData.Adverts = Adverts
     SendNUIMessage({
         action = "RefreshAdverts",
@@ -1855,7 +1855,7 @@ RegisterNetEvent('qb-phone:client:UpdateAdvertsDel', function(Adverts)
     })
 end)
 
-RegisterNetEvent('qb-phone:client:UpdateAdverts', function(Adverts, LastAd)
+RegisterNetEvent('i13-phone:client:UpdateAdverts', function(Adverts, LastAd)
     PhoneData.Adverts = Adverts
     SendNUIMessage({
         action = "PhoneNotification",
@@ -1873,15 +1873,15 @@ RegisterNetEvent('qb-phone:client:UpdateAdverts', function(Adverts, LastAd)
     })
 end)
 
-RegisterNetEvent('qb-phone:client:BillingEmail', function(data, paid, name)
+RegisterNetEvent('i13-phone:client:BillingEmail', function(data, paid, name)
     if paid then
-        TriggerServerEvent('qb-phone:server:sendNewMail', {
+        TriggerServerEvent('i13-phone:server:sendNewMail', {
             sender = 'Maksuamet',
             subject = 'Arve Makstud',
             message = 'Isik nimega '..name..' maksis arve summaga $'..data.amount,
         })
     else
-        TriggerServerEvent('qb-phone:server:sendNewMail', {
+        TriggerServerEvent('i13-phone:server:sendNewMail', {
             sender = 'Maksuamet',
             subject = 'Arve Maksmata',
             message = 'Isik nimega '..name..' keeldus arve maksmisest summaga $'..data.amount,
@@ -1889,16 +1889,16 @@ RegisterNetEvent('qb-phone:client:BillingEmail', function(data, paid, name)
     end
 end)
 
-RegisterNetEvent('qb-phone:sendFinesMail', function(data)
+RegisterNetEvent('i13-phone:sendFinesMail', function(data)
     --print(data)
-    TriggerServerEvent('qb-phone:server:sendNewMail', {
+    TriggerServerEvent('i13-phone:server:sendNewMail', {
         sender = 'KAPO Andmebaas',
         subject = 'Isiku Arved',
         message = data,
     })
 end)
 
-RegisterNetEvent('qb-phone:client:CancelCall', function()
+RegisterNetEvent('i13-phone:client:CancelCall', function()
     if PhoneData.CallData.CallType == "ongoing" then
         SendNUIMessage({
             action = "CancelOngoingCall"
@@ -1920,7 +1920,7 @@ RegisterNetEvent('qb-phone:client:CancelCall', function()
         PhoneData.AnimationData.anim = nil
     end
 
-    TriggerServerEvent('qb-phone:server:SetCallState', false)
+    TriggerServerEvent('i13-phone:server:SetCallState', false)
 
     if not PhoneData.isOpen then
         SendNUIMessage({
@@ -1955,7 +1955,7 @@ RegisterNetEvent('qb-phone:client:CancelCall', function()
     end
 end)
 
-RegisterNetEvent('qb-phone:client:GetCalled', function(CallerNumber, CallId, AnonymousCall)
+RegisterNetEvent('i13-phone:client:GetCalled', function(CallerNumber, CallId, AnonymousCall)
     local RepeatCount = 0
     local CallData = {
         number = CallerNumber,
@@ -1973,7 +1973,7 @@ RegisterNetEvent('qb-phone:client:GetCalled', function(CallerNumber, CallId, Ano
     PhoneData.CallData.TargetData = CallData
     PhoneData.CallData.CallId = CallId
 
-    TriggerServerEvent('qb-phone:server:SetCallState', true)
+    TriggerServerEvent('i13-phone:server:SetCallState', true)
 
     SendNUIMessage({
         action = "SetupHomeCall",
@@ -1984,7 +1984,7 @@ RegisterNetEvent('qb-phone:client:GetCalled', function(CallerNumber, CallId, Ano
         if not PhoneData.CallData.AnsweredCall then
             if RepeatCount + 1 ~= Config.CallRepeats + 1 then
                 if PhoneData.CallData.InCall then
-                    QBCore.Functions.TriggerCallback('qb-phone:server:HasPhone', function(HasPhone)
+                    QBCore.Functions.TriggerCallback('i13-phone:server:HasPhone', function(HasPhone)
                         if HasPhone then
                             RepeatCount = RepeatCount + 1
                             TriggerServerEvent("InteractSound_SV:PlayOnSource", "ringing", 0.2)
@@ -2006,7 +2006,7 @@ RegisterNetEvent('qb-phone:client:GetCalled', function(CallerNumber, CallId, Ano
                         Canceled = true,
                         AnonymousCall = AnonymousCall,
                     })
-                    TriggerServerEvent('qb-phone:server:AddRecentCall', "missed", CallData)
+                    TriggerServerEvent('i13-phone:server:AddRecentCall', "missed", CallData)
                     break
                 end
                 Wait(Config.RepeatTimeout)
@@ -2017,17 +2017,17 @@ RegisterNetEvent('qb-phone:client:GetCalled', function(CallerNumber, CallId, Ano
                     Canceled = true,
                     AnonymousCall = AnonymousCall,
                 })
-                TriggerServerEvent('qb-phone:server:AddRecentCall', "missed", CallData)
+                TriggerServerEvent('i13-phone:server:AddRecentCall', "missed", CallData)
                 break
             end
         else
-            TriggerServerEvent('qb-phone:server:AddRecentCall', "missed", CallData)
+            TriggerServerEvent('i13-phone:server:AddRecentCall', "missed", CallData)
             break
         end
     end
 end)
 
-RegisterNetEvent('qb-phone:client:UpdateMessages', function(ChatMessages, SenderNumber, New)
+RegisterNetEvent('i13-phone:client:UpdateMessages', function(ChatMessages, SenderNumber, New)
     local NumberKey = GetKeyByNumber(SenderNumber)
 
     if New then
@@ -2080,7 +2080,7 @@ RegisterNetEvent('qb-phone:client:UpdateMessages', function(ChatMessages, Sender
             ReorganizeChats(NumberKey)
 
             Wait(100)
-            QBCore.Functions.TriggerCallback('qb-phone:server:GetContactPictures', function(Chats)
+            QBCore.Functions.TriggerCallback('i13-phone:server:GetContactPictures', function(Chats)
                 SendNUIMessage({
                     action = "UpdateChat",
                     chatData = Chats[GetKeyByNumber(SenderNumber)],
@@ -2100,7 +2100,7 @@ RegisterNetEvent('qb-phone:client:UpdateMessages', function(ChatMessages, Sender
 	        },
 	    })
             Config.PhoneApplications['whatsapp'].Alerts = Config.PhoneApplications['whatsapp'].Alerts + 1
-            TriggerServerEvent('qb-phone:server:SetPhoneAlerts', "whatsapp")
+            TriggerServerEvent('i13-phone:server:SetPhoneAlerts', "whatsapp")
         end
     else
         PhoneData.Chats[NumberKey].messages = ChatMessages
@@ -2140,7 +2140,7 @@ RegisterNetEvent('qb-phone:client:UpdateMessages', function(ChatMessages, Sender
             ReorganizeChats(NumberKey)
 
             Wait(100)
-            QBCore.Functions.TriggerCallback('qb-phone:server:GetContactPictures', function(Chats)
+            QBCore.Functions.TriggerCallback('i13-phone:server:GetContactPictures', function(Chats)
                 SendNUIMessage({
                     action = "UpdateChat",
                     chatData = Chats[GetKeyByNumber(SenderNumber)],
@@ -2164,12 +2164,12 @@ RegisterNetEvent('qb-phone:client:UpdateMessages', function(ChatMessages, Sender
             ReorganizeChats(NumberKey)
 
             Config.PhoneApplications['whatsapp'].Alerts = Config.PhoneApplications['whatsapp'].Alerts + 1
-            TriggerServerEvent('qb-phone:server:SetPhoneAlerts', "whatsapp")
+            TriggerServerEvent('i13-phone:server:SetPhoneAlerts', "whatsapp")
         end
     end
 end)
 
-RegisterNetEvent('qb-phone:client:RemoveBankMoney', function(amount)
+RegisterNetEvent('i13-phone:client:RemoveBankMoney', function(amount)
     if amount > 0 then
         SendNUIMessage({
             action = "PhoneNotification",
@@ -2184,7 +2184,7 @@ RegisterNetEvent('qb-phone:client:RemoveBankMoney', function(amount)
     end
 end)
 
-RegisterNetEvent('qb-phone:RefreshPhone', function()
+RegisterNetEvent('i13-phone:RefreshPhone', function()
     LoadPhone()
     SetTimeout(250, function()
         SendNUIMessage({
@@ -2194,7 +2194,7 @@ RegisterNetEvent('qb-phone:RefreshPhone', function()
     end)
 end)
 
-RegisterNetEvent('qb-phone:client:AddTransaction', function(SenderData, TransactionData, Message, Title)
+RegisterNetEvent('i13-phone:client:AddTransaction', function(SenderData, TransactionData, Message, Title)
     local Data = {
         TransactionTitle = Title,
         TransactionMessage = Message,
@@ -2214,10 +2214,10 @@ RegisterNetEvent('qb-phone:client:AddTransaction', function(SenderData, Transact
         action = "UpdateTransactions",
         CryptoTransactions = PhoneData.CryptoTransactions
     })
-    TriggerServerEvent('qb-phone:server:AddTransaction', Data)
+    TriggerServerEvent('i13-phone:server:AddTransaction', Data)
 end)
 
-RegisterNetEvent('qb-phone:client:AddNewSuggestion', function(SuggestionData)
+RegisterNetEvent('i13-phone:client:AddNewSuggestion', function(SuggestionData)
     PhoneData.SuggestedContacts[#PhoneData.SuggestedContacts+1] = SuggestionData
     SendNUIMessage({
         action = "PhoneNotification",
@@ -2230,10 +2230,10 @@ RegisterNetEvent('qb-phone:client:AddNewSuggestion', function(SuggestionData)
         },
     })
     Config.PhoneApplications["phone"].Alerts = Config.PhoneApplications["phone"].Alerts + 1
-    TriggerServerEvent('qb-phone:server:SetPhoneAlerts', "phone", Config.PhoneApplications["phone"].Alerts)
+    TriggerServerEvent('i13-phone:server:SetPhoneAlerts', "phone", Config.PhoneApplications["phone"].Alerts)
 end)
 
-RegisterNetEvent('qb-phone:client:UpdateHashtags', function(Handle, msgData)
+RegisterNetEvent('i13-phone:client:UpdateHashtags', function(Handle, msgData)
     if PhoneData.Hashtags[Handle] ~= nil then
         PhoneData.Hashtags[Handle].messages[#PhoneData.Hashtags[Handle].messages+1] = msgData
     else
@@ -2250,7 +2250,7 @@ RegisterNetEvent('qb-phone:client:UpdateHashtags', function(Handle, msgData)
     })
 end)
 
-RegisterNetEvent('qb-phone:client:AnswerCall', function()
+RegisterNetEvent('i13-phone:client:AnswerCall', function()
     if (PhoneData.CallData.CallType == "incoming" or PhoneData.CallData.CallType == "outgoing") and PhoneData.CallData.InCall and not PhoneData.CallData.AnsweredCall then
         PhoneData.CallData.CallType = "ongoing"
         PhoneData.CallData.AnsweredCall = true
@@ -2259,7 +2259,7 @@ RegisterNetEvent('qb-phone:client:AnswerCall', function()
         SendNUIMessage({ action = "AnswerCall", CallData = PhoneData.CallData})
         SendNUIMessage({ action = "SetupHomeCall", CallData = PhoneData.CallData})
 
-        TriggerServerEvent('qb-phone:server:SetCallState', true)
+        TriggerServerEvent('i13-phone:server:SetCallState', true)
 
         if PhoneData.isOpen then
             DoPhoneAnimation('cellphone_text_to_call')
@@ -2301,7 +2301,7 @@ RegisterNetEvent('qb-phone:client:AnswerCall', function()
     end
 end)
 
-RegisterNetEvent('qb-phone:client:addPoliceAlert', function(alertData)
+RegisterNetEvent('i13-phone:client:addPoliceAlert', function(alertData)
     PlayerJob = QBCore.Functions.GetPlayerData().job
     if PlayerJob.name == 'police' and PlayerJob.onduty then
         SendNUIMessage({
@@ -2311,7 +2311,7 @@ RegisterNetEvent('qb-phone:client:addPoliceAlert', function(alertData)
     end
 end)
 
-RegisterNetEvent('qb-phone:client:sendPoliceNotification', function()
+RegisterNetEvent('i13-phone:client:sendPoliceNotification', function()
     PlayerJob = QBCore.Functions.GetPlayerData().job
     if PlayerJob.name == 'police' and PlayerJob.onduty then
         SendNUIMessage({
@@ -2326,7 +2326,7 @@ RegisterNetEvent('qb-phone:client:sendPoliceNotification', function()
     end
 end)
 
-RegisterNetEvent('qb-phone:client:sendPoliceDrugNotification', function()
+RegisterNetEvent('i13-phone:client:sendPoliceDrugNotification', function()
     PlayerJob = QBCore.Functions.GetPlayerData().job
     if PlayerJob.name == 'police' and PlayerJob.onduty then
         SendNUIMessage({
@@ -2341,23 +2341,23 @@ RegisterNetEvent('qb-phone:client:sendPoliceDrugNotification', function()
     end
 end)
 
-RegisterNetEvent('qb-phone:client:GiveContactDetails', function()
+RegisterNetEvent('i13-phone:client:GiveContactDetails', function()
     local player, distance = GetClosestPlayer()
     if player ~= -1 and distance < 2.5 then
         local PlayerId = GetPlayerServerId(player)
-        TriggerServerEvent('qb-phone:server:GiveContactDetails', PlayerId)
+        TriggerServerEvent('i13-phone:server:GiveContactDetails', PlayerId)
     else
         QBCore.Functions.Notify("Kedagi pole lähedal", "error")
     end
 end)
 
-RegisterNetEvent('qb-phone:client:UpdateLapraces', function()
+RegisterNetEvent('i13-phone:client:UpdateLapraces', function()
     SendNUIMessage({
         action = "UpdateRacingApp",
     })
 end)
 
-RegisterNetEvent('qb-phone:client:GetMentioned', function(TweetMessage, AppAlerts)
+RegisterNetEvent('i13-phone:client:GetMentioned', function(TweetMessage, AppAlerts)
     Config.PhoneApplications["twitter"].Alerts = AppAlerts
     SendNUIMessage({ action = "PhoneNotification", PhoneNotify = { title = "Sind taggiti tweeti!", text = TweetMessage.message, icon = "fab fa-twitter", color = "#1DA1F2", }, })
     local TweetMessage = {firstName = TweetMessage.firstName, lastName = TweetMessage.lastName, message = escape_str(TweetMessage.message), time = TweetMessage.time, picture = TweetMessage.picture}
@@ -2366,11 +2366,11 @@ RegisterNetEvent('qb-phone:client:GetMentioned', function(TweetMessage, AppAlert
     SendNUIMessage({ action = "UpdateMentionedTweets", Tweets = PhoneData.MentionedTweets })
 end)
 
-RegisterNetEvent('qb-phone:refreshImages', function(images)
+RegisterNetEvent('i13-phone:refreshImages', function(images)
     PhoneData.Images = images
 end)
 
-RegisterNetEvent("qb-phone:client:CustomNotification", function(title, text, icon, color, timeout) -- Send a PhoneNotification to the phone from anywhere
+RegisterNetEvent("i13-phone:client:CustomNotification", function(title, text, icon, color, timeout) -- Send a PhoneNotification to the phone from anywhere
     SendNUIMessage({
         action = "PhoneNotification",
         PhoneNotify = {
@@ -2383,7 +2383,7 @@ RegisterNetEvent("qb-phone:client:CustomNotification", function(title, text, ico
     })
 end)
 
-RegisterNetEvent('qb-phone:client:BoostNotification', function(title, text, icon, color, toggle)
+RegisterNetEvent('i13-phone:client:BoostNotification', function(title, text, icon, color, toggle)
     SendNUIMessage({
         action = "BoostNotification",
         PhoneNotify = {
@@ -2419,7 +2419,7 @@ CreateThread(function()
     while true do
         Wait(60000)
         if LocalPlayer.state.isLoggedIn then
-            QBCore.Functions.TriggerCallback('qb-phone:server:GetPhoneData', function(pData)
+            QBCore.Functions.TriggerCallback('i13-phone:server:GetPhoneData', function(pData)
                 if pData.PlayerContacts ~= nil and next(pData.PlayerContacts) ~= nil then
                     PhoneData.Contacts = pData.PlayerContacts
                 end

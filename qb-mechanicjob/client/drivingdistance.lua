@@ -36,7 +36,7 @@ Citizen.CreateThread(function()
                     if not CheckDone then
                         if vehiclemeters == -1 then
                             CheckDone = true
-                            QBCore.Functions.TriggerCallback('qb-vehicletuning:server:IsVehicleOwned', function(IsOwned)
+                            QBCore.Functions.TriggerCallback('i13-vehicletuning:server:IsVehicleOwned', function(IsOwned)
                                 if IsOwned then
                                     if DrivingDistance[plate] ~= nil then
                                         vehiclemeters = DrivingDistance[plate]
@@ -86,7 +86,7 @@ Citizen.CreateThread(function()
                                         else
                                             newDamage = 0
                                         end
-                                        TriggerServerEvent('qb-vehicletuning:server:SetPartLevel', plate, k, newDamage)
+                                        TriggerServerEvent('i13-vehicletuning:server:SetPartLevel', plate, k, newDamage)
                                     end
                                 end
                             end
@@ -94,7 +94,7 @@ Citizen.CreateThread(function()
                             local amount = round(DrivingDistance[plate] / 1000, -2)
 
                             TriggerEvent('hud:client:UpdateDrivingMeters', true, amount)
-                            TriggerServerEvent('qb-vehicletuning:server:UpdateDrivingDistance', DrivingDistance[plate], plate)
+                            TriggerServerEvent('i13-vehicletuning:server:UpdateDrivingDistance', DrivingDistance[plate], plate)
                         end
                     else
                         if invehicle then
@@ -143,7 +143,7 @@ function round(num, numDecimalPlaces)
     return math.floor(num + 0.5)
 end
  
-RegisterNetEvent('qb-vehicletuning:client:UpdateDrivingDistance')
-AddEventHandler('qb-vehicletuning:client:UpdateDrivingDistance', function(amount, plate)
+RegisterNetEvent('i13-vehicletuning:client:UpdateDrivingDistance')
+AddEventHandler('i13-vehicletuning:client:UpdateDrivingDistance', function(amount, plate)
     DrivingDistance[plate] = amount
 end)

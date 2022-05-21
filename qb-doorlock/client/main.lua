@@ -310,7 +310,7 @@ local function lockpickFinish(success)
 			if count == 150 then break end
 		end
 		Wait(1800)
-		TriggerServerEvent('qb-doorlock:server:updateState', closestDoor.id, false, false, true, false) -- Broadcast new state of the door to everyone
+		TriggerServerEvent('i13-doorlock:server:updateState', closestDoor.id, false, false, true, false) -- Broadcast new state of the door to everyone
 	else
 		QBCore.Functions.Notify('Muukimine Ebaõnnestus', 'error', 2500)
 		if math.random(1,100) <= 17 then
@@ -360,7 +360,7 @@ local function isAuthorized(door)
 
 	if door.items then
 		local p = promise.new()
-		QBCore.Functions.TriggerCallback('qb-doorlock:server:checkItems', function(result)
+		QBCore.Functions.TriggerCallback('i13-doorlock:server:checkItems', function(result)
 			p:resolve(result)
 		end, door.items, door.needsAllItems)
 		return Citizen.Await(p)
@@ -371,7 +371,7 @@ end
 
 function SetupDoors()
 	local p = promise.new()
-	QBCore.Functions.TriggerCallback('qb-doorlock:server:setupDoors', function(result)
+	QBCore.Functions.TriggerCallback('i13-doorlock:server:setupDoors', function(result)
 		p:resolve(result)
 	end)
 	Config.DoorList = Citizen.Await(p)
@@ -380,7 +380,7 @@ end
 -- Events
 
 RegisterNetEvent('QBCore:Client:OnPlayerLoaded', function()
-	QBCore.Functions.TriggerCallback('qb-doorlock:server:setupDoors', function(result)
+	QBCore.Functions.TriggerCallback('i13-doorlock:server:setupDoors', function(result)
 		Config.DoorList = result
 		PlayerData = QBCore.Functions.GetPlayerData()
 		isLoggedIn = true
@@ -396,7 +396,7 @@ RegisterNetEvent('QBCore:Player:SetPlayerData', function(val)
 	PlayerData = val
 end)
 
-RegisterNetEvent('qb-doorlock:client:setState', function(serverId, doorID, state, src, enableAnimation, enableSounds)
+RegisterNetEvent('i13-doorlock:client:setState', function(serverId, doorID, state, src, enableAnimation, enableSounds)
 	if not Config.DoorList[doorID] then return end
 	if enableAnimation == nil then enableAnimation = true end
 	if enableSounds == nil then enableSounds = true end
@@ -485,7 +485,7 @@ end)
 RegisterNetEvent('lockpicks:UseLockpick', function(isAdvanced)
 	if not closestDoor.data or not next(closestDoor.data) or PlayerData.metadata['isdead'] or PlayerData.metadata['ishandcuffed'] or (not closestDoor.data.pickable and not closestDoor.data.lockpick) or not closestDoor.data.locked then return end
 	usingAdvanced = isAdvanced
-	-- TriggerEvent('qb-lockpick:client:openLockpick', lockpickFinish)
+	-- TriggerEvent('i13-lockpick:client:openLockpick', lockpickFinish)
 	local seconds = math.random(8,12)
 	local circles = math.random(4,7)
 	local success = exports['qb-lock']:StartLockPickCircle(circles, seconds, success)
@@ -496,7 +496,7 @@ RegisterNetEvent('lockpicks:UseLockpick', function(isAdvanced)
 	end
 end)
 
-RegisterNetEvent('qb-doorlock:client:addNewDoor', function()
+RegisterNetEvent('i13-doorlock:client:addNewDoor', function()
 	canContinue = false
 	hideNUI()
 	if not Config.SaveDoorDialog then doorData = {} end
@@ -659,7 +659,7 @@ RegisterNetEvent('qb-doorlock:client:addNewDoor', function()
 		doorData.coords = coords
 		doorData.model = model
 		doorData.heading = heading
-		TriggerServerEvent('qb-doorlock:server:saveNewDoor', doorData, false)
+		TriggerServerEvent('i13-doorlock:server:saveNewDoor', doorData, false)
 		canContinue = true
 	else
 		local entity, coords, heading, model, result, entityHit = {0, 0}, {0, 0}, {0, 0}, {0, 0}, false, 0
@@ -724,17 +724,17 @@ RegisterNetEvent('qb-doorlock:client:addNewDoor', function()
 		doorData.coords = coords
 		doorData.model = model
 		doorData.heading = heading
-		TriggerServerEvent('qb-doorlock:server:saveNewDoor', doorData, true)
+		TriggerServerEvent('i13-doorlock:server:saveNewDoor', doorData, true)
 		canContinue = true
 	end
 end)
 
-RegisterNetEvent('qb-doorlock:client:newDoorAdded', function(data, id, creatorSrc)
+RegisterNetEvent('i13-doorlock:client:newDoorAdded', function(data, id, creatorSrc)
 	Config.DoorList[id] = data
-	TriggerEvent('qb-doorlock:client:setState', creatorSrc, id, data.locked, false, true, true)
+	TriggerEvent('i13-doorlock:client:setState', creatorSrc, id, data.locked, false, true, true)
 end)
 
-RegisterNetEvent('qb-doorlock:client:ToggleDoorDebug', function()
+RegisterNetEvent('i13-doorlock:client:ToggleDoorDebug', function()
 	Config.DoorDebug = not Config.DoorDebug
 	HandleDoorDebug()
 end)
@@ -769,7 +769,7 @@ RegisterCommand('toggledoorlock', function()
 	local src = false
 	if closestDoor.data.audioRemote then src = NetworkGetNetworkIdFromEntity(playerPed) end
 
-	TriggerServerEvent('qb-doorlock:server:updateState', closestDoor.id, locked, src, false, false, true, true) -- Broadcast new state of the door to everyone
+	TriggerServerEvent('i13-doorlock:server:updateState', closestDoor.id, locked, src, false, false, true, true) -- Broadcast new state of the door to everyone
 end)
 TriggerEvent("chat:removeSuggestion", "/toggledoorlock")
 RegisterKeyMapping('toggledoorlock', "Interact with door locks", 'keyboard', 'E')
@@ -813,7 +813,7 @@ RegisterCommand('remotetriggerdoor', function()
 		end)
 	end
 
-	TriggerServerEvent('qb-doorlock:server:updateState', nearestDoor.id, not nearestDoor.data.locked, NetworkGetNetworkIdFromEntity(playerPed), false, false, true, true) -- Broadcast new state of the door to everyone
+	TriggerServerEvent('i13-doorlock:server:updateState', nearestDoor.id, not nearestDoor.data.locked, NetworkGetNetworkIdFromEntity(playerPed), false, false, true, true) -- Broadcast new state of the door to everyone
 end)
 TriggerEvent("chat:removeSuggestion", "/remotetriggerdoor")
 RegisterKeyMapping('remotetriggerdoor', "Remote trigger a door", 'keyboard', 'H')

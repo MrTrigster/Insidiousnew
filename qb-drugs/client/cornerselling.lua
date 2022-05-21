@@ -18,8 +18,8 @@ local policeMessage = {
     "Võimalik Narkotehing",
 }
 
-RegisterNetEvent('qb-drugs:client:cornerselling', function(data)
-    QBCore.Functions.TriggerCallback('qb-drugs:server:cornerselling:getAvailableDrugs', function(result)
+RegisterNetEvent('i13-drugs:client:cornerselling', function(data)
+    QBCore.Functions.TriggerCallback('i13-drugs:server:cornerselling:getAvailableDrugs', function(result)
         if CurrentCops >= Config.MinimumDrugSalePolice then
             if result ~= nil then
                 availableDrugs = result
@@ -47,7 +47,7 @@ RegisterNetEvent('police:SetCopCount', function(amount)
     CurrentCops = amount
 end)
 
-RegisterNetEvent('qb-drugs:client:refreshAvailableDrugs', function(items)
+RegisterNetEvent('i13-drugs:client:refreshAvailableDrugs', function(items)
     availableDrugs = items
     if #availableDrugs <= 0 then
         QBCore.Functions.Notify('Sul pole enam narkot müüa', 'error')
@@ -56,7 +56,7 @@ RegisterNetEvent('qb-drugs:client:refreshAvailableDrugs', function(items)
     end
 end)
 
-RegisterNetEvent('qb-drugs:client:PoliceSendAlert', function(alertData)
+RegisterNetEvent('i13-drugs:client:PoliceSendAlert', function(alertData)
     local Player = QBCore.Functions.GetPlayerData()
 
     if (Player.job.name == 'police' and Player.job.onduty) then
@@ -70,8 +70,8 @@ RegisterNetEvent('qb-drugs:client:PoliceSendAlert', function(alertData)
 
         QBCore.Functions.Notify('Võimalik Narkotehing', 'police')
     end
-    TriggerEvent('qb-phone:client:sendPoliceDrugNotification')
-    TriggerEvent('qb-phone:client:addPoliceAlert', alertData)
+    TriggerEvent('i13-phone:client:sendPoliceDrugNotification')
+    TriggerEvent('i13-phone:client:addPoliceAlert', alertData)
 end)
 
 
@@ -119,7 +119,7 @@ local function callPolice(coords)
     local streetLabel = street1
     if street2 ~= nil then streetLabel = street1..' '..street2 end
     --TriggerServerEvent('police:server:PoliceAlertMessage', title, streetLabel, coords)
-    TriggerServerEvent('qb-drugs:server:PoliceMessage', title, pCoords, true)
+    TriggerServerEvent('i13-drugs:server:PoliceMessage', title, pCoords, true)
     hasTarget = false
     Wait(5000)
 
@@ -168,7 +168,7 @@ local function SellToPed(ped)
         return
     elseif succesChance >= 19 then
         --callPolice(GetEntityCoords(ped))
-        -- TriggerServerEvent('qb-drugs:server:PoliceMessage', title, pCoords)
+        -- TriggerServerEvent('i13-drugs:server:PoliceMessage', title, pCoords)
         exports['qb-dispatch']:DrugSale()
         QBCore.Functions.Notify('Keegi räägib vist politseiga')
         return
@@ -225,7 +225,7 @@ local function SellToPed(ped)
             pedCoords = GetEntityCoords(ped)
             pedDist = #(coords - pedCoords)
             if getRobbed == 18 or getRobbed == 9 then
-                TriggerServerEvent('qb-drugs:server:robCornerDrugs', availableDrugs[drugType].item, bagAmount)
+                TriggerServerEvent('i13-drugs:server:robCornerDrugs', availableDrugs[drugType].item, bagAmount)
                 QBCore.Functions.Notify('Sind rööviti ja sa kaotasid'..bagAmount..' kotti '..availableDrugs[drugType].label, 'error')
                 stealingPed = ped
                 stealData = {
@@ -251,7 +251,7 @@ local function SellToPed(ped)
                 if pedDist < 1.5 and cornerselling then
                     DrawText3D(pedCoords.x, pedCoords.y, pedCoords.z, '~g~E~w~ '..bagAmount..'x '..currentOfferDrug.label..' hinnaga $'..randomPrice..'? / ~g~G~w~ Keeldu müügist')
                     if IsControlJustPressed(0, 38) then
-                        TriggerServerEvent('qb-drugs:server:sellCornerDrugs', availableDrugs[drugType].item, bagAmount, randomPrice)
+                        TriggerServerEvent('i13-drugs:server:sellCornerDrugs', availableDrugs[drugType].item, bagAmount, randomPrice)
                         hasTarget = false
 
                         loadAnimDict("gestures@f@standing@casual")

@@ -84,14 +84,14 @@ function CrateDrop(planeSpawnDistance, dropCoords)
                     options = {
                         {
                             type = 'client',
-                            event = 'qb-wepdrop:client:getItems',
+                            event = 'i13-wepdrop:client:getItems',
                             label = 'Võta Asjad',
                             icon = 'fas fa-hand',
                         }
                     },
                     distance = 2.0,
                 })
-                -- TriggerServerEvent("qb-wepdrop:server:recieveItems")            
+                -- TriggerServerEvent("i13-wepdrop:server:recieveItems")            
             end)
         -- end)  
     end)
@@ -106,7 +106,7 @@ RegisterNetEvent('drop:client:dropTrue', function()
 end)
 
 -- Create the AirDrop
-RegisterNetEvent("qb-wepdrop:client:CreateDrop", function(roofCheck, planeSpawnDistance)
+RegisterNetEvent("i13-wepdrop:client:CreateDrop", function(roofCheck, planeSpawnDistance)
     if canDrop then
         local playerCoords = GetOffsetFromEntityInWorldCoords(PlayerPedId(), 0.0, 10.0, 0.0)
         local chance = math.random(1, 100)
@@ -120,9 +120,9 @@ RegisterNetEvent("qb-wepdrop:client:CreateDrop", function(roofCheck, planeSpawnD
             anim = 'cellphone_call_listen_base',
             flags = 50,
         }, {}, {}, function()
-            QBCore.Functions.TriggerCallback("qb-wepdrop:server:getCops", function(CurrentCops)
+            QBCore.Functions.TriggerCallback("i13-wepdrop:server:getCops", function(CurrentCops)
                 if CurrentCops >= RequiredCops then
-                    TriggerEvent("qb-wepdrop:client:StartDrop", roofCheck or false, planeSpawnDistance or 400.0, {["x"] = playerCoords.x, ["y"] = playerCoords.y, ["z"] = playerCoords.z})
+                    TriggerEvent("i13-wepdrop:client:StartDrop", roofCheck or false, planeSpawnDistance or 400.0, {["x"] = playerCoords.x, ["y"] = playerCoords.y, ["z"] = playerCoords.z})
                     -- if chance >= 70 then
                     --     local data = {displayCode = '???', description = 'Tundmatu Õhusõiduk', isImportant = 1, recipientList = {'police'}, length = '10000', infoM = 'fa-info-circle', info = 'M'}
                     --     local dispatchData = {dispatchData = data, caller = 'Pangaalarm', coords = vector3(261.95, 223.11, 106.28)}
@@ -144,7 +144,7 @@ RegisterNetEvent("qb-wepdrop:client:CreateDrop", function(roofCheck, planeSpawnD
 end)
 
 -- Start the AirDrop
-RegisterNetEvent("qb-wepdrop:client:StartDrop", function(roofCheck, planeSpawnDistance, dropCoords)
+RegisterNetEvent("i13-wepdrop:client:StartDrop", function(roofCheck, planeSpawnDistance, dropCoords)
     CreateThread(function()          
         if dropCoords.x and dropCoords.y and dropCoords.z and tonumber(dropCoords.x) and tonumber(dropCoords.y) and tonumber(dropCoords.z) then            
         else
@@ -170,8 +170,8 @@ RegisterNetEvent("qb-wepdrop:client:StartDrop", function(roofCheck, planeSpawnDi
     end)
 end)
 
-RegisterNetEvent('qb-wepdrop:client:getItems', function()
-    TriggerServerEvent('qb-wepdrop:server:recieveItems')
+RegisterNetEvent('i13-wepdrop:client:getItems', function()
+    TriggerServerEvent('i13-wepdrop:server:recieveItems')
     DeleteEntity(crate)
     DeleteEntity(parachute)
     exports['qb-target']:RemoveTargetModel('h4_prop_h4_box_ammo_02a', 'test')
@@ -225,7 +225,7 @@ CreateThread(function()
         options = {
             {
                 type = 'server',
-                event = 'qb-wepdrop:server:getDropPhone',
+                event = 'i13-wepdrop:server:getDropPhone',
                 label = 'Võta Kontakt 100 INC',
                 icon = 'fas fa-copy',
                 item = 'emptydropphone',

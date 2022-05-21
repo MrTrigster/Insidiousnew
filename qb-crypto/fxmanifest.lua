@@ -1,7 +1,7 @@
 fx_version 'cerulean'
 game 'gta5'
 
-description 'QB-Crypto'
+description 'i13-Crypto'
 version '1.0.0'
 
 shared_script 'config.lua'

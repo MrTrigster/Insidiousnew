@@ -43,8 +43,8 @@ end
 
 RegisterNUICallback('close', closeBindingMenu)
 
-RegisterNetEvent('qb-commandbinding:client:openUI')
-AddEventHandler('qb-commandbinding:client:openUI', function()
+RegisterNetEvent('i13-commandbinding:client:openUI')
+AddEventHandler('i13-commandbinding:client:openUI', function()
     openBindingMenu()
 end)
 
@@ -84,7 +84,7 @@ RegisterNUICallback('save', function(data)
 
     QBCore.Functions.Notify('Bindid salvestatud!', 'success')
 
-    TriggerServerEvent('qb-commandbinding:server:setKeyMeta', keyData)
+    TriggerServerEvent('i13-commandbinding:server:setKeyMeta', keyData)
 end)
 
 -- This will only trigger on server start, not client so it doesn't make the isLoggedIn useless, this just makes sure you don't have to log back in when restarting the resource manually

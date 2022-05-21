@@ -14,19 +14,19 @@ RegisterKeyMapping('radialmenu', 'Open Radial Menu', 'keyboard', 'F1')
 -- Sets the metadata when the player spawns
 RegisterNetEvent('QBCore:Client:OnPlayerLoaded', function()
     PlayerData = QBCore.Functions.GetPlayerData()
-	TriggerEvent('qb-garages:client:updateRadialmenu')
+	TriggerEvent('i13-garages:client:updateRadialmenu')
 end)
 
 -- Sets the playerdata to an empty table when the player has quit or did /logout
 RegisterNetEvent('QBCore:Client:OnPlayerUnload', function()
     PlayerData = {}
-	TriggerEvent('qb-garages:client:updateRadialmenu')
+	TriggerEvent('i13-garages:client:updateRadialmenu')
 end)
 
 -- This will update all the PlayerData that doesn't get updated with a specific event other than this like the metadata
 RegisterNetEvent('QBCore:Player:SetPlayerData', function(val)
     PlayerData = val
-	TriggerEvent('qb-garages:client:updateRadialmenu')
+	TriggerEvent('i13-garages:client:updateRadialmenu')
 end)
 
 local function CheckHasID(id1, id2)
@@ -66,7 +66,7 @@ local function setupGarageItems()
 					title = 'Sõidukite List',
 					icon = 'warehouse',
 					type = 'client',
-					event = 'qb-garages:client:openGarage',
+					event = 'i13-garages:client:openGarage',
 					shouldClose = true
 				}
 			end
@@ -85,7 +85,7 @@ local function setupGarageItems()
 					title = 'Pargi Sõiduk',
 					icon = 'parking',
 					type = 'client',
-					event = 'qb-garages:client:storeVehicle',
+					event = 'i13-garages:client:storeVehicle',
 					shouldClose = true
 				}
 			end
@@ -106,7 +106,7 @@ local function setupGarageItems()
 					title = 'Mehaanikute Garaaz',
 					icon = 'warehouse',
 					type = 'client',
-					event = 'qb-garages:client:openJobVehList',
+					event = 'i13-garages:client:openJobVehList',
 					shouldClose = true
 				}
 			end
@@ -124,7 +124,7 @@ local function setupGarageItems()
 					title = 'Pane Mehaanikute Garaazi',
 					icon = 'parking',
 					type = 'client',
-					event = 'qb-garages:client:HideJobVeh',
+					event = 'i13-garages:client:HideJobVeh',
 					shouldClose = true
 				}
 			end
@@ -145,7 +145,7 @@ local function setupGarageItems()
 					title = 'Weazel News Garaaz',
 					icon = 'warehouse',
 					type = 'client',
-					event = 'qb-garages:client:openJobVehList',
+					event = 'i13-garages:client:openJobVehList',
 					shouldClose = true
 				}
 			end
@@ -163,7 +163,7 @@ local function setupGarageItems()
 					title = 'Pane Weazel News Garaazi',
 					icon = 'parking',
 					type = 'client',
-					event = 'qb-garages:client:HideJobVeh',
+					event = 'i13-garages:client:HideJobVeh',
 					shouldClose = true
 				}
 			end
@@ -184,7 +184,7 @@ local function setupGarageItems()
 					title = 'Takso Garaaz',
 					icon = 'warehouse',
 					type = 'client',
-					event = 'qb-garages:client:openJobVehList',
+					event = 'i13-garages:client:openJobVehList',
 					shouldClose = true
 				}
 			end
@@ -202,7 +202,7 @@ local function setupGarageItems()
 					title = 'Pane Takso Garaazi',
 					icon = 'parking',
 					type = 'client',
-					event = 'qb-garages:client:HideJobVeh',
+					event = 'i13-garages:client:HideJobVeh',
 					shouldClose = true
 				}
 			end
@@ -223,7 +223,7 @@ local function setupGarageItems()
 					title = 'Politsei Garaaz',
 					icon = 'warehouse',
 					type = 'client',
-					event = 'qb-garages:client:openJobVehList',
+					event = 'i13-garages:client:openJobVehList',
 					shouldClose = true
 				}
 			end
@@ -241,7 +241,7 @@ local function setupGarageItems()
 					title = 'Pane Politsei Garaazi',
 					icon = 'parking',
 					type = 'client',
-					event = 'qb-garages:client:HideJobVeh',
+					event = 'i13-garages:client:HideJobVeh',
 					shouldClose = true
 				}
 			end
@@ -262,7 +262,7 @@ local function setupGarageItems()
 					title = 'Kiirabi Garaaz',
 					icon = 'warehouse',
 					type = 'client',
-					event = 'qb-garages:client:openJobVehList',
+					event = 'i13-garages:client:openJobVehList',
 					shouldClose = true
 				}
 			end
@@ -280,7 +280,7 @@ local function setupGarageItems()
 					title = 'Pane Kiirabi Garaazi',
 					icon = 'parking',
 					type = 'client',
-					event = 'qb-garages:client:HideJobVeh',
+					event = 'i13-garages:client:HideJobVeh',
 					shouldClose = true
 				}
 			end
@@ -357,7 +357,7 @@ function setupSubItems()
                     title = 'Driver',
                     icon = 'caret-up',
                     type = 'client',
-                    event = 'qb-radialmenu:client:ChangeSeat',
+                    event = 'i13-radialmenu:client:ChangeSeat',
                     shouldClose = false,
                 },
                 [2] = {
@@ -365,7 +365,7 @@ function setupSubItems()
                     title = 'Passenger',
                     icon = 'caret-up',
                     type = 'client',
-                    event = 'qb-radialmenu:client:ChangeSeat',
+                    event = 'i13-radialmenu:client:ChangeSeat',
                     shouldClose = false,
                 },
             }
@@ -376,7 +376,7 @@ function setupSubItems()
                     title = 'Driver',
                     icon = 'caret-up',
                     type = 'client',
-                    event = 'qb-radialmenu:client:ChangeSeat',
+                    event = 'i13-radialmenu:client:ChangeSeat',
                     shouldClose = false,
                 },
                 [1] = {
@@ -384,7 +384,7 @@ function setupSubItems()
                     title = 'Passenger',
                     icon = 'caret-up',
                     type = 'client',
-                    event = 'qb-radialmenu:client:ChangeSeat',
+                    event = 'i13-radialmenu:client:ChangeSeat',
                     shouldClose = false,
                 },
                 [3] = {
@@ -392,7 +392,7 @@ function setupSubItems()
                     title = 'Other',
                     icon = 'caret-down',
                     type = 'client',
-                    event = 'qb-radialmenu:client:ChangeSeat',
+                    event = 'i13-radialmenu:client:ChangeSeat',
                     shouldClose = false,
                 },
             }
@@ -403,7 +403,7 @@ function setupSubItems()
                     title = 'Driver',
                     icon = 'caret-up',
                     type = 'client',
-                    event = 'qb-radialmenu:client:ChangeSeat',
+                    event = 'i13-radialmenu:client:ChangeSeat',
                     shouldClose = false,
                 },
                 [1] = {
@@ -411,7 +411,7 @@ function setupSubItems()
                     title = 'Passenger',
                     icon = 'caret-up',
                     type = 'client',
-                    event = 'qb-radialmenu:client:ChangeSeat',
+                    event = 'i13-radialmenu:client:ChangeSeat',
                     shouldClose = false,
                 },
                 [3] = {
@@ -419,7 +419,7 @@ function setupSubItems()
                     title = 'Rear Left',
                     icon = 'caret-down',
                     type = 'client',
-                    event = 'qb-radialmenu:client:ChangeSeat',
+                    event = 'i13-radialmenu:client:ChangeSeat',
                     shouldClose = false,
                 },
                 [2] = {
@@ -427,7 +427,7 @@ function setupSubItems()
                     title = 'Rear Right',
                     icon = 'caret-down',
                     type = 'client',
-                    event = 'qb-radialmenu:client:ChangeSeat',
+                    event = 'i13-radialmenu:client:ChangeSeat',
                     shouldClose = false,
                 },
             }
@@ -589,18 +589,18 @@ end)
 --     end
 -- end)
 
-RegisterNetEvent('qb-radialmenu:client:noPlayers')
-AddEventHandler('qb-radialmenu:client:noPlayers', function()
+RegisterNetEvent('i13-radialmenu:client:noPlayers')
+AddEventHandler('i13-radialmenu:client:noPlayers', function()
     QBCore.Functions.Notify('There arrent any people close', 'error', 2500)
 end)
 
-RegisterNetEvent('qb-radialmenu:client:giveidkaart')
-AddEventHandler('qb-radialmenu:client:giveidkaart', function(data)
+RegisterNetEvent('i13-radialmenu:client:giveidkaart')
+AddEventHandler('i13-radialmenu:client:giveidkaart', function(data)
     -- ??
 end)
 
-RegisterNetEvent('qb-radialmenu:client:openDoor')
-AddEventHandler('qb-radialmenu:client:openDoor', function(data)
+RegisterNetEvent('i13-radialmenu:client:openDoor')
+AddEventHandler('i13-radialmenu:client:openDoor', function(data)
     local string = data.id
     local replace = string:gsub("door", "")
     local door = tonumber(replace)
@@ -618,13 +618,13 @@ AddEventHandler('qb-radialmenu:client:openDoor', function(data)
             local plate = GetVehicleNumberPlateText(closestVehicle)
             if GetVehicleDoorAngleRatio(closestVehicle, door) > 0.0 then
                 if not IsVehicleSeatFree(closestVehicle, -1) then
-                    TriggerServerEvent('qb-radialmenu:trunk:server:Door', false, plate, door)
+                    TriggerServerEvent('i13-radialmenu:trunk:server:Door', false, plate, door)
                 else
                     SetVehicleDoorShut(closestVehicle, door, false)
                 end
             else
                 if not IsVehicleSeatFree(closestVehicle, -1) then
-                    TriggerServerEvent('qb-radialmenu:trunk:server:Door', true, plate, door)
+                    TriggerServerEvent('i13-radialmenu:trunk:server:Door', true, plate, door)
                 else
                     SetVehicleDoorOpen(closestVehicle, door, false, false)
                 end
@@ -641,7 +641,7 @@ AddEventHandler('qb-radialmenu:client:openDoor', function(data)
     end
 end)
 
-RegisterNetEvent('qb-radialmenu:client:setExtra', function(data)
+RegisterNetEvent('i13-radialmenu:client:setExtra', function(data)
     local string = data.id
     local replace = string:gsub("extra", "")
     local extra = tonumber(replace)
@@ -667,8 +667,8 @@ RegisterNetEvent('qb-radialmenu:client:setExtra', function(data)
     end
 end)
 
-RegisterNetEvent('qb-radialmenu:trunk:client:Door')
-AddEventHandler('qb-radialmenu:trunk:client:Door', function(plate, door, open)
+RegisterNetEvent('i13-radialmenu:trunk:client:Door')
+AddEventHandler('i13-radialmenu:trunk:client:Door', function(plate, door, open)
     local veh = GetVehiclePedIsIn(PlayerPedId())
 
     if veh ~= 0 then
@@ -691,8 +691,8 @@ local Seats = {
     ["2"] = "Rear Right Seat",
 }
 
-RegisterNetEvent('qb-radialmenu:client:ChangeSeat')
-AddEventHandler('qb-radialmenu:client:ChangeSeat', function(data)
+RegisterNetEvent('i13-radialmenu:client:ChangeSeat')
+AddEventHandler('i13-radialmenu:client:ChangeSeat', function(data)
     local Veh = GetVehiclePedIsIn(PlayerPedId())
     local IsSeatFree = IsVehicleSeatFree(Veh, data.id)
     local speed = GetEntitySpeed(Veh)
@@ -715,7 +715,7 @@ AddEventHandler('qb-radialmenu:client:ChangeSeat', function(data)
     end
 end)
 
-RegisterNetEvent('qb-radialmenu:client:flipvehicle', function()
+RegisterNetEvent('i13-radialmenu:client:flipvehicle', function()
     local ped = PlayerPedId()
     local coords = GetEntityCoords(ped)
     local vehicle = GetClosestVehicle(coords.x, coords.y, coords.z, 5.0, 0, 71)

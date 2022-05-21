@@ -26,7 +26,7 @@ function OpenMenu()
         header = "Teooria Test",
         txt = "Alusta teooria test $"..Config.Amount['theoretical'].."",
         params = {
-          event = 'qb-dmv:startquiz',
+          event = 'i13-dmv:startquiz',
           args = {
             CurrentTest = 'theory'
           }
@@ -45,7 +45,7 @@ function OpenMenu2()
       header = "Sõidueksam",
       txt = "Alusta sõidueksam $"..Config.Amount['driving'].."",
       params = {
-        event = 'qb-dmv:startdriver',
+        event = 'i13-dmv:startdriver',
         args = {
           CurrentTest = 'drive'
         }
@@ -54,7 +54,7 @@ function OpenMenu2()
   })
 end
 
-RegisterNetEvent('qb-dmv:drivingSchoolMenu', function()
+RegisterNetEvent('i13-dmv:drivingSchoolMenu', function()
     local PlayerData = QBCore.Functions.GetPlayerData()
     local licenseMeta = PlayerData.metadata['licences']
     local permitMeta = PlayerData.metadata['licencepermit']
@@ -68,7 +68,7 @@ RegisterNetEvent('qb-dmv:drivingSchoolMenu', function()
 end)
 
 -- Event to put in qb-menu to start driving test
-RegisterNetEvent('qb-dmv:startdriver', function()
+RegisterNetEvent('i13-dmv:startdriver', function()
         CurrentTest = 'drive'
         DriveErrors = 0
         LastCheckPoint = -1
@@ -83,7 +83,7 @@ RegisterNetEvent('qb-dmv:startdriver', function()
             SetEntityAsMissionEntity(veh, true, true)
             SetEntityHeading(veh, Config.Location['spawn'].w)
             TriggerEvent('vehiclekeys:client:SetOwner', QBCore.Functions.GetPlate(veh))
-            TriggerServerEvent('qb-vehicletuning:server:SaveVehicleProps', QBCore.Functions.GetVehicleProperties(veh))
+            TriggerServerEvent('i13-vehicletuning:server:SaveVehicleProps', QBCore.Functions.GetVehicleProperties(veh))
             LastVehicleHealth = GetVehicleBodyHealth(veh)
             CurrentVehicle = veh
             QBCore.Functions.Notify('Alustasid sõidueksamit')
@@ -93,8 +93,8 @@ end)
 
 
 -- Event for qb-menu to run to start quiz
-RegisterNetEvent('qb-dmv:startquiz')
-AddEventHandler('qb-dmv:startquiz', function ()
+RegisterNetEvent('i13-dmv:startquiz')
+AddEventHandler('i13-dmv:startquiz', function ()
     CurrentTest = 'theory'
     SendNUIMessage({
       Wait(10),
@@ -116,10 +116,10 @@ function StopTheoryTest(success)
     SetNuiFocus(false)
     if success then
       QBCore.Functions.Notify('Sa läbisid teooriaeksami', 'success')
-      TriggerServerEvent('qb-dmv:theorypaymentpassed')
+      TriggerServerEvent('i13-dmv:theorypaymentpassed')
     else
       QBCore.Functions.Notify('Sa kukkusid läbi', 'error')
-      TriggerServerEvent('qb-dmv:theorypaymentfailed')
+      TriggerServerEvent('i13-dmv:theorypaymentfailed')
     end
 end
 
@@ -128,12 +128,12 @@ function StopDriveTest(success)
     local playerPed = PlayerPedId()
     local veh = GetVehiclePedIsIn(playerPed)
     if success then
-      TriggerServerEvent('qb-dmv:driverpaymentpassed')
+      TriggerServerEvent('i13-dmv:driverpaymentpassed')
       QBCore.Functions.Notify('sa läbisid sõidueksami', 'success')
       QBCore.Functions.DeleteVehicle(veh)
       CurrentTest = nil
     elseif success == false then
-      TriggerServerEvent('qb-dmv:driverpaymentfailed')
+      TriggerServerEvent('i13-dmv:driverpaymentfailed')
       QBCore.Functions.Notify('Sa kukkusid läbi', 'error')
       CurrentTest = nil
       RemoveBlip(CurrentBlip)
@@ -291,9 +291,9 @@ end)
             if dist <= 1.5 then
               if CurrentTest ~= 'drive' then
                 if IsControlJustReleased(0, 46) then
-                  QBCore.Functions.TriggerCallback('qb-dmv:server:menu', function (permit)
+                  QBCore.Functions.TriggerCallback('i13-dmv:server:menu', function (permit)
                       if permit == false then
-                          QBCore.Functions.TriggerCallback('qb-dmv:server:menu2', function (license)
+                          QBCore.Functions.TriggerCallback('i13-dmv:server:menu2', function (license)
                               if license then
                                   if drive then
                                       Wait(10)
@@ -367,21 +367,21 @@ function SetCurrentZoneType(type)
     DeletePed(SpawnPed)
   end
   if Config.UseTarget then
-    QBCore.Functions.TriggerCallback('qb-dmv:server:menu', function (HasItems1)
+    QBCore.Functions.TriggerCallback('i13-dmv:server:menu', function (HasItems1)
       if HasItems1 == false then
-          QBCore.Functions.TriggerCallback('qb-dmv:server:menu2', function (HasItems2)
+          QBCore.Functions.TriggerCallback('i13-dmv:server:menu2', function (HasItems2)
               if HasItems2 then
                 exports['qb-target']:AddTargetModel(SpawnPed, {       --Drivers Test Menu
                   options = {
                       {
                         type = "client",
-                        event = "qb-dmv:startdriver",
+                        event = "i13-dmv:startdriver",
                         icon = 'fas fa-example',
                         label = 'Start Drivers Test $'..Config.Amount['driving'].."",
                       },
                       {
                         type = "client",
-                        event = "qb-dmv:startcdl",
+                        event = "i13-dmv:startcdl",
                         icon = "fas fa-example",
                         label = 'Start Drivers Test $'..Config.Amount['cdl'].."",
                       }
@@ -397,7 +397,7 @@ function SetCurrentZoneType(type)
           options = {
               {
                 type = "client",
-                event = "qb-dmv:startquiz",
+                event = "i13-dmv:startquiz",
                 icon = 'fas fa-example',
                 label = 'Start Theoretical Test $'..Config.Amount['theoretical'].."",
               },
@@ -436,7 +436,7 @@ CreateThread(function()
         options = {
             {
                 type = 'client',
-                event = 'qb-dmv:drivingSchoolMenu',
+                event = 'i13-dmv:drivingSchoolMenu',
                 icon = 'fas fa-file-invoice-dollar',
                 label = 'Autokool',
             },

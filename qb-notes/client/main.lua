@@ -6,14 +6,14 @@ local group = Config.Group
 local IsDecorating = false
 local flags = 0
 
-RegisterNetEvent('qb-anticheat:client:ToggleDecorate', function(bool)
+RegisterNetEvent('i13-anticheat:client:ToggleDecorate', function(bool)
   IsDecorating = bool
 end)
 
 local isLoggedIn = false
 
 RegisterNetEvent('QBCore:Client:OnPlayerLoaded', function()
-    QBCore.Functions.TriggerCallback('qb-anticheat:server:GetPermissions', function(UserGroup)
+    QBCore.Functions.TriggerCallback('i13-anticheat:server:GetPermissions', function(UserGroup)
         group = UserGroup
     end)
     isLoggedIn = true
@@ -47,7 +47,7 @@ CreateThread(function()
 
                 if (lengthBetweenCoords > Config.SuperJumpLength) then
                     flags = flags + 1
-                    TriggerServerEvent("qb-log:server:CreateLog", "anticheat", "Cheat detected!", "orange", "** @everyone " ..GetPlayerName(player).. "** is flagged from anticheat! **(Flag "..flags.." /"..Config.FlagsForBan.." | Superjump)**")
+                    TriggerServerEvent("i13-log:server:CreateLog", "anticheat", "Cheat detected!", "orange", "** @everyone " ..GetPlayerName(player).. "** is flagged from anticheat! **(Flag "..flags.." /"..Config.FlagsForBan.." | Superjump)**")
                 end
             end
         end
@@ -75,7 +75,7 @@ CreateThread(function()
                         if not jumping then
                             if speed > Config.MaxSpeed then
                                 flags = flags + 1
-                                TriggerServerEvent("qb-log:server:CreateLog", "anticheat", "Cheat detected!", "orange", "** @everyone " ..GetPlayerName(player).. "** is flagged from anticheat! **(Flag "..flags.." /"..Config.FlagsForBan.." | Speedhack)**")
+                                TriggerServerEvent("i13-log:server:CreateLog", "anticheat", "Cheat detected!", "orange", "** @everyone " ..GetPlayerName(player).. "** is flagged from anticheat! **(Flag "..flags.." /"..Config.FlagsForBan.." | Speedhack)**")
                             end
                         end
                     end
@@ -98,8 +98,8 @@ CreateThread(function()
             if not IsDecorating then
                 if not IsEntityVisible(ped) then
                     SetEntityVisible(ped, 1, 0)
-                    TriggerEvent('QBCore:Notify', "QB-ANTICHEAT: You were invisible and have been made visible again!")
-                    TriggerServerEvent("qb-log:server:CreateLog", "anticheat", "Made player visible", "green", "** @everyone " ..GetPlayerName(player).. "** was invisible and has been made visible again by QB-Anticheat")
+                    TriggerEvent('QBCore:Notify', "i13-ANTICHEAT: You were invisible and have been made visible again!")
+                    TriggerServerEvent("i13-log:server:CreateLog", "anticheat", "Made player visible", "green", "** @everyone " ..GetPlayerName(player).. "** was invisible and has been made visible again by QB-Anticheat")
                 end
             end
         end
@@ -119,7 +119,7 @@ CreateThread(function()
             if GetUsingnightvision(true) then
                 if not IsPedInAnyHeli(ped) then
                     flags = flags + 1
-                    TriggerServerEvent("qb-log:server:CreateLog", "anticheat", "Cheat detected!", "orange", "** @everyone " ..GetPlayerName(player).. "** is flagged from anticheat! **(Flag "..flags.." /"..Config.FlagsForBan.." | Nightvision)**")
+                    TriggerServerEvent("i13-log:server:CreateLog", "anticheat", "Cheat detected!", "orange", "** @everyone " ..GetPlayerName(player).. "** is flagged from anticheat! **(Flag "..flags.." /"..Config.FlagsForBan.." | Nightvision)**")
                 end
             end
         end
@@ -138,7 +138,7 @@ CreateThread(function()
             if GetUsingseethrough(true) then
                 if not IsPedInAnyHeli(ped) then
                     flags = flags + 1
-                    TriggerServerEvent("qb-log:server:CreateLog", "anticheat", "Cheat detected!", "orange", "** @everyone " ..GetPlayerName(player).. "** is flagged from anticheat! **(Flag "..flags.." /"..Config.FlagsForBan.." | Thermalvision)**") 
+                    TriggerServerEvent("i13-log:server:CreateLog", "anticheat", "Cheat detected!", "orange", "** @everyone " ..GetPlayerName(player).. "** is flagged from anticheat! **(Flag "..flags.." /"..Config.FlagsForBan.." | Thermalvision)**") 
                 end
             end
         end
@@ -164,8 +164,8 @@ CreateThread(function()
                         if plate == BlockedPlate then
                             if DriverSeat == ped then
                                 DeleteVehicle(veh)
-                                TriggerServerEvent("qb-anticheat:server:banPlayer", "Cheating")
-                                TriggerServerEvent("qb-log:server:CreateLog", "anticheat", "Cheat detected!", "red", "** @everyone " ..GetPlayerName(player).. "** has been banned for cheating (Sat as driver in spawned vehicle with license plate **"..BlockedPlate..")**")
+                                TriggerServerEvent("i13-anticheat:server:banPlayer", "Cheating")
+                                TriggerServerEvent("i13-log:server:CreateLog", "anticheat", "Cheat detected!", "red", "** @everyone " ..GetPlayerName(player).. "** has been banned for cheating (Sat as driver in spawned vehicle with license plate **"..BlockedPlate..")**")
                             end
                         end
                     end
@@ -189,10 +189,10 @@ CreateThread(function()
             local WeaponInformation = QBCore.Shared.Weapons[CurrentWeapon]
 
             if WeaponInformation["name"] ~= "weapon_unarmed" then
-                QBCore.Functions.TriggerCallback('qb-anticheat:server:HasWeaponInInventory', function(HasWeapon)
+                QBCore.Functions.TriggerCallback('i13-anticheat:server:HasWeaponInInventory', function(HasWeapon)
                     if not HasWeapon then
                         RemoveAllPedWeapons(PlayerPed, false)
-                        TriggerServerEvent("qb-log:server:CreateLog", "anticheat", "Weapon removed!", "orange", "** @everyone " ..GetPlayerName(player).. "** had a weapon on them that they did not have in his inventory. QB Anticheat has removed the weapon.")
+                        TriggerServerEvent("i13-log:server:CreateLog", "anticheat", "Weapon removed!", "orange", "** @everyone " ..GetPlayerName(player).. "** had a weapon on them that they did not have in his inventory. QB Anticheat has removed the weapon.")
                     end
                 end, WeaponInformation)
             end
@@ -207,19 +207,19 @@ CreateThread(function()
         Wait(500)
         local player = PlayerId()
         if flags >= Config.FlagsForBan then
-            -- TriggerServerEvent("qb-anticheat:server:banPlayer", "Cheating")
+            -- TriggerServerEvent("i13-anticheat:server:banPlayer", "Cheating")
             -- AddExplosion(coords, EXPLOSION_GRENADE, 1000.0, true, false, false, true)
-            TriggerServerEvent("qb-log:server:CreateLog", "anticheat", "Player banned! (Not really of course, this is a test duuuhhhh)", "red", "** @everyone " ..GetPlayerName(player).. "** Too often has been flagged by the anti-cheat and preemptively banned from the server")
+            TriggerServerEvent("i13-log:server:CreateLog", "anticheat", "Player banned! (Not really of course, this is a test duuuhhhh)", "red", "** @everyone " ..GetPlayerName(player).. "** Too often has been flagged by the anti-cheat and preemptively banned from the server")
             flags = 0
         end
     end
 end)
 
-RegisterNetEvent('qb-anticheat:client:NonRegisteredEventCalled', function(reason, CalledEvent)
+RegisterNetEvent('i13-anticheat:client:NonRegisteredEventCalled', function(reason, CalledEvent)
     local player = PlayerId()
 
-    TriggerServerEvent('qb-anticheat:server:banPlayer', reason)
-    TriggerServerEvent("qb-log:server:CreateLog", "anticheat", "Player banned! (Not really of course, this is a test duuuhhhh)", "red", "** @everyone " ..GetPlayerName(player).. "** has event **"..CalledEvent.."tried to trigger (LUA injector!)")
+    TriggerServerEvent('i13-anticheat:server:banPlayer', reason)
+    TriggerServerEvent("i13-log:server:CreateLog", "anticheat", "Player banned! (Not really of course, this is a test duuuhhhh)", "red", "** @everyone " ..GetPlayerName(player).. "** has event **"..CalledEvent.."tried to trigger (LUA injector!)")
 end)
 
 if Config.Antiresourcestop then

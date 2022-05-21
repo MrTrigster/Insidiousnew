@@ -1,7 +1,7 @@
 fx_version 'cerulean'
 game 'gta5'
 
-description 'QB-VehicleSales'
+description 'i13-VehicleSales'
 version '1.1.0'
 
 ui_page 'html/ui.html'

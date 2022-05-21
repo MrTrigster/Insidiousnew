@@ -37,7 +37,7 @@ CreateThread(function()
                     if not vehiclesSpawned then
                         vehiclesSpawned = true
 
-                        QBCore.Functions.TriggerCallback('qb-occasions:server:getVehicles', function(vehicles)
+                        QBCore.Functions.TriggerCallback('i13-occasions:server:getVehicles', function(vehicles)
                             occasionVehicles = vehicles
                             despawnOccasionsVehicles()
                             spawnOccasionsVehicles(vehicles)
@@ -62,7 +62,7 @@ CreateThread(function()
                         end
                     DrawText3Ds(Config.SellVehicleBack.x, Config.SellVehicleBack.y, Config.SellVehicleBack.z, '[~g~E~w~] - Müü Sõiduk Otse Maha ~g~$'..math.floor(sellVehData.price / 2))
                     if IsControlJustPressed(0, 38) then
-                        QBCore.Functions.TriggerCallback('qb-garage:server:checkVehicleOwner', function(owned, balance)
+                        QBCore.Functions.TriggerCallback('i13-garage:server:checkVehicleOwner', function(owned, balance)
                             if balance < 1 then
                                 if owned then
                                     SellToDealer(sellVehData, GetVehiclePedIsIn(ped))
@@ -96,7 +96,7 @@ CreateThread(function()
                                 if IsControlJustPressed(0, 38) then
                                     currentVehicle = i
                                     
-                                    QBCore.Functions.TriggerCallback('qb-occasions:server:getSellerInformation', function(info)
+                                    QBCore.Functions.TriggerCallback('i13-occasions:server:getSellerInformation', function(info)
                                         if info ~= nil then 
                                             info.charinfo = json.decode(info.charinfo)
                                         else
@@ -118,7 +118,7 @@ CreateThread(function()
                                 if IsDisabledControlJustPressed(0, 161) then
                                     isConfirming = false
                                     currentVehicle = i
-                                    TriggerServerEvent("qb-occasions:server:ReturnVehicle", Config.OccasionSlots[i])
+                                    TriggerServerEvent("i13-occasions:server:ReturnVehicle", Config.OccasionSlots[i])
                                 end
                                 if IsDisabledControlJustPressed(0, 162) then
                                     isConfirming = false
@@ -138,7 +138,7 @@ CreateThread(function()
                         -- DrawText3Ds(Config.SellVehicle.x, Config.SellVehicle.y, Config.SellVehicle.z, '[~g~E~w~] - Pane Sõiduk Müüki')
                         if IsControlJustPressed(0, 38) then
                             local VehiclePlate = QBCore.Functions.GetPlate(GetVehiclePedIsIn(ped))
-                            QBCore.Functions.TriggerCallback('qb-garages:server:checkVehicleOwner', function(owned, balance)
+                            QBCore.Functions.TriggerCallback('i13-garages:server:checkVehicleOwner', function(owned, balance)
                                 if balance < 1 then
                                     if owned then
                                         openSellContract(true)
@@ -184,9 +184,9 @@ end)
             local coords = GetEntityCoords(vehicleHash)
             DrawText3Ds(coords.x, coords.y, coords.z + 1.6, '~g~7~w~ - Confirm / ~r~8~w~ - Cancel ~g~')
             if IsDisabledControlJustPressed(0, 161) then
-                TriggerServerEvent('qb-occasions:server:sellVehicleBack', sellVehData)
+                TriggerServerEvent('i13-occasions:server:sellVehicleBack', sellVehData)
                 local plate = QBCore.Functions.GetPlate(vehicleHash)
-                TriggerServerEvent('qb-garages:server:removeOutsideVehicles', plate)
+                TriggerServerEvent('i13-garages:server:removeOutsideVehicles', plate)
                 QBCore.Functions.DeleteVehicle(vehicleHash)
                 keepGoing = false
             end
@@ -290,14 +290,14 @@ end)
 
 RegisterNUICallback('buyVehicle', function(data, cb)
     local vehData = Config.OccasionSlots[currentVehicle]
-    TriggerServerEvent('qb-occasions:server:buyVehicle', vehData)
+    TriggerServerEvent('i13-occasions:server:buyVehicle', vehData)
     cb('ok')
 end)
 
 DoScreenFadeIn(250)
 
-RegisterNetEvent('qb-occasions:client:BuyFinished')
-AddEventHandler('qb-occasions:client:BuyFinished', function(vehdata)
+RegisterNetEvent('i13-occasions:client:BuyFinished')
+AddEventHandler('i13-occasions:client:BuyFinished', function(vehdata)
     local vehmods = json.decode(vehdata.mods)
 
     DoScreenFadeOut(250)
@@ -318,8 +318,8 @@ AddEventHandler('qb-occasions:client:BuyFinished', function(vehdata)
     currentVehicle = nil
 end)
 
-RegisterNetEvent('qb-occasions:client:ReturnOwnedVehicle')
-AddEventHandler('qb-occasions:client:ReturnOwnedVehicle', function(vehdata)
+RegisterNetEvent('i13-occasions:client:ReturnOwnedVehicle')
+AddEventHandler('i13-occasions:client:ReturnOwnedVehicle', function(vehdata)
     local vehmods = json.decode(vehdata.mods)
     DoScreenFadeOut(250)
     Wait(500)
@@ -350,7 +350,7 @@ local function sellVehicleWait(price)
     Wait(250)
     local vehicle = GetVehiclePedIsIn(PlayerPedId())
     local plate = QBCore.Functions.GetPlate(vehicle)
-    TriggerServerEvent('qb-garages:server:removeOutsideVehicles', plate)
+    TriggerServerEvent('i13-garages:server:removeOutsideVehicles', plate)
     QBCore.Functions.DeleteVehicle(vehicle)
     Wait(1500)
     DoScreenFadeIn(250)
@@ -359,7 +359,7 @@ local function sellVehicleWait(price)
 end
 
 function SellData(data,model)
-    QBCore.Functions.TriggerCallback("qb-vehiclesales:server:CheckModelName",function(DataReturning) 
+    QBCore.Functions.TriggerCallback("i13-vehiclesales:server:CheckModelName",function(DataReturning) 
         local vehicleData = {}
         local PlayerData = QBCore.Functions.GetPlayerData()
         vehicleData.ent = GetVehiclePedIsUsing(PlayerPedId())
@@ -367,15 +367,15 @@ function SellData(data,model)
         vehicleData.plate = model
         vehicleData.mods = QBCore.Functions.GetVehicleProperties(vehicleData.ent)
         vehicleData.desc = data.desc
-        TriggerServerEvent('qb-occasions:server:sellVehicle', data.price, vehicleData)
+        TriggerServerEvent('i13-occasions:server:sellVehicle', data.price, vehicleData)
         sellVehicleWait(data.price)
     end,model) --the older function GetDisplayNameFromVehicleModel doest like long names like Washington or Buccanner2
 end
 
-RegisterNetEvent('qb-occasion:client:refreshVehicles')
-AddEventHandler('qb-occasion:client:refreshVehicles', function()
+RegisterNetEvent('i13-occasion:client:refreshVehicles')
+AddEventHandler('i13-occasion:client:refreshVehicles', function()
     if inRange then
-        QBCore.Functions.TriggerCallback('qb-occasions:server:getVehicles', function(vehicles)
+        QBCore.Functions.TriggerCallback('i13-occasions:server:getVehicles', function(vehicles)
             occasionVehicles = vehicles
             despawnOccasionsVehicles()
             spawnOccasionsVehicles(vehicles)

@@ -743,7 +743,7 @@ RegisterNetEvent('hospital:client:SendBillEmail', function(amount)
             gender = "Pr."
         end
         local charinfo = QBCore.Functions.GetPlayerData().charinfo
-        TriggerServerEvent('qb-phone:server:sendNewMail', {
+        TriggerServerEvent('i13-phone:server:sendNewMail', {
             sender = "Haigla",
             subject = "Ravikulud",
             message = "Tere, " .. gender .. " " .. charinfo.lastname .. ",<br /><br />Saadame teile maili ravikuludega.<br />Kogusumma: <strong>$"..amount.."</strong><br /><br />Kiiret paranemist!",

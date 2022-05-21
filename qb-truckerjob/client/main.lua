@@ -118,7 +118,7 @@ end
 
 -- Events
 
-RegisterNetEvent('qb-trucker:client:SpawnVehicle', function()
+RegisterNetEvent('i13-trucker:client:SpawnVehicle', function()
     local vehicleInfo = selectedVeh
     local coords = Config.Locations["vehicle"].coords
     local ped = PlayerPedId()
@@ -156,22 +156,22 @@ RegisterNetEvent('QBCore:Client:OnPlayerUnload', function()
     JobsDone = 0
 end)
 
-RegisterNetEvent('qb-trucker:client:TakeOutVehicle', function(data)
+RegisterNetEvent('i13-trucker:client:TakeOutVehicle', function(data)
     if not jobStarted then
         local vehicleInfo = 'speedo'
-        TriggerServerEvent('qb-trucker:server:DoBail', true, vehicleInfo)
+        TriggerServerEvent('i13-trucker:server:DoBail', true, vehicleInfo)
         selectedVeh = vehicleInfo
     else
         QBCore.Functions.Notify('Sa juba alustasid töötamist', 'error')
     end
 end)
 
-RegisterNetEvent('qb-trucker:client:returnVehicle', function()
+RegisterNetEvent('i13-trucker:client:returnVehicle', function()
     if jobStarted then
         if DoesEntityExist(jobVeh) then
             DeleteVehicle(jobVeh)
             jobVeh = nil
-            TriggerServerEvent('qb-trucker:server:DoBail', false)
+            TriggerServerEvent('i13-trucker:server:DoBail', false)
         else
             QBCore.Functions.Notify('Sõiduk on kadunud/katki või sa ei ole seda väljastanud', 'error')
         end
@@ -180,9 +180,9 @@ RegisterNetEvent('qb-trucker:client:returnVehicle', function()
     end
 end)
 
-RegisterNetEvent('qb-trucker:client:getPaid', function()
+RegisterNetEvent('i13-trucker:client:getPaid', function()
     if JobsDone > 0 then
-        TriggerServerEvent("qb-trucker:server:011011100", JobsDone)
+        TriggerServerEvent("i13-trucker:server:011011100", JobsDone)
         jobStarted = false
         JobsDone = 0
         if #LocationsDone == #Config.Locations["stores"] then
@@ -196,7 +196,7 @@ RegisterNetEvent('qb-trucker:client:getPaid', function()
         if DoesEntityExist(jobVeh) then
             DeleteVehicle(jobVeh)
             jobVeh = nil
-            TriggerServerEvent('qb-trucker:server:DoBail', false)
+            TriggerServerEvent('i13-trucker:server:DoBail', false)
         end
     else
         QBCore.Functions.Notify("Sa ei ole veel tööd teinud", "error")
@@ -236,19 +236,19 @@ CreateThread(function()
         options = {
             {
                 type = 'client',
-                event = 'qb-trucker:client:TakeOutVehicle',
+                event = 'i13-trucker:client:TakeOutVehicle',
                 icon = 'fas fa-sign-in-alt',
                 label = 'Alusta Pakivedu',
             },
             {
                 type = 'client',
-                event = 'qb-trucker:client:returnVehicle',
+                event = 'i13-trucker:client:returnVehicle',
                 icon = 'fas fa-sign-in-alt',
                 label = 'Tagasta Sõiduk',
             },
             {
                 type = 'client',
-                event = 'qb-trucker:client:getPaid',
+                event = 'i13-trucker:client:getPaid',
                 icon = 'fas fa-dollar-sign',
                 label = 'Võta Palgatšekk',
             },
@@ -322,7 +322,7 @@ CreateThread(function()
                                 currentCount = currentCount + 1
                                 if currentCount == CurrentLocation.dropcount then
                                     LocationsDone[#LocationsDone+1] = CurrentLocation.id
-                                    TriggerServerEvent("qb-shops:server:RestockShopItems", CurrentLocation.store)
+                                    TriggerServerEvent("i13-shops:server:RestockShopItems", CurrentLocation.store)
                                     QBCore.Functions.Notify("Kõik kohale toimetatud, mine järgmisse punkti")
                                     if CurrentBlip ~= nil then
                                         RemoveBlip(CurrentBlip)

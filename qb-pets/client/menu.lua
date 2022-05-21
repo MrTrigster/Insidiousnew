@@ -176,7 +176,7 @@ AddEventHandler('keep-companion:client:PetMenu', function()
         header = leave,
         txt = "",
         params = {
-            event = "qb-menu:closeMenu"
+            event = "i13-menu:closeMenu"
         }
     } }
 
@@ -220,7 +220,7 @@ AddEventHandler('keep-companion:client:petMenuActions', function(option)
         header = leave,
         txt = "",
         params = {
-            event = "qb-menu:closeMenu"
+            event = "i13-menu:closeMenu"
         }
     }
 
@@ -256,7 +256,7 @@ AddEventHandler('keep-companion:client:Tricks', function(option)
         header = leave,
         txt = "",
         params = {
-            event = "qb-menu:closeMenu"
+            event = "i13-menu:closeMenu"
         }
     }
 
@@ -290,7 +290,7 @@ AddEventHandler('keep-companion:client:switchControl', function(option)
         header = leave,
         txt = "",
         params = {
-            event = "qb-menu:closeMenu"
+            event = "i13-menu:closeMenu"
         }
     }
 

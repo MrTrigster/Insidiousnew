@@ -76,7 +76,7 @@ function MenuGarage()
             header = label,
             txt = "",
             params = {
-                event = "qb-newsjob:client:TakeOutVehicle",
+                event = "i13-newsjob:client:TakeOutVehicle",
                 args = {
                     vehicle = veh
                 }
@@ -87,7 +87,7 @@ function MenuGarage()
         header = "⬅ Sulge Menu",
         txt = "",
         params = {
-            event = "qb-menu:client:closeMenu"
+            event = "i13-menu:client:closeMenu"
         }
 
     }
@@ -122,7 +122,7 @@ function MenuHeliGarage()
             header = label,
             txt = "",
             params = {
-                event = "qb-newsjob:client:TakeOutHelicopters",
+                event = "i13-newsjob:client:TakeOutHelicopters",
                 args = {
                     vehicle = veh
                 }
@@ -133,7 +133,7 @@ function MenuHeliGarage()
         header = "⬅ Sulge Menu",
         txt = "",
         params = {
-            event = "qb-menu:client:closeMenu"
+            event = "i13-menu:client:closeMenu"
         }
 
     }
@@ -245,12 +245,12 @@ end
     end
 end) ]]
 
-RegisterNetEvent('qb-newsjob:client:TakeOutVehicle', function(data)
+RegisterNetEvent('i13-newsjob:client:TakeOutVehicle', function(data)
     local vehicle = data.vehicle
     TakeOutVehicle(vehicle)
 end)
 
-RegisterNetEvent('qb-newsjob:client:TakeOutHelicopters', function(data)
+RegisterNetEvent('i13-newsjob:client:TakeOutHelicopters', function(data)
     local vehicle = data.vehicle
     TakeOutHelicopters(vehicle)
 end)

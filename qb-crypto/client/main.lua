@@ -21,7 +21,7 @@ local function DrawText3Ds(coords, text)
 end
 
 local function ExchangeSuccess()
-	TriggerServerEvent('qb-crypto:server:ExchangeSuccess', math.random(1, 10))
+	TriggerServerEvent('i13-crypto:server:ExchangeSuccess', math.random(1, 10))
 end
 
 local function ExchangeFail()
@@ -29,8 +29,8 @@ local function ExchangeFail()
 	local RemoveChance = math.random(1, Odd)
 	local LosingNumber = math.random(1, Odd)
 	if RemoveChance == LosingNumber then
-		TriggerServerEvent('qb-crypto:server:ExchangeFail')
-		TriggerServerEvent('qb-crypto:server:SyncReboot')
+		TriggerServerEvent('i13-crypto:server:ExchangeFail')
+		TriggerServerEvent('i13-crypto:server:SyncReboot')
 	end
 end
 
@@ -39,11 +39,11 @@ local function SystemCrashCooldown()
 		while Crypto.Exchange.RebootInfo.state do
 			if (Crypto.Exchange.RebootInfo.percentage + 1) <= 100 then
 				Crypto.Exchange.RebootInfo.percentage = Crypto.Exchange.RebootInfo.percentage + 1
-				TriggerServerEvent('qb-crypto:server:Rebooting', true, Crypto.Exchange.RebootInfo.percentage)
+				TriggerServerEvent('i13-crypto:server:Rebooting', true, Crypto.Exchange.RebootInfo.percentage)
 			else
 				Crypto.Exchange.RebootInfo.percentage = 0
 				Crypto.Exchange.RebootInfo.state = false
-				TriggerServerEvent('qb-crypto:server:Rebooting', false, 0)
+				TriggerServerEvent('i13-crypto:server:Rebooting', false, 0)
 			end
 			Wait(1200)
 		end
@@ -78,7 +78,7 @@ end
 						end
 						
 						if IsControlJustPressed(0, 38) then
-							QBCore.Functions.TriggerCallback('qb-crypto:server:HasSticky', function(HasItem)
+							QBCore.Functions.TriggerCallback('i13-crypto:server:HasSticky', function(HasItem)
 								if HasItem then
 									--TriggerEvent("mhacking:show")
 									--TriggerEvent("mhacking:start", math.random(4, 6), 45, HackingSuccess)
@@ -113,9 +113,9 @@ end) ]]
 
 -- Events
 
-RegisterNetEvent('qb-crypto:client:useStick', function()
+RegisterNetEvent('i13-crypto:client:useStick', function()
 	if not Crypto.Exchange.RebootInfo.state then
-		QBCore.Functions.TriggerCallback('qb-crypto:server:HasSticky', function(HasItem)
+		QBCore.Functions.TriggerCallback('i13-crypto:server:HasSticky', function(HasItem)
 			if HasItem then
 				exports["memorygame"]:thermiteminigame(9, 1, 2, 7,
     			function() -- success
@@ -133,25 +133,25 @@ RegisterNetEvent('qb-crypto:client:useStick', function()
 	end
 end)
 
-RegisterNetEvent('qb-crypto:client:SyncReboot', function()
+RegisterNetEvent('i13-crypto:client:SyncReboot', function()
 	Crypto.Exchange.RebootInfo.state = true
 	SystemCrashCooldown()
 end)
 
 RegisterNetEvent('QBCore:Client:OnPlayerLoaded', function()
 	isLoggedIn = true
-	TriggerServerEvent('qb-crypto:server:FetchWorth')
-	TriggerServerEvent('qb-crypto:server:GetRebootState')
+	TriggerServerEvent('i13-crypto:server:FetchWorth')
+	TriggerServerEvent('i13-crypto:server:GetRebootState')
 end)
 
-RegisterNetEvent('qb-crypto:client:UpdateCryptoWorth', function(crypto, amount, history)
+RegisterNetEvent('i13-crypto:client:UpdateCryptoWorth', function(crypto, amount, history)
 	Crypto.Worth[crypto] = amount
 	if history ~= nil then
 		Crypto.History[crypto] = history
 	end
 end)
 
-RegisterNetEvent('qb-crypto:client:GetRebootState', function(RebootInfo)
+RegisterNetEvent('i13-crypto:client:GetRebootState', function(RebootInfo)
 	if RebootInfo.state then
 		Crypto.Exchange.RebootInfo.state = RebootInfo.state
 		Crypto.Exchange.RebootInfo.percentage = RebootInfo.percentage
@@ -172,7 +172,7 @@ CreateThread(function()
 		options = {
 			{
 				type = 'client',
-				event = 'qb-crypto:client:useStick',
+				event = 'i13-crypto:client:useStick',
 				icon = 'fab fa-bitcoin',
 				label = 'Sisesta Cryptostick',
 			}

@@ -232,7 +232,7 @@
                     <transition name="fade">
                     <div v-if="showVoice">
                         <q-circular-progress class="q-ml-xl" style="opacity: 40%;" :value="static" size="50px" :thickness="0.24" :style="{color: talkingColor}" :min="0" :max="100"></q-circular-progress>
-                        <q-circular-progress class="q-ml-xl" style="left: -50%;" show-value :value="voice" size="50px" :thickness="0.24" :style="{color: talkingColor}" :min="0" :max="5" center-color="grey-10">
+                        <q-circular-progress class="q-ml-xl" style="left: -50%;" show-value :value="voice" size="50px" :thickness="0.24" :style="{color: talkingColor}" :min="0" :max="10" center-color="grey-10">
                         <q-icon style="top: -0.5px; left: 0px;" :name="voiceIcon" size="19.5px" color="white"/>
                     </div>
                     </transition>

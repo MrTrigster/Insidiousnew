@@ -2,7 +2,7 @@ QBCore = exports['qb-core']:GetCoreObject()
 
 local IsNew = false
 
-RegisterNetEvent('qb-interior:client:SetNewState', function(bool)
+RegisterNetEvent('i13-interior:client:SetNewState', function(bool)
 	IsNew = bool
 end)
 
@@ -54,7 +54,7 @@ local function CreateApartmentFurnished(spawn)
 	TeleportToInterior(spawn.x - 3.86, spawn.y - 3.35, spawn.z, POIOffsets.exit.h)
 	if IsNew then
 		SetTimeout(750, function()
-			TriggerEvent('qb-clothes:client:CreateFirstCharacter')
+			TriggerEvent('i13-clothes:client:CreateFirstCharacter')
 			IsNew = false
 		end)
 	end

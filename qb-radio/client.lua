@@ -105,11 +105,11 @@ RegisterNetEvent('QBCore:Player:SetPlayerData', function(val)
     PlayerData = val
 end)
 
-RegisterNetEvent('qb-radio:use', function()
+RegisterNetEvent('i13-radio:use', function()
     toggleRadio(not radioMenu)
 end)
 
-RegisterNetEvent('qb-radio:onRadioDrop', function()
+RegisterNetEvent('i13-radio:onRadioDrop', function()
     if RadioChannel ~= 0 then
         leaveradio()
     end
@@ -197,7 +197,7 @@ CreateThread(function()
     while true do
         Wait(1000)
         if LocalPlayer.state.isLoggedIn and onRadio then
-            QBCore.Functions.TriggerCallback('qb-radio:server:GetItem', function(hasItem)
+            QBCore.Functions.TriggerCallback('i13-radio:server:GetItem', function(hasItem)
                 if not hasItem then
                     if RadioChannel ~= 0 then
                         leaveradio()
@@ -208,8 +208,8 @@ CreateThread(function()
     end
 end)
 
-RegisterNetEvent('qb-radio:client:JoinRadioChannel1')
-AddEventHandler('qb-radio:client:JoinRadioChannel1', function(channel)
+RegisterNetEvent('i13-radio:client:JoinRadioChannel1')
+AddEventHandler('i13-radio:client:JoinRadioChannel1', function(channel)
     local channel = 1
     exports["pma-voice"]:setRadioChannel(channel)
     if SplitStr(tostring(channel), ".")[2] ~= nil and SplitStr(tostring(channel), ".")[2] ~= "" then
@@ -219,8 +219,8 @@ AddEventHandler('qb-radio:client:JoinRadioChannel1', function(channel)
     end
 end)
 
-RegisterNetEvent('qb-radio:client:JoinRadioChannel2')
-AddEventHandler('qb-radio:client:JoinRadioChannel2', function(channel)
+RegisterNetEvent('i13-radio:client:JoinRadioChannel2')
+AddEventHandler('i13-radio:client:JoinRadioChannel2', function(channel)
     local channel = 2
     exports["pma-voice"]:setRadioChannel(channel)
     if SplitStr(tostring(channel), ".")[2] ~= nil and SplitStr(tostring(channel), ".")[2] ~= "" then
@@ -230,8 +230,8 @@ AddEventHandler('qb-radio:client:JoinRadioChannel2', function(channel)
     end
 end)
 
-RegisterNetEvent('qb-radio:client:JoinRadioChannel3')
-AddEventHandler('qb-radio:client:JoinRadioChannel3', function(channel)
+RegisterNetEvent('i13-radio:client:JoinRadioChannel3')
+AddEventHandler('i13-radio:client:JoinRadioChannel3', function(channel)
     local channel = 3
     exports["pma-voice"]:setRadioChannel(channel)
     if SplitStr(tostring(channel), ".")[2] ~= nil and SplitStr(tostring(channel), ".")[2] ~= "" then
@@ -241,8 +241,8 @@ AddEventHandler('qb-radio:client:JoinRadioChannel3', function(channel)
     end
 end)
 
-RegisterNetEvent('qb-radio:client:JoinRadioChannel4')
-AddEventHandler('qb-radio:client:JoinRadioChannel4', function(channel)
+RegisterNetEvent('i13-radio:client:JoinRadioChannel4')
+AddEventHandler('i13-radio:client:JoinRadioChannel4', function(channel)
     local channel = 4
     exports["pma-voice"]:setRadioChannel(channel)
     if SplitStr(tostring(channel), ".")[2] ~= nil and SplitStr(tostring(channel), ".")[2] ~= "" then
@@ -252,8 +252,8 @@ AddEventHandler('qb-radio:client:JoinRadioChannel4', function(channel)
     end
 end)
 
-RegisterNetEvent('qb-radio:client:JoinRadioChannel5')
-AddEventHandler('qb-radio:client:JoinRadioChannel5', function(channel)
+RegisterNetEvent('i13-radio:client:JoinRadioChannel5')
+AddEventHandler('i13-radio:client:JoinRadioChannel5', function(channel)
     local channel = 5
     exports["pma-voice"]:setRadioChannel(channel)
     if SplitStr(tostring(channel), ".")[2] ~= nil and SplitStr(tostring(channel), ".")[2] ~= "" then
@@ -263,8 +263,8 @@ AddEventHandler('qb-radio:client:JoinRadioChannel5', function(channel)
     end
 end)
 
-RegisterNetEvent('qb-radio:client:JoinRadioChannel6')
-AddEventHandler('qb-radio:client:JoinRadioChannel6', function(channel)
+RegisterNetEvent('i13-radio:client:JoinRadioChannel6')
+AddEventHandler('i13-radio:client:JoinRadioChannel6', function(channel)
     local channel = 6
     exports["pma-voice"]:setRadioChannel(channel)
     if SplitStr(tostring(channel), ".")[2] ~= nil and SplitStr(tostring(channel), ".")[2] ~= "" then

@@ -4,7 +4,7 @@ CreateThread(function()
 
     function OpenWardrobe()
         TriggerServerEvent("InteractSound_SV:PlayOnSource", "Clothes1", 0.4)
-        TriggerEvent("qb-clothing:client:openOutfitMenu")
+        TriggerEvent("i13-clothing:client:openOutfitMenu")
     end
 
     function ChooseStorageMenu(propertyId, uniqueId, furnitureId, owner)

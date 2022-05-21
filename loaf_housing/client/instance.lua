@@ -147,7 +147,7 @@ function DeleteFurniture()
 end
 
 local weatherSyncScripts = {
-    "qb-weathersync",
+    "i13-weathersync",
     "cd_easytime"
 }
 RegisterNetEvent("loaf_housing:weather_sync", function()
@@ -159,7 +159,7 @@ RegisterNetEvent("loaf_housing:weather_sync", function()
     StartAudioScene("CHARACTER_CHANGE_IN_SKY_SCENE")
 
     TriggerEvent("ToggleWeatherSync", false)
-    TriggerEvent("qb-weathersync:client:DisableSync")
+    TriggerEvent("i13-weathersync:client:DisableSync")
     TriggerEvent("cd_easytime:PauseSync", true)
 
     SetRainFxIntensity(0.0)
@@ -181,7 +181,7 @@ RegisterNetEvent("loaf_housing:weather_sync", function()
     SetWindSpeed(previousWind)
 
     TriggerEvent("ToggleWeatherSync", true)
-    TriggerEvent("qb-weathersync:client:EnableSync")
+    TriggerEvent("i13-weathersync:client:EnableSync")
     TriggerEvent("cd_easytime:PauseSync", false)
 
     StopAudioScene("MP_LEADERBOARD_SCENE") -- re-enable ambient sounds
@@ -541,7 +541,7 @@ RegisterNetEvent("loaf_housing:enter_instance", function(data)
         end
     end
 
-    TriggerEvent("qb-anticheat:client:ToggleDecorate", true) -- disable qb-anticheat invisible check. qb devs, pls make this a server event instead so cheaters cant abuse :)
+    TriggerEvent("i13-anticheat:client:ToggleDecorate", true) -- disable qb-anticheat invisible check. qb devs, pls make this a server event instead so cheaters cant abuse :)
     SetEntityVisible(PlayerPedId(), false, 0)
     SetEntityInvincible(PlayerPedId(), true)
 
@@ -578,7 +578,7 @@ RegisterNetEvent("loaf_housing:enter_instance", function(data)
 
     DoScreenFadeIn(500)
 
-    TriggerEvent("qb-anticheat:client:ToggleDecorate", false)
+    TriggerEvent("i13-anticheat:client:ToggleDecorate", false)
     SetEntityVisible(PlayerPedId(), true, 0)
     SetTimeout(500, function()
         SetEntityInvincible(PlayerPedId(), false)
@@ -592,7 +592,7 @@ RegisterNetEvent("loaf_housing:enter_instance", function(data)
         Wait(500)
     end
 
-    TriggerEvent("qb-anticheat:client:ToggleDecorate", true)
+    TriggerEvent("i13-anticheat:client:ToggleDecorate", true)
     SetEntityVisible(PlayerPedId(), false, 0)
     SetEntityInvincible(PlayerPedId(), true)
 
@@ -608,7 +608,7 @@ RegisterNetEvent("loaf_housing:enter_instance", function(data)
     Teleport(housedata.entrance - vector4(0.0, 0.0, 1.0, 0.0))
     DoScreenFadeIn(500)
 
-    TriggerEvent("qb-anticheat:client:ToggleDecorate", false)
+    TriggerEvent("i13-anticheat:client:ToggleDecorate", false)
     SetEntityVisible(PlayerPedId(), true, 0)
     SetTimeout(500, function()
         SetEntityInvincible(PlayerPedId(), false)

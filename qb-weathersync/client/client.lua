@@ -12,17 +12,17 @@ local disableShell = false
 
 RegisterNetEvent('QBCore:Client:OnPlayerLoaded', function()
     disable = false
-    TriggerServerEvent('qb-weathersync:server:RequestStateSync')
-    TriggerServerEvent('qb-weathersync:server:RequestCommands')
+    TriggerServerEvent('i13-weathersync:server:RequestStateSync')
+    TriggerServerEvent('i13-weathersync:server:RequestCommands')
 end)
 
-RegisterNetEvent('qb-weathersync:client:EnableSync', function()
+RegisterNetEvent('i13-weathersync:client:EnableSync', function()
     disable = false
     disableShell = false
-    TriggerServerEvent('qb-weathersync:server:RequestStateSync')
+    TriggerServerEvent('i13-weathersync:server:RequestStateSync')
 end)
 
-RegisterNetEvent('qb-weathersync:client:DisableSync', function()
+RegisterNetEvent('i13-weathersync:client:DisableSync', function()
 	disable = true
 	CreateThread(function()
 		while disable do
@@ -36,7 +36,7 @@ RegisterNetEvent('qb-weathersync:client:DisableSync', function()
 	end)
 end)
 
-RegisterNetEvent('qb-weathersync:client:DisableShellSync', function()
+RegisterNetEvent('i13-weathersync:client:DisableShellSync', function()
 	disableShell = true
 	CreateThread(function()
 		while disableShell do
@@ -50,12 +50,12 @@ RegisterNetEvent('qb-weathersync:client:DisableShellSync', function()
 	end)
 end)
 
-RegisterNetEvent('qb-weathersync:client:SyncWeather', function(NewWeather, newblackout)
+RegisterNetEvent('i13-weathersync:client:SyncWeather', function(NewWeather, newblackout)
     CurrentWeather = NewWeather
     blackout = newblackout
 end)
 
-RegisterNetEvent('qb-weathersync:client:RequestCommands', function(isAllowed)
+RegisterNetEvent('i13-weathersync:client:RequestCommands', function(isAllowed)
     if isAllowed then
         TriggerEvent('chat:addSuggestion', '/freezetime', _U('help_freezecommand'), {})
         TriggerEvent('chat:addSuggestion', '/freezeweather', _U('help_freezeweathercommand'), {})
@@ -74,7 +74,7 @@ RegisterNetEvent('qb-weathersync:client:RequestCommands', function(isAllowed)
     end
 end)
 
-RegisterNetEvent('qb-weathersync:client:SyncTime', function(base, offset, freeze)
+RegisterNetEvent('i13-weathersync:client:SyncTime', function(base, offset, freeze)
     freezeTime = freeze
     timeOffset = offset
     baseTime = base

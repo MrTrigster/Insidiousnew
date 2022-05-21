@@ -1,7 +1,7 @@
 QBCore = exports['qb-core']:GetCoreObject()
 
 TryToFish = function()
-    QBCore.Functions.TriggerCallback('qb-fishing:GetItemData', function(count)
+    QBCore.Functions.TriggerCallback('i13-fishing:GetItemData', function(count)
         if IsPedSwimming(cachedData["ped"]) then return QBCore.Functions.Notify("Sa ei saa ujudes kala püüda", "error") end 
         if IsPedInAnyVehicle(cachedData["ped"]) then return QBCore.Functions.Notify("Sa pead sõidukist väljuma, et kala püüda", "error") end 
         if count ~= nil then
@@ -98,7 +98,7 @@ CastBait = function(rodHandle, castLocation)
     ClearPedTasks(cachedData["ped"])
 
     if caughtFish then
-        TriggerServerEvent("qb-fishing:receiveFish", castLocation, function(received) end)
+        TriggerServerEvent("i13-fishing:receiveFish", castLocation, function(received) end)
     else
         QBCore.Functions.Notify("Kala pääses minema", "error")
     end
@@ -267,11 +267,11 @@ end
 
 
 SellFish = function()
-    QBCore.Functions.TriggerCallback('qb-fishing:GetItemData', function(count)
+    QBCore.Functions.TriggerCallback('i13-fishing:GetItemData', function(count)
         TaskTurnPedToFaceEntity(cachedData["storeOwner"], cachedData["ped"], 1000)
         TaskTurnPedToFaceEntity(cachedData["ped"], cachedData["storeOwner"], 1000)
 
-        TriggerServerEvent("qb-fishing:sellFish", function(sold, fishesSold) end)
+        TriggerServerEvent("i13-fishing:sellFish", function(sold, fishesSold) end)
     end)
 end
 

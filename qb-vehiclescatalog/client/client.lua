@@ -52,7 +52,7 @@ local rgbSecondaryColorSelected = {255,255,255,}
 --     end
 -- end)
 
-RegisterNetEvent('qb-vehiclescatalog:client:openCatalog', function()
+RegisterNetEvent('i13-vehiclescatalog:client:openCatalog', function()
     for i = 1, #Config.Shops do
         vehcategory = Config.Shops[i].category
         cameracoords = Config.Shops[i].cameracoords
@@ -64,8 +64,8 @@ RegisterNetEvent('qb-vehiclescatalog:client:openCatalog', function()
     end
 end)
 
-RegisterNetEvent('qb-vehiclescatalog.receiveInfo')
-AddEventHandler('qb-vehiclescatalog.receiveInfo', function(bank, name)
+RegisterNetEvent('i13-vehiclescatalog.receiveInfo')
+AddEventHandler('i13-vehiclescatalog.receiveInfo', function(bank, name)
     if name then
         profileName = name
     end
@@ -73,8 +73,8 @@ AddEventHandler('qb-vehiclescatalog.receiveInfo', function(bank, name)
 end)
 
 
-RegisterNetEvent('qb-vehiclescatalog.successfulbuy')
-AddEventHandler('qb-vehiclescatalog.successfulbuy', function(vehicleName,vehiclePlate,value)    
+RegisterNetEvent('i13-vehiclescatalog.successfulbuy')
+AddEventHandler('i13-vehiclescatalog.successfulbuy', function(vehicleName,vehiclePlate,value)    
     SendNUIMessage(
         {
             type = "successful-buy",
@@ -86,8 +86,8 @@ AddEventHandler('qb-vehiclescatalog.successfulbuy', function(vehicleName,vehicle
     CloseNui()
 end)
 
-RegisterNetEvent('qb-vehiclescatalog.notify')
-AddEventHandler('qb-vehiclescatalog.notify', function(type, message)    
+RegisterNetEvent('i13-vehiclescatalog.notify')
+AddEventHandler('i13-vehiclescatalog.notify', function(type, message)    
     SendNUIMessage(
         {
             type = "notify",
@@ -97,15 +97,15 @@ AddEventHandler('qb-vehiclescatalog.notify', function(type, message)
     ) 
 end)
 
-RegisterNetEvent('qb-vehiclescatalog.vehiclesInfos')
-AddEventHandler('qb-vehiclescatalog.vehiclesInfos', function() 
+RegisterNetEvent('i13-vehiclescatalog.vehiclesInfos')
+AddEventHandler('i13-vehiclescatalog.vehiclesInfos', function() 
     for k,v in pairs(QBCore.Shared.Vehicles) do 
         if v.shop == vehcategory then
             vehiclesTable[v.category] = {}   
         end
     end 
 
-    QBCore.Functions.TriggerCallback('qb-vehicleshop:server:getVehicleStock', function(result)
+    QBCore.Functions.TriggerCallback('i13-vehicleshop:server:getVehicleStock', function(result)
         if result then
             for _,value in pairs(result) do
                 for k,v in pairs(QBCore.Shared.Vehicles) do
@@ -131,8 +131,8 @@ end)
 
 function OpenVehicleShop()
     inTheShop = true
-    TriggerServerEvent("qb-vehiclescatalog.requestInfo")
-    TriggerEvent('qb-vehiclescatalog.vehiclesInfos')
+    TriggerServerEvent("i13-vehiclescatalog.requestInfo")
+    TriggerEvent('i13-vehiclescatalog.vehiclesInfos')
     Wait(1000)
     SendNUIMessage(
         {
@@ -255,14 +255,14 @@ RegisterNUICallback(
         local newPlate     = GeneratePlate()
         local vehicleProps = QBCore.Functions.GetVehicleProperties(lastSelectedVehicleEntity)
         vehicleProps.plate = newPlate
-        TriggerServerEvent('qb-vehiclescatalog.CheckMoneyForVeh',data.modelcar, data.sale, data.name, vehicleProps)
+        TriggerServerEvent('i13-vehiclescatalog.CheckMoneyForVeh',data.modelcar, data.sale, data.name, vehicleProps)
         Wait(1500)        
     end
 )
 
 
-RegisterNetEvent('qb-vehiclescatalog.spawnVehicle')
-AddEventHandler('qb-vehiclescatalog.spawnVehicle', function(model, plate)    
+RegisterNetEvent('i13-vehiclescatalog.spawnVehicle')
+AddEventHandler('i13-vehiclescatalog.spawnVehicle', function(model, plate)    
     local hash = GetHashKey(model)
 
     lastPlayerCoords = GetEntityCoords(PlayerPedId())
@@ -449,7 +449,7 @@ CreateThread(function()
         options = {
             {
                 type = 'client',
-                event = 'qb-vehiclescatalog:client:openCatalog',
+                event = 'i13-vehiclescatalog:client:openCatalog',
                 label = 'Ava Kataloog',
                 icon = 'fas fa-book-open',
             }

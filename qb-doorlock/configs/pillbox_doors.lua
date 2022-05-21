@@ -115,7 +115,7 @@ Config.DoorList['pillbox_doors-garagelobby'] = {
 -- garage1 created by QuakeAcid
 Config.DoorList['pillbox_doors-garage1'] = {
     authorizedJobs = { ['ambulance'] = 0 },
-    distance = 5,
+    distance = 6.5,
     locked = true,
     objYaw = 160.00607299805,
     objName = -820650556,
@@ -130,7 +130,7 @@ Config.DoorList['pillbox_doors-garage1'] = {
 -- garage2 created by QuakeAcid
 Config.DoorList['pillbox_doors-garage2'] = {
     authorizedJobs = { ['ambulance'] = 0 },
-    distance = 5,
+    distance = 6.5,
     locked = true,
     objYaw = 160.00605773926,
     objName = -820650556,

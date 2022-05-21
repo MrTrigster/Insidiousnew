@@ -36,7 +36,7 @@ CreateThread(function()
                 {
                   type = "client",
                   action = function(entity) 
-                    TriggerEvent('qb-lift:callLift', k)
+                    TriggerEvent('i13-lift:callLift', k)
                   end,
                   icon = "fas fa-door-closed",
                   label = "Kutsu Lift",
@@ -62,7 +62,7 @@ local function openFloorsMenu(lift, floor)
                 header = '' .. Config.Elevators[lift].Floors[j].Label ..'',
                 txt = '' .. Config.Elevators[lift].Floors[j].FloorDesc ..'',
                 params = {
-                    event = 'qb-lift:checkFloorPermission',
+                    event = 'i13-lift:checkFloorPermission',
                     args = {
                         lift = lift,
                         floor = Config.Elevators[lift].Floors[j],
@@ -83,8 +83,8 @@ function IsAuthorized(lift)
     return false
 end
 
-RegisterNetEvent('qb-lift:changeFloor')
-AddEventHandler('qb-lift:changeFloor', function(data)
+RegisterNetEvent('i13-lift:changeFloor')
+AddEventHandler('i13-lift:changeFloor', function(data)
     local ped = PlayerPedId()
 
     QBCore.Functions.Progressbar("Call_The_Lift", 'Ootab lifti...', 8000, false, false, {
@@ -107,8 +107,8 @@ AddEventHandler('qb-lift:changeFloor', function(data)
     end)
 end)
 
-RegisterNetEvent('qb-lift:callLift')
-AddEventHandler('qb-lift:callLift', function()
+RegisterNetEvent('i13-lift:callLift')
+AddEventHandler('i13-lift:callLift', function()
     Wait(1000)
     local playerPed = PlayerPedId()
     local coords = GetEntityCoords(playerPed)
@@ -131,19 +131,19 @@ AddEventHandler('qb-lift:callLift', function()
     end
 end)
 
-RegisterNetEvent('qb-lift:checkFloorPermission')
-AddEventHandler('qb-lift:checkFloorPermission', function(data)
+RegisterNetEvent('i13-lift:checkFloorPermission')
+AddEventHandler('i13-lift:checkFloorPermission', function(data)
     if Config.Elevators[data.lift].Group then
         if data.floor.Restricted then
             if IsAuthorized(data.lift) then
-                TriggerEvent('qb-lift:changeFloor', data)
+                TriggerEvent('i13-lift:changeFloor', data)
             else
                 QBCore.Functions.Notify('Sul ei ole selleks luba', "error")
             end
         else
-            TriggerEvent('qb-lift:changeFloor', data)
+            TriggerEvent('i13-lift:changeFloor', data)
         end
     else
-        TriggerEvent('qb-lift:changeFloor', data)
+        TriggerEvent('i13-lift:changeFloor', data)
     end
 end)

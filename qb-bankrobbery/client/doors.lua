@@ -1,7 +1,7 @@
 local QBCore = exports['qb-core']:GetCoreObject()
 local closestBank = nil
 
-RegisterNetEvent('qb-bankrobbery:clearTimeoutDoors', function(bankId)
+RegisterNetEvent('i13-bankrobbery:clearTimeoutDoors', function(bankId)
     if bankId == 'pacific' then
         local pacificDoor = GetClosestObjectOfType(Config.BigBanks["pacific"]["coords"][2]["x"], Config.BigBanks["pacific"]["coords"][2]["y"], Config.BigBanks["pacific"]["coords"][2]["z"], 20.0, Config.BigBanks["pacific"]["object"], false, false, false)
         if pacificDoor ~= 0 then

@@ -22,7 +22,7 @@ AddEventHandler('onResourceStop', function(resource)
         if houseObj ~= nil then
             exports['qb-interior']:DespawnInterior(houseObj, function()
                 CurrentApartment = nil
-                TriggerEvent('qb-weathersync:client:EnableSync')
+                TriggerEvent('i13-weathersync:client:EnableSync')
                 DoScreenFadeIn(500)
                 while not IsScreenFadedOut() do
                     Wait(10)
@@ -75,10 +75,10 @@ local function EnterApartment(house, apartmentId, new)
                 ClosestHouse = house
                 rangDoorbell = nil
                 Wait(500)
-                -- TriggerEvent('qb-weathersync:client:DisableSync')
-                TriggerEvent('qb-weathersync:client:DisableShellSync')
+                -- TriggerEvent('i13-weathersync:client:DisableSync')
+                TriggerEvent('i13-weathersync:client:DisableShellSync')
                 Wait(100)
-                TriggerServerEvent('qb-apartments:server:SetInsideMeta', house, apartmentId, true, false)
+                TriggerServerEvent('i13-apartments:server:SetInsideMeta', house, apartmentId, true, false)
                 TriggerServerEvent("InteractSound_SV:PlayOnSource", "houses_door_close", 0.1)
                 TriggerServerEvent("QBCore:Server:SetMetaData", "currentapartment", CurrentApartment)
             end, house)
@@ -97,21 +97,21 @@ local function EnterApartment(house, apartmentId, new)
             InApartment = true
             CurrentApartment = apartmentId
             Wait(500)
-            -- TriggerEvent('qb-weathersync:client:DisableSync')
-            TriggerEvent('qb-weathersync:client:DisableShellSync')
+            -- TriggerEvent('i13-weathersync:client:DisableSync')
+            TriggerEvent('i13-weathersync:client:DisableShellSync')
             Wait(100)
-            TriggerServerEvent('qb-apartments:server:SetInsideMeta', house, apartmentId, true, true)
+            TriggerServerEvent('i13-apartments:server:SetInsideMeta', house, apartmentId, true, true)
             TriggerServerEvent("InteractSound_SV:PlayOnSource", "houses_door_close", 0.1)
             TriggerServerEvent("QBCore:Server:SetMetaData", "currentapartment", CurrentApartment)
         end
         if new ~= nil then
             if new then
-                TriggerEvent('qb-interior:client:SetNewState', true)
+                TriggerEvent('i13-interior:client:SetNewState', true)
             else
-                TriggerEvent('qb-interior:client:SetNewState', false)
+                TriggerEvent('i13-interior:client:SetNewState', false)
             end
         else
-            TriggerEvent('qb-interior:client:SetNewState', false)
+            TriggerEvent('i13-interior:client:SetNewState', false)
         end
     end, apartmentId)
     Wait(2000)
@@ -121,16 +121,16 @@ end
 local function LeaveApartment(house)
     TriggerServerEvent("InteractSound_SV:PlayOnSource", "houses_door_open", 0.1)
     openHouseAnim()
-    TriggerServerEvent("qb-apartments:returnBucket")
+    TriggerServerEvent("i13-apartments:returnBucket")
     DoScreenFadeOut(500)
     while not IsScreenFadedOut() do Wait(10) end
     exports['qb-interior']:DespawnInterior(houseObj, function()
-        TriggerEvent('qb-weathersync:client:EnableSync')
+        TriggerEvent('i13-weathersync:client:EnableSync')
         SetEntityCoords(PlayerPedId(), Apartments.Locations[house].coords.enter.x, Apartments.Locations[house].coords.enter.y,Apartments.Locations[house].coords.enter.z)
         SetEntityHeading(PlayerPedId(), Apartments.Locations[house].coords.enter.w)
         Wait(1000)
         TriggerServerEvent("apartments:server:RemoveObject", CurrentApartment, house)
-        TriggerServerEvent('qb-apartments:server:SetInsideMeta', CurrentApartment, false)
+        TriggerServerEvent('i13-apartments:server:SetInsideMeta', CurrentApartment, false)
         CurrentApartment = nil
         InApartment = false
         CurrentOffset = 0
@@ -193,7 +193,7 @@ function MenuOwners()
                 header = Apartments.Language['close_menu'],
                 txt = "",
                 params = {
-                    event = "qb-menu:client:closeMenu"
+                    event = "i13-menu:client:closeMenu"
                 }
 
             }
@@ -227,16 +227,16 @@ end
 RegisterNetEvent('apartments:client:setupSpawnUI', function(cData)
     QBCore.Functions.TriggerCallback('apartments:GetOwnedApartment', function(result)
         if result then
-            TriggerEvent('qb-spawn:client:setupSpawns', cData, false, nil)
-            TriggerEvent('qb-spawn:client:openUI', true)
+            TriggerEvent('i13-spawn:client:setupSpawns', cData, false, nil)
+            TriggerEvent('i13-spawn:client:openUI', true)
             TriggerEvent("apartments:client:SetHomeBlip", result.type)
         else
             if Apartments.Starting then
-                TriggerEvent('qb-spawn:client:setupSpawns', cData, true, Apartments.Locations)
-                TriggerEvent('qb-spawn:client:openUI', true)
+                TriggerEvent('i13-spawn:client:setupSpawns', cData, true, Apartments.Locations)
+                TriggerEvent('i13-spawn:client:openUI', true)
             else
-                TriggerEvent('qb-spawn:client:setupSpawns', cData, false, nil)
-                TriggerEvent('qb-spawn:client:openUI', true)
+                TriggerEvent('i13-spawn:client:setupSpawns', cData, false, nil)
+                TriggerEvent('i13-spawn:client:openUI', true)
             end
         end
     end, cData.citizenid)
@@ -256,7 +256,7 @@ RegisterNetEvent('apartments:client:SpawnInApartment', function(apartmentId, apa
     IsOwned = true
 end)
 
-RegisterNetEvent('qb-apartments:client:LastLocationHouse', function(apartmentType, apartmentId)
+RegisterNetEvent('i13-apartments:client:LastLocationHouse', function(apartmentType, apartmentId)
     ClosestHouse = apartmentType
     EnterApartment(apartmentType, apartmentId, false)
 end)
@@ -335,11 +335,11 @@ end)
 
 RegisterNetEvent('apartments:client:ChangeOutfit', function()
     TriggerServerEvent("InteractSound_SV:PlayOnSource", "Clothes1", 0.4)
-    TriggerEvent('qb-clothing:client:openOutfitMenu')
+    TriggerEvent('i13-clothing:client:openOutfitMenu')
 end)
 
 RegisterNetEvent('apartments:client:Logout', function()
-    TriggerServerEvent('qb-houses:server:LogoutLocation')
+    TriggerServerEvent('i13-houses:server:LogoutLocation')
 end)
 
 -- Threads

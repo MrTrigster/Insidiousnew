@@ -1,7 +1,7 @@
 fx_version 'cerulean'
 game 'gta5'
 
-description 'QB-VehicleShop'
+description 'i13-VehicleShop'
 version '1.0.0'
 
 server_scripts {			
@@ -36,5 +36,5 @@ ui_page 'html/index.html'
 
 dependencies {
 	'qb-core',
-	--'qb-vehiclekeys'
+	--'i13-vehiclekeys'
 }

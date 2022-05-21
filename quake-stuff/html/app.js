@@ -81,6 +81,7 @@ $("#offbanc").change(function() {
 
 $("#permbanc").change(function() {
   $("#datepicker, #bandaybtn, #banweekbtn, #banmonthbtn, #bansixmonthsbtn").prop("disabled", $("#permbanc").is(":checked"));
+  console.log($("#permbanc").is(":checked"));
 });
 
 $("body").on("click", "#unbanbtn", function() {

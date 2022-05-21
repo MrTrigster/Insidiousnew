@@ -66,7 +66,7 @@ local CreateDropOffPed = function(coords)
 		options = {
 			{
 				type = "client",
-				event = "qb-oxyruns:client:DeliverOxy",
+				event = "i13-oxyruns:client:DeliverOxy",
 				icon = 'fas fa-capsules',
 				label = 'Tee Tehing',
 			}
@@ -78,7 +78,7 @@ end
 --- Creates a random drop off location
 local CreateDropOff = function()
 	hasDropOff = true
-	TriggerEvent('qb-phone:client:CustomNotification', 'OXY', "Liigu drop-offi suunas", 'fas fa-capsules', '#3480eb', 8000)
+	TriggerEvent('i13-phone:client:CustomNotification', 'OXY', "Liigu drop-offi suunas", 'fas fa-capsules', '#3480eb', 8000)
 	dropOffCount += 1
 	local randomLoc = Config.Locations[math.random(#Config.Locations)]
 	-- Blip
@@ -91,7 +91,7 @@ local CreateDropOff = function()
 	dropOffArea:onPlayerInOut(function(isPointInside, point)
 		if isPointInside then
 			if oxyPed == nil then
-				-- TriggerEvent('qb-phone:client:CustomNotification', 'OXY', "Klient ootab lähedal...", 'fas fa-capsules', '#3480eb', 8000)
+				-- TriggerEvent('i13-phone:client:CustomNotification', 'OXY', "Klient ootab lähedal...", 'fas fa-capsules', '#3480eb', 8000)
 				CreateDropOffPed(randomLoc)
 			end
 		end
@@ -102,7 +102,7 @@ end
 local StartOxyrun = function()
 	if started then return end
 	started = true
-	TriggerEvent('qb-phone:client:CustomNotification', 'OXY', "Oota asukoha infot...", 'fas fa-capsules', '#3480eb', 8000)
+	TriggerEvent('i13-phone:client:CustomNotification', 'OXY', "Oota asukoha infot...", 'fas fa-capsules', '#3480eb', 8000)
 	while started do
 		Wait(4000)
 		if not hasDropOff then
@@ -125,16 +125,16 @@ local DeleteOxyped = function()
 	oxyPed = nil
 end
 
-RegisterNetEvent("qb-oxyruns:client:StartOxy", function()
+RegisterNetEvent("i13-oxyruns:client:StartOxy", function()
 	if started then return end
-	QBCore.Functions.TriggerCallback('qb-oxyruns:server:StartOxy', function(canStart)
+	QBCore.Functions.TriggerCallback('i13-oxyruns:server:StartOxy', function(canStart)
 		if canStart then
 			StartOxyrun()
 		end
 	end)
 end)
 
-RegisterNetEvent('qb-oxyruns:client:DeliverOxy', function()
+RegisterNetEvent('i13-oxyruns:client:DeliverOxy', function()
 	if madeDeal then return end
 	local ped = PlayerPedId()
 	if not IsPedOnFoot(ped) then return end
@@ -174,17 +174,17 @@ RegisterNetEvent('qb-oxyruns:client:DeliverOxy', function()
 		dropOffBlip = nil
 
 		-- Reward
-		TriggerServerEvent('qb-oxyruns:server:Reward')
+		TriggerServerEvent('i13-oxyruns:server:Reward')
 
 		-- Finishing up
 		dropOffArea:destroy()
 		Wait(2000)
 		if dropOffCount == Config.RunAmount then
-			TriggerEvent('qb-phone:client:CustomNotification', 'OXY', "Kõik tellimused praeguseks tehtud", 'fas fa-capsules', '#3480eb', 20000)
+			TriggerEvent('i13-phone:client:CustomNotification', 'OXY', "Kõik tellimused praeguseks tehtud", 'fas fa-capsules', '#3480eb', 20000)
 			started = false
 			dropOffCount = 0
 		else
-			-- TriggerEvent('qb-phone:client:CustomNotification', 'OXY', "Tellimus läks hästi, oota järgmise asukoha infot...", 'fas fa-capsules', '#3480eb', 20000)
+			-- TriggerEvent('i13-phone:client:CustomNotification', 'OXY', "Tellimus läks hästi, oota järgmise asukoha infot...", 'fas fa-capsules', '#3480eb', 20000)
 			QBCore.Functions.Notify('Tellimus läks hästi, oota järgmise asukoha infot', 'success')
 		end
 		DeleteOxyped()
@@ -208,7 +208,7 @@ CreateThread(function()
 		options = {
 			{
 				type = "client",
-				event = "qb-oxyruns:client:StartOxy",
+				event = "i13-oxyruns:client:StartOxy",
 				icon = 'fas fa-capsules',
 				label = 'Alusta Oxyrun $'..Config.StartOxyPayment,
 			}

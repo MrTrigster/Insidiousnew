@@ -1,11 +1,11 @@
 local QBCore = exports['qb-core']:GetCoreObject()
 -- boosting stuff pood
 
-RegisterNetEvent('qb-bankrobbery:client:setActivityBusy', function(activity, busy)
+RegisterNetEvent('i13-bankrobbery:client:setActivityBusy', function(activity, busy)
     Config.ActivityStatus[activity].status = busy
 end)
 
-RegisterNetEvent('qb-bankrobbery:client:openMenu', function()
+RegisterNetEvent('i13-bankrobbery:client:openMenu', function()
     exports['qb-menu']:openMenu({
         {
             header = 'Blackmarket',
@@ -16,27 +16,27 @@ RegisterNetEvent('qb-bankrobbery:client:openMenu', function()
             header = 'Status',
             txt = 'Kontrolli röövide staatust',
             params = {
-                event = 'qb-bankrobbery:client:checkStatus',
+                event = 'i13-bankrobbery:client:checkStatus',
             }
         },
         {
             header = 'Pood',
             txt = 'Osta röövideks varustust',
             params = {
-                event = 'qb-bankrobbery:client:openShopMenu',
+                event = 'i13-bankrobbery:client:openShopMenu',
             }
         },
         {
             header = 'Boosting',
             txt = 'Osta boostimiseks varustust',
             params = {
-                event = 'qb-bankrobbery:client:openBoostMenu',
+                event = 'i13-bankrobbery:client:openBoostMenu',
             }
         }
     })
 end)
 
-RegisterNetEvent('qb-bankrobbery:client:checkStatus', function()
+RegisterNetEvent('i13-bankrobbery:client:checkStatus', function()
     local MenuOptions = {}
     MenuOptions[#MenuOptions + 1] = {
         header = 'Pankade Staatus',
@@ -62,13 +62,13 @@ RegisterNetEvent('qb-bankrobbery:client:checkStatus', function()
         header = '',
         txt = '⬅ Tagasi',
         params = {
-            event = 'qb-bankrobbery:client:openMenu',
+            event = 'i13-bankrobbery:client:openMenu',
         }
     }
     exports['qb-menu']:openMenu(MenuOptions)
 end)
 
-RegisterNetEvent('qb-bankrobbery:client:openShopMenu', function()
+RegisterNetEvent('i13-bankrobbery:client:openShopMenu', function()
     exports['qb-menu']:openMenu({
         {
             header = 'Blackmarket Pood',
@@ -79,7 +79,7 @@ RegisterNetEvent('qb-bankrobbery:client:openShopMenu', function()
             header = 'Hacking Laptop (Harjutamiseks)',
             txt = '75 INC',
             params = {
-                event = 'qb-bankrobbery:client:buyShopItem',
+                event = 'i13-bankrobbery:client:buyShopItem',
                 args = 1,
             }
         },
@@ -87,7 +87,7 @@ RegisterNetEvent('qb-bankrobbery:client:openShopMenu', function()
             header = 'Hacking Laptop (Fleeca Pank)',
             txt = '85 INC',
             params = {
-                event = 'qb-bankrobbery:client:buyShopItem',
+                event = 'i13-bankrobbery:client:buyShopItem',
                 args = 2,
             }
         },
@@ -95,7 +95,7 @@ RegisterNetEvent('qb-bankrobbery:client:openShopMenu', function()
             header = 'Hacking Laptop (Paleto Pank)',
             txt = '95 INC',
             params = {
-                event = 'qb-bankrobbery:client:buyShopItem',
+                event = 'i13-bankrobbery:client:buyShopItem',
                 args = 3,
             }
         },
@@ -103,7 +103,7 @@ RegisterNetEvent('qb-bankrobbery:client:openShopMenu', function()
             header = 'Hacking Laptop (Pacific Pank)',
             txt = '110 INC',
             params = {
-                event = 'qb-bankrobbery:client:buyShopItem',
+                event = 'i13-bankrobbery:client:buyShopItem',
                 args = 4,
             }
         },
@@ -111,7 +111,7 @@ RegisterNetEvent('qb-bankrobbery:client:openShopMenu', function()
             header = 'Electronic Kit',
             txt = '50 INC',
             params = {
-                event = 'qb-bankrobbery:client:buyShopItem',
+                event = 'i13-bankrobbery:client:buyShopItem',
                 args = 5,
             }
         },
@@ -119,13 +119,13 @@ RegisterNetEvent('qb-bankrobbery:client:openShopMenu', function()
             header = '',
             txt = '⬅ Tagasi',
             params = {
-                event = 'qb-bankrobbery:client:openMenu',
+                event = 'i13-bankrobbery:client:openMenu',
             }
         }
     })
 end)
 
-RegisterNetEvent('qb-bankrobbery:client:openBoostMenu', function()
+RegisterNetEvent('i13-bankrobbery:client:openBoostMenu', function()
     exports['qb-menu']:openMenu({
         {
             header = 'Boosting Pood',
@@ -136,7 +136,7 @@ RegisterNetEvent('qb-bankrobbery:client:openBoostMenu', function()
             header = 'Boosting Laptop',
             txt = '80 INC',
             params = {
-                event = 'qb-bankrobbery:client:buyBoostingItem',
+                event = 'i13-bankrobbery:client:buyBoostingItem',
                 args = 1,
             }
         },
@@ -144,7 +144,7 @@ RegisterNetEvent('qb-bankrobbery:client:openBoostMenu', function()
             header = 'Disabler',
             txt = '40 INC',
             params = {
-                event = 'qb-bankrobbery:client:buyBoostingItem',
+                event = 'i13-bankrobbery:client:buyBoostingItem',
                 args = 2,
             }
         },
@@ -152,31 +152,31 @@ RegisterNetEvent('qb-bankrobbery:client:openBoostMenu', function()
             header = '',
             txt = '⬅ Tagasi',
             params = {
-                event = 'qb-bankrobbery:client:openMenu',
+                event = 'i13-bankrobbery:client:openMenu',
             }
         }
     })
 end)
 
-RegisterNetEvent('qb-bankrobbery:client:buyShopItem', function(item)
+RegisterNetEvent('i13-bankrobbery:client:buyShopItem', function(item)
     if item == 1 then
-        TriggerServerEvent('qb-bankrobbery:server:buyTestLaptop')
+        TriggerServerEvent('i13-bankrobbery:server:buyTestLaptop')
     elseif item == 2 then
-        TriggerServerEvent('qb-bankrobbery:server:buyFleecaLaptop')
+        TriggerServerEvent('i13-bankrobbery:server:buyFleecaLaptop')
     elseif item == 3 then
-        TriggerServerEvent('qb-bankrobbery:server:buyPaletoLaptop')
+        TriggerServerEvent('i13-bankrobbery:server:buyPaletoLaptop')
     elseif item == 4 then
-        TriggerServerEvent('qb-bankrobbery:server:buyPacificLaptop')
+        TriggerServerEvent('i13-bankrobbery:server:buyPacificLaptop')
     elseif item == 5 then
-        TriggerServerEvent('qb-bankrobbery:server:buyElectronicKit')
+        TriggerServerEvent('i13-bankrobbery:server:buyElectronicKit')
     end
 end)
 
-RegisterNetEvent('qb-bankrobbery:client:buyBoostingItem', function(item)
+RegisterNetEvent('i13-bankrobbery:client:buyBoostingItem', function(item)
     if item == 1 then
-        TriggerServerEvent('qb-bankrobbery:server:buyBoostingLaptop')
+        TriggerServerEvent('i13-bankrobbery:server:buyBoostingLaptop')
     elseif item == 2 then
-        TriggerServerEvent('qb-bankrobbery:server:buyDisabler')
+        TriggerServerEvent('i13-bankrobbery:server:buyDisabler')
     end
 end)
 
@@ -210,7 +210,7 @@ CreateThread(function()
         options = {
             {
                 type = 'client',
-                event = 'qb-bankrobbery:client:openMenu',
+                event = 'i13-bankrobbery:client:openMenu',
                 icon = 'fas fa-comment',
                 label = 'Räägi Isikuga',
             }

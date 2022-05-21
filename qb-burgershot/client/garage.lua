@@ -24,7 +24,7 @@ end)
 -- 			local dist = #(pos - vector3(v.coords.x, v.coords.y, v.coords.z))
 			
 -- 			if dist < 40 and not pedspawned then
--- 				TriggerEvent('qb-burgershot:spawn:ped', v.coords)
+-- 				TriggerEvent('i13-burgershot:spawn:ped', v.coords)
 -- 				pedspawned = true
 -- 			end
 -- 			if dist >= 35 then
@@ -35,8 +35,8 @@ end)
 -- 	end
 -- end)
 
--- RegisterNetEvent('qb-burgershot:spawn:ped')
--- AddEventHandler('qb-burgershot:spawn:ped',function(coords)
+-- RegisterNetEvent('i13-burgershot:spawn:ped')
+-- AddEventHandler('i13-burgershot:spawn:ped',function(coords)
 -- 	local hash = `ig_floyd`
 
 -- 	RequestModel(hash)
@@ -60,8 +60,8 @@ function loadAnimDict(dict)
     end
 end
 
-RegisterNetEvent('qb-burgershot:garage')
-AddEventHandler('qb-burgershot:garage', function(bs)
+RegisterNetEvent('i13-burgershot:garage')
+AddEventHandler('i13-burgershot:garage', function(bs)
     local vehicle = bs.vehicle
     local coords = vector4(-1172.861, -888.4072, 13.940833, 40.516719)
         if PlayerData.job.name == "burgershot" then
@@ -80,8 +80,8 @@ AddEventHandler('qb-burgershot:garage', function(bs)
         end
 end)
 
-RegisterNetEvent('qb-burgershot:storecar')
-AddEventHandler('qb-burgershot:storecar', function()
+RegisterNetEvent('i13-burgershot:storecar')
+AddEventHandler('i13-burgershot:storecar', function()
     QBCore.Functions.Notify('Töö auto garaazi pandud')
     local car = GetVehiclePedIsIn(PlayerPedId(),true)
     NetworkFadeOutEntity(car, true,false)
@@ -89,7 +89,7 @@ AddEventHandler('qb-burgershot:storecar', function()
     QBCore.Functions.DeleteVehicle(car)
 end)
 
-RegisterNetEvent('qb-menu:BurgerShotGarage', function()
+RegisterNetEvent('i13-menu:BurgerShotGarage', function()
     exports['qb-menu']:openMenu({
         {
             header = "| BurgerShot Garaaz |",
@@ -99,7 +99,7 @@ RegisterNetEvent('qb-menu:BurgerShotGarage', function()
             header = "• Stallion",
             txt = "Declasse Burger Shot Stallion",
             params = {
-                event = "qb-burgershot:garage",
+                event = "i13-burgershot:garage",
                 args = {
                     vehicle = 'stalion2',
                 }
@@ -109,7 +109,7 @@ RegisterNetEvent('qb-menu:BurgerShotGarage', function()
             header = "• Pane Auto Garaazi",
             txt = "Pane Auto Tagasi Garaazi",
             params = {
-                event = "qb-burgershot:storecar",
+                event = "i13-burgershot:storecar",
                 args = {
                     
                 }
@@ -126,7 +126,7 @@ end)
 --         options = {
 --             {
 --                 type = "client",
--- 				event = "qb-menu:BurgerShotGarage",
+-- 				event = "i13-menu:BurgerShotGarage",
 -- 				icon = "fas fa-car",
 -- 				label = "Burgershot Garaaz",
 --                 job = "burgershot",

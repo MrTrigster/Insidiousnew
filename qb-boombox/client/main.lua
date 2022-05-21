@@ -20,7 +20,7 @@ end
 
 -- Events
 
-RegisterNetEvent('qb-boombox:client:placeBoombox', function()
+RegisterNetEvent('i13-boombox:client:placeBoombox', function()
     loadAnimDict("anim@heists@money_grab@briefcase")
     TaskPlayAnim(PlayerPedId(), "anim@heists@money_grab@briefcase", "put_down_case", 8.0, -8.0, -1, 1, 0, false, false, false)
     Citizen.Wait(1000)
@@ -40,7 +40,7 @@ RegisterNetEvent('qb-boombox:client:placeBoombox', function()
             options = {
                 {
                     type = 'client',
-                    event = 'qb-boombox:client:playMusic',
+                    event = 'i13-boombox:client:playMusic',
                     label = 'Kasuta Boomboxi',
                     icon = 'fas fa-radio'
                 }
@@ -50,7 +50,7 @@ RegisterNetEvent('qb-boombox:client:placeBoombox', function()
     end)
 end)
 
-RegisterNetEvent('qb-boombox:client:pickupBoombox', function()
+RegisterNetEvent('i13-boombox:client:pickupBoombox', function()
     local obj = NetworkGetEntityFromNetworkId(currentData)
     local objCoords = GetEntityCoords()
     NetworkRequestControlOfEntity(obj)
@@ -61,7 +61,7 @@ RegisterNetEvent('qb-boombox:client:pickupBoombox', function()
     DeleteEntity(obj)
     DeleteObject(obj)
     if not DoesEntityExist(obj) then
-        TriggerServerEvent('qb-boombox:server:pickedup', currentData)
+        TriggerServerEvent('i13-boombox:server:pickedup', currentData)
         TriggerServerEvent('QBCore:Server:AddItem', 'boombox', 1)
         TriggerEvent('inventory:client:ItemBox', QBCore.Shared.Items['boombox'], 'add')
         currentData = nil
@@ -70,7 +70,7 @@ RegisterNetEvent('qb-boombox:client:pickupBoombox', function()
     ClearPedTasks(PlayerPedId())
 end)
 
-RegisterNetEvent('qb-boombox:client:playMusic', function()
+RegisterNetEvent('i13-boombox:client:playMusic', function()
     local musicMenu = {
       {
           isHeader = true,
@@ -80,7 +80,7 @@ RegisterNetEvent('qb-boombox:client:playMusic', function()
           header = '🎶 | Mängi Muusikat',
           txt = 'Sisesta youtube URL',
           params = {
-              event = 'qb-boombox:client:musicMenu',
+              event = 'i13-boombox:client:musicMenu',
               args = {
 
               }
@@ -91,7 +91,7 @@ RegisterNetEvent('qb-boombox:client:playMusic', function()
           txt = 'Pane hetkel käiv muusika pausile',
           params = {
               isServer = true,
-              event = 'qb-boombox:server:pauseMusic',
+              event = 'i13-boombox:server:pauseMusic',
               args = {
                   entity = currentData,
               }
@@ -102,7 +102,7 @@ RegisterNetEvent('qb-boombox:client:playMusic', function()
           txt = 'Jätka pausil oleva muusika mängimist',
           params = {
               isServer = true,
-              event = 'qb-boombox:server:resumeMusic',
+              event = 'i13-boombox:server:resumeMusic',
               args = {
                   entity = currentData,
               }
@@ -112,7 +112,7 @@ RegisterNetEvent('qb-boombox:client:playMusic', function()
           header = '🔈 | Muuda Helitugevust',
           txt = 'Muuda boomboxi helitugevust',
           params = {
-              event = 'qb-boombox:client:changeVolume',
+              event = 'i13-boombox:client:changeVolume',
               args = {
 
               }
@@ -124,7 +124,7 @@ RegisterNetEvent('qb-boombox:client:playMusic', function()
           isServer = true,
           params = {
               isServer = true,
-              event = 'qb-boombox:server:stopMusic',
+              event = 'i13-boombox:server:stopMusic',
               args = {
                   entity = currentData,
               }
@@ -134,7 +134,7 @@ RegisterNetEvent('qb-boombox:client:playMusic', function()
           header = '❌ | Korja Üles',
           txt = 'Korja boombox maast üles',
           params = {
-              event = 'qb-boombox:client:pickupBoombox',
+              event = 'i13-boombox:client:pickupBoombox',
               args = {
               }
           }
@@ -143,7 +143,7 @@ RegisterNetEvent('qb-boombox:client:playMusic', function()
     exports['qb-menu']:openMenu(musicMenu)
 end)
 
-RegisterNetEvent('qb-boombox:client:musicMenu', function()
+RegisterNetEvent('i13-boombox:client:musicMenu', function()
     local dialog = exports['qb-input']:ShowInput({
         header = 'Muusika Valik',
         submitText = "Kinnita",
@@ -158,11 +158,11 @@ RegisterNetEvent('qb-boombox:client:musicMenu', function()
     })
     if dialog then
         if not dialog.song then return end
-        TriggerServerEvent('qb-boombox:server:playMusic', dialog.song, currentData, GetEntityCoords(NetworkGetEntityFromNetworkId(currentData)))
+        TriggerServerEvent('i13-boombox:server:playMusic', dialog.song, currentData, GetEntityCoords(NetworkGetEntityFromNetworkId(currentData)))
     end
 end)
 
-RegisterNetEvent('qb-boombox:client:changeVolume', function()
+RegisterNetEvent('i13-boombox:client:changeVolume', function()
     local dialog = exports['qb-input']:ShowInput({
         header = 'Muusika Helitugevus',
         submitText = "Submit",
@@ -177,7 +177,7 @@ RegisterNetEvent('qb-boombox:client:changeVolume', function()
     })
     if dialog then
         if not dialog.volume then return end
-        TriggerServerEvent('qb-boombox:server:changeVolume', dialog.volume, currentData)
+        TriggerServerEvent('i13-boombox:server:changeVolume', dialog.volume, currentData)
     end
 end)
 
@@ -194,7 +194,7 @@ end)
 --                   currentData = NetworkGetNetworkIdFromEntity(object)
 --                     helpText('Vajuta ~INPUT_CONTEXT~ et mängida muusikat')
 --                     if IsControlJustReleased(0, 38) then
---                         TriggerEvent('qb-boombox:client:playMusic')
+--                         TriggerEvent('i13-boombox:client:playMusic')
 --                     end
 --                     sleep = 5
 --                 else

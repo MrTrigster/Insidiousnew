@@ -24,7 +24,7 @@ Config = {
     --     Target system to use, set to false if you want to use "Press E ..."
     --     supported:
     --         "qtarget" - qtarget: https://github.com/BerkieBb/qb-target, https://www.youtube.com/watch?v=oWyukyZHtcI
-    --         "qb-target" - qb-target: https://github.com/BerkieBb/qb-target, 
+    --         "i13-target" - qb-target: https://github.com/BerkieBb/qb-target, 
     -- --]]
 
 

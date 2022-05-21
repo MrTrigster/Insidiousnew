@@ -1,18 +1,18 @@
 local QBCore = exports['qb-core']:GetCoreObject()
 
-RegisterNetEvent('qb-moneywash:client:washMenu', function()
+RegisterNetEvent('i13-moneywash:client:washMenu', function()
     exports['qb-menu']:openMenu({
         {
             header = 'Calvin Clean',
             txt = 'Mr.Clean peseb ainult hunniku kaupa',
             params = {
-                event = 'qb-moneywash:WashClient'
+                event = 'i13-moneywash:WashClient'
             }
         },
     })
 end)
 
-RegisterNetEvent('qb-moneywash:WashClient', function()
+RegisterNetEvent('i13-moneywash:WashClient', function()
     QBCore.Functions.TriggerCallback('QBCore:HasItem', function(result)
         if result then
             QBCore.Functions.Progressbar("wash_money", "Peseb raha...", math.random(5000, 10000), false, false, {
@@ -21,7 +21,7 @@ RegisterNetEvent('qb-moneywash:WashClient', function()
                 disableMouse = false,
                 disableCombat = true,
             }, {}, {}, {}, function() -- Done
-                TriggerServerEvent('qb-moneywash:WashIt')
+                TriggerServerEvent('i13-moneywash:WashIt')
             end, function() -- Cancel
                 QBCore.Functions.Notify("Katkestatud", "error")
             end)
@@ -31,8 +31,8 @@ RegisterNetEvent('qb-moneywash:WashClient', function()
     end , 'markedbills')
 end)
 
-RegisterNetEvent('qb-moneywash:client:sellItems', function()
-    TriggerServerEvent('qb-moneywash:server:sellItems')
+RegisterNetEvent('i13-moneywash:client:sellItems', function()
+    TriggerServerEvent('i13-moneywash:server:sellItems')
 end)
 
 CreateThread(function()
@@ -46,13 +46,13 @@ CreateThread(function()
         options = {
             {
                 type = 'client',
-                event = 'qb-moneywash:client:washMenu',
+                event = 'i13-moneywash:client:washMenu',
                 icon = 'fas fa-bell',
                 label = 'Koputa Uksele',
             },
             {
                 type = 'client',
-                event = 'qb-moneywash:client:sellItems',
+                event = 'i13-moneywash:client:sellItems',
                 icon = 'fas fa-dollar-sign',
                 label = 'Müü Oxy',
                 item = 'oxy',

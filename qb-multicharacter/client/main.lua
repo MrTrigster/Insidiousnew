@@ -9,7 +9,7 @@ CreateThread(function()
 	while true do
 		Wait(0)
 		if NetworkIsSessionStarted() then
-			TriggerEvent('qb-multicharacter:client:chooseChar')
+			TriggerEvent('i13-multicharacter:client:chooseChar')
 			return
 		end
 	end
@@ -18,7 +18,7 @@ end)
 -- Functions
 
 local function skyCam(bool)
-    TriggerEvent('qb-weathersync:client:DisableSync')
+    TriggerEvent('i13-weathersync:client:DisableSync')
     if bool then
         DoScreenFadeIn(1000)
         SetTimecycleModifier('hud_def_blur')
@@ -37,7 +37,7 @@ local function skyCam(bool)
 end
 
 local function openCharMenu(bool)
-    QBCore.Functions.TriggerCallback("qb-multicharacter:server:GetNumberOfCharacters", function(result)
+    QBCore.Functions.TriggerCallback("i13-multicharacter:server:GetNumberOfCharacters", function(result)
         SetNuiFocus(bool, bool)
         SendNUIMessage({
             action = "ui",
@@ -50,7 +50,7 @@ end
 
 -- Events
 
-RegisterNetEvent('qb-multicharacter:client:closeNUIdefault', function() -- This event is only for no starting apartments
+RegisterNetEvent('i13-multicharacter:client:closeNUIdefault', function() -- This event is only for no starting apartments
     DeleteEntity(charPed)
     SetNuiFocus(false, false)
     DoScreenFadeOut(500)
@@ -58,23 +58,23 @@ RegisterNetEvent('qb-multicharacter:client:closeNUIdefault', function() -- This 
     SetEntityCoords(PlayerPedId(), Config.DefaultSpawn.x, Config.DefaultSpawn.y, Config.DefaultSpawn.z)
     TriggerServerEvent('QBCore:Server:OnPlayerLoaded')
     TriggerEvent('QBCore:Client:OnPlayerLoaded')
-    TriggerServerEvent('qb-houses:server:SetInsideMeta', 0, false)
-    TriggerServerEvent('qb-apartments:server:SetInsideMeta', 0, 0, false)
+    TriggerServerEvent('i13-houses:server:SetInsideMeta', 0, false)
+    TriggerServerEvent('i13-apartments:server:SetInsideMeta', 0, 0, false)
     Wait(500)
     openCharMenu()
     SetEntityVisible(PlayerPedId(), true)
     Wait(500)
     DoScreenFadeIn(250)
-    TriggerEvent('qb-weathersync:client:EnableSync')
-    TriggerEvent('qb-clothes:client:CreateFirstCharacter')
+    TriggerEvent('i13-weathersync:client:EnableSync')
+    TriggerEvent('i13-clothes:client:CreateFirstCharacter')
 end)
 
-RegisterNetEvent('qb-multicharacter:client:closeNUI', function()
+RegisterNetEvent('i13-multicharacter:client:closeNUI', function()
     DeleteEntity(charPed)
     SetNuiFocus(false, false)
 end)
 
-RegisterNetEvent('qb-multicharacter:client:chooseChar', function()
+RegisterNetEvent('i13-multicharacter:client:chooseChar', function()
     SetNuiFocus(false, false)
     DoScreenFadeOut(10)
     Wait(1000)
@@ -89,7 +89,7 @@ RegisterNetEvent('qb-multicharacter:client:chooseChar', function()
     ShutdownLoadingScreen()
     ShutdownLoadingScreenNui()
     openCharMenu(true)
-    TriggerEvent('qb-weathersync:client:EnableSync')
+    TriggerEvent('i13-weathersync:client:EnableSync')
 end)
 
 -- NUI Callbacks
@@ -102,14 +102,14 @@ end)
 RegisterNUICallback('disconnectButton', function(_, cb)
     SetEntityAsMissionEntity(charPed, true, true)
     DeleteEntity(charPed)
-    TriggerServerEvent('qb-multicharacter:server:disconnect')
+    TriggerServerEvent('i13-multicharacter:server:disconnect')
     cb("ok")
 end)
 
 RegisterNUICallback('selectCharacter', function(data, cb)
     local cData = data.cData
     DoScreenFadeOut(10)
-    TriggerServerEvent('qb-multicharacter:server:loadUserData', cData)
+    TriggerServerEvent('i13-multicharacter:server:loadUserData', cData)
     openCharMenu(false)
     SetEntityAsMissionEntity(charPed, true, true)
     DeleteEntity(charPed)
@@ -121,7 +121,7 @@ RegisterNUICallback('cDataPed', function(data, cb)
     SetEntityAsMissionEntity(charPed, true, true)
     DeleteEntity(charPed)
     if cData ~= nil then
-        QBCore.Functions.TriggerCallback('qb-multicharacter:server:getSkin', function(model, data)
+        QBCore.Functions.TriggerCallback('i13-multicharacter:server:getSkin', function(model, data)
             model = model ~= nil and tonumber(model) or false
             if model ~= nil then
                 CreateThread(function()
@@ -136,7 +136,7 @@ RegisterNUICallback('cDataPed', function(data, cb)
                     PlaceObjectOnGroundProperly(charPed)
                     SetBlockingOfNonTemporaryEvents(charPed, true)
                     data = json.decode(data)
-                    TriggerEvent('qb-clothing:client:loadPlayerClothing', data, charPed)
+                    TriggerEvent('i13-clothing:client:loadPlayerClothing', data, charPed)
                 end)
             else
                 CreateThread(function()
@@ -186,7 +186,7 @@ RegisterNUICallback('setupCharacters', function(data, cb)
         ShutdownLoadingScreenNui()
         ran = true
     end
-    QBCore.Functions.TriggerCallback("qb-multicharacter:server:setupCharacters", function(result)
+    QBCore.Functions.TriggerCallback("i13-multicharacter:server:setupCharacters", function(result)
         SendNUIMessage({
             action = "setupCharacters",
             characters = result
@@ -208,13 +208,13 @@ RegisterNUICallback('createNewCharacter', function(data, cb)
     elseif cData.gender == "Naine" then
         cData.gender = 1
     end
-    TriggerServerEvent('qb-multicharacter:server:createCharacter', cData)
+    TriggerServerEvent('i13-multicharacter:server:createCharacter', cData)
     Wait(500)
     cb("ok")
 end)
 
 RegisterNUICallback('removeCharacter', function(data, cb)
-    TriggerServerEvent('qb-multicharacter:server:deleteCharacter', data.citizenid)
-    TriggerEvent('qb-multicharacter:client:chooseChar')
+    TriggerServerEvent('i13-multicharacter:server:deleteCharacter', data.citizenid)
+    TriggerEvent('i13-multicharacter:client:chooseChar')
     cb("ok")
 end)

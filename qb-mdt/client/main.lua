@@ -19,7 +19,7 @@ RegisterNetEvent('QBCore:Client:OnPlayerLoaded', function()
 end)
 
 RegisterNetEvent('QBCore:Client:OnPlayerUnload', function()
-    TriggerServerEvent("qb-mdt:server:OnPlayerUnload")
+    TriggerServerEvent("i13-mdt:server:OnPlayerUnload")
 end)
 
 RegisterNetEvent('QBCore:Client:OnJobUpdate', function(JobInfo)
@@ -32,7 +32,7 @@ end)
 
 RegisterNetEvent("QBCore:Client:SetDuty", function(job, state)
     if AllowedJob(job) then
-        TriggerServerEvent("qb-mdt:server:ToggleDuty")
+        TriggerServerEvent("i13-mdt:server:ToggleDuty")
     end
 end)
 
@@ -294,7 +294,7 @@ RegisterNUICallback("getProfileData", function(data, cb)
     --[[ local getProfileProperties = function(data)
         if pP then return end
         pP = promise.new()
-        QBCore.Functions.TriggerCallback('qb-phone:server:MeosGetPlayerHouses', function(result)
+        QBCore.Functions.TriggerCallback('i13-phone:server:MeosGetPlayerHouses', function(result)
             pP:resolve(result)
         end, data)
         return Citizen.Await(pP)
@@ -611,7 +611,7 @@ end)
 RegisterNUICallback("toggleDuty", function(data, cb)
     local PlayerData = QBCore.Functions.GetPlayerData()
     if PlayerData.job.name == 'police' then
-        TriggerEvent("qb-policejob:ToggleDuty")
+        TriggerEvent("i13-policejob:ToggleDuty")
     elseif PlayerData.job.name == 'ambulance' then
         TriggerEvent('hospital:client:SetDuty')
     end

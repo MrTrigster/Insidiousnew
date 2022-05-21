@@ -1,7 +1,7 @@
 fx_version 'cerulean'
 game 'gta5'
 
-description 'QB-Scrapyard'
+description 'i13-Scrapyard'
 version '1.0.0'
 
 shared_script 'config.lua'

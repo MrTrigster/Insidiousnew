@@ -39,19 +39,19 @@ local function KeyPressed()
     end)
 end
 
-RegisterNetEvent('qb-drawtext:client:DrawText', function(text, position)
+RegisterNetEvent('i13-drawtext:client:DrawText', function(text, position)
     DrawText(text, position)
 end)
 
-RegisterNetEvent('qb-drawtext:client:ChangeText', function(text, position)
+RegisterNetEvent('i13-drawtext:client:ChangeText', function(text, position)
     ChangeText(text, position)
 end)
 
-RegisterNetEvent('qb-drawtext:client:HideText', function()
+RegisterNetEvent('i13-drawtext:client:HideText', function()
     HideText()
 end)
 
-RegisterNetEvent('qb-drawtext:client:KeyPressed', function()
+RegisterNetEvent('i13-drawtext:client:KeyPressed', function()
     KeyPressed()
 end)
 

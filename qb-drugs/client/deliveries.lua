@@ -11,7 +11,7 @@ local healAnimDict = "mini@cpr@char_a@cpr_str"
 local healAnim = "cpr_pumpchest"
 
 RegisterNetEvent('QBCore:Client:OnPlayerLoaded', function()
-    QBCore.Functions.TriggerCallback('qb-drugs:server:RequestConfig', function(DealerConfig)
+    QBCore.Functions.TriggerCallback('i13-drugs:server:RequestConfig', function(DealerConfig)
         Config.Dealers = DealerConfig
     end)
 end)
@@ -223,13 +223,13 @@ function knockDoorAnim(home)
     end
 end
 
-RegisterNetEvent('qb-drugs:client:updateDealerItems')
-AddEventHandler('qb-drugs:client:updateDealerItems', function(itemData, amount)
-    TriggerServerEvent('qb-drugs:server:updateDealerItems', itemData, amount, currentDealer)
+RegisterNetEvent('i13-drugs:client:updateDealerItems')
+AddEventHandler('i13-drugs:client:updateDealerItems', function(itemData, amount)
+    TriggerServerEvent('i13-drugs:server:updateDealerItems', itemData, amount, currentDealer)
 end)
 
-RegisterNetEvent('qb-drugs:client:setDealerItems')
-AddEventHandler('qb-drugs:client:setDealerItems', function(itemData, amount, dealer)
+RegisterNetEvent('i13-drugs:client:setDealerItems')
+AddEventHandler('i13-drugs:client:setDealerItems', function(itemData, amount, dealer)
     Config.Dealers[dealer]["products"][itemData.slot].amount = Config.Dealers[dealer]["products"][itemData.slot].amount - amount
 end)
 
@@ -244,15 +244,15 @@ function requestDelivery()
         ["dealer"] = currentDealer,
         ["itemData"] = Config.DeliveryItems[item]
     }
-    TriggerServerEvent('qb-drugs:server:giveDeliveryItems', amount)
+    TriggerServerEvent('i13-drugs:server:giveDeliveryItems', amount)
     SetTimeout(2000, function()
-        TriggerServerEvent('qb-phone:server:sendNewMail', {
+        TriggerServerEvent('i13-phone:server:sendNewMail', {
             sender = Config.Dealers[currentDealer]["name"],
             subject = "Paki transport",
             message = "Siin on kogu info, <br>Kaup: <br> "..amount.."x "..QBCore.Shared.Items[waitingDelivery["itemData"]["item"]]["label"].."<br><br> ära hiline!",
             button = {
                 enabled = true,
-                buttonEvent = "qb-drugs:client:setLocation",
+                buttonEvent = "i13-drugs:client:setLocation",
                 buttonData = waitingDelivery
             }
         })
@@ -283,8 +283,8 @@ function setMapBlip(x, y)
     QBCore.Functions.Notify('Asukoht märgitud kaardil', 'success');
 end
 
-RegisterNetEvent('qb-drugs:client:setLocation')
-AddEventHandler('qb-drugs:client:setLocation', function(locationData)
+RegisterNetEvent('i13-drugs:client:setLocation')
+AddEventHandler('i13-drugs:client:setLocation', function(locationData)
     if activeDelivery == nil then
         activeDelivery = locationData
     else
@@ -363,13 +363,13 @@ function deliverStuff(activeDelivery)
             disableMouse = false,
             disableCombat = true,
         }, {}, {}, {}, function() -- Done
-            TriggerServerEvent('qb-drugs:server:succesDelivery', activeDelivery, true)
+            TriggerServerEvent('i13-drugs:server:succesDelivery', activeDelivery, true)
         end, function() -- Cancel
             ClearPedTasks(PlayerPedId())
             QBCore.Functions.Notify("Tühistatud", "error")
         end)
     else
-        TriggerServerEvent('qb-drugs:server:succesDelivery', activeDelivery, false)
+        TriggerServerEvent('i13-drugs:server:succesDelivery', activeDelivery, false)
     end
     deliveryTimeout = 0
 end
@@ -406,11 +406,11 @@ function doPoliceAlert()
         streetLabel = streetLabel .. " " .. street2
     end
 
-    TriggerServerEvent('qb-drugs:server:callCops', streetLabel, pos)
+    TriggerServerEvent('i13-drugs:server:callCops', streetLabel, pos)
 end
 
-RegisterNetEvent('qb-drugs:client:robberyCall')
-AddEventHandler('qb-drugs:client:robberyCall', function(msg, streetLabel, coords)
+RegisterNetEvent('i13-drugs:client:robberyCall')
+AddEventHandler('i13-drugs:client:robberyCall', function(msg, streetLabel, coords)
     PlaySound(-1, "Lose_1st", "GTAO_FM_Events_Soundset", 0, 0, 1)
     TriggerEvent("chatMessage", "911-ALERT", "error", msg)
     local transG = 250
@@ -435,22 +435,22 @@ AddEventHandler('qb-drugs:client:robberyCall', function(msg, streetLabel, coords
     end
 end)
 
-RegisterNetEvent('qb-drugs:client:sendDeliveryMail')
-AddEventHandler('qb-drugs:client:sendDeliveryMail', function(type, deliveryData)
+RegisterNetEvent('i13-drugs:client:sendDeliveryMail')
+AddEventHandler('i13-drugs:client:sendDeliveryMail', function(type, deliveryData)
     if type == 'perfect' then
-        TriggerServerEvent('qb-phone:server:sendNewMail', {
+        TriggerServerEvent('i13-phone:server:sendNewMail', {
             sender = Config.Dealers[deliveryData["dealer"]]["name"],
             subject = "Paki transport",
             message = "Hea töö, järgmise korrani.<br><br>"..Config.Dealers[deliveryData["dealer"]]["name"]
         })
     elseif type == 'bad' then
-        TriggerServerEvent('qb-phone:server:sendNewMail', {
+        TriggerServerEvent('i13-phone:server:sendNewMail', {
             sender = Config.Dealers[deliveryData["dealer"]]["name"],
             subject = "Paki transport",
             message = "Sain kaebuse kohale toimetamise kohta, ära lase sellel enam juhtuda."
         })
     elseif type == 'late' then
-        TriggerServerEvent('qb-phone:server:sendNewMail', {
+        TriggerServerEvent('i13-phone:server:sendNewMail', {
             sender = Config.Dealers[deliveryData["dealer"]]["name"],
             subject = "Paki transport",
             message = "Sa hilinesid, vaata et selline asi enam ei juhtuks."
@@ -458,8 +458,8 @@ AddEventHandler('qb-drugs:client:sendDeliveryMail', function(type, deliveryData)
     end
 end)
 
-RegisterNetEvent('qb-drugs:client:CreateDealer')
-AddEventHandler('qb-drugs:client:CreateDealer', function(dealerName, minTime, maxTime)
+RegisterNetEvent('i13-drugs:client:CreateDealer')
+AddEventHandler('i13-drugs:client:CreateDealer', function(dealerName, minTime, maxTime)
     local ped = PlayerPedId()
     local loc = GetEntityCoords(ped)
     local DealerData = {
@@ -475,16 +475,16 @@ AddEventHandler('qb-drugs:client:CreateDealer', function(dealerName, minTime, ma
         }
     }
 
-    TriggerServerEvent('qb-drugs:server:CreateDealer', DealerData)
+    TriggerServerEvent('i13-drugs:server:CreateDealer', DealerData)
 end)
 
-RegisterNetEvent('qb-drugs:client:RefreshDealers')
-AddEventHandler('qb-drugs:client:RefreshDealers', function(DealerData)
+RegisterNetEvent('i13-drugs:client:RefreshDealers')
+AddEventHandler('i13-drugs:client:RefreshDealers', function(DealerData)
     Config.Dealers = DealerData
 end)
 
-RegisterNetEvent('qb-drugs:client:GotoDealer')
-AddEventHandler('qb-drugs:client:GotoDealer', function(DealerData)
+RegisterNetEvent('i13-drugs:client:GotoDealer')
+AddEventHandler('i13-drugs:client:GotoDealer', function(DealerData)
     local ped = PlayerPedId()
 
     SetEntityCoords(ped, DealerData["coords"]["x"], DealerData["coords"]["y"], DealerData["coords"]["z"])

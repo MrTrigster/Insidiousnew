@@ -3,14 +3,14 @@ local QBCore = exports['qb-core']:GetCoreObject()
 CreateThread(function()
     while true do
         Wait(Config.Wait)
-        TriggerServerEvent('qb-paycheck:Register')
+        TriggerServerEvent('i13-paycheck:Register')
         print('paycheck')
     end
 end)
 
-RegisterNetEvent('qb-paycheck:targetcollect')
-AddEventHandler('qb-paycheck:targetcollect', function()
-    TriggerServerEvent('qb-paycheck:Collect')
+RegisterNetEvent('i13-paycheck:targetcollect')
+AddEventHandler('i13-paycheck:targetcollect', function()
+    TriggerServerEvent('i13-paycheck:Collect')
 end)
 
 CreateThread(function()
@@ -22,7 +22,7 @@ CreateThread(function()
         options = {
             {
                 type = "client",
-                event = "qb-paycheck:targetcollect",
+                event = "i13-paycheck:targetcollect",
                 icon = "fas fa-money-check-alt",
                 label = "Võta Palgatšekk",
             },

@@ -369,14 +369,14 @@
     color: white;
     border-radius: 5px;
     float: right;
-    right: .4vh;
+    right: 1.2vh;
 }
 
 .whatsapp-openedchat-message-other {
     background: #3c3c3e;
     color: white;
     border-radius: 5px;
-    left: .4vh
+    left: 1.2vh;
 }
 .whatsapp-openedchat-message-time {
     font-size: 1.1vh;

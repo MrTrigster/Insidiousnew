@@ -60,7 +60,7 @@ local function spawnPacificObj()
             options = {
                 {
                     type = 'client',
-                    event = 'qb-bankrobbery:client:startPacificCashGrab1',
+                    event = 'i13-bankrobbery:client:startPacificCashGrab1',
                     icon = 'fas fa-dollar-sign',
                     label = 'Võta Raha',
                 }
@@ -74,7 +74,7 @@ local function spawnPacificObj()
             options = {
                 {
                     type = 'client',
-                    event = 'qb-bankrobbery:client:startPacificCashGrab2',
+                    event = 'i13-bankrobbery:client:startPacificCashGrab2',
                     icon = 'fas fa-dollar-sign',
                     label = 'Võta Raha',
                 }
@@ -88,7 +88,7 @@ local function spawnPacificObj()
             options = {
                 {
                     type = 'client',
-                    event = 'qb-bankrobbery:client:startPacificCashGrab3',
+                    event = 'i13-bankrobbery:client:startPacificCashGrab3',
                     icon = 'fas fa-dollar-sign',
                     label = 'Võta Raha',
                 }
@@ -102,7 +102,7 @@ local function spawnPacificObj()
             options = {
                 {
                     type = 'client',
-                    event = 'qb-bankrobbery:client:startPacificCashGrab4',
+                    event = 'i13-bankrobbery:client:startPacificCashGrab4',
                     icon = 'fas fa-dollar-sign',
                     label = 'Võta Raha',
                 }
@@ -289,12 +289,12 @@ local function grabCash(cartLocation)
         removePacificTarget('trolley4')
     end
 
-    TriggerServerEvent('qb-bankrobbery:server:recieveItem', 'pacific')
+    TriggerServerEvent('i13-bankrobbery:server:recieveItem', 'pacific')
 end
 
 -- Events
 
-RegisterNetEvent('qb-bankrobbery:client:deletePacificTrolleys', function()
+RegisterNetEvent('i13-bankrobbery:client:deletePacificTrolleys', function()
     DeleteObject(EmptyTrolley1)
     DeleteObject(EmptyTrolley2)
     DeleteObject(EmptyTrolley3)
@@ -311,28 +311,28 @@ RegisterNetEvent('qb-bankrobbery:client:deletePacificTrolleys', function()
     copsCalled = false
 end)
 
-RegisterNetEvent('qb-bankrobbery:client:startPacificCashGrab1', function()
+RegisterNetEvent('i13-bankrobbery:client:startPacificCashGrab1', function()
     grabCash(1)
 end)
 
-RegisterNetEvent('qb-bankrobbery:client:startPacificCashGrab2', function()
+RegisterNetEvent('i13-bankrobbery:client:startPacificCashGrab2', function()
     grabCash(2)
 end)
 
-RegisterNetEvent('qb-bankrobbery:client:startPacificCashGrab3', function()
+RegisterNetEvent('i13-bankrobbery:client:startPacificCashGrab3', function()
     grabCash(3)
 end)
 
-RegisterNetEvent('qb-bankrobbery:client:startPacificCashGrab4', function()
+RegisterNetEvent('i13-bankrobbery:client:startPacificCashGrab4', function()
     grabCash(4)
 end)
 
-RegisterNetEvent('qb-bankrobbery:client:usePacificLaptop', function()
+RegisterNetEvent('i13-bankrobbery:client:usePacificLaptop', function()
     local ped = PlayerPedId()
     local pos = GetEntityCoords(ped)
     local dist = #(pos - Config.BigBanks['pacific']['coords'][2])
     if dist < 1.5 then
-        QBCore.Functions.TriggerCallback('qb-bankrobbery:server:isPacificActive', function(isBusy)
+        QBCore.Functions.TriggerCallback('i13-bankrobbery:server:isPacificActive', function(isBusy)
             if not isBusy then
                 local dist = #(pos - Config.BigBanks['pacific']['coords'][2])
                 if dist < 1.5 then
@@ -345,7 +345,7 @@ RegisterNetEvent('qb-bankrobbery:client:usePacificLaptop', function()
                                     end
                                     TriggerServerEvent('QBCore:Server:RemoveItem', 'electronickit', 1)
                                     TriggerEvent('inventory:client:ItemBox', QBCore.Shared.Items['electronickit'], 'remove')
-                                    TriggerServerEvent('qb-durability:server:RemoveItemQuality', 34, 'laptop_pacific')
+                                    TriggerServerEvent('i13-durability:server:RemoveItemQuality', 34, 'laptop_pacific')
 
                                     local animDict = 'anim@heists@ornate_bank@hack'
                                     RequestAnimDict(animDict)
@@ -396,8 +396,8 @@ RegisterNetEvent('qb-bankrobbery:client:usePacificLaptop', function()
                                     Wait(4500)
                                     exports['hacking']:OpenHackingGame(function(success)
                                         if success then
-                                            TriggerServerEvent('qb-bankrobbery:server:setBankState', 'pacific', true)
-                                            TriggerServerEvent('qb-bankrobbery:server:spawnPacificCarts')
+                                            TriggerServerEvent('i13-bankrobbery:server:setBankState', 'pacific', true)
+                                            TriggerServerEvent('i13-bankrobbery:server:spawnPacificCarts')
 
                                             NetworkStopSynchronisedScene(netScene2)
                                             NetworkStartSynchronisedScene(netScene3)
@@ -417,7 +417,7 @@ RegisterNetEvent('qb-bankrobbery:client:usePacificLaptop', function()
                                                     copsCalled = true
                                                 end
                                             end
-                                            TriggerServerEvent('qb-bankrobbery:server:laptopAlert', 'pacific')
+                                            TriggerServerEvent('i13-bankrobbery:server:laptopAlert', 'pacific')
                                         else
                                             QBCore.Functions.Notify('Hack Ebaõnnestus', 'error')
                                             NetworkStopSynchronisedScene(netScene2)
@@ -458,12 +458,12 @@ RegisterNetEvent('qb-bankrobbery:client:usePacificLaptop', function()
     end
 end)
 
-RegisterNetEvent('qb-bankrobbery:client:useElectronicKit', function()
+RegisterNetEvent('i13-bankrobbery:client:useElectronicKit', function()
     local ped = PlayerPedId()
     local pos = GetEntityCoords(ped)
     local dist = #(pos - Config.BigBanks['pacific']['coords'][1])
     if dist < 1.5 then
-        QBCore.Functions.TriggerCallback('qb-bankrobbery:server:isPacificActive', function(isBusy)
+        QBCore.Functions.TriggerCallback('i13-bankrobbery:server:isPacificActive', function(isBusy)
             if not isBusy then
                 local dist = #(pos - Config.BigBanks['pacific']['coords'][1])
                 if dist < 1.5 then
@@ -486,7 +486,7 @@ RegisterNetEvent('qb-bankrobbery:client:useElectronicKit', function()
                             StopAnimTask(PlayerPedId(), 'anim@gangops@facility@servers@', 'hotwire', 1.0)
                             local minigame = exports['hackingminigame']:Open()
                             if minigame == true then
-                                TriggerServerEvent('qb-doorlock:server:updateState', 1, false, false, false, true)
+                                TriggerServerEvent('i13-doorlock:server:updateState', 1, false, false, false, true)
                                 if not blackoutIsActive then
                                     if not copsCalled then
                                         -- local data = {displayCode = '10-72', description = 'Pangarööv', isImportant = 1, recipientList = {'police'}, length = '10000', infoM = 'fa-info-circle', info = 'Pacific Standard Pank'}
@@ -496,7 +496,7 @@ RegisterNetEvent('qb-bankrobbery:client:useElectronicKit', function()
                                         copsCalled = true
                                     end
                                 end
-                                TriggerServerEvent('qb-bankrobbery:server:electronickitAlert')
+                                TriggerServerEvent('i13-bankrobbery:server:electronickitAlert')
                             else
                                 QBCore.Functions.Notify('Ebaõnnestus', 'error')
                                 if not blackoutIsActive then
@@ -524,6 +524,6 @@ RegisterNetEvent('qb-bankrobbery:client:useElectronicKit', function()
     end
 end)
 
-RegisterNetEvent('qb-bankrobbery:client:spawnPacificCarts', function()
+RegisterNetEvent('i13-bankrobbery:client:spawnPacificCarts', function()
     spawnPacificObj()
 end)

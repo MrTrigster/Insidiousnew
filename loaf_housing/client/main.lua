@@ -136,7 +136,7 @@ function ReloadBlips(reloadMarkers)
             end
 
             if house.garage then
-                if not shouldAddMarker and GetResourceState("qb-garages") == "started" then
+                if not shouldAddMarker and GetResourceState("i13-garages") == "started" then
                     if not house.garageMarker then
                         house.garageMarker = lib.AddMarker({
                             coords = house.garage.exit.xyz - vector3(0.0, 0.0, 1.0),
@@ -152,12 +152,12 @@ function ReloadBlips(reloadMarkers)
                             CreateThread(function()
                                 while house.inMarker do -- needed due to qb-houses setting closest house every so often..
                                     Wait(50)
-                                    TriggerEvent("qb-garages:client:addHouseGarage", id, {
+                                    TriggerEvent("i13-garages:client:addHouseGarage", id, {
                                         takeVehicle = house.garage.exit,
                                         spawnPoint = house.garage.exit,
                                         label = "Property Garage"
                                     })
-                                    TriggerEvent("qb-garages:client:setHouseGarage", id, true)
+                                    TriggerEvent("i13-garages:client:setHouseGarage", id, true)
                                 end
                             end)
                         end, nil, function()

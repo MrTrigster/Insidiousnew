@@ -11,7 +11,7 @@ CreateThread(function()
 	}, {
 		options = {
 		    {  
-			event = "qb-burgershot:DutyB",
+			event = "i13-burgershot:DutyB",
 			icon = "far fa-clipboard",
 			label = "On Duty / Off Duty",
 			job = "burgershot",
@@ -29,7 +29,7 @@ CreateThread(function()
 		}, {
 			options = {
 			    {
-				event = "qb-burgershot:Tray1",
+				event = "i13-burgershot:Tray1",
 				icon = "far fa-clipboard",
 				label = "Kandik 1",
 			    },
@@ -46,7 +46,7 @@ CreateThread(function()
 	}, {
 		options = {
 		    {
-			event = "qb-burgershot:Tray4",
+			event = "i13-burgershot:Tray4",
 			icon = "far fa-clipboard",
 			label = "Kandik 2",
 		    },
@@ -63,7 +63,7 @@ CreateThread(function()
 	}, {
 		options = {
 		    {
-			event = "qb-burgershot:Tray3",
+			event = "i13-burgershot:Tray3",
 			icon = "far fa-clipboard",
 			label = "Kandik 3",
 		    },
@@ -80,7 +80,7 @@ CreateThread(function()
 	}, {
 		options = {
 		    {
-			event = "qb-burgershot:Tray4",
+			event = "i13-burgershot:Tray4",
 			icon = "far fa-clipboard",
 			label = "Drive Thru",
 		    },
@@ -97,7 +97,7 @@ CreateThread(function()
 	}, {
 		options = {
 			{
-				event = "qb-burgershot:PattyFry",
+				event = "i13-burgershot:PattyFry",
 				icon = "fas fa-hamburger",
 				label = "Prae Burgereid",
 				job = "burgershot",
@@ -115,7 +115,7 @@ CreateThread(function()
 	}, {
 		options = {
 			{
-				event = "qb-burgershot:PattyFry",
+				event = "i13-burgershot:PattyFry",
 				icon = "fas fa-hamburger",
 				label = "Prae Burgereid",
 				job = "burgershot",
@@ -133,13 +133,13 @@ CreateThread(function()
 		}, {
 		    options = {
 			    {
-			        event = "qb-burgershot:Fries",
+			        event = "i13-burgershot:Fries",
 			        icon = "fas fa-box",
 			        label = "Prae Friikaid",
 			        job = "burgershot",
 			    },
                 {
-                    event = "qb-burgershot:Donut",
+                    event = "i13-burgershot:Donut",
                     icon = "fas fa-box",
                     label = "Prae Sõõrikuid",
                     job = "burgershot",
@@ -158,7 +158,7 @@ CreateThread(function()
 	    }, {
 		options = {
 		    {
-			event = "qb-menu:DrinkMenu",
+			event = "i13-menu:DrinkMenu",
 			icon = "fas fa-filter",
 			label = "Võta Jooki",
 			job = "burgershot",
@@ -176,7 +176,7 @@ CreateThread(function()
         }, {
             options = {
                 {
-                    event = "qb-menu:DrinkMenu",
+                    event = "i13-menu:DrinkMenu",
                     icon = "fas fa-filter",
                     label = "Võta Jooki",
                     job = "burgershot",
@@ -195,7 +195,7 @@ CreateThread(function()
         }, {
             options = {
                 {
-                    event = "qb-menu:OrderMenu",
+                    event = "i13-menu:OrderMenu",
                     icon = "fas fa-laptop",
                     label = "Telli Koostisaineid",
                     job = "burgershot",
@@ -213,7 +213,7 @@ CreateThread(function()
         }, {
                 options = {
                     {
-                        event = "qb-burgershot:Storage",
+                        event = "i13-burgershot:Storage",
                         icon = "fas fa-box",
                         label = "Riiul",
                         job = "burgershot",
@@ -232,7 +232,7 @@ CreateThread(function()
         }, {
                 options = {
                     {
-                        event = "qb-menu:Burgers",
+                        event = "i13-menu:Burgers",
                         icon = "fas fa-hand-holding",
                         label = "Valmista Burgereid",
                         job = "burgershot",
@@ -251,7 +251,7 @@ CreateThread(function()
         }, {
                 options = {
                     {
-                        event = "qb-burgershot:bill",
+                        event = "i13-burgershot:bill",
                         parms = "1",
                         icon = "fas fa-credit-card",
                         label = "Tee Arve",
@@ -270,7 +270,7 @@ CreateThread(function()
             }, {
                     options = {
                         {
-                            event = "qb-burgershot:bill",
+                            event = "i13-burgershot:bill",
                             parms = "2",
                             icon = "fas fa-credit-card",
                             label = "Tee Arve",
@@ -290,7 +290,7 @@ CreateThread(function()
         }, {
             options = {
                 {
-                    event = "qb-burgershot:bill",
+                    event = "i13-burgershot:bill",
                     parms = "3",
                     icon = "fas fa-credit-card",
                     label = "Tee Arve",
@@ -309,7 +309,7 @@ CreateThread(function()
         }, {
             options = {
                 {
-                    event = "qb-burgershot:bill",
+                    event = "i13-burgershot:bill",
                     parms = "4",
                     icon = "fas fa-credit-card",
                     label = "Tee Arve",
@@ -323,7 +323,7 @@ end)
 
 -- QB-Menu --
 
-RegisterNetEvent('qb-menu:Burgers', function(data)
+RegisterNetEvent('i13-menu:Burgers', function(data)
     exports['qb-menu']:openMenu({
         {
             header = "| Saadaval Burgerid |",
@@ -333,49 +333,49 @@ RegisterNetEvent('qb-menu:Burgers', function(data)
             header = "• Moneyshot Burger",
             txt = "Päts , Praetud Liha , Tomat , Kapsas",
             params = {
-                event = "qb-burgershot:MoneyShot"
+                event = "i13-burgershot:MoneyShot"
             }
         },
         {
             header = "• Meat Free Burger",
             txt = "Päts , Tomat , Kapsas",
             params = {
-                event = "qb-burgershot:MeatFree"
+                event = "i13-burgershot:MeatFree"
             }
         },
         {
             header = "• Bleeder Burger",
             txt = "Päts , Praetud Liha , Tomat , Kapsas",
             params = {
-                event = "qb-burgershot:BleederBurger"
+                event = "i13-burgershot:BleederBurger"
             }
         },
         {
             header = "• The Heart Stopper",
             txt = "Päts , Praetud Liha , Tomat , Kapsas",
             params = {
-                event = "qb-burgershot:HeartStopper"
+                event = "i13-burgershot:HeartStopper"
             }
         },
         {
             header = "• Torpedo Roll",
             txt = "Päts , Praetud Liha",
             params = {
-                event = "qb-burgershot:Torpedo"
+                event = "i13-burgershot:Torpedo"
             }
         },
         {
             header = "• Murder Meal",
             txt = "Heart Stopper, Friikad and Jook",
             params = {
-                event = "qb-burgershot:CreateMurderMeal"
+                event = "i13-burgershot:CreateMurderMeal"
             }
         },
     })
 end)
 
 
-RegisterNetEvent('qb-menu:OrderMenu', function(data)
+RegisterNetEvent('i13-menu:OrderMenu', function(data)
     exports['qb-menu']:openMenu({
         {
             header = "| Külmkapp |",
@@ -385,20 +385,20 @@ RegisterNetEvent('qb-menu:OrderMenu', function(data)
             header = "• Telli Asju",
             txt = "Telli koostisosi juurde",
             params = {
-                event = "qb-burgershot:shop"
+                event = "i13-burgershot:shop"
             }
         },
         {
             header = "• Ava Külmkapp",
             txt = "Vaata külmkappi",
             params = {
-                event = "qb-burgershot:Storage2"
+                event = "i13-burgershot:Storage2"
             }
         },
     })
 end)
 
-RegisterNetEvent('qb-menu:DrinkMenu', function(data)
+RegisterNetEvent('i13-menu:DrinkMenu', function(data)
     exports['qb-menu']:openMenu({
         {
             header = "| Joogi Menu |",
@@ -408,21 +408,21 @@ RegisterNetEvent('qb-menu:DrinkMenu', function(data)
             header = "• Siirupiga Jook",
             txt = "Siirup",
             params = {
-                event = "qb-burgershot:SoftDrink"
+                event = "i13-burgershot:SoftDrink"
             }
         },
         {
             header = "• Milkshake",
             txt = "Kokteili segu",
             params = {
-                event = "qb-burgershot:mShake"
+                event = "i13-burgershot:mShake"
             }
         },
         {
             header = "• Jäätis",
             txt = "Jäätise segu",
             params = {
-                event = "qb-burgershot:IceCream"
+                event = "i13-burgershot:IceCream"
             }
         },
     })
@@ -430,7 +430,7 @@ end)
 
 
 -- Till Stuff --
---[[RegisterNetEvent("qb-burgershot:bill", function()
+--[[RegisterNetEvent("i13-burgershot:bill", function()
     local bill = exports["nh-keyboard"]:openKeyboard({
         header = "Tee Arve",
         rows = {
@@ -448,11 +448,11 @@ end)
         if bill[1].input == nil or bill[2].input == nil then 
             return 
         end
-        TriggerServerEvent("qb-burgershot:bill:player", bill[1].input, bill[2].input)
+        TriggerServerEvent("i13-burgershot:bill:player", bill[1].input, bill[2].input)
     end
 end)]]
 
-RegisterNetEvent("qb-burgershot:bill", function()
+RegisterNetEvent("i13-burgershot:bill", function()
     local dialog = exports["qb-input"]:ShowInput({
         header = "Tee Arve",
         submitText = "Kinnita",
@@ -475,6 +475,6 @@ RegisterNetEvent("qb-burgershot:bill", function()
         if not dialog.bspid or not dialog.bssum then 
             return 
         end
-        TriggerServerEvent("qb-burgershot:bill:player", dialog.bspid, dialog.bssum)
+        TriggerServerEvent("i13-burgershot:bill:player", dialog.bspid, dialog.bssum)
     end
 end)

@@ -5,7 +5,7 @@ local progress = 0
 local pause = false
 local quality = 0
 
-RegisterNetEvent('qb-methcar:stop', function()
+RegisterNetEvent('i13-methcar:stop', function()
 	LastVehicle = QBCore.Functions.GetClosestVehicle()
 	started = false
 	progress = 0
@@ -13,7 +13,7 @@ RegisterNetEvent('qb-methcar:stop', function()
 	FreezeEntityPosition(LastVehicle, false)
 end)
 
-RegisterNetEvent('qb-methcar:startprod', function()
+RegisterNetEvent('i13-methcar:startprod', function()
 	CurrentVehicle = GetVehiclePedIsUsing(PlayerPedId(-1))
 	started = true
 	pause = false
@@ -21,7 +21,7 @@ RegisterNetEvent('qb-methcar:startprod', function()
 	QBCore.Functions.Notify("Alustasid tootmist", "success")
 end)
 
-RegisterNetEvent('qb-methcar:smoke', function(posx, posy, posz, bool)
+RegisterNetEvent('i13-methcar:smoke', function(posx, posy, posz, bool)
 	if bool == 'a' then
 		if not HasNamedPtfxAssetLoaded("core") then
 			RequestNamedPtfxAsset("core")
@@ -40,7 +40,7 @@ RegisterNetEvent('qb-methcar:smoke', function(posx, posy, posz, bool)
 end)
 
 -------------------------------------------------------EVENTS NEGATIVE
-RegisterNetEvent('qb-methcar:boom', function()
+RegisterNetEvent('i13-methcar:boom', function()
 	playerPed = (PlayerPedId())
 	local pos = GetEntityCoords((PlayerPedId()))
 	pause = false
@@ -48,11 +48,11 @@ RegisterNetEvent('qb-methcar:boom', function()
 	started = false
 	Wait(500)
 	CurrentVehicle = GetVehiclePedIsUsing(PlayerPedId(-1))
-	TriggerServerEvent('qb-methcar:blow', pos.x, pos.y, pos.z)
-	TriggerEvent('qb-methcar:stop')
+	TriggerServerEvent('i13-methcar:blow', pos.x, pos.y, pos.z)
+	TriggerEvent('i13-methcar:stop')
 end)
 
-RegisterNetEvent('qb-methcar:blowup', function(posx, posy, posz)
+RegisterNetEvent('i13-methcar:blowup', function(posx, posy, posz)
 	AddExplosion(posx, posy, posz + 2, 15, 20.0, true, false, 1.0, true)
 	if not HasNamedPtfxAssetLoaded("core") then
 		RequestNamedPtfxAsset("core")
@@ -66,7 +66,7 @@ RegisterNetEvent('qb-methcar:blowup', function(posx, posy, posz)
 	StopParticleFxLooped(fire, 0)	
 end)
 
-RegisterNetEvent('qb-methcar:drugged', function()
+RegisterNetEvent('i13-methcar:drugged', function()
 	local pos = GetEntityCoords((PlayerPedId()))
 	SetTimecycleModifier("drug_drive_blend01")
 	SetPedMotionBlur((PlayerPedId()), true)
@@ -76,10 +76,10 @@ RegisterNetEvent('qb-methcar:drugged', function()
 	pause = false
 	Wait(90000)
 	ClearTimecycleModifier()
-	TriggerServerEvent('qb-methcar:make', pos.x,pos.y,pos.z)
+	TriggerServerEvent('i13-methcar:make', pos.x,pos.y,pos.z)
 end)
 
-RegisterNetEvent('qb-methcar:q-1police', function(data)
+RegisterNetEvent('i13-methcar:q-1police', function(data)
 	local pos = GetEntityCoords((PlayerPedId()))
 	QBCore.Functions.Notify(data.message, "error")
 	quality = quality - 1
@@ -89,41 +89,41 @@ RegisterNetEvent('qb-methcar:q-1police', function(data)
   	-- TriggerServerEvent('wf-alerts:svNotify', dispatchData)
 	exports['qb-dispatch']:CookingMeth()
 	-- TriggerServerEvent('police:server:policeAlert', 'Person reports stange smell!')
-	TriggerServerEvent('qb-methcar:make', pos.x,pos.y,pos.z)
+	TriggerServerEvent('i13-methcar:make', pos.x,pos.y,pos.z)
 end)
 
-RegisterNetEvent('qb-methcar:q-1', function(data)
+RegisterNetEvent('i13-methcar:q-1', function(data)
 	local pos = GetEntityCoords((PlayerPedId()))
 	QBCore.Functions.Notify(data.message, "error")
 	quality = quality - 1
 	pause = false
-	TriggerServerEvent('qb-methcar:make', pos.x,pos.y,pos.z)
+	TriggerServerEvent('i13-methcar:make', pos.x,pos.y,pos.z)
 end)
 
-RegisterNetEvent('qb-methcar:q-3', function(data)
+RegisterNetEvent('i13-methcar:q-3', function(data)
 	local pos = GetEntityCoords((PlayerPedId()))
 	QBCore.Functions.Notify(data.message, "error")
 	quality = quality - 3
 	pause = false
-	TriggerServerEvent('qb-methcar:make', pos.x,pos.y,pos.z)
+	TriggerServerEvent('i13-methcar:make', pos.x,pos.y,pos.z)
 end)
 
-RegisterNetEvent('qb-methcar:q-5', function(data)
+RegisterNetEvent('i13-methcar:q-5', function(data)
 	local pos = GetEntityCoords((PlayerPedId()))
 	QBCore.Functions.Notify(data.message, "error")
 	quality = quality - 5
 	pause = false
-	TriggerServerEvent('qb-methcar:make', pos.x,pos.y,pos.z)
+	TriggerServerEvent('i13-methcar:make', pos.x,pos.y,pos.z)
 end)
 
-RegisterNetEvent('qb-methcar:q5shit', function()
+RegisterNetEvent('i13-methcar:q5shit', function()
 	local pos = GetEntityCoords((PlayerPedId()))
 	local chance = math.random(1, 100)
 	if chance >= 50 then
 		QBCore.Functions.Notify('Suutsid kinni hoida', "success")
 		quality = quality + 5
 		pause = false
-		TriggerServerEvent('qb-methcar:make', pos.x,pos.y,pos.z)
+		TriggerServerEvent('i13-methcar:make', pos.x,pos.y,pos.z)
 	else
 		QBCore.Functions.Notify('Sa ei suutnud sitta kinni hoida ja läksid õue sitale', "error")
 		quality = quality - 5
@@ -132,45 +132,45 @@ RegisterNetEvent('qb-methcar:q5shit', function()
   	-- 	local dispatchData = {dispatchData = data, caller = 'Kohalik', coords = pos}
   	-- 	TriggerServerEvent('wf-alerts:svNotify', dispatchData)
 	  	exports['qb-dispatch']:CookingMeth()
-		TriggerServerEvent('qb-methcar:make', pos.x,pos.y,pos.z)
+		TriggerServerEvent('i13-methcar:make', pos.x,pos.y,pos.z)
 	end
 end)
 
 -------------------------------------------------------EVENTS POSITIVE
-RegisterNetEvent('qb-methcar:q2', function(data)
+RegisterNetEvent('i13-methcar:q2', function(data)
 	local pos = GetEntityCoords((PlayerPedId()))
 	QBCore.Functions.Notify(data.message, "success")
 	quality = quality + 2
 	pause = false
-	TriggerServerEvent('qb-methcar:make', pos.x,pos.y,pos.z)
+	TriggerServerEvent('i13-methcar:make', pos.x,pos.y,pos.z)
 end)
 
-RegisterNetEvent('qb-methcar:q3', function(data)
+RegisterNetEvent('i13-methcar:q3', function(data)
 	local pos = GetEntityCoords((PlayerPedId()))
 	QBCore.Functions.Notify(data.message, "success")
 	quality = quality + 3
 	pause = false
-	TriggerServerEvent('qb-methcar:make', pos.x,pos.y,pos.z)
+	TriggerServerEvent('i13-methcar:make', pos.x,pos.y,pos.z)
 end)
 
-RegisterNetEvent('qb-methcar:q5', function(data)
+RegisterNetEvent('i13-methcar:q5', function(data)
 	local pos = GetEntityCoords((PlayerPedId()))
 	QBCore.Functions.Notify(data.message, "success")
 	quality = quality + 5
 	pause = false
-	TriggerServerEvent('qb-methcar:make', pos.x,pos.y,pos.z)
+	TriggerServerEvent('i13-methcar:make', pos.x,pos.y,pos.z)
 end)
 
-RegisterNetEvent('qb-methcar:gasmask', function(data)
+RegisterNetEvent('i13-methcar:gasmask', function(data)
 	local pos = GetEntityCoords((PlayerPedId()))
 	QBCore.Functions.Notify(data.message, "success")
 	SetPedPropIndex(playerPed, 1, 26, 7, true)
 	quality = quality + 2
 	pause = false
-	TriggerServerEvent('qb-methcar:make', pos.x,pos.y,pos.z)
+	TriggerServerEvent('i13-methcar:make', pos.x,pos.y,pos.z)
 end)
 
-RegisterNetEvent('qb-methcar:cook', function()
+RegisterNetEvent('i13-methcar:cook', function()
 	local pos = GetEntityCoords((PlayerPedId()))
 	playerPed = (PlayerPedId())
 	local CurrentVehicle = QBCore.Functions.GetClosestVehicle()
@@ -178,8 +178,8 @@ RegisterNetEvent('qb-methcar:cook', function()
 		TaskWarpPedIntoVehicle(PlayerPedId(), CurrentVehicle, 3)
 		SetVehicleDoorOpen(CurrentVehicle, 2)
 		Wait(300)
-		TriggerServerEvent('qb-methcar:start')
-		TriggerServerEvent('qb-methcar:make', pos.x,pos.y,pos.z)
+		TriggerServerEvent('i13-methcar:start')
+		TriggerServerEvent('i13-methcar:make', pos.x,pos.y,pos.z)
 		TriggerEvent("evidence:client:SetStatus", "chemicals", 300)
 		Wait(1000)
 		quality = 0
@@ -190,7 +190,7 @@ end)
 
 ---------EVENTS------------------------------------------------------
 
-RegisterNetEvent('qb-methcar:proses', function()
+RegisterNetEvent('i13-methcar:proses', function()
 	--
 	--   EVENT 1
 	--
@@ -205,7 +205,7 @@ RegisterNetEvent('qb-methcar:proses', function()
 			{
 				header = "🔴 Paranda Teibiga",
 				params = {
-					event = "qb-methcar:q-3",
+					event = "i13-methcar:q-3",
 					args = {
 						message = "See vist aitas, ma arvan?!"
 					}
@@ -214,13 +214,13 @@ RegisterNetEvent('qb-methcar:proses', function()
 			{
 				header = "🔴 Ära Tee Midagi",
 				params = {
-					event = "qb-methcar:boom"
+					event = "i13-methcar:boom"
 				}
 			},
 			{
 				header = "🔴 Vaheta Toru",
 				params = {
-					event = "qb-methcar:q5",
+					event = "i13-methcar:q5",
 					args = {
 						message = "Vahetamine oli parim valik"
 					}
@@ -242,7 +242,7 @@ RegisterNetEvent('qb-methcar:proses', function()
 			{
 				header = "🔴 Ava Aken",
 				params = {
-					event = "qb-methcar:q-1police",
+					event = "i13-methcar:q-1police",
 					args = {
 						message = "Tegid akna lahti, auto ümbrus haiseb"
 					}
@@ -251,13 +251,13 @@ RegisterNetEvent('qb-methcar:proses', function()
 			{
 				header = "🔴 Hinga Sisse",
 				params = {
-					event = "qb-methcar:drugged"
+					event = "i13-methcar:drugged"
 				}
 			},
 			{
 				header = "🔴 Pane Gaasimask Pähe",
 				params = {
-					event = "qb-methcar:gasmask",
+					event = "i13-methcar:gasmask",
 					args = {
 						message = "Hea valik"
 					}
@@ -279,7 +279,7 @@ RegisterNetEvent('qb-methcar:proses', function()
 			{
 				header = "🔴 Tõsta Temperatuuri",
 				params = {
-					event = "qb-methcar:q5",
+					event = "i13-methcar:q5",
 					args = {
 						message = "Kõrgem temperatuur tekitas ideaalse tasakaalu!"
 					}
@@ -288,7 +288,7 @@ RegisterNetEvent('qb-methcar:proses', function()
 			{
 				header = "🔴 Tõsta Survet",
 				params = {
-					event = "qb-methcar:q-3",
+					event = "i13-methcar:q-3",
 					args = {
 						message = "Surve kõikus rohkelt"
 					}
@@ -297,7 +297,7 @@ RegisterNetEvent('qb-methcar:proses', function()
 			{
 				header = "🔴 Langeta Survet",
 				params = {
-					event = "qb-methcar:q-5",
+					event = "i13-methcar:q-5",
 					args = {
 						message = "See oli kõige halvem otsus"
 					}
@@ -319,7 +319,7 @@ RegisterNetEvent('qb-methcar:proses', function()
 			{
 				header = "🔴 Ära Tee Midagi",
 				params = {
-					event = "qb-methcar:q-5",
+					event = "i13-methcar:q-5",
 					args = {
 						message = "Meth haiseb nagu puhas atsetoon"
 					}
@@ -328,13 +328,13 @@ RegisterNetEvent('qb-methcar:proses', function()
 			{
 				header = "🔴 Kasuta Kõrt, Et See Välja Imeda",
 				params = {
-					event = "qb-methcar:drugged"
+					event = "i13-methcar:drugged"
 				}
 			},
 			{
 				header = "🔴 Lisa Liitiumi Sabiliseerimiseks",
 				params = {
-					event = "qb-methcar:q5",
+					event = "i13-methcar:q5",
 					args = {
 						message = "Tark otsus!"
 					}
@@ -356,7 +356,7 @@ RegisterNetEvent('qb-methcar:proses', function()
 			{
 				header = "🔴 Lisa värvi",
 				params = {
-					event = "qb-methcar:q5",
+					event = "i13-methcar:q5",
 					args = {
 						message = "Inimestele kindlasti meeldib see!"
 					}
@@ -365,7 +365,7 @@ RegisterNetEvent('qb-methcar:proses', function()
 			{
 				header = "🔴 Pane ära",
 				params = {
-					event = "qb-methcar:q-1",
+					event = "i13-methcar:q-1",
 					args = {
 						message = "Sa ei ole väga loov, ega ju?"
 					}
@@ -387,7 +387,7 @@ RegisterNetEvent('qb-methcar:proses', function()
 			{
 				header = "🔴 Puhu See Kompressoriga Välja",
 				params = {
-					event = "qb-methcar:q-5",
+					event = "i13-methcar:q-5",
 					args = {
 						message = "Seda paska läks igalepoole"
 					}
@@ -396,7 +396,7 @@ RegisterNetEvent('qb-methcar:proses', function()
 			{
 				header = "🔴 Vaheta Filter",
 				params = {
-					event = "qb-methcar:q5",
+					event = "i13-methcar:q5",
 					args = {
 						message = "Vahetamine oli kõige targem otsus!"
 					}
@@ -405,7 +405,7 @@ RegisterNetEvent('qb-methcar:proses', function()
 			{
 				header = "🔴 Puhasta Seda Harjaga",
 				params = {
-					event = "qb-methcar:q-1",
+					event = "i13-methcar:q-1",
 					args = {
 						message = "See aitas, aga mitte väga"
 					}
@@ -427,13 +427,13 @@ RegisterNetEvent('qb-methcar:proses', function()
 			{
 				header = "🔴 Hinga Sisse",
 				params = {
-					event = "qb-methcar:drugged"
+					event = "i13-methcar:drugged"
 				}
 			},
 			{
 				header = "🔴 Pane Gaasimask pähe",
 				params = {
-					event = "qb-methcar:gasmask",
+					event = "i13-methcar:gasmask",
 					args = {
 						message = "Tark otsus"
 					}
@@ -442,7 +442,7 @@ RegisterNetEvent('qb-methcar:proses', function()
 			{
 				header = "🔴 Ava Aken",
 				params = {
-					event = "qb-methcar:q-1police",
+					event = "i13-methcar:q-1police",
 					args = {
 						message = "Tegid akna lahti, auto ümbrus haiseb"
 					}
@@ -464,13 +464,13 @@ RegisterNetEvent('qb-methcar:proses', function()
 			{
 				header = "🔴 Ära Tee Midagi",
 				params = {
-					event = "qb-methcar:boom"
+					event = "i13-methcar:boom"
 				}
 			},
 			{
 				header = "🔴 Paranda Teibiga",
 				params = {
-					event = "qb-methcar:q-3",
+					event = "i13-methcar:q-3",
 					args = {
 						message = "See vist aitas, ma arvan?!"
 					}
@@ -479,7 +479,7 @@ RegisterNetEvent('qb-methcar:proses', function()
 			{
 				header = "🔴 Vaheta Toru",
 				params = {
-					event = "qb-methcar:q5",
+					event = "i13-methcar:q5",
 					args = {
 						message = "Vahetamine oli parim valik"
 					}
@@ -501,13 +501,13 @@ RegisterNetEvent('qb-methcar:proses', function()
 			{
 				header = "🔴 Ürita Kinni Hoida",
 				params = {
-					event = "qb-methcar:q5shit",
+					event = "i13-methcar:q5shit",
 				}
 			},
 			{
 				header = "🔴 Mine Välja Sitale",
 				params = {
-					event = "qb-methcar:q-1police",
+					event = "i13-methcar:q-1police",
 					args = {
 						message = "Keegi nägi sind"
 					}
@@ -516,7 +516,7 @@ RegisterNetEvent('qb-methcar:proses', function()
 			{
 				header = "🔴 Situ Sisse",
 				params = {
-					event = "qb-methcar:q-5",
+					event = "i13-methcar:q-5",
 					args = {
 						message = "Kõik haiseb sita järele!"
 					}
@@ -538,7 +538,7 @@ RegisterNetEvent('qb-methcar:proses', function()
 			{
 				header = "🔴 Pakenda Meth",
 				params = {
-					event = "qb-methcar:done",
+					event = "i13-methcar:done",
 					args = {
 						message = ""
 					}
@@ -548,11 +548,11 @@ RegisterNetEvent('qb-methcar:proses', function()
 	end
 end)
 
-RegisterNetEvent('qb-methcar:done', function()
+RegisterNetEvent('i13-methcar:done', function()
 	quality = quality + 5
 	started = false
-	TriggerEvent('qb-methcar:stop')
-	TriggerServerEvent('qb-methcar:finish', quality)
+	TriggerEvent('i13-methcar:stop')
+	TriggerServerEvent('i13-methcar:finish', quality)
 	SetPedPropIndex(playerPed, 1, 0, 0, true)
 end)
 
@@ -567,7 +567,7 @@ CreateThread(function()
 				progress = progress +  1
 				quality = quality + 1
 				QBCore.Functions.Notify('Tootmine: ' .. progress .. '%')
-				TriggerEvent('qb-methcar:proses')
+				TriggerEvent('i13-methcar:proses')
 				Wait(2000)
 			end
 		end
@@ -584,7 +584,7 @@ CreateThread(function()
 				CurrentVehicle = GetVehiclePedIsUsing(PlayerPedId(-1))
 				pause = true
 				started = false
-				TriggerEvent('qb-methcar:stop')
+				TriggerEvent('i13-methcar:stop')
 				SetPedPropIndex(playerPed, 1, 0, 0, true)
 				FreezeEntityPosition(CurrentVehicle, false)
 			end
@@ -593,17 +593,17 @@ CreateThread(function()
 end)
 
 CreateThread(function()
-	exports['qb-target']:AddBoxZone('methShop', vector3(1392.89, 3613.17, 34.98), 0.3, 1.2, {
+	exports['qb-target']:AddBoxZone('methShop', vector3(457.58, 5571.94, 781.18), 0.8, 3.0, {
 		name = 'methShop',
-		heading = 20,
+		heading = 90,
 		debugPoly = false,
-		minZ = 33.98,
-		maxZ = 36.23
+		minZ = 780.18,
+		maxZ = 783.58
 	}, {
 		options = {
 			{
 				type = 'client',
-				event = 'qb-shops:client:OpenMethShop',
+				event = 'i13-shops:client:OpenMethShop',
 				label = 'Osta Asju',
 				icon = 'fas fa-flask',
 			}

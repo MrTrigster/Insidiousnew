@@ -1,7 +1,7 @@
 local QBCore = exports['qb-core']:GetCoreObject()
 
-RegisterNetEvent("qb-justice:client:showLawyerLicense")
-AddEventHandler("qb-justice:client:showLawyerLicense", function(sourceId, data)
+RegisterNetEvent("i13-justice:client:showLawyerLicense")
+AddEventHandler("i13-justice:client:showLawyerLicense", function(sourceId, data)
     local sourcePos = GetEntityCoords(GetPlayerPed(GetPlayerFromServerId(sourceId)), false)
     local pos = GetEntityCoords(PlayerPedId(), false)
     if #(pos - sourcePos) < 2.0 then

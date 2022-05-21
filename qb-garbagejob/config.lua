@@ -13,10 +13,10 @@ Config.CryptoStickChance = 99
 Config.MinStops = 5
 
 -- Upper worth per bag
-Config.BagUpperWorth = 20
+Config.BagUpperWorth = 28
 
 -- Lower worth per bag
-Config.BagLowerWorth = 7
+Config.BagLowerWorth = 12
 
 -- Minimum bags per stop
 Config.MinBagsPerStop = 2

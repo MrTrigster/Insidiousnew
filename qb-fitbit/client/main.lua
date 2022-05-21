@@ -29,15 +29,15 @@ RegisterNUICallback('close', function()
     closeWatch()
 end)
 
-RegisterNetEvent('qb-fitbit:use')
-AddEventHandler('qb-fitbit:use', function()
+RegisterNetEvent('i13-fitbit:use')
+AddEventHandler('i13-fitbit:use', function()
   openWatch(true)
 end)
 
 RegisterNUICallback('setFoodWarning', function(data)
     local foodValue = tonumber(data.value)
 
-    TriggerServerEvent('qb-fitbit:server:setValue', 'food', foodValue)
+    TriggerServerEvent('i13-fitbit:server:setValue', 'food', foodValue)
 
     QBCore.Functions.Notify('Fitbit: Hunger hoiatus seadistatud '..foodValue..'%')
 end)
@@ -45,7 +45,7 @@ end)
 RegisterNUICallback('setThirstWarning', function(data)
     local thirstValue = tonumber(data.value)
 
-    TriggerServerEvent('qb-fitbit:server:setValue', 'thirst', thirstValue)
+    TriggerServerEvent('i13-fitbit:server:setValue', 'thirst', thirstValue)
 
     QBCore.Functions.Notify('Fitbit: Thirst hoiatus seadistatud '..thirstValue..'%')
 end)
@@ -56,7 +56,7 @@ CreateThread(function()
         Wait(5 * 60 * 1000)
         
         if isLoggedIn then
-            QBCore.Functions.TriggerCallback('qb-fitbit:server:HasFitbit', function(hasItem)
+            QBCore.Functions.TriggerCallback('i13-fitbit:server:HasFitbit', function(hasItem)
                 if hasItem then
                     local PlayerData = QBCore.Functions.GetPlayerData()
                     if PlayerData.metadata["fitbit"].food ~= nil then

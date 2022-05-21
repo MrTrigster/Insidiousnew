@@ -73,7 +73,7 @@ CreateThread(function()
                                         })
                                         SetNuiFocus(true, true)
                                     else
-                                        QBCore.Functions.TriggerCallback('qb-storerobbery:server:getPadlockCombination', function(combination)
+                                        QBCore.Functions.TriggerCallback('i13-storerobbery:server:getPadlockCombination', function(combination)
                                             TriggerEvent("SafeCracker:StartMinigame", combination)
                                         end, safe)
                                     end
@@ -87,7 +87,7 @@ CreateThread(function()
                                         -- if street2 ~= nil then
                                         --     streetLabel = streetLabel .. " " .. street2
                                         -- end
-                                        -- TriggerServerEvent("qb-storerobbery:server:callCops", "safe", currentSafe, streetLabel, pos)
+                                        -- TriggerServerEvent("i13-storerobbery:server:callCops", "safe", currentSafe, streetLabel, pos)
                                         exports['qb-dispatch']:StoreRobbery()
                                         copsCalled = true
                                     end
@@ -154,7 +154,7 @@ RegisterNetEvent('lockpicks:UseLockpick', function(isAdvanced)
                             copsCalled = true
                         end
                         if currentRegister ~= 0 then
-                            TriggerServerEvent('qb-storerobbery:server:setRegisterStatus', currentRegister)
+                            TriggerServerEvent('i13-storerobbery:server:setRegisterStatus', currentRegister)
                             local lockpickTime = 60000
                             LockpickDoorAnim(lockpickTime)
                             QBCore.Functions.Progressbar("search_register", "Tühjendab kassat...", lockpickTime, false, true, {
@@ -169,7 +169,7 @@ RegisterNetEvent('lockpicks:UseLockpick', function(isAdvanced)
                             }, {}, {}, function() -- Done
                                 openingDoor = false
                                 ClearPedTasks(PlayerPedId())
-                                TriggerServerEvent('qb-storerobbery:server:takeMoney', currentRegister, true)
+                                TriggerServerEvent('i13-storerobbery:server:takeMoney', currentRegister, true)
                                 currentRegister = 0
                             end, function() -- Cancel
                                 openingDoor = false
@@ -200,7 +200,7 @@ RegisterNetEvent('lockpicks:UseLockpick', function(isAdvanced)
                             copsCalled = true
                         end
                         if currentRegister ~= 0 then
-                            TriggerServerEvent('qb-storerobbery:server:setRegisterStatus', currentRegister)
+                            TriggerServerEvent('i13-storerobbery:server:setRegisterStatus', currentRegister)
                             local lockpickTime = 60000
                             LockpickDoorAnim(lockpickTime)
                             QBCore.Functions.Progressbar("search_register", "Tühjendab kassat...", lockpickTime, false, true, {
@@ -215,7 +215,7 @@ RegisterNetEvent('lockpicks:UseLockpick', function(isAdvanced)
                             }, {}, {}, function() -- Done
                                 openingDoor = false
                                 ClearPedTasks(PlayerPedId())
-                                TriggerServerEvent('qb-storerobbery:server:takeMoney', currentRegister, true)
+                                TriggerServerEvent('i13-storerobbery:server:takeMoney', currentRegister, true)
                                 currentRegister = 0
                             end, function() -- Cancel
                                 openingDoor = false
@@ -257,7 +257,7 @@ function IsWearingHandshoes()
 end
 
 function setupRegister()
-    QBCore.Functions.TriggerCallback('qb-storerobbery:server:getRegisterStatus', function(Registers)
+    QBCore.Functions.TriggerCallback('i13-storerobbery:server:getRegisterStatus', function(Registers)
         for k, v in pairs(Registers) do
             Config.Registers[k].robbed = Registers[k].robbed
         end
@@ -265,7 +265,7 @@ function setupRegister()
 end
 
 function setupSafes()
-    QBCore.Functions.TriggerCallback('qb-storerobbery:server:getSafeStatus', function(Safes)
+    QBCore.Functions.TriggerCallback('i13-storerobbery:server:getSafeStatus', function(Safes)
         for k, v in pairs(Safes) do
             Config.Safes[k].robbed = Safes[k].robbed
         end
@@ -319,7 +319,7 @@ end
 RegisterNUICallback('success', function()
     if currentRegister ~= 0 then
         lockpick(false)
-        TriggerServerEvent('qb-storerobbery:server:setRegisterStatus', currentRegister)
+        TriggerServerEvent('i13-storerobbery:server:setRegisterStatus', currentRegister)
         local lockpickTime = 25000
         LockpickDoorAnim(lockpickTime)
         QBCore.Functions.Progressbar("search_register", "Tühjendab kassat", lockpickTime, false, true, {
@@ -334,7 +334,7 @@ RegisterNUICallback('success', function()
         }, {}, {}, function() -- Done
             openingDoor = false
             ClearPedTasks(PlayerPedId())
-            TriggerServerEvent('qb-storerobbery:server:takeMoney', currentRegister, true)
+            TriggerServerEvent('i13-storerobbery:server:takeMoney', currentRegister, true)
             currentRegister = 0
         end, function() -- Cancel
             openingDoor = false
@@ -365,7 +365,7 @@ function LockpickDoorAnim(time)
             TaskPlayAnim(PlayerPedId(), "veh@break_in@0h@p_m_one@", "low_force_entry_ds", 3.0, 3.0, -1, 16, 0, 0, 0, 0)
             Wait(2000)
             time = time - 2
-            TriggerServerEvent('qb-storerobbery:server:takeMoney', currentRegister, false)
+            TriggerServerEvent('i13-storerobbery:server:takeMoney', currentRegister, false)
             if time <= 0 then
                 openingDoor = false
                 StopAnimTask(PlayerPedId(), "veh@break_in@0h@p_m_one@", "low_force_entry_ds", 1.0)
@@ -384,8 +384,8 @@ RegisterNetEvent('SafeCracker:EndMinigame', function(won)
             if currentSafe ~= 0 then
                 if not Config.Safes[currentSafe].robbed then
                     SetNuiFocus(false, false)
-                    TriggerServerEvent("qb-storerobbery:server:SafeReward", currentSafe)
-                    TriggerServerEvent("qb-storerobbery:server:setSafeStatus", currentSafe)
+                    TriggerServerEvent("i13-storerobbery:server:SafeReward", currentSafe)
+                    TriggerServerEvent("i13-storerobbery:server:setSafeStatus", currentSafe)
                     currentSafe = 0
                     takeAnim()
                 end
@@ -448,11 +448,11 @@ RegisterNUICallback('exit', function()
 end)
 
 RegisterNUICallback('TryCombination', function(data, cb)
-    QBCore.Functions.TriggerCallback('qb-storerobbery:server:isCombinationRight', function(combination)
+    QBCore.Functions.TriggerCallback('i13-storerobbery:server:isCombinationRight', function(combination)
         if tonumber(data.combination) ~= nil then
             if tonumber(data.combination) == combination then
-                TriggerServerEvent("qb-storerobbery:server:SafeReward", currentSafe)
-                TriggerServerEvent("qb-storerobbery:server:setSafeStatus", currentSafe)
+                TriggerServerEvent("i13-storerobbery:server:SafeReward", currentSafe)
+                TriggerServerEvent("i13-storerobbery:server:setSafeStatus", currentSafe)
                 SetNuiFocus(false, false)
                 SendNUIMessage({
                     action = "closeKeypad",
@@ -473,7 +473,7 @@ RegisterNUICallback('TryCombination', function(data, cb)
     end, currentSafe)
 end)
 
-RegisterNetEvent('qb-storerobbery:client:setRegisterStatus', function(batch, val)
+RegisterNetEvent('i13-storerobbery:client:setRegisterStatus', function(batch, val)
     -- Has to be a better way maybe like adding a unique id to identify the register
     if(type(batch) ~= "table") then
         Config.Registers[batch] = val
@@ -484,11 +484,11 @@ RegisterNetEvent('qb-storerobbery:client:setRegisterStatus', function(batch, val
     end
 end)
 
-RegisterNetEvent('qb-storerobbery:client:setSafeStatus', function(safe, bool)
+RegisterNetEvent('i13-storerobbery:client:setSafeStatus', function(safe, bool)
     Config.Safes[safe].robbed = bool
 end)
 
-RegisterNetEvent('qb-storerobbery:client:robberyCall', function(type, key, streetLabel, coords)
+RegisterNetEvent('i13-storerobbery:client:robberyCall', function(type, key, streetLabel, coords)
     if PlayerJob.name == "police" and onDuty then
         local cameraId = 4
         if type == "safe" then
@@ -498,10 +498,10 @@ RegisterNetEvent('qb-storerobbery:client:robberyCall', function(type, key, stree
         end
 
         QBCore.Functions.Notify('Poerööv', 'police')
-        TriggerEvent('qb-phone:client:sendPoliceNotification')
+        TriggerEvent('i13-phone:client:sendPoliceNotification')
 
         PlaySound(-1, "Lose_1st", "GTAO_FM_Events_Soundset", 0, 0, 1)
-        TriggerEvent('qb-policealerts:client:AddPoliceAlert', {
+        TriggerEvent('i13-policealerts:client:AddPoliceAlert', {
             timeOut = 5000,
             alertTitle = "10-72 | Poerööv",
             coords = {

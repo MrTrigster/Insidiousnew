@@ -47,7 +47,7 @@ local function TakeOutImpound(vehicle)
     local coords = Config.ImpoundLocations[currentGarage]
     if coords then
         QBCore.Functions.SpawnVehicle(vehicle.vehicle, function(veh)
-            QBCore.Functions.TriggerCallback('qb-garage:server:GetVehicleProperties', function(properties)
+            QBCore.Functions.TriggerCallback('i13-garage:server:GetVehicleProperties', function(properties)
                 QBCore.Functions.SetVehicleProperties(veh, properties)
                 SetVehicleNumberPlateText(veh, vehicle.plate)
                 SetEntityHeading(veh, coords.w)
@@ -61,7 +61,7 @@ local function TakeOutImpound(vehicle)
     end
 end
 
-RegisterNetEvent('qb-mdt:client:TakeOutImpound', function(data)
+RegisterNetEvent('i13-mdt:client:TakeOutImpound', function(data)
     local pos = GetEntityCoords(PlayerPedId())
     currentGarage = data.currentSelection
     local takeDist = Config.ImpoundLocations[data.currentSelection]

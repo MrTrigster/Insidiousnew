@@ -7,7 +7,7 @@ local function doExplode()
     AddExplosion(2474.44, 1465.0, 36.2, 2, 0.0, true, false, 0.0)
 end
 
-RegisterNetEvent('qb-bankrobbery:client:useC4', function()
+RegisterNetEvent('i13-bankrobbery:client:useC4', function()
     local ped = PlayerPedId()
     local pos = GetEntityCoords(ped)
     local loc = nil
@@ -72,7 +72,7 @@ RegisterNetEvent('qb-bankrobbery:client:useC4', function()
         QBCore.Functions.Notify('C4 Lendab õhku 15 sekundi pärast', 'success')
         Wait(15000)
         AddExplosion(loc.x, loc.y, loc.z, 2, 0.0, true, false, 0.5)
-        TriggerServerEvent('qb-bankrobbery:server:powerExplosion', loc)
+        TriggerServerEvent('i13-bankrobbery:server:powerExplosion', loc)
         DeleteObject(bomb)
         if station == 1 then
             Config.PowerStations[1].hit = true
@@ -81,23 +81,23 @@ RegisterNetEvent('qb-bankrobbery:client:useC4', function()
         elseif station == 3 then
             Config.PowerStations[3].hit = true
         end
-        TriggerServerEvent('qb-bankrobbery:server:c4alert', station)
-        TriggerServerEvent('qb-bankrobbery:server:powerstationHit')
+        TriggerServerEvent('i13-bankrobbery:server:c4alert', station)
+        TriggerServerEvent('i13-bankrobbery:server:powerstationHit')
     else
         QBCore.Functions.Notify('Linnas ei ole piisavalt politseinikke. Vaja ('..Config.MinimumThermitePolice..')', 'error')
     end
 end)
 
-RegisterNetEvent('qb-bankrobbery:client:powerExplosion', function(loc)
+RegisterNetEvent('i13-bankrobbery:client:powerExplosion', function(loc)
     AddExplosion(loc.x, loc.y, loc.z, 2, 0.0, true, false, 0.5)
 end)
 
-RegisterNetEvent('qb-bankrobbery:client:resetPower', function(state)
+RegisterNetEvent('i13-bankrobbery:client:resetPower', function(state)
     for k,v in pairs(Config.PowerStations) do
         Config.PowerStations[k].hit = state
     end
 end)
 
-RegisterNetEvent('qb-bankrobbery:client:blackoutActive', function(state)
+RegisterNetEvent('i13-bankrobbery:client:blackoutActive', function(state)
     blackoutIsActive = state
 end)

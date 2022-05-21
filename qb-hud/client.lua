@@ -527,7 +527,7 @@ RegisterNetEvent('hud:client:UpdateHarness', function(harnessHp)
     hp = harnessHp
 end)
 
-RegisterNetEvent("qb-admin:client:ToggleDevmode", function()
+RegisterNetEvent("i13-admin:client:ToggleDevmode", function()
     dev = not dev
     if dev then
         while dev do

@@ -19,7 +19,7 @@ end
 
 -- Events
 
-RegisterNetEvent('qb-printer:client:UseDocument', function(ItemData)
+RegisterNetEvent('i13-printer:client:UseDocument', function(ItemData)
     local ped = PlayerPedId()
     local DocumentUrl = ItemData.info.url ~= nil and ItemData.info.url or false
     SendNUIMessage({
@@ -29,7 +29,7 @@ RegisterNetEvent('qb-printer:client:UseDocument', function(ItemData)
     SetNuiFocus(true, false)
 end)
 
-RegisterNetEvent('qb-printer:client:SpawnPrinter', function(ItemData)
+RegisterNetEvent('i13-printer:client:SpawnPrinter', function(ItemData)
     local playerPed = PlayerPedId()
     local coords    = GetEntityCoords(playerPed)
     local forward   = GetEntityForwardVector(playerPed)
@@ -57,7 +57,7 @@ end)
 
 RegisterNUICallback('SaveDocument', function(data)
     if data.url ~= nil then
-        TriggerServerEvent('qb-printer:server:SaveDocument', data.url)
+        TriggerServerEvent('i13-printer:server:SaveDocument', data.url)
     end
 end)
 

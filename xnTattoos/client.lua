@@ -26,7 +26,7 @@ end
 
 function GetNaked()
 	if GetEntityModel(PlayerPedId()) == `mp_m_freemode_01` then
-		TriggerEvent('qb-clothing:client:loadOutfit', {
+		TriggerEvent('i13-clothing:client:loadOutfit', {
 			outfitData = {
 				["arms"] = { item = 15, texture = 0 },
 				["t-shirt"] = { item = 15, texture = 0 },
@@ -37,7 +37,7 @@ function GetNaked()
 			}
 		})
 	else
-		TriggerEvent('qb-clothing:client:loadOutfit', {
+		TriggerEvent('i13-clothing:client:loadOutfit', {
 			outfitData = {
 				["arms"] = { item = 4, texture = 0 },
 				["t-shirt"] = { item = 15, texture = 0 },
@@ -51,7 +51,7 @@ function GetNaked()
 end
 
 local function ResetSkin()
-	TriggerServerEvent('qb-clothes:loadPlayerSkin')
+	TriggerServerEvent('i13-clothes:loadPlayerSkin')
 	Wait(1000)
 	ClearPedDecorations(PlayerPedId())
 	for k, v in pairs(currentTattoos) do

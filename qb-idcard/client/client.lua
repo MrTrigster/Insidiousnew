@@ -1,6 +1,6 @@
 local openid = false
 
-RegisterNetEvent('qb-idcard:client:open', function(info,nui)
+RegisterNetEvent('i13-idcard:client:open', function(info,nui)
     if not openid then
         SetNuiFocusKeepInput(true)
         SetNuiFocus(true,false)
@@ -9,7 +9,7 @@ RegisterNetEvent('qb-idcard:client:open', function(info,nui)
     end
 end)
 
-RegisterNetEvent('qb-idcard:client:policebadgeanim', function()
+RegisterNetEvent('i13-idcard:client:policebadgeanim', function()
     local ped = PlayerPedId()
     local propname = "prop_fib_badge"
     local x,y,z = table.unpack(GetEntityCoords(ped))

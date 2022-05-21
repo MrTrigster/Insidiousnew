@@ -79,7 +79,7 @@ AddEventHandler('re2-vault:viewStorages', function(location)
             header = "Sulge Menu",
             txt = "",
             params = {
-                event = "qb-menu:client:closeMenu"
+                event = "i13-menu:client:closeMenu"
             }
 
         }
@@ -182,7 +182,7 @@ AddEventHandler('re2-vault:openStorageMenu', function(data)
                 header = "Sulge Menu",
                 txt = "",
                 params = {
-                    event = "qb-menu:client:closeMenu"
+                    event = "i13-menu:client:closeMenu"
                 }
             }
             table.insert(storageMenu,closeMenu) 

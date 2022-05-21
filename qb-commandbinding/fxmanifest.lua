@@ -1,7 +1,7 @@
 fx_version 'cerulean'
 game 'gta5'
 
-description 'QB-CommandBinding'
+description 'i13-CommandBinding'
 version '1.0.0'
 
 ui_page 'html/index.html'

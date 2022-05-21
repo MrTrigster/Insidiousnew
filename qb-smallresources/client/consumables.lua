@@ -81,7 +81,7 @@ RegisterNetEvent('consumables:client:UseParachute', function()
                 ["bag"]   = { item = 7, texture = 0},  -- Nek / Das
             }
         }
-        TriggerEvent('qb-clothing:client:loadOutfit', ParachuteData)
+        TriggerEvent('i13-clothing:client:loadOutfit', ParachuteData)
         ParachuteEquiped = true
         TaskPlayAnim(ped, "clothingshirt", "exit", 8.0, 1.0, -1, 49, 0, 0, 0, 0)
     end)
@@ -103,9 +103,9 @@ RegisterNetEvent('consumables:client:ResetParachute', function()
                     ["bag"] = { item = 0, texture = 0} -- Nek / Das
                 }
             }
-            TriggerEvent('qb-clothing:client:loadOutfit', ParachuteRemoveData)
+            TriggerEvent('i13-clothing:client:loadOutfit', ParachuteRemoveData)
             TaskPlayAnim(ped, "clothingshirt", "exit", 8.0, 1.0, -1, 49, 0, 0, 0, 0)
-            TriggerServerEvent("qb-smallpenis:server:AddParachute")
+            TriggerServerEvent("i13-smallpenis:server:AddParachute")
             ParachuteEquiped = false
         end)
     else
@@ -228,6 +228,7 @@ RegisterNetEvent('consumables:client:DrinkAlcohol', function(itemName)
         TriggerServerEvent("QBCore:Server:RemoveItem", itemName, 1)
         TriggerServerEvent("QBCore:Server:SetMetaData", "thirst", QBCore.Functions.GetPlayerData().metadata["thirst"] + ConsumeablesAlcohol[itemName])
         alcoholCount = alcoholCount + 1
+        EcstasyEffect()
         if alcoholCount > 1 and alcoholCount < 4 then
             TriggerEvent("evidence:client:SetStatus", "alcohol", 200)
         elseif alcoholCount >= 4 then

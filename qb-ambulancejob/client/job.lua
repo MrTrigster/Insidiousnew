@@ -91,7 +91,7 @@ function MenuGarage()
         header = "⬅ Sulge Menu",
         txt = "",
         params = {
-            event = "qb-menu:client:closeMenu"
+            event = "i13-menu:client:closeMenu"
         }
 
     }

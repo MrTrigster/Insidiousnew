@@ -34,7 +34,7 @@ CreateThread(function()
                 local houseApart = Houses[tonumber(k)]?.type == "house" and "house" or "apart"
                 toSend[tonumber(k)].label = Strings["spawn_"..houseApart]:format(k)
             end
-            TriggerEvent("qb-spawn:client:addLoafProperties", Houses, cache.ownedHouses)
+            TriggerEvent("i13-spawn:client:addLoafProperties", Houses, cache.ownedHouses)
         end
 
         if Config.Realtor.enabled then

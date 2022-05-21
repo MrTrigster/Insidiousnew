@@ -1,7 +1,7 @@
 fx_version 'cerulean'
 game 'gta5'
 
-description 'QB-VehicleFailure'
+description 'i13-VehicleFailure'
 version '1.0.0'
 
 shared_script 'config.lua'

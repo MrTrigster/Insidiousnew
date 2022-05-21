@@ -35,8 +35,8 @@ function TimeoutNpc()
     end)
 end
 
-RegisterNetEvent('qb-taxi:client:DoTaxiNpc')
-AddEventHandler('qb-taxi:client:DoTaxiNpc', function()
+RegisterNetEvent('i13-taxi:client:DoTaxiNpc')
+AddEventHandler('i13-taxi:client:DoTaxiNpc', function()
     if whitelistedVehicle() then
        -- if NpcData.CountDown == 180 then
             if not NpcData.Active then
@@ -170,7 +170,7 @@ function GetDeliveryLocation()
                         SendNUIMessage({
                             action = "toggleMeter"
                         })
-                        TriggerServerEvent('qb-taxi:server:NpcPay', meterData.currentFare)
+                        TriggerServerEvent('i13-taxi:server:NpcPay', meterData.currentFare)
                         meterActive = false
                         SendNUIMessage({
                             action = "resetMeter"
@@ -283,8 +283,8 @@ end
 --     end
 -- end)
 
-RegisterNetEvent('qb-taxi:client:toggleMeter')
-AddEventHandler('qb-taxi:client:toggleMeter', function()
+RegisterNetEvent('i13-taxi:client:toggleMeter')
+AddEventHandler('i13-taxi:client:toggleMeter', function()
     local ped = PlayerPedId()
     
     if IsPedInAnyVehicle(ped, false) then
@@ -311,8 +311,8 @@ AddEventHandler('qb-taxi:client:toggleMeter', function()
     end
 end)
 
-RegisterNetEvent('qb-taxi:client:enableMeter')
-AddEventHandler('qb-taxi:client:enableMeter', function()
+RegisterNetEvent('i13-taxi:client:enableMeter')
+AddEventHandler('i13-taxi:client:enableMeter', function()
     if meterIsOpen then
         SendNUIMessage({
             action = "toggleMeter"
@@ -333,8 +333,8 @@ RegisterNUICallback('enableMeter', function(data)
     lastLocation = GetEntityCoords(PlayerPedId())
 end)
 
-RegisterNetEvent('qb-taxi:client:toggleMuis')
-AddEventHandler('qb-taxi:client:toggleMuis', function()
+RegisterNetEvent('i13-taxi:client:toggleMuis')
+AddEventHandler('i13-taxi:client:toggleMuis', function()
     Citizen.Wait(400)
     if meterIsOpen then
         if not mouseActive then
@@ -384,7 +384,7 @@ function TaxiGarage()
         vehicleMenu[#vehicleMenu+1] = {
             header = v.label,
             params = {
-                event = "qb-taxi:client:TakeVehicle",
+                event = "i13-taxi:client:TakeVehicle",
                 args = {
                     model = v.model
                 }
@@ -395,13 +395,13 @@ function TaxiGarage()
         header = "⬅ Sulge Menu",
         txt = "",
         params = {
-            event = "qb-menu:client:closeMenu"
+            event = "i13-menu:client:closeMenu"
         }
     }
     exports['qb-menu']:openMenu(vehicleMenu)
 end
 
-RegisterNetEvent("qb-taxi:client:TakeVehicle", function(data)
+RegisterNetEvent("i13-taxi:client:TakeVehicle", function(data)
     local coords = Config.Location
     QBCore.Functions.SpawnVehicle(data.model, function(veh)
         SetVehicleNumberPlateText(veh, "TAXI"..tostring(math.random(1000, 9999)))
@@ -432,12 +432,12 @@ function DrawText3D(x, y, z, text)
     ClearDrawOrigin()
 end
 
-RegisterNetEvent('qb-taxijob:client:ToggleDuty', function()
+RegisterNetEvent('i13-taxijob:client:ToggleDuty', function()
     onDuty = not onDuty
     TriggerServerEvent('QBCore:ToggleDuty')
 end)
 
-RegisterNetEvent('qb-taxijob:client:OpenStash', function()
+RegisterNetEvent('i13-taxijob:client:OpenStash', function()
     TriggerServerEvent("inventory:server:OpenInventory", "stash", "taxistash", {
         maxweight = 4000000,
         slots = 500,
@@ -479,13 +479,13 @@ CreateThread(function()
         options = {
             {
                 type = 'server',
-                event = 'qb-taxijob:server:getTaxiJob',
+                event = 'i13-taxijob:server:getTaxiJob',
                 label = 'Asu Taksojuhina Tööle',
                 icon = 'fas fa-briefcase',
             },
             {
                 type = 'client',
-                event = 'qb-taxijob:client:ToggleDuty',
+                event = 'i13-taxijob:client:ToggleDuty',
                 label = 'On Duty / Off Duty',
                 icon = 'fas fa-clipboard-list',
                 job = 'taxi'
@@ -506,7 +506,7 @@ end)
 --         options = {
 --             {
 --                 type = 'client',
---                 event = 'qb-taxijob:client:ToggleDuty',
+--                 event = 'i13-taxijob:client:ToggleDuty',
 --                 label = 'On Duty / Off Duty',
 --                 icon = 'fas fa-clipboard-list',
 --                 job = 'taxi'
@@ -525,7 +525,7 @@ end)
 --         options = {
 --             {
 --                 type = 'client',
---                 event = 'qb-taxijob:client:OpenStash',
+--                 event = 'i13-taxijob:client:OpenStash',
 --                 label = 'Ava Kapp',
 --                 icon = 'fas fa-box',
 --                 job = 'taxi'

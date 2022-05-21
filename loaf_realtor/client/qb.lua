@@ -30,8 +30,8 @@ CreateThread(function()
             return
         end
 
-        TriggerEvent("qb-bossmenu:client:openMenu")
-        TriggerEvent("qb-bossmenu:client:OpenMenu")
+        TriggerEvent("i13-bossmenu:client:openMenu")
+        TriggerEvent("i13-bossmenu:client:OpenMenu")
     end
 
     -- house creation

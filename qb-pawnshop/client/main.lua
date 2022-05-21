@@ -7,13 +7,13 @@ local sellHardwarePrice = 0
 
 isLoggedIn = false
 
-RegisterNetEvent('qb-pawnshop:client:itemsMenu', function()
+RegisterNetEvent('i13-pawnshop:client:itemsMenu', function()
 	exports['qb-menu']:openMenu({
 		{
 			header = 'Müü Esemeid',
 			txt = 'Müü maha enda ehted',
 			params = {
-				event = 'qb-pawnshop:client:sellItems',
+				event = 'i13-pawnshop:client:sellItems',
 				args = 1,
 			}
 		},
@@ -21,7 +21,7 @@ RegisterNetEvent('qb-pawnshop:client:itemsMenu', function()
 			header = 'Müü Elektroonikat',
 			txt = 'Müü maha enda elektroonikat',
 			params = {
-				event = 'qb-pawnshop:client:sellItems',
+				event = 'i13-pawnshop:client:sellItems',
 				args = 2,
 			}
 		},
@@ -29,7 +29,7 @@ RegisterNetEvent('qb-pawnshop:client:itemsMenu', function()
 			header = 'Müü Kulda',
 			txt = 'Müü maha enda kullakangid',
 			params = {
-				event = 'qb-pawnshop:client:sellItems',
+				event = 'i13-pawnshop:client:sellItems',
 				args = 3,
 			}
 		},
@@ -37,14 +37,14 @@ RegisterNetEvent('qb-pawnshop:client:itemsMenu', function()
 			header = '',
 			txt = '✘ Sulge',
 			params = {
-				event = 'qb-pawnshop:client:sellItems',
+				event = 'i13-pawnshop:client:sellItems',
 				args = -1,
 			}
 		},
 	})
 end)
 
-RegisterNetEvent('qb-pawnshop:client:openPawnMenu', function()
+RegisterNetEvent('i13-pawnshop:client:openPawnMenu', function()
 	exports['qb-menu']:openMenu({
 		{
 			isMenuHeader = true,
@@ -55,7 +55,7 @@ RegisterNetEvent('qb-pawnshop:client:openPawnMenu', function()
 			header = 'Telefon | $200',
 			txt = 'Ettemakstud nuppudega telefon',
 			params = {
-				event = 'qb-pawnshop:client:buyItem',
+				event = 'i13-pawnshop:client:buyItem',
 				args = 'emptydropphone',
 			}
 		},
@@ -63,33 +63,33 @@ RegisterNetEvent('qb-pawnshop:client:openPawnMenu', function()
 			header = '',
 			txt = '✘ Sulge',
 			params = {
-				event = 'qb-pawnshop:client:closeMenu',
+				event = 'i13-pawnshop:client:closeMenu',
 			}
 		},
 	})
 end)
 
-RegisterNetEvent('qb-pawnshop:client:buyItem', function(item)
-	TriggerServerEvent('qb-pawnshop:server:buyItem', item)
+RegisterNetEvent('i13-pawnshop:client:buyItem', function(item)
+	TriggerServerEvent('i13-pawnshop:server:buyItem', item)
 end)
 
-RegisterNetEvent('qb-pawnshop:client:closeMenu', function()
+RegisterNetEvent('i13-pawnshop:client:closeMenu', function()
 	exports['qb-menu']:closeMenu()
 end)
 
-RegisterNetEvent('qb-pawnshop:client:sellItems', function(data)
+RegisterNetEvent('i13-pawnshop:client:sellItems', function(data)
 	if data == -1 then
 		exports['qb-menu']:closeMenu()
 		return
 	end
 	if data == 1 then
-		QBCore.Functions.TriggerCallback('qb-pawnshop:server:getSellPrice', function(result)
+		QBCore.Functions.TriggerCallback('i13-pawnshop:server:getSellPrice', function(result)
 			local sellPrice = result
 			if sellPrice ~= 0 then
 				TaskStartScenarioInPlace(PlayerPedId(), "WORLD_HUMAN_STAND_IMPATIENT", 0, true)
 				QBCore.Functions.Progressbar("sell_pawn_items", "Müüb esemeid...", math.random(15000, 25000), false, true, {}, {}, {}, {}, function() -- Done
 					ClearPedTasks(PlayerPedId())
-					TriggerServerEvent("qb-pawnshop:server:sellPawnItems")
+					TriggerServerEvent("i13-pawnshop:server:sellPawnItems")
 					sellPrice = 0
 				end, function() -- Cancel
 					ClearPedTasks(PlayerPedId())
@@ -100,13 +100,13 @@ RegisterNetEvent('qb-pawnshop:client:sellItems', function(data)
 			end
 		end)
 	elseif data == 2 then
-		QBCore.Functions.TriggerCallback('qb-pawnshop:server:getSellHardwarePrice', function(result)
+		QBCore.Functions.TriggerCallback('i13-pawnshop:server:getSellHardwarePrice', function(result)
 			local sellHardwarePrice = result
 			if sellHardwarePrice ~= 0 then
 				TaskStartScenarioInPlace(PlayerPedId(), "WORLD_HUMAN_STAND_IMPATIENT", 0, true)
 				QBCore.Functions.Progressbar("sell_pawn_items", "Müüb elektroonikat...", math.random(15000, 25000), false, true, {}, {}, {}, {}, function() -- Done
 					ClearPedTasks(PlayerPedId())
-					TriggerServerEvent("qb-pawnshop:server:sellHardwarePawnItems")
+					TriggerServerEvent("i13-pawnshop:server:sellHardwarePawnItems")
 					sellHardwarePrice = 0
 				end, function() -- Cancel
 					ClearPedTasks(PlayerPedId())
@@ -117,7 +117,7 @@ RegisterNetEvent('qb-pawnshop:client:sellItems', function(data)
 			end
 		end)
 	elseif data == 3 then
-		QBCore.Functions.TriggerCallback('qb-pawnshop:server:hasGold', function(result)
+		QBCore.Functions.TriggerCallback('i13-pawnshop:server:hasGold', function(result)
 			if result then
 				TaskStartScenarioInPlace(PlayerPedId(), "WORLD_HUMAN_STAND_IMPATIENT", 0, true)
 				QBCore.Functions.Progressbar("sell_gold", "Müüb kulda...", math.random(15000, 25000), false, true, {
@@ -127,7 +127,7 @@ RegisterNetEvent('qb-pawnshop:client:sellItems', function(data)
 					disableCombat = true,
 				}, {}, {}, {}, function() -- Done
 					ClearPedTasks(PlayerPedId())
-					TriggerServerEvent('qb-pawnshop:server:sellGold')
+					TriggerServerEvent('i13-pawnshop:server:sellGold')
 				end, function() -- Cancel
 					ClearPedTasks(PlayerPedId())
 					QBCore.Functions.Notify("Tühistatud", "error")
@@ -178,7 +178,7 @@ end)
 							TaskStartScenarioInPlace(PlayerPedId(), "WORLD_HUMAN_STAND_IMPATIENT", 0, true)
                             QBCore.Functions.Progressbar("sell_pawn_items", "Müüb esemeid", math.random(15000, 25000), false, true, {}, {}, {}, {}, function() -- Done
                                 ClearPedTasks(PlayerPedId())
-								TriggerServerEvent("qb-pawnshop:server:sellPawnItems")
+								TriggerServerEvent("i13-pawnshop:server:sellPawnItems")
 								sellItemsSet = false
 								sellPrice = 0
                             end, function() -- Cancel
@@ -220,7 +220,7 @@ Citizen.CreateThread(function()
 							TaskStartScenarioInPlace(PlayerPedId(), "WORLD_HUMAN_STAND_IMPATIENT", 0, true)
                             QBCore.Functions.Progressbar("sell_pawn_items", "Müüb esemeid", math.random(15000, 25000), false, true, {}, {}, {}, {}, function() -- Done
                                 ClearPedTasks(PlayerPedId())
-								TriggerServerEvent("qb-pawnshop:server:sellHardwarePawnItems")
+								TriggerServerEvent("i13-pawnshop:server:sellHardwarePawnItems")
 								sellHardwareItemsSet = false
 								sellHardwarePrice = 0
                             end, function() -- Cancel
@@ -265,7 +265,7 @@ CreateThread(function()
 			options = {
 				{
 					type = 'client',
-					event = 'qb-pawnshop:client:itemsMenu',
+					event = 'i13-pawnshop:client:itemsMenu',
 					icon = 'fas fa-comment-dollar',
 					label = 'Pandimaja',
 				}
@@ -285,7 +285,7 @@ CreateThread(function()
 		options = {
 			{
 				type = 'client',
-				event = 'qb-pawnshop:client:openPawnMenu',
+				event = 'i13-pawnshop:client:openPawnMenu',
 				label = 'Osta Asju',
 				icon = 'fas fa-clipboard-list',
 			}

@@ -20,7 +20,7 @@ Config.Products = {
         },
         [3] = {
             name = 'twerks_candy',
-            price = 20,
+            price = 10,
             amount = 250,
             info = {},
             type = 'item',
@@ -28,7 +28,7 @@ Config.Products = {
         },
         [4] = {
             name = 'snikkel_candy',
-            price = 20,
+            price = 10,
             amount = 250,
             info = {},
             type = 'item',

@@ -46,13 +46,13 @@ CreateThread(function()
     EndTextCommandSetBlipName(BurgerShot)
 end) 
 
-RegisterNetEvent("qb-burgershot:DutyB")
-AddEventHandler("qb-burgershot:DutyB", function()
+RegisterNetEvent("i13-burgershot:DutyB")
+AddEventHandler("i13-burgershot:DutyB", function()
     TriggerServerEvent("QBCore:ToggleDuty")
 end)
 
-RegisterNetEvent("qb-burgershot:Tray1")
-AddEventHandler("qb-burgershot:Tray1", function()
+RegisterNetEvent("i13-burgershot:Tray1")
+AddEventHandler("i13-burgershot:Tray1", function()
     TriggerEvent("inventory:client:SetCurrentStash", "burgertray1")
     TriggerServerEvent("inventory:server:OpenInventory", "stash", "burgertray1", {
         maxweight = 10000,
@@ -60,8 +60,8 @@ AddEventHandler("qb-burgershot:Tray1", function()
     })
 end)
 
-RegisterNetEvent("qb-burgershot:Tray4")
-AddEventHandler("qb-burgershot:Tray4", function()
+RegisterNetEvent("i13-burgershot:Tray4")
+AddEventHandler("i13-burgershot:Tray4", function()
     TriggerEvent("inventory:client:SetCurrentStash", "burgertray4")
     TriggerServerEvent("inventory:server:OpenInventory", "stash", "burgertray4", {
         maxweight = 10000,
@@ -69,8 +69,8 @@ AddEventHandler("qb-burgershot:Tray4", function()
     })
 end)
 
-RegisterNetEvent("qb-burgershot:Tray3")
-AddEventHandler("qb-burgershot:Tray3", function()
+RegisterNetEvent("i13-burgershot:Tray3")
+AddEventHandler("i13-burgershot:Tray3", function()
     TriggerEvent("inventory:client:SetCurrentStash", "burgertray3")
     TriggerServerEvent("inventory:server:OpenInventory", "stash", "burgertray3", {
         maxweight = 10000,
@@ -78,8 +78,8 @@ AddEventHandler("qb-burgershot:Tray3", function()
     })
 end)
 
-RegisterNetEvent("qb-burgershot:Tray4")
-AddEventHandler("qb-burgershot:Tray4", function()
+RegisterNetEvent("i13-burgershot:Tray4")
+AddEventHandler("i13-burgershot:Tray4", function()
     TriggerEvent("inventory:client:SetCurrentStash", "burgertray4")
     TriggerServerEvent("inventory:server:OpenInventory", "stash", "burgertray4", {
         maxweight = 10000,
@@ -87,8 +87,8 @@ AddEventHandler("qb-burgershot:Tray4", function()
     })
 end)
 
-RegisterNetEvent("qb-burgershot:Storage")
-AddEventHandler("qb-burgershot:Storage", function()
+RegisterNetEvent("i13-burgershot:Storage")
+AddEventHandler("i13-burgershot:Storage", function()
     TriggerEvent("inventory:client:SetCurrentStash", "burgerstorage")
     TriggerServerEvent("inventory:server:OpenInventory", "stash", "burgerstorage", {
         maxweight = 250000,
@@ -96,8 +96,8 @@ AddEventHandler("qb-burgershot:Storage", function()
     })
 end)
 
-RegisterNetEvent("qb-burgershot:Storage2")
-AddEventHandler("qb-burgershot:Storage2", function()
+RegisterNetEvent("i13-burgershot:Storage2")
+AddEventHandler("i13-burgershot:Storage2", function()
     TriggerEvent("inventory:client:SetCurrentStash", "burgerstorage2")
     TriggerServerEvent("inventory:server:OpenInventory", "stash", "burgerstorage2", {
         maxweight = 250000,
@@ -106,8 +106,8 @@ AddEventHandler("qb-burgershot:Storage2", function()
 end)
 
 --Meal Creations
-RegisterNetEvent("qb-burgershot:MurderMeal")
-AddEventHandler("qb-burgershot:MurderMeal", function()
+RegisterNetEvent("i13-burgershot:MurderMeal")
+AddEventHandler("i13-burgershot:MurderMeal", function()
 		local randomToy = math.random(1,10)
 		--remove box
 		TriggerServerEvent('QBCore:Server:RemoveItem', "burger-murdermeal", 1)
@@ -131,10 +131,10 @@ AddEventHandler("qb-burgershot:MurderMeal", function()
         end
 end)
 
-RegisterNetEvent("qb-burgershot:CreateMurderMeal")
-AddEventHandler("qb-burgershot:CreateMurderMeal", function()
+RegisterNetEvent("i13-burgershot:CreateMurderMeal")
+AddEventHandler("i13-burgershot:CreateMurderMeal", function()
     if onDuty then
-    	QBCore.Functions.TriggerCallback('qb-burgershot:server:get:ingredientMurderMeal', function(HasItems)
+    	QBCore.Functions.TriggerCallback('i13-burgershot:server:get:ingredientMurderMeal', function(HasItems)
     		if HasItems then
 				QBCore.Functions.Progressbar("pickup_sla", "Teeb Murder Meal'i...", 4000, false, true, {
 					disableMovement = true,
@@ -164,10 +164,10 @@ AddEventHandler("qb-burgershot:CreateMurderMeal", function()
 	end  
 end)
 
-RegisterNetEvent("qb-burgershot:BleederBurger")
-AddEventHandler("qb-burgershot:BleederBurger", function()
+RegisterNetEvent("i13-burgershot:BleederBurger")
+AddEventHandler("i13-burgershot:BleederBurger", function()
     if onDuty then
-    	QBCore.Functions.TriggerCallback('qb-burgershot:server:get:ingredientBurger', function(HasItems)  
+    	QBCore.Functions.TriggerCallback('i13-burgershot:server:get:ingredientBurger', function(HasItems)  
     		if HasItems then
 				QBCore.Functions.Progressbar("pickup_sla", "Teeb burgerit...", 4000, false, true, {
 					disableMovement = true,
@@ -198,10 +198,10 @@ AddEventHandler("qb-burgershot:BleederBurger", function()
 	end
 end)
 
-RegisterNetEvent("qb-burgershot:MoneyShot")
-AddEventHandler("qb-burgershot:MoneyShot", function()
+RegisterNetEvent("i13-burgershot:MoneyShot")
+AddEventHandler("i13-burgershot:MoneyShot", function()
     if onDuty then
-    	QBCore.Functions.TriggerCallback('qb-burgershot:server:get:ingredientBurger', function(HasItems)  
+    	QBCore.Functions.TriggerCallback('i13-burgershot:server:get:ingredientBurger', function(HasItems)  
     		if HasItems then
 				QBCore.Functions.Progressbar("pickup_sla", "Teeb burgerit...", 4000, false, true, {
 					disableMovement = true,
@@ -232,10 +232,10 @@ AddEventHandler("qb-burgershot:MoneyShot", function()
 	end
 end)
 
-RegisterNetEvent("qb-burgershot:HeartStopper")
-AddEventHandler("qb-burgershot:HeartStopper", function()
+RegisterNetEvent("i13-burgershot:HeartStopper")
+AddEventHandler("i13-burgershot:HeartStopper", function()
     if onDuty then
-    	QBCore.Functions.TriggerCallback('qb-burgershot:server:get:ingredientBurger', function(HasItems)  
+    	QBCore.Functions.TriggerCallback('i13-burgershot:server:get:ingredientBurger', function(HasItems)  
     		if HasItems then
 				QBCore.Functions.Progressbar("pickup_sla", "Teeb burgerit...", 4000, false, true, {
 					disableMovement = true,
@@ -267,10 +267,10 @@ AddEventHandler("qb-burgershot:HeartStopper", function()
 end)
 
 
-RegisterNetEvent("qb-burgershot:Torpedo")
-AddEventHandler("qb-burgershot:Torpedo", function()
+RegisterNetEvent("i13-burgershot:Torpedo")
+AddEventHandler("i13-burgershot:Torpedo", function()
     if onDuty then
-    	QBCore.Functions.TriggerCallback('qb-burgershot:server:get:ingredientTorpedo', function(HasItems)  
+    	QBCore.Functions.TriggerCallback('i13-burgershot:server:get:ingredientTorpedo', function(HasItems)  
     		if HasItems then
 				QBCore.Functions.Progressbar("pickup_sla", "Teeb Torpedo...", 4000, false, true, {
 					disableMovement = true,
@@ -299,10 +299,10 @@ AddEventHandler("qb-burgershot:Torpedo", function()
 	end  
 end)
 
-RegisterNetEvent("qb-burgershot:MeatFree")
-AddEventHandler("qb-burgershot:MeatFree", function()
+RegisterNetEvent("i13-burgershot:MeatFree")
+AddEventHandler("i13-burgershot:MeatFree", function()
     if onDuty then
-    	QBCore.Functions.TriggerCallback('qb-burgershot:server:get:ingredientMeatfree', function(HasItems)  
+    	QBCore.Functions.TriggerCallback('i13-burgershot:server:get:ingredientMeatfree', function(HasItems)  
     		if HasItems then
 				QBCore.Functions.Progressbar("pickup_sla", "Teeb burgerit...", 4000, false, true, {
 					disableMovement = true,
@@ -334,8 +334,8 @@ end)
 
 
 
-RegisterNetEvent("qb-burgershot:SoftDrink")
-AddEventHandler("qb-burgershot:SoftDrink", function()
+RegisterNetEvent("i13-burgershot:SoftDrink")
+AddEventHandler("i13-burgershot:SoftDrink", function()
     if onDuty then
     QBCore.Functions.TriggerCallback('QBCore:HasItem', function(HasItem)
         if HasItem then
@@ -349,8 +349,8 @@ AddEventHandler("qb-burgershot:SoftDrink", function()
     end
 end)
 
-RegisterNetEvent("qb-burgershot:mShake")
-AddEventHandler("qb-burgershot:mShake", function()
+RegisterNetEvent("i13-burgershot:mShake")
+AddEventHandler("i13-burgershot:mShake", function()
     if onDuty then
     QBCore.Functions.TriggerCallback('QBCore:HasItem', function(HasItem)
         if HasItem then
@@ -364,8 +364,8 @@ AddEventHandler("qb-burgershot:mShake", function()
     end
 end)
 
-RegisterNetEvent("qb-burgershot:IceCream")
-AddEventHandler("qb-burgershot:IceCream", function()
+RegisterNetEvent("i13-burgershot:IceCream")
+AddEventHandler("i13-burgershot:IceCream", function()
     if onDuty then
     QBCore.Functions.TriggerCallback('QBCore:HasItem', function(HasItem)
         if HasItem then
@@ -379,8 +379,8 @@ AddEventHandler("qb-burgershot:IceCream", function()
     end
 end)
 
-RegisterNetEvent("qb-burgershot:Fries")
-AddEventHandler("qb-burgershot:Fries", function()
+RegisterNetEvent("i13-burgershot:Fries")
+AddEventHandler("i13-burgershot:Fries", function()
     if onDuty then
     QBCore.Functions.TriggerCallback('QBCore:HasItem', function(HasItem)
         if HasItem then
@@ -394,8 +394,8 @@ AddEventHandler("qb-burgershot:Fries", function()
     end
 end)
 
-RegisterNetEvent("qb-burgershot:Donut")
-AddEventHandler("qb-burgershot:Donut", function()
+RegisterNetEvent("i13-burgershot:Donut")
+AddEventHandler("i13-burgershot:Donut", function()
     if onDuty then
     QBCore.Functions.TriggerCallback('QBCore:HasItem', function(HasItem)
         if HasItem then
@@ -409,8 +409,8 @@ AddEventHandler("qb-burgershot:Donut", function()
     end
 end)
 
-RegisterNetEvent("qb-burgershot:PattyFry")
-AddEventHandler("qb-burgershot:PattyFry", function()
+RegisterNetEvent("i13-burgershot:PattyFry")
+AddEventHandler("i13-burgershot:PattyFry", function()
     if onDuty then
     QBCore.Functions.TriggerCallback('QBCore:HasItem', function(HasItem)
         if HasItem then
@@ -543,7 +543,7 @@ function MakeIceCream()
     QBCore.Functions.Notify("Valmistasid jäätise", "success")
 end
    
-RegisterNetEvent("qb-burgershot:shop")
-AddEventHandler("qb-burgershot:shop", function()
+RegisterNetEvent("i13-burgershot:shop")
+AddEventHandler("i13-burgershot:shop", function()
     TriggerServerEvent("inventory:server:OpenInventory", "shop", "burgershot", Config.Items)
 end)

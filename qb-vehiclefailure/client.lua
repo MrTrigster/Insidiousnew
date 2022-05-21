@@ -64,8 +64,8 @@ local function IsBackEngine(vehModel)
     return false
 end
 
-RegisterNetEvent('qb-vehiclefailure:client:RepairVehicle')
-AddEventHandler('qb-vehiclefailure:client:RepairVehicle', function()
+RegisterNetEvent('i13-vehiclefailure:client:RepairVehicle')
+AddEventHandler('i13-vehiclefailure:client:RepairVehicle', function()
 	local vehicle = QBCore.Functions.GetClosestVehicle()
 	local engineHealth = GetVehicleEngineHealth(vehicle) --This is to prevent people from "repairing" a vehicle and setting engine health lower than what the vehicles engine health was before repairing.
 	if vehicle ~= nil and vehicle ~= 0 and engineHealth < 500 then
@@ -112,7 +112,7 @@ function CleanVehicle(vehicle)
 		SetVehicleDirtLevel(vehicle, 0.1)
         SetVehicleUndriveable(vehicle, false)
 		WashDecalsFromVehicle(vehicle, 1.0)
-		TriggerServerEvent('qb-vehiclefailure:server:removewashingkit', vehicle)
+		TriggerServerEvent('i13-vehiclefailure:server:removewashingkit', vehicle)
 		TriggerEvent('inventory:client:ItemBox', QBCore.Shared.Items["cleaningkit"], "remove")
 		ClearAllPedProps(ped)
 		ClearPedTasks(ped)
@@ -123,15 +123,15 @@ function CleanVehicle(vehicle)
 	end)
 end
 
-RegisterNetEvent('qb-vehiclefailure:client:SyncWash')
-AddEventHandler('qb-vehiclefailure:client:SyncWash', function(veh)
+RegisterNetEvent('i13-vehiclefailure:client:SyncWash')
+AddEventHandler('i13-vehiclefailure:client:SyncWash', function(veh)
 	SetVehicleDirtLevel(veh, 0.1)
 	SetVehicleUndriveable(veh, false)
 	WashDecalsFromVehicle(veh, 1.0)
 end)
 
-RegisterNetEvent('qb-vehiclefailure:client:CleanVehicle')
-AddEventHandler('qb-vehiclefailure:client:CleanVehicle', function()
+RegisterNetEvent('i13-vehiclefailure:client:CleanVehicle')
+AddEventHandler('i13-vehiclefailure:client:CleanVehicle', function()
 	local vehicle = QBCore.Functions.GetClosestVehicle()
 	if vehicle ~= nil and vehicle ~= 0 then
 		local ped = PlayerPedId()
@@ -143,8 +143,8 @@ AddEventHandler('qb-vehiclefailure:client:CleanVehicle', function()
 	end
 end)
 
-RegisterNetEvent('qb-vehiclefailure:client:RepairVehicleFull')
-AddEventHandler('qb-vehiclefailure:client:RepairVehicleFull', function()
+RegisterNetEvent('i13-vehiclefailure:client:RepairVehicleFull')
+AddEventHandler('i13-vehiclefailure:client:RepairVehicleFull', function()
 	local vehicle = QBCore.Functions.GetClosestVehicle()
 	if vehicle ~= nil and vehicle ~= 0 then
 		local ped = PlayerPedId()
@@ -207,7 +207,7 @@ function RepairVehicleFull(vehicle)
 		else
 			SetVehicleDoorShut(vehicle, 4, false)
 		end
-		TriggerServerEvent('qb-vehiclefailure:removeItem', "advancedrepairkit")
+		TriggerServerEvent('i13-vehiclefailure:removeItem', "advancedrepairkit")
 	end, function() -- Cancel
 		StopAnimTask(PlayerPedId(), "mini@repair", "fixing_a_player", 1.0)
 		QBCore.Functions.Notify("Ebaõnnestus", "error")
@@ -249,7 +249,7 @@ function RepairVehicle(vehicle)
 		else
 			SetVehicleDoorShut(vehicle, 4, false)
 		end
-		TriggerServerEvent('qb-vehiclefailure:removeItem', "repairkit")
+		TriggerServerEvent('i13-vehiclefailure:removeItem', "repairkit")
 	end, function() -- Cancel
 		StopAnimTask(PlayerPedId(), "mini@repair", "fixing_a_player", 1.0)
 		QBCore.Functions.Notify("Katkestatud", "error")

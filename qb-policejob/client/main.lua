@@ -63,7 +63,7 @@ AddEventHandler('QBCore:Client:OnPlayerLoaded', function()
                 }
             }
         }
-        TriggerEvent('qb-clothing:client:loadOutfit', trackerClothingData)
+        TriggerEvent('i13-clothing:client:loadOutfit', trackerClothingData)
     else
         local trackerClothingData = {
             outfitData = {
@@ -73,7 +73,7 @@ AddEventHandler('QBCore:Client:OnPlayerLoaded', function()
                 }
             }
         }
-        TriggerEvent('qb-clothing:client:loadOutfit', trackerClothingData)
+        TriggerEvent('i13-clothing:client:loadOutfit', trackerClothingData)
     end
 
     if PlayerJob and PlayerJob.name ~= "police" then
@@ -130,7 +130,7 @@ RegisterNetEvent('police:client:sendBillingMail', function(amount)
             gender = "Pr."
         end
         local charinfo = QBCore.Functions.GetPlayerData().charinfo
-        TriggerServerEvent('qb-phone:server:sendNewMail', {
+        TriggerServerEvent('i13-phone:server:sendNewMail', {
             sender = "Maksuamet",
             subject = "Politsei Arved",
             message = "Tervist " .. gender .. " " .. charinfo.lastname ..

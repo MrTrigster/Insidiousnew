@@ -1,7 +1,7 @@
 fx_version 'cerulean'
 game 'gta5'
 
-description 'QB-GangMenu'
+description 'i13-GangMenu'
 version '1.0.0'
 
 client_scripts {
